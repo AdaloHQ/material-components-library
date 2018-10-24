@@ -1,0 +1,38 @@
+{
+  "name": "material-components",
+  "version": "0.0.1",
+  "description": "Material UI Components for Proton",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "babel src --out-dir lib --source-maps",
+    "watch": "npm run compile -- --watch",
+    "start": "npm run watch",
+    "compile:css": "postcss src/styles/styles.css -w -u autoprefixer precss -o styles.css",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "proton": "proton"
+  },
+  "author": "Jeremy Blalock",
+  "license": "ISC",
+  "proton": {
+    "displayName": "Material UI",
+    "components": [
+      "./src/AppBar"
+    ]
+  },
+  "peerDependencies": {
+    "react": ">=16",
+    "react-dom": ">=16"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "postcss": "^7.0.5",
+    "postcss-cli": "^6.0.1",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "app_bar",
+  "displayName": "App Bar",
+  "iconFilename": "../icons/app-bar.svg",
+  "component": "./AppBar.js",
+  "editorComponent": "./editor.js"
+}
