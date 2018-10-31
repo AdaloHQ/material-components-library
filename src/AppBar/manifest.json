@@ -1,7 +1,106 @@
 {
-  "name": "app_bar",
+  "name": "appBar",
   "displayName": "App Bar",
-  "iconFilename": "../icons/app-bar.svg",
+  "defaultWidth": 375,
+  "defaultHeight": 76,
   "component": "./AppBar.js",
-  "editorComponent": "./editor.js"
+  "editorComponent": "./editor.js",
+  "snappingRules": {
+    "snap": true,
+    "snapType": "screenEdge",
+    "lock": {
+      "left": 0,
+      "right": 0,
+      "top": 0
+    }
+  },
+  "actions": false,
+  "props": [
+    {
+      "name": "backgroundColor",
+      "displayName": "Background",
+      "type": "color",
+      "default": "#6200ee"
+    },
+    {
+      "name": "color",
+      "displayName": "Text & Icons",
+      "type": "color",
+      "default": "#fff"
+    }
+  ],
+  "childComponents": [
+    {
+      "name": "leftIcon",
+      "displayName": "Left Icon",
+      "actions": true,
+      "props": [
+        {
+          "name": "icon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "menu"
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        }
+      ]
+    },
+    {
+      "name": "title",
+      "displayName": "Title",
+      "actions": true,
+      "dataBindings": true,
+      "dataBindingDataTypes": [
+        "text"
+      ],
+      "props": [
+        {
+          "name": "text",
+          "displayName": "Text",
+          "type": "text",
+          "default": "Screen Title"
+        }
+      ]
+    },
+    {
+      "name": "rightIcon1",
+      "displayName": "Right Icon 1",
+      "actions": true,
+      "props": [
+        {
+          "name": "icon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "favorite"
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        }
+      ]
+    },
+    {
+      "name": "rightIcon2",
+      "displayName": "Right Icon 2",
+      "actions": true,
+      "props": [
+        {
+          "name": "icon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "search"
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        }
+      ]
+    }
+  ]
 }
+
