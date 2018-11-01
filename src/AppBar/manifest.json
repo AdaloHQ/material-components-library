@@ -1,10 +1,8 @@
 {
-  "name": "appBar",
   "displayName": "App Bar",
   "defaultWidth": 375,
   "defaultHeight": 76,
   "component": "./AppBar.js",
-  "editorComponent": "./editor.js",
   "snappingRules": {
     "snap": true,
     "snapType": "screenEdge",

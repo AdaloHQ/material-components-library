@@ -15,7 +15,7 @@
     "displayName": "Material Design",
     "components": [
       {
-        "import": "AppBar",
+        "name": "AppBar",
         "manifest": "./src/AppBar/manifest.json"
       }
     ]

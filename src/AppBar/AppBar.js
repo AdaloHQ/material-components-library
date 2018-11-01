@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { Platform } from 'react-native'
 import { Toolbar } from 'react-native-material-ui'
 
-import './icons'
+import '../Shared/icons'
 
 export default class AppBar extends Component {
   static defaultProps = {
@@ -58,6 +58,12 @@ export default class AppBar extends Component {
   render() {
     let { color, backgroundColor } = this.props
 
+    let containerStyles = { backgroundColor, height: 76, paddingTop: 20 }
+
+    if (Platform.OS === 'web') {
+      containerStyles.webkitFontSmoothing = 'antialiased'
+    }
+
     return (
       <Toolbar
         leftElement={this.getIcon('leftIcon')}
@@ -67,7 +73,7 @@ export default class AppBar extends Component {
         onLeftElementPress={this.handleLeftElementPress}
         onPress={this.handleCenterElementPress}
         style={{
-          container: { backgroundColor, height: 76, paddingTop: 20 },
+          container: containerStyles,
           titleText: { color, fontFamily: 'inherit' },
           leftElement: { color },
           rightElement: { color },
