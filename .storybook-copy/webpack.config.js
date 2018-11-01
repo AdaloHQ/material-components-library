@@ -9,16 +9,16 @@ module.exports = (storybookBaseConfig, configType) => {
         }
     };
 
-    storybookBaseConfig.module.rules[0] = {
-      test: /\.jsx?$/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-react', '@babel/preset-env'],
-          plugins: ['@babel/plugin-proposal-class-properties']
-        }
-      }
-    }
+    // storybookBaseConfig.module.rules[0] = {
+    //   test: /\.jsx?$/,
+    //   use: {
+    //     loader: 'babel-loader',
+    //     options: {
+    //       presets: ['@babel/preset-react', '@babel/preset-env'],
+    //       plugins: ['@babel/plugin-proposal-class-properties']
+    //     }
+    //   }
+    // }
 
     storybookBaseConfig.module.rules.push({
         test: /\.css$/,
@@ -31,7 +31,7 @@ module.exports = (storybookBaseConfig, configType) => {
         include: path.resolve(__dirname, "../")
     });
     storybookBaseConfig.module.rules.push({
-        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.ttf$/],
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
         loader: require.resolve('url-loader'),
         options: {
             limit: 10000,
