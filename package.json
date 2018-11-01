@@ -29,7 +29,7 @@
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
-    "@protonapp/proton-cli": "^0.0.6",
+    "@protonapp/proton-cli": "^0.0.7",
     "@storybook/addon-actions": "^4.0.2",
     "@storybook/addon-links": "^4.0.2",
     "@storybook/addons": "^4.0.2",

@@ -20,6 +20,16 @@ storiesOf('AppBar (editor)', module)
       rightIcon2={{ icon: 'search', enabled: true }}
     />
   ))
+  .add('Inverted', () => (
+    <AppBarEditor
+      backgroundColor="#f1f1f1"
+      color="#333"
+      leftIcon={{ icon: 'menu', enabled: true }}
+      title={{ text: 'Title Text' }}
+      rightIcon1={{ icon: 'favorite', enabled: true }}
+      rightIcon2={{ icon: 'search', enabled: true }}
+    />
+  ))
   .add('Empty', () => <AppBarEditor />)
   .add('No Icons', () => (
     <AppBarEditor
@@ -50,6 +60,16 @@ storiesOf('AppBar (runtime)', module)
         enabled: true,
         action: action('Pressed right button 2')
       }}
+    />
+  ))
+  .add('Inverted', () => (
+    <AppBarRuntime
+      backgroundColor="#f1f1f1"
+      color="#333"
+      title={{ text: 'Title Text' }}
+      leftIcon={{ icon: 'menu', enabled: true }}
+      rightIcon1={{ icon: 'favorite', enabled: true }}
+      rightIcon2={{ icon: 'search', enabled: true }}
     />
   ))
   .add('Empty', () => (

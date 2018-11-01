@@ -27,6 +27,12 @@
       "displayName": "Text & Icons",
       "type": "color",
       "default": "#fff"
+    },
+    {
+      "name": "positioning",
+      "editable": false,
+      "type": "text",
+      "default": "fixedTop"
     }
   ],
   "childComponents": [

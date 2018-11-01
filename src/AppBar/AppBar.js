@@ -69,8 +69,9 @@ export default class AppBar extends Component {
         style={{
           container: { backgroundColor, height: 76, paddingTop: 20 },
           titleText: { color, fontFamily: 'inherit' },
+          leftElement: { color },
+          rightElement: { color },
         }}
-        iconProps={{ color }}
       />
     )
   }
