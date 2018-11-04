@@ -49,6 +49,11 @@
           "name": "enabled",
           "type": "boolean",
           "default": true
+        },
+        {
+          "name": "action",
+          "type": "action",
+          "displayName": "On Press"
         }
       ]
     },
@@ -84,6 +89,11 @@
           "name": "enabled",
           "type": "boolean",
           "default": true
+        },
+        {
+          "name": "action",
+          "type": "action",
+          "displayName": "On Press"
         }
       ]
     },
@@ -102,6 +112,11 @@
           "name": "enabled",
           "type": "boolean",
           "default": true
+        },
+        {
+          "name": "action",
+          "type": "action",
+          "displayName": "On Press"
         }
       ]
     }

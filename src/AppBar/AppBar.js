@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Platform } from 'react-native'
+import { Platform, View, StyleSheet } from 'react-native'
 import { Toolbar } from 'react-native-material-ui'
 
 import '../Shared/icons'
@@ -34,7 +34,7 @@ export default class AppBar extends Component {
 
   handleRightElementPress = ({ index }) => {
     let { rightIcon1, rightIcon2 } = this.props
-    let firstIcon = this.getIcon('rightIcon1') || {}
+    let firstIcon = this.getIcon('rightIcon1')
 
     if (firstIcon && index === 0) {
       rightIcon1.action && rightIcon1.action()
@@ -55,13 +55,34 @@ export default class AppBar extends Component {
     action && action()
   }
 
-  render() {
-    let { color, backgroundColor } = this.props
+  renderSub() {
+    let { color, backgroundColor, editor } = this.props
 
-    let containerStyles = { backgroundColor, height: 76, paddingTop: 20 }
+    let containerStyles = {
+      backgroundColor,
+      height: 76,
+      paddingTop: 20,
+    }
+
+    if (!editor) {
+      containerStyles = {
+        ...containerStyles,
+        height: 106,
+        paddingTop: 50,
+        marginTop: -30,
+      }
+    }
 
     if (Platform.OS === 'web') {
-      containerStyles.webkitFontSmoothing = 'antialiased'
+      containerStyles.WebkitFontSmoothing = 'antialiased'
+    }
+
+    let titleStyles = { color }
+
+    if (Platform.OS === 'ios') {
+      titleStyles.fontFamily = 'System'
+    } else if (Platform.OS === 'web') {
+      titleStyles.fontFamily = 'inherit'
     }
 
     return (
@@ -74,11 +95,37 @@ export default class AppBar extends Component {
         onPress={this.handleCenterElementPress}
         style={{
           container: containerStyles,
-          titleText: { color, fontFamily: 'inherit' },
+          titleText: titleStyles,
           leftElement: { color },
           rightElement: { color },
         }}
       />
     )
   }
+
+  render() {
+    if (Platform.OS === 'ios') {
+      return (
+        <View
+          style={styles.iosBar}
+        >
+          {this.renderSub()}
+        </View>
+      )
+    }
+
+    return this.renderSub()
+  }
 }
+
+const styles = StyleSheet.create({
+  iosBar: {
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 4
+    },
+    shadowRadius: 6,
+    shadowOpacity: 0.3,
+  }
+})

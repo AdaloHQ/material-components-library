@@ -61,8 +61,6 @@ typings/
 # dotenv environment variables file
 .env
 
-package-lock.json
-yarn.lock
 *.swp
 .DS_Store
 
