@@ -1,0 +1,38 @@
+{
+  "displayName": "Action Button",
+  "defaultWidth": 56,
+  "defaultHeight": 56,
+  "component": "./ActionButton.js",
+  "props": [
+    {
+      "name": "icon",
+      "displayName": "Icon",
+      "type": "icon",
+      "default": "add"
+    },
+    {
+      "name": "action",
+      "type": "action",
+      "displayName": "On Press"
+    },
+    {
+      "name": "backgroundColor",
+      "displayName": "Background",
+      "type": "color",
+      "default": "#6200ee"
+    },
+    {
+      "name": "color",
+      "displayName": "Icon",
+      "type": "color",
+      "default": "#fff"
+    },
+    {
+      "name": "positioning",
+      "editable": false,
+      "type": "text",
+      "default": "fixedBottom"
+    }
+  ]
+}
+

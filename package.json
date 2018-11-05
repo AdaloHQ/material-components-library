@@ -18,6 +18,10 @@
       {
         "name": "AppBar",
         "manifest": "./src/AppBar/manifest.json"
+      },
+      {
+        "name": "ActionButton",
+        "manifest": "./src/ActionButton/manifest.json"
       }
     ]
   },
@@ -47,8 +51,7 @@
     "style-loader": "^0.23.1"
   },
   "dependencies": {
-    "material-icons-react": "^1.0.4",
-    "react-native-material-ui": "^1.30.1",
+    "@protonapp/react-native-material-ui": "^1.30.1",
     "react-native-vector-icons": "^6.0.2"
   }
 }

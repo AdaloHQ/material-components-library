@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Platform, View, StyleSheet } from 'react-native'
-import { Toolbar } from 'react-native-material-ui'
+import { Toolbar } from '@protonapp/react-native-material-ui'
 
 import '../Shared/icons'
 
