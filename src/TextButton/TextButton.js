@@ -34,7 +34,8 @@ export default class WrappedTextButton extends Component {
       containerStyles.WebkitFontSmoothing = 'antialiased'
     }
 
-    let textStyles = this.getTextStyles()
+    let iconStyles = this.getTextStyles()
+    let textStyles = { ...this.getTextStyles(), marginRight: 5 }
 
     return (
         <Button
@@ -45,7 +46,7 @@ export default class WrappedTextButton extends Component {
           text={text}
           style={{
             container: containerStyles,
-            icon: textStyles,
+            icon: iconStyles,
             text: textStyles,
           }}
         />

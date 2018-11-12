@@ -25,7 +25,7 @@
       "name": "color",
       "displayName": "Icon",
       "type": "color",
-      "default": "#fff"
+      "default": "#6200ee"
     },
     {
       "name": "upperCase",

@@ -12,6 +12,12 @@ import RaisedButton from '../src/TextButton/RaisedButton'
 import { Button, Welcome } from '@storybook/react/demo'
 import './baseStyles.css'
 
+const wrapperStyles = {
+  padding: 30,
+  alignItems: 'center',
+  justifyContent: 'center',
+}
+
 storiesOf('AppBar', module)
   .add('Basic', () => (
     <AppBarRuntime
@@ -60,7 +66,7 @@ storiesOf('ActionButton', module)
 
 storiesOf('TextButton', module)
   .add('Normal', () => (
-    <View style={{ padding: 30 }}>
+    <View style={wrapperStyles}>
       <TextButton
         color="#f00"
         text="Hello World"
@@ -69,7 +75,7 @@ storiesOf('TextButton', module)
     </View>
   ))
   .add('With Icon', () => (
-    <View style={{ padding: 30 }}>
+    <View style={wrapperStyles}>
       <TextButton
         color="#f00"
         icon="add-box"
@@ -79,7 +85,7 @@ storiesOf('TextButton', module)
     </View>
   ))
   .add('Uppercase', () => (
-    <View style={{ padding: 30 }}>
+    <View style={wrapperStyles}>
       <TextButton
         upperCase
         color="#f00"
@@ -91,7 +97,7 @@ storiesOf('TextButton', module)
 
 storiesOf('RaisedButton', module)
   .add('Normal', () => (
-    <View style={{ padding: 30 }}>
+    <View style={wrapperStyles}>
       <RaisedButton
         color="#fff"
         backgroundColor="#f00"
@@ -100,7 +106,7 @@ storiesOf('RaisedButton', module)
     </View>
   ))
   .add('With Icon', () => (
-    <View style={{ padding: 30 }}>
+    <View style={wrapperStyles}>
       <RaisedButton
         color="#fff"
         backgroundColor="#f00"
@@ -110,7 +116,7 @@ storiesOf('RaisedButton', module)
     </View>
   ))
   .add('Uppercase', () => (
-    <View style={{ padding: 30 }}>
+    <View style={wrapperStyles}>
       <RaisedButton
         upperCase
         color="#fff"
