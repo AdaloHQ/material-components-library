@@ -1,0 +1,38 @@
+{
+  "displayName": "Text Button",
+  "defaultWidth": 160,
+  "defaultHeight": 36,
+  "component": "./TextButton.js",
+  "props": [
+    {
+      "name": "text",
+      "displayName": "Text",
+      "type": "text",
+      "default": "Button"
+    },
+    {
+      "name": "icon",
+      "displayName": "Icon",
+      "type": "icon",
+      "default": "add"
+    },
+    {
+      "name": "action",
+      "type": "action",
+      "displayName": "On Press"
+    },
+    {
+      "name": "color",
+      "displayName": "Icon",
+      "type": "color",
+      "default": "#fff"
+    },
+    {
+      "name": "upperCase",
+      "displayName": "Uppercase",
+      "type": "boolean",
+      "default": false
+    }
+  ]
+}
+

@@ -1,10 +1,13 @@
 import './runtimeConfig'
 import React from 'react'
+import { View } from 'react-native'
 
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import AppBarRuntime from '../src/AppBar/AppBar'
 import ActionButton from '../src/ActionButton/ActionButton'
+import TextButton from '../src/TextButton/TextButton'
+import RaisedButton from '../src/TextButton/RaisedButton'
 
 import { Button, Welcome } from '@storybook/react/demo'
 import './baseStyles.css'
@@ -50,7 +53,70 @@ storiesOf('ActionButton', module)
   .add('Basic', () => (
     <ActionButton
       color="#fff"
-      backgroundCOlor="#f00"
+      backgroundColor="#f00"
       icon="menu"
     />
+  ))
+
+storiesOf('TextButton', module)
+  .add('Normal', () => (
+    <View style={{ padding: 30 }}>
+      <TextButton
+        color="#f00"
+        text="Hello World"
+        action={action('Clicked!!')}
+      />
+    </View>
+  ))
+  .add('With Icon', () => (
+    <View style={{ padding: 30 }}>
+      <TextButton
+        color="#f00"
+        icon="add-box"
+        text="Hello World"
+        action={action('Clicked!!')}
+      />
+    </View>
+  ))
+  .add('Uppercase', () => (
+    <View style={{ padding: 30 }}>
+      <TextButton
+        upperCase
+        color="#f00"
+        text="Hello World"
+        action={action('Clicked!!')}
+      />
+    </View>
+  ))
+
+storiesOf('RaisedButton', module)
+  .add('Normal', () => (
+    <View style={{ padding: 30 }}>
+      <RaisedButton
+        color="#fff"
+        backgroundColor="#f00"
+        action={action('Clicked!!')}
+      />
+    </View>
+  ))
+  .add('With Icon', () => (
+    <View style={{ padding: 30 }}>
+      <RaisedButton
+        color="#fff"
+        backgroundColor="#f00"
+        icon="add-box"
+        action={action('Clicked!!')}
+      />
+    </View>
+  ))
+  .add('Uppercase', () => (
+    <View style={{ padding: 30 }}>
+      <RaisedButton
+        upperCase
+        color="#fff"
+        backgroundColor="#f00"
+        icon="add-box"
+        action={action('Clicked!!')}
+      />
+    </View>
   ))
