@@ -17,13 +17,13 @@
     },
     {
       "name": "backgroundColor",
-      "displayName": "Background",
+      "displayName": "Fill Color",
       "type": "color",
       "default": "#6200ee"
     },
     {
       "name": "color",
-      "displayName": "Icon",
+      "displayName": "Icon Color",
       "type": "color",
       "default": "#fff"
     },
