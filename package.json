@@ -1,6 +1,6 @@
 {
   "name": "@protonapp/material-components",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Material UI Components for Proton",
   "main": "index.js",
   "scripts": {
@@ -24,11 +24,7 @@
         "manifest": "./src/ActionButton/manifest.json"
       },
       {
-        "name": "RaisedButton",
-        "manifest": "./src/TextButton/raisedButtonManifest.json"
-      },
-      {
-        "name": "TextButton",
+        "name": "Button",
         "manifest": "./src/TextButton/textButtonManifest.json"
       }
     ]
@@ -60,6 +56,7 @@
   },
   "dependencies": {
     "@protonapp/react-native-material-ui": "^1.30.1",
+    "color": "^3.1.0",
     "react-native-vector-icons": "^6.0.2"
   }
 }

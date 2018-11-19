@@ -6,10 +6,8 @@ import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import AppBarRuntime from '../src/AppBar/AppBar'
 import ActionButton from '../src/ActionButton/ActionButton'
-import TextButton from '../src/TextButton/TextButton'
-import RaisedButton from '../src/TextButton/RaisedButton'
+import Button from '../src/TextButton/TextButton'
 
-import { Button, Welcome } from '@storybook/react/demo'
 import './baseStyles.css'
 
 const wrapperStyles = {
@@ -64,11 +62,11 @@ storiesOf('ActionButton', module)
     />
   ))
 
-storiesOf('TextButton', module)
+storiesOf('Text Button', module)
   .add('Normal', () => (
     <View style={wrapperStyles}>
-      <TextButton
-        color="#f00"
+      <Button
+        primaryColor="#f00"
         text="Hello World"
         action={action('Clicked!!')}
       />
@@ -76,8 +74,8 @@ storiesOf('TextButton', module)
   ))
   .add('With Icon', () => (
     <View style={wrapperStyles}>
-      <TextButton
-        color="#f00"
+      <Button
+        primaryColor="#f00"
         icon="add-box"
         text="Hello World"
         action={action('Clicked!!')}
@@ -86,30 +84,56 @@ storiesOf('TextButton', module)
   ))
   .add('Uppercase', () => (
     <View style={wrapperStyles}>
-      <TextButton
+      <Button
         upperCase
-        color="#f00"
+        primaryColor="#f00"
         text="Hello World"
         action={action('Clicked!!')}
       />
     </View>
   ))
 
-storiesOf('RaisedButton', module)
+storiesOf('Outlined Button', module)
   .add('Normal', () => (
     <View style={wrapperStyles}>
-      <RaisedButton
-        color="#fff"
-        backgroundColor="#f00"
+      <Button
+        upperCase
+        icon="arrow-back"
+        type="outlined"
+        primaryColor="#f00"
+        action={action('Clicked!!')}
+      />
+    </View>
+  ))
+  .add('Grey', () => (
+    <View style={wrapperStyles}>
+      <Button
+        upperCase
+        icon="arrow-back"
+        type="outlined"
+        primaryColor="#444"
+        action={action('Clicked!!')}
+      />
+    </View>
+  ))
+
+storiesOf('Contained Button', module)
+  .add('Normal', () => (
+    <View style={wrapperStyles}>
+      <Button
+        type="contained"
+        contrastColor="#fff"
+        primaryColor="#f00"
         action={action('Clicked!!')}
       />
     </View>
   ))
   .add('With Icon', () => (
     <View style={wrapperStyles}>
-      <RaisedButton
-        color="#fff"
-        backgroundColor="#f00"
+      <Button
+        type="contained"
+        contrastColor="#fff"
+        primaryColor="#f00"
         icon="add-box"
         action={action('Clicked!!')}
       />
@@ -117,10 +141,23 @@ storiesOf('RaisedButton', module)
   ))
   .add('Uppercase', () => (
     <View style={wrapperStyles}>
-      <RaisedButton
+      <Button
         upperCase
-        color="#fff"
-        backgroundColor="#f00"
+        type="contained"
+        contrastColor="#fff"
+        primaryColor="#f00"
+        icon="add-box"
+        action={action('Clicked!!')}
+      />
+    </View>
+  ))
+  .add('Contrast', () => (
+    <View style={wrapperStyles}>
+      <Button
+        upperCase
+        type="contained"
+        contrastColor="#f00"
+        primaryColor="#fff"
         icon="add-box"
         action={action('Clicked!!')}
       />

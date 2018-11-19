@@ -5,6 +5,20 @@
   "component": "./TextButton.js",
   "props": [
     {
+      "name": "type",
+      "displayName": "Type",
+      "type": "text",
+      "default": "contained",
+      "control": {
+        "type": "menu",
+        "options": [
+          { "label": "Text Button", "value": "text" },
+          { "label": "Outlined Button", "value": "outlined" },
+          { "label": "Contained Button", "value": "contained" }
+        ]
+      }
+    },
+    {
       "name": "text",
       "displayName": "Text",
       "type": "text",
@@ -22,10 +36,17 @@
       "displayName": "On Press"
     },
     {
-      "name": "color",
+      "name": "primaryColor",
+      "displayName": "Primary Color",
+      "type": "color",
+      "default": "#6200ee"
+    },
+    {
+      "name": "contrastColor",
       "displayName": "Text Color",
       "type": "color",
-      "default": "#444"
+      "default": "#fff",
+      "enabled": { "type": "raised" }
     },
     {
       "name": "upperCase",
