@@ -258,6 +258,17 @@ storiesOf('Simple List', module)
       />
     </ListWrapper>
   ))
+  .add('Avatar, long text', () => (
+    <ListWrapper>
+      <SimpleList
+        items={generateListData(
+          'Super long title that should probably wrap to 2 lines in normal circumstances',
+          'And an equally long subtitle that should probably also hit the end of the line.',
+          'avatar',
+        )}
+      />
+    </ListWrapper>
+  ))
   .add('Avatar, full divider', () => (
     <ListWrapper>
       <SimpleList

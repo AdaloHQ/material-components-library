@@ -215,15 +215,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
   },
   main: {
-    
+    flex: 1,
   },
   firstLine: {
     lineHeight: 20,
     fontSize: 16,
+    maxWidth: '100%',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
   secondLine: {
     lineHeight: 18,
     marginTop: 2,
     fontSize: 14,
+    maxWidth: '100%',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   }
 })
