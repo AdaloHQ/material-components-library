@@ -1,5 +1,5 @@
 {
-  "displayName": "Text Button",
+  "displayName": "Button",
   "defaultWidth": 160,
   "defaultHeight": 36,
   "component": "./TextButton.js",
@@ -46,13 +46,13 @@
       "displayName": "Text Color",
       "type": "color",
       "default": "#fff",
-      "enabled": { "type": "raised" }
+      "enabled": { "type": "contained" }
     },
     {
       "name": "upperCase",
       "displayName": "Uppercase",
       "type": "boolean",
-      "default": false
+      "default": true
     }
   ]
 }

@@ -748,7 +748,7 @@
     webpack "^4.23.0"
     webpack-dev-server "^3.1.10"
 
-"@protonapp/react-native-material-ui@^1.30.1":
+"@protonapp/react-native-material-ui@^2":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@protonapp/react-native-material-ui/-/react-native-material-ui-2.0.0.tgz#6179d9f5c5531aab59faaf10506060daa12e956b"
   dependencies:

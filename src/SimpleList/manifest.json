@@ -1,0 +1,115 @@
+{
+  "displayName": "Simple List",
+  "defaultWidth": 375,
+  "defaultHeight": 208,
+  "props": [
+    {
+      "name": "items",
+      "displayName": "What is this a list of?",
+      "type": "list"
+    },
+    {
+      "name": "dividerType",
+      "displayName": "Divider",
+      "type": "text",
+      "default": "inset",
+      "control": {
+        "type": "menu",
+        "options": [
+          { "label": "None", "value": "none" },
+          { "label": "Inset", "value": "inset" },
+          { "label": "Full", "value": "full" }
+        ]
+      }
+    }
+  ],
+  "childComponents": [
+    {
+      "name": "firstLine",
+      "displayName": "Title",
+      "role": "listItem",
+      "reference": "items",
+      "props": [
+        {
+          "name": "text",
+          "displayName": "Text",
+          "type": "text",
+          "default": "Title"
+        }
+      ]
+    },
+    {
+      "name": "secondLine",
+      "displayName": "Subtitle",
+      "role": "listItem",
+      "reference": "items",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "text",
+          "displayName": "Text",
+          "type": "text",
+          "default": "Subtitle"
+        }
+      ]
+    },
+    {
+      "name": "leftSection",
+      "displayName": "Left Section",
+      "role": "listItem",
+      "reference": "items",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "type",
+          "displayName": "Type",
+          "type": "text",
+          "default": "avatar",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Icon", "value": "icon" },
+              { "label": "Avatar", "value": "avatar" },
+              { "label": "Image", "value": "image" }
+            ]
+          }
+        },
+        {
+          "name": "icon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "add",
+          "enabled": { "type": "icon" }
+        },
+        {
+          "name": "iconColor",
+          "displayName": "Icon Color",
+          "type": "color",
+          "default": "#ccc",
+          "enabled": { "type": "icon" }
+        }
+      ]
+    },
+    {
+      "name": "rightSection",
+      "displayName": "Right Section",
+      "role": "listItem",
+      "reference": "items",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        }
+      ]
+    }
+  ]
+}

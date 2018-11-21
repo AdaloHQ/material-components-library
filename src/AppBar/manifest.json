@@ -2,7 +2,6 @@
   "displayName": "App Bar",
   "defaultWidth": 375,
   "defaultHeight": 76,
-  "component": "./AppBar.js",
   "snappingRules": {
     "snap": true,
     "snapType": "screenEdge",
@@ -12,7 +11,6 @@
       "top": 0
     }
   },
-  "actions": false,
   "props": [
     {
       "name": "backgroundColor",

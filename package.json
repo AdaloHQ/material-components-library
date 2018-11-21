@@ -26,6 +26,10 @@
       {
         "name": "Button",
         "manifest": "./src/TextButton/textButtonManifest.json"
+      },
+      {
+        "name": "SimpleList",
+        "manifest": "./src/SimpleList/manifest.json"
       }
     ]
   },
@@ -55,7 +59,7 @@
     "style-loader": "^0.23.1"
   },
   "dependencies": {
-    "@protonapp/react-native-material-ui": "^1.30.1",
+    "@protonapp/react-native-material-ui": "^2",
     "color": "^3.1.0",
     "react-native-vector-icons": "^6.0.2"
   }
