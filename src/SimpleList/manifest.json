@@ -1,7 +1,7 @@
 {
   "displayName": "Simple List",
   "defaultWidth": 375,
-  "defaultHeight": 208,
+  "defaultHeight": 232,
   "props": [
     {
       "name": "items",
@@ -21,6 +21,13 @@
           { "label": "Full", "value": "full" }
         ]
       }
+    },
+    {
+      "name": "onPress",
+      "displayName": "On Press",
+      "type": "action",
+      "role": "listItem",
+      "reference": "items"
     }
   ],
   "childComponents": [
@@ -95,6 +102,12 @@
           "type": "color",
           "default": "#ccc",
           "enabled": { "type": "icon" }
+        },
+        {
+          "name": "image",
+          "displayName": "Image",
+          "type": "image",
+          "enabled": { "type": ["image", "avatar"] }
         }
       ]
     },

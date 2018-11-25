@@ -8,7 +8,7 @@
     "publish": "proton publish",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "copy": "rm -rf ../../previewer/node_modules/@protonapp/material-components/src/ && cp -r src ../../previewer/node_modules/@protonapp/material-components/src"
+    "copy": "rm -rf ../../previewer/node_modules/@protonapp/material-components/src/ && cp -r src ../../previewer/node_modules/@protonapp/material-components/src && cp -r index.js ../../previewer/node_modules/@protonapp/material-components/index.js"
   },
   "author": "Jeremy Blalock",
   "license": "ISC",
@@ -42,7 +42,7 @@
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
-    "@protonapp/proton-cli": "^0.0.9",
+    "@protonapp/proton-cli": "^0.0.10",
     "@storybook/addon-actions": "^4.0.2",
     "@storybook/addon-links": "^4.0.2",
     "@storybook/addons": "^4.0.2",
@@ -59,7 +59,7 @@
     "style-loader": "^0.23.1"
   },
   "dependencies": {
-    "@protonapp/react-native-material-ui": "^2",
+    "@protonapp/react-native-material-ui": "^2.0.1",
     "color": "^3.1.0",
     "react-native-vector-icons": "^6.0.2"
   }

@@ -8,6 +8,7 @@ import AppBarRuntime from '../src/AppBar/AppBar'
 import ActionButton from '../src/ActionButton/ActionButton'
 import Button from '../src/TextButton/TextButton'
 import SimpleList from '../src/SimpleList'
+import catPhoto from './cat.jpg'
 
 import './baseStyles.css'
 
@@ -29,6 +30,7 @@ const generateListData = (line1, line2, leftType, rightType) => {
   for (let i = 0; i < 3; i += 1) {
     data.push({
       id: i,
+      onPress: action(`Pressed item ${i}`),
       firstLine: {
         text: line1 || 'First line text',
       },
@@ -41,6 +43,7 @@ const generateListData = (line1, line2, leftType, rightType) => {
         enabled: !!leftType,
         iconColor: '#bbb',
         icon: 'add',
+        image: catPhoto,
       },
       rightSection: {
         type: rightType,
@@ -263,7 +266,7 @@ storiesOf('Simple List', module)
       <SimpleList
         items={generateListData(
           'Super long title that should probably wrap to 2 lines in normal circumstances',
-          'And an equally long subtitle that should probably also hit the end of the line.',
+          'More, equally long subtitle that should probably also hit the end of the line.',
           'avatar',
         )}
       />

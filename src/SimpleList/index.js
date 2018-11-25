@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback } from '@protonapp/react-native-material-ui'
 
@@ -30,10 +30,6 @@ export default class SimpleList extends Component {
 class Row extends Component {
   static defaultProps = {
     dividerColor: '#e0e0e0',
-  }
-
-  handlePress = () => {
-    console.log('PRESSED!')
   }
 
   getDividerInset() {
@@ -82,6 +78,8 @@ class Row extends Component {
       return null
     }
 
+    let source = leftSection.image ? { uri: leftSection.image } : undefined
+
     if (leftSection.type === 'icon') {
       return (
         <View style={styles.iconWrapper} pointerEvents="none">
@@ -96,39 +94,63 @@ class Row extends Component {
 
     if (leftSection.type === 'avatar') {
       return (
-        <View style={styles.avatar} pointerEvents="none">
-        </View>
+        <Image
+          resizeMode="cover"
+          source={source}
+          style={styles.avatar}
+          pointerEvents="none"
+        />
       )
     }
 
     if (leftSection.type === 'image') {
       return (
-        <View style={styles.image} pointerEvents="none">
-        </View>
+        <Image
+          resizeMode="cover"
+          source={source}
+          style={styles.image}
+          pointerEvents="none"
+        />
       )
     }
   }
 
-  render() {
+  renderContent() {
     let { leftSection, firstLine, secondLine } = this.props
     let hasDivider = this.hasDivider()
 
     return (
+      <View style={styles.row}>
+        {this.renderLeftSection()}
+        <View style={styles.main} pointerEvents="none">
+          <FirstLine {...firstLine} />
+          {(secondLine && secondLine.enabled)
+            ? <SecondLine {...secondLine} />
+            : null}
+        </View>
+        {hasDivider
+          ? <View style={[styles.divider, this.getDividerStyles()]} />
+          : null}
+      </View>
+    )
+  }
+
+  render() {
+    let { onPress } = this.props
+
+    if (onPress) {
+      return (
+        <View style={styles.rowWrapper}>
+          <RippleFeedback onPress={onPress}>
+            {this.renderContent()}
+          </RippleFeedback>
+        </View>
+      )
+    }
+
+    return (
       <View style={styles.rowWrapper}>
-        <RippleFeedback onPress={this.handlePress}>
-          <View style={styles.row}>
-            {this.renderLeftSection()}
-            <View style={styles.main} pointerEvents="none">
-              <FirstLine {...firstLine} />
-              {(secondLine && secondLine.enabled)
-                ? <SecondLine {...secondLine} />
-                : null}
-            </View>
-            {hasDivider
-              ? <View style={[styles.divider, this.getDividerStyles()]} />
-              : null}
-          </View>
-        </RippleFeedback>
+        {this.renderContent()}
       </View>
     )
   }
