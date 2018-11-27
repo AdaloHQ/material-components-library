@@ -8,6 +8,8 @@ import AppBarRuntime from '../src/AppBar/AppBar'
 import ActionButton from '../src/ActionButton/ActionButton'
 import Button from '../src/TextButton/TextButton'
 import SimpleList from '../src/SimpleList'
+import TabNavigator from '../src/TabNavigator'
+
 import catPhoto from './cat.jpg'
 
 import './baseStyles.css'
@@ -41,13 +43,16 @@ const generateListData = (line1, line2, leftType, rightType) => {
       leftSection: {
         type: leftType,
         enabled: !!leftType,
-        iconColor: '#bbb',
+        iconColor: '#aaa',
         icon: 'add',
         image: catPhoto,
       },
       rightSection: {
         type: rightType,
         enabled: !!rightType,
+        icon: 'delete',
+        iconColor: '#aaa',
+        onPress: action(`Pressed item ${i} right action`),
       }
     })
   }
@@ -323,4 +328,43 @@ storiesOf('Simple List', module)
         )}
       />
     </ListWrapper>
+  ))
+  .add('Right Icon', () => (
+    <ListWrapper>
+      <SimpleList
+        items={generateListData(
+          null,
+          'Second line text',
+          'avatar',
+          'icon',
+        )}
+      />
+    </ListWrapper>
+  ))
+
+storiesOf('TabNavigator', module)
+  .add('Default', () => (
+    <TabNavigator />
+  ))
+  .add('4-tab', () => (
+    <TabNavigator
+      primaryColor="#f00"
+      backgroundColor="#00f"
+      tab0={{ icon: 'home', label: 'Home' }}
+      tab1={{ icon: 'people', label: 'People', enabled: true }}
+      tab2={{ icon: 'search', label: 'Search', enabled: true }}
+      tab3={{ icon: 'account-circle', label: 'Profile', enabled: true }}
+      tab4={{ icon: 'more-horiz', label: 'More', enabled: true }}
+    />
+  ))
+  .add('No Labels', () => (
+    <TabNavigator
+      primaryColor="#f00"
+      accentColor="#00f"
+      tab0={{ icon: 'home' }}
+      tab1={{ icon: 'people', enabled: true }}
+      tab2={{ icon: 'search', enabled: true }}
+      tab3={{ icon: 'account-circle', enabled: true }}
+      tab4={{ icon: 'more-horiz', enabled: true }}
+    />
   ))

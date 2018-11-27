@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, Platform } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
-import { RippleFeedback } from '@protonapp/react-native-material-ui'
+import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 
 export default class SimpleList extends Component {
   static defaultProps = {
@@ -115,6 +115,34 @@ class Row extends Component {
     }
   }
 
+  renderRightSection() {
+    let { rightSection } = this.props
+
+    if (!rightSection || !rightSection.enabled) { return null }
+
+    let iconStyles = {}
+
+    if (Platform.OS === 'web') {
+      iconStyles.WebkitFontSmoothing = 'antialiased'
+    }
+
+    if (rightSection.type === 'icon' && rightSection.icon) {
+      return (
+        <IconToggle
+          name={rightSection.icon}
+          color={rightSection.iconColor}
+          underlayColor={rightSection.iconColor}
+          maxOpacity={0.3}
+          size={24}
+          onPress={rightSection.onPress}
+          style={{ container: iconStyles }}
+        />
+      )
+    }
+
+    return null
+  }
+
   renderContent() {
     let { leftSection, firstLine, secondLine } = this.props
     let hasDivider = this.hasDivider()
@@ -128,6 +156,7 @@ class Row extends Component {
             ? <SecondLine {...secondLine} />
             : null}
         </View>
+        {this.renderRightSection()}
         {hasDivider
           ? <View style={[styles.divider, this.getDividerStyles()]} />
           : null}
@@ -167,7 +196,11 @@ class FirstLine extends Component {
     let propStyles = { color: color }
 
     return (
-      <Text style={[styles.firstLine, propStyles]}>
+      <Text
+        style={[styles.firstLine, propStyles]}
+        numberOfLines={1}
+        ellipsizeMode="tail"
+      >
         {text}
       </Text>
     )
@@ -185,7 +218,11 @@ class SecondLine extends Component {
     let propStyles = { color: color }
 
     return (
-      <Text style={[styles.secondLine, propStyles]}>
+      <Text
+        style={[styles.secondLine, propStyles]}
+        numberOfLines={1}
+        ellipsizeMode="tail"
+      >
         {text}
       </Text>
     )
@@ -198,7 +235,8 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
   },
   row: {
-    padding: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -214,6 +252,8 @@ const styles = StyleSheet.create({
     height: 24,
     flexDirection: 'column',
     justifyContent: 'flex-start',
+    marginTop: 16,
+    marginBottom: 16,
   },
   icon: {
     width: 24,
@@ -224,36 +264,32 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     height: 40,
     width: 40,
-    marginTop: -8,
-    marginBottom: -8,
+    marginTop: 8,
+    marginBottom: 8,
     backgroundColor: '#ccc',
   },
   image: {
     marginRight: 16,
-    marginTop: -8,
-    marginBottom: -8,
+    marginTop: 8,
+    marginBottom: 8,
     height: 56,
     width: 56,
     backgroundColor: '#ccc',
   },
   main: {
     flex: 1,
+    marginTop: 16,
+    marginBottom: 16,
   },
   firstLine: {
     lineHeight: 20,
     fontSize: 16,
     maxWidth: '100%',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
   },
   secondLine: {
     lineHeight: 18,
     marginTop: 2,
     fontSize: 14,
     maxWidth: '100%',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
   }
 })

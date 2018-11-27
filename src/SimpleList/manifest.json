@@ -120,7 +120,40 @@
         {
           "name": "enabled",
           "type": "boolean",
-          "default": true
+          "default": false
+        },
+        {
+          "name": "type",
+          "displayName": "Type",
+          "type": "text",
+          "default": "icon",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Icon", "value": "icon" }
+            ]
+          }
+        },
+        {
+          "name": "icon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "add",
+          "enabled": { "type": "icon" }
+        },
+        {
+          "name": "iconColor",
+          "displayName": "Icon Color",
+          "type": "color",
+          "default": "#ccc",
+          "enabled": { "type": "icon" }
+        },
+        {
+          "name": "onPress",
+          "displayName": "On Press",
+          "type": "action",
+          "role": "listItem",
+          "reference": "items"
         }
       ]
     }
