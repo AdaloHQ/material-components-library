@@ -33,7 +33,7 @@ export default class TabNavigator extends Component {
   render() {
     let { activeTab } = this.state
     let tabNames = ['tab0', 'tab1', 'tab2', 'tab3', 'tab4']
-    let { primaryColor, backgroundColor } = this.props
+    let { backgroundColor } = this.props
 
     let enabledTabs = tabNames.filter(tabName => {
       let tab = this.props[tabName]
@@ -57,6 +57,7 @@ export default class TabNavigator extends Component {
               icon={tabs[tabName].icon}
               label={tabs[tabName].label}
               onPress={this.handleChangeTab(tabName)}
+              style={{ container: styles.tabItem }}
             />
           ))}
         </BottomNavigation>
@@ -64,3 +65,9 @@ export default class TabNavigator extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  tabItem: {
+    minWidth: 60
+  }
+})

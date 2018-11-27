@@ -20,6 +20,10 @@
         "manifest": "./src/AppBar/manifest.json"
       },
       {
+        "name": "TabNavigator",
+        "manifest": "./src/TabNavigator/manifest.json"
+      },
+      {
         "name": "ActionButton",
         "manifest": "./src/ActionButton/manifest.json"
       },

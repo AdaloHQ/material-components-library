@@ -346,7 +346,7 @@ storiesOf('TabNavigator', module)
   .add('Default', () => (
     <TabNavigator />
   ))
-  .add('4-tab', () => (
+  .add('5-tab', () => (
     <TabNavigator
       activeColor="#fff"
       inactiveColor="#abf"
@@ -360,12 +360,24 @@ storiesOf('TabNavigator', module)
   ))
   .add('No Labels', () => (
     <TabNavigator
-      primaryColor="#f00"
-      accentColor="#00f"
+      activeColor="#f00"
+      inactiveColor="#aaf"
       tab0={{ icon: 'home' }}
       tab1={{ icon: 'people', enabled: true }}
       tab2={{ icon: 'search', enabled: true }}
       tab3={{ icon: 'account-circle', enabled: true }}
       tab4={{ icon: 'more-horiz', enabled: true }}
+    />
+  ))
+  .add('Long Labels', () => (
+    <TabNavigator
+      activeColor="#00f"
+      inactiveColor="#abf"
+      backgroundColor="#fff"
+      tab0={{ icon: 'home', label: 'Home sweet Home' }}
+      tab1={{ icon: 'people', label: 'People in Your Network', enabled: true }}
+      tab2={{ icon: 'search', label: 'Search People', enabled: true }}
+      tab3={{ icon: 'account-circle', label: 'My Personal Profile', enabled: true }}
+      tab4={{ icon: 'more-horiz', label: 'More', enabled: true }}
     />
   ))
