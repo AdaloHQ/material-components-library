@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
-import { BottomNavigation } from '@protonapp/react-native-material-ui'
+import { BottomNavigation, ThemeContext, getTheme } from '@protonapp/react-native-material-ui'
 
 export default class TabNavigator extends Component {
   static defaultProps = {
@@ -16,6 +16,18 @@ export default class TabNavigator extends Component {
 
   handleChangeTab = activeTab => () => {
     this.setState({ activeTab })
+  }
+
+  getTheme = () => {
+    let { activeColor, inactiveColor } = this.props
+
+    return getTheme({
+      palette: {
+        primaryColor: activeColor,
+        secondaryTextColor: inactiveColor,
+        primaryTextColor: '#f00',
+      }
+    })
   }
 
   render() {
@@ -35,28 +47,20 @@ export default class TabNavigator extends Component {
     })
 
     return (
-      <BottomNavigation active={activeTab} style={{
-        container: { backgroundColor }
-      }}>
-        {enabledTabs.map(tabName => (
-          <BottomNavigation.Action
-            key={tabName}
-            icon={tabs[tabName].icon}
-            label={tabs[tabName].label}
-            onPress={this.handleChangeTab(tabName)}
-            style={{
-              active: {
-                color: '#f00',
-                fontSize: 30,
-              },
-              disabled: {
-                color: '#00f',
-                fontSize: 30,
-              },
-            }}
-          />
-        ))}
-      </BottomNavigation>
+      <ThemeContext.Provider value={this.getTheme()}>
+        <BottomNavigation active={activeTab} style={{
+          container: { backgroundColor }
+        }}>
+          {enabledTabs.map(tabName => (
+            <BottomNavigation.Action
+              key={tabName}
+              icon={tabs[tabName].icon}
+              label={tabs[tabName].label}
+              onPress={this.handleChangeTab(tabName)}
+            />
+          ))}
+        </BottomNavigation>
+      </ThemeContext.Provider>
     )
   }
 }

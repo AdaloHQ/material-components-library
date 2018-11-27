@@ -348,7 +348,8 @@ storiesOf('TabNavigator', module)
   ))
   .add('4-tab', () => (
     <TabNavigator
-      primaryColor="#f00"
+      activeColor="#fff"
+      inactiveColor="#abf"
       backgroundColor="#00f"
       tab0={{ icon: 'home', label: 'Home' }}
       tab1={{ icon: 'people', label: 'People', enabled: true }}
