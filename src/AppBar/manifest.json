@@ -69,6 +69,19 @@
           "displayName": "Text",
           "type": "text",
           "default": "Screen Title"
+        },
+        {
+          "name": "align",
+          "displayName": "Align",
+          "type": "text",
+          "default": "left",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Left (default)", "value": "left" },
+              { "label": "Center", "value": "center" }
+            ]
+          }
         }
       ]
     },

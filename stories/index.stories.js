@@ -91,6 +91,69 @@ storiesOf('AppBar', module)
       }}
     />
   ))
+  .add('Centered', () => (
+    <AppBarRuntime
+      backgroundColor="#1E88E5"
+      color="#fff"
+      title={{
+        align: 'center',
+        text: 'Title Text',
+        action: action('Pressed title')
+      }}
+      leftIcon={{
+        icon: 'menu',
+        enabled: true,
+        action: action('Pressed left button')
+      }}
+      rightIcon1={{
+        icon: 'favorite',
+        enabled: true,
+        action: action('Pressed right button 1')
+      }}
+      rightIcon2={{
+        icon: 'search',
+        enabled: true,
+        action: action('Pressed right button 2')
+      }}
+    />
+  ))
+  .add('Centered, single right icon', () => (
+    <AppBarRuntime
+      backgroundColor="#1E88E5"
+      color="#fff"
+      title={{
+        align: 'center',
+        text: 'Title Text',
+        action: action('Pressed title')
+      }}
+      leftIcon={{
+        icon: 'menu',
+        enabled: true,
+        action: action('Pressed left button')
+      }}
+      rightIcon2={{
+        icon: 'search',
+        enabled: true,
+        action: action('Pressed right button 2')
+      }}
+    />
+  ))
+  .add('Centered, back only', () => (
+    <AppBarRuntime
+      backgroundColor="#1E88E5"
+      color="#fff"
+      title={{
+        align: 'center',
+        text: 'Longer Title Text',
+        action: action('Pressed title')
+      }}
+      leftIcon={{
+        icon: 'arrow-back',
+        enabled: true,
+        action: action('Pressed left button')
+      }}
+    />
+  ))
   .add('Inverted', () => (
     <AppBarRuntime
       backgroundColor="#f1f1f1"

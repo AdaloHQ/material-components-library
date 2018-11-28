@@ -32,6 +32,12 @@ export default class AppBar extends Component {
     return text
   }
 
+  getCentered() {
+    let { title: { align } } = this.props
+
+    return align === 'center'
+  }
+
   handleRightElementPress = ({ index }) => {
     let { rightIcon1, rightIcon2 } = this.props
     let firstIcon = this.getIcon('rightIcon1')
@@ -57,11 +63,13 @@ export default class AppBar extends Component {
 
   renderSub() {
     let { color, backgroundColor, editor } = this.props
+    let centered = this.getCentered()
 
     let containerStyles = {
       backgroundColor,
       height: 76,
       paddingTop: 20,
+      justifyContent: 'space-between',
     }
 
     if (!editor) {
@@ -85,17 +93,37 @@ export default class AppBar extends Component {
       titleStyles.fontFamily = 'inherit'
     }
 
+    let titleContainerStyles = {}
+
+    let rightIcons = this.getRightIcons()
+    let leftIcon = this.getIcon('leftIcon')
+
+    if (centered) {
+      let leftPad = leftIcon ? 64 : 16
+      let rightPad = rightIcons.length * 48 + 16
+      let padding = Math.max(leftPad, rightPad)
+
+      titleContainerStyles = {
+        position: 'absolute',
+        marginLeft: 0,
+        left: padding,
+        right: padding,
+        textAlign: 'center',
+      }
+    }
+
     return (
       <Toolbar
-        leftElement={this.getIcon('leftIcon')}
+        leftElement={leftIcon}
         centerElement={this.getTitleText()}
-        rightElement={this.getRightIcons()}
+        rightElement={rightIcons}
         onRightElementPress={this.handleRightElementPress}
         onLeftElementPress={this.handleLeftElementPress}
         onPress={this.handleCenterElementPress}
         style={{
           container: containerStyles,
           titleText: titleStyles,
+          centerElementContainer: titleContainerStyles,
           leftElement: { color },
           rightElement: { color },
         }}

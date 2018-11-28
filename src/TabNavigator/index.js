@@ -49,7 +49,7 @@ export default class TabNavigator extends Component {
     return (
       <ThemeContext.Provider value={this.getTheme()}>
         <BottomNavigation active={activeTab} style={{
-          container: { backgroundColor }
+          container: [styles.wrapper, { backgroundColor }]
         }}>
           {enabledTabs.map(tabName => (
             <BottomNavigation.Action
@@ -67,6 +67,11 @@ export default class TabNavigator extends Component {
 }
 
 const styles = StyleSheet.create({
+  wrapper: {
+    marginBottom: -100,
+    paddingBottom: 100,
+    height: 156,
+  },
   tabItem: {
     minWidth: 60
   }
