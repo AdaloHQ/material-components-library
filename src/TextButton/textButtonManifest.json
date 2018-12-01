@@ -1,5 +1,6 @@
 {
   "displayName": "Button",
+  "icon": "./icon.png",
   "defaultWidth": 160,
   "defaultHeight": 36,
   "component": "./TextButton.js",

@@ -1,5 +1,6 @@
 {
   "displayName": "Action Button",
+  "icon": "icon.png",
   "defaultWidth": 56,
   "defaultHeight": 56,
   "component": "./ActionButton.js",

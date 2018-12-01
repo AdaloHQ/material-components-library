@@ -1,5 +1,6 @@
 {
   "displayName": "Tab Bar",
+  "icon": "./icon.png",
   "defaultWidth": 375,
   "defaultHeight": 56,
   "snappingRules": {
