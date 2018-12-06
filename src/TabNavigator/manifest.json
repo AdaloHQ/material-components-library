@@ -27,9 +27,25 @@
     },
     {
       "name": "inactiveColor",
-      "editable": "Inactive Color",
+      "displayName": "Inactive Color",
       "type": "color",
       "default": "#bbb"
+    },
+    {
+      "name": "activeTab",
+      "displayName": "Active Tab",
+      "type": "text",
+      "default": "tab0",
+      "control": {
+        "type": "menu",
+        "options": [
+          { "label": "First Tab", "value": "tab0" },
+          { "label": "Second Tab", "value": "tab1" },
+          { "label": "Third Tab", "value": "tab2" },
+          { "label": "Fourth Tab", "value": "tab3" },
+          { "label": "Fifth Tab", "value": "tab4" }
+        ]
+      }
     },
     {
       "name": "positioning",
@@ -41,7 +57,7 @@
   "childComponents": [
     {
       "name": "tab0",
-      "displayName": "First Item",
+      "displayName": "First Tab",
       "actions": true,
       "props": [
         {
@@ -55,12 +71,17 @@
           "displayName": "Text",
           "type": "text",
           "default": "Home"
+        },
+        {
+          "name": "action",
+          "type": "action",
+          "displayName": "On Press"
         }
       ]
     },
     {
       "name": "tab1",
-      "displayName": "Second Item",
+      "displayName": "Second Tab",
       "actions": true,
       "props": [
         {
@@ -79,12 +100,17 @@
           "displayName": "Text",
           "type": "text",
           "default": "Search"
+        },
+        {
+          "name": "action",
+          "type": "action",
+          "displayName": "On Press"
         }
       ]
     },
     {
       "name": "tab2",
-      "displayName": "Third Item",
+      "displayName": "Third Tab",
       "actions": true,
       "props": [
         {
@@ -103,12 +129,17 @@
           "displayName": "Text",
           "type": "text",
           "default": "Team"
+        },
+        {
+          "name": "action",
+          "type": "action",
+          "displayName": "On Press"
         }
       ]
     },
     {
       "name": "tab3",
-      "displayName": "Fourth Item",
+      "displayName": "Fourth Tab",
       "actions": true,
       "props": [
         {
@@ -127,12 +158,17 @@
           "displayName": "Text",
           "type": "text",
           "default": "Profile"
+        },
+        {
+          "name": "action",
+          "type": "action",
+          "displayName": "On Press"
         }
       ]
     },
     {
       "name": "tab4",
-      "displayName": "Fifth Item",
+      "displayName": "Fifth Tab",
       "actions": true,
       "props": [
         {
@@ -151,6 +187,11 @@
           "displayName": "Text",
           "type": "text",
           "default": "More"
+        },
+        {
+          "name": "action",
+          "type": "action",
+          "displayName": "On Press"
         }
       ]
     }

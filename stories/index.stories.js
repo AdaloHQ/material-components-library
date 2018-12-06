@@ -4,6 +4,7 @@ import { View } from 'react-native'
 
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
+
 import AppBarRuntime from '../src/AppBar/AppBar'
 import ActionButton from '../src/ActionButton/ActionButton'
 import Button from '../src/TextButton/TextButton'
@@ -414,17 +415,19 @@ storiesOf('TabNavigator', module)
       activeColor="#fff"
       inactiveColor="#abf"
       backgroundColor="#00f"
-      tab0={{ icon: 'home', label: 'Home' }}
-      tab1={{ icon: 'people', label: 'People', enabled: true }}
-      tab2={{ icon: 'search', label: 'Search', enabled: true }}
-      tab3={{ icon: 'account-circle', label: 'Profile', enabled: true }}
-      tab4={{ icon: 'more-horiz', label: 'More', enabled: true }}
+      activeTab="tab1"
+      tab0={{ icon: 'home', label: 'Home', action: action('tab0') }}
+      tab1={{ icon: 'people', label: 'People', enabled: true, action: action('tab1') }}
+      tab2={{ icon: 'search', label: 'Search', enabled: true, action: action('tab2') }}
+      tab3={{ icon: 'account-circle', label: 'Profile', enabled: true, action: action('tab3') }}
+      tab4={{ icon: 'more-horiz', label: 'More', enabled: true, action: action('tab4') }}
     />
   ))
   .add('No Labels', () => (
     <TabNavigator
       activeColor="#f00"
       inactiveColor="#aaf"
+      activeTab="tab1"
       tab0={{ icon: 'home' }}
       tab1={{ icon: 'people', enabled: true }}
       tab2={{ icon: 'search', enabled: true }}
@@ -437,6 +440,7 @@ storiesOf('TabNavigator', module)
       activeColor="#00f"
       inactiveColor="#abf"
       backgroundColor="#fff"
+      activeTab="tab1"
       tab0={{ icon: 'home', label: 'Home sweet Home' }}
       tab1={{ icon: 'people', label: 'People in Your Network', enabled: true }}
       tab2={{ icon: 'search', label: 'Search People', enabled: true }}
