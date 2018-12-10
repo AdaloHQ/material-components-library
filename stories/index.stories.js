@@ -127,11 +127,6 @@ storiesOf('AppBar', module)
         text: 'Title Text',
         action: action('Pressed title')
       }}
-      leftIcon={{
-        icon: 'menu',
-        enabled: true,
-        action: action('Pressed left button')
-      }}
       rightIcon2={{
         icon: 'search',
         enabled: true,

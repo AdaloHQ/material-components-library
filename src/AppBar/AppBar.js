@@ -103,6 +103,10 @@ export default class AppBar extends Component {
       let rightPad = rightIcons.length * 48 + 16
       let padding = Math.max(leftPad, rightPad)
 
+      if (!leftIcon) {
+        containerStyles.justifyContent = 'flex-end'
+      }
+
       titleContainerStyles = {
         position: 'absolute',
         marginLeft: 0,
