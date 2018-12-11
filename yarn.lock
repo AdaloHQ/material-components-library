@@ -725,9 +725,9 @@
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.2.tgz#54c5a964462be3d4d78af631363c18d6fa91ac26"
 
-"@protonapp/proton-cli@^0.0.11":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@protonapp/proton-cli/-/proton-cli-0.0.11.tgz#f984b72d0feeefb418db3fce58111fc1bb2eca69"
+"@protonapp/proton-cli@^0.0.12":
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/@protonapp/proton-cli/-/proton-cli-0.0.12.tgz#92df34d8f19f658082d0e94dfa8ddc276486d89e"
   dependencies:
     "@babel/core" "^7.1.2"
     "@babel/plugin-proposal-class-properties" "^7.1.0"

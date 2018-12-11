@@ -90,15 +90,4 @@ export default class WrappedTextButton extends Component {
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    width: 76,
-    height: 76,
-    marginRight: -20,
-    marginBottom: -20,
-  },
-  inner: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
 })

@@ -49,12 +49,18 @@ class Cell extends Component {
     let { title, image } = this.props
     let source = image ? { uri: image } : undefined
 
+    let imageStyles = [styles.image]
+
+    if (!source) {
+      imageStyles.push({ backgroundColor: '#ccc' })
+    }
+
     return (
       <View style={styles.cellSub}>
         <Image
           resizeMode="cover"
           source={source}
-          style={styles.image}
+          style={imageStyles}
           pointerEvents="none"
         />
         {this.renderTitle()}
@@ -66,9 +72,11 @@ class Cell extends Component {
   render() {
     let { onPress, width } = this.props
 
+    let wrapperStyles = [styles.cell, { width }]
+
     if (onPress) {
       return (
-        <View style={[styles.cell, { width }]}>
+        <View style={wrapperStyles}>
           <RippleFeedback onPress={onPress} color="#fff">
             {this.renderContent()}
           </RippleFeedback>
@@ -77,7 +85,7 @@ class Cell extends Component {
     }
 
     return (
-      <View style={styles.cell}>
+      <View style={wrapperStyles}>
         {this.renderContent()}
       </View>
     )
@@ -110,7 +118,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    background: 'rgba(0, 0, 0, 0.6)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
   },
   title: {
     fontSize: 12,

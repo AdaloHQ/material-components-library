@@ -1,0 +1,91 @@
+{
+  "displayName": "Card List",
+  "icon": "./icon.png",
+  "defaultWidth": 375,
+  "defaultHeight": 375,
+  "props": [
+    {
+      "name": "items",
+      "displayName": "What is this a list of?",
+      "type": "list"
+    },
+    {
+      "name": "titleText",
+      "displayName": "Title",
+      "type": "text",
+      "default": "Title Text"
+    },
+    {
+      "name": "subtitleText",
+      "displayName": "Subtitle",
+      "type": "text",
+      "default": "Subtitle Text"
+    },
+    {
+      "name": "columnCount",
+      "displayName": "Columns",
+      "type": "number",
+      "default": 2,
+      "control": {
+        "type": "menu",
+        "options": [
+          { "label": "1", "value": 1 },
+          { "label": "2", "value": 2 }
+        ]
+      }
+    },
+    {
+      "name": "onPress",
+      "displayName": "On Press",
+      "type": "action",
+      "role": "listItem",
+      "reference": "items"
+    }
+  ],
+  "childComponents": [
+    {
+      "name": "body",
+      "displayName": "Body",
+      "role": "listItem",
+      "reference": "items",
+      "props": [
+        {
+          "name": "text",
+          "displayName": "Text",
+          "type": "text",
+          "default": "Body text lorem ipsum doler"
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": "true"
+        }
+      ]
+    },
+    {
+      "name": "media",
+      "displayName": "Media",
+      "role": "listItem",
+      "reference": "items",
+      "props": [
+        {
+          "name": "position",
+          "type": "text",
+          "default": "top",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Top", "value": "top" },
+              { "label": "Middle", "value": "middle" }
+            ]
+          }
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": "true"
+        }
+      ]
+    }
+  ]
+}

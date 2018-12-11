@@ -2,7 +2,7 @@
   "displayName": "Image List",
   "icon": "./icon.png",
   "defaultWidth": 375,
-  "defaultHeight": 232,
+  "defaultHeight": 375,
   "props": [
     {
       "name": "items",
@@ -13,7 +13,7 @@
       "name": "columnCount",
       "displayName": "Columns",
       "type": "number",
-      "default": 3,
+      "default": 2,
       "control": {
         "type": "menu",
         "options": [

@@ -34,6 +34,14 @@
       {
         "name": "SimpleList",
         "manifest": "./src/SimpleList/manifest.json"
+      },
+      {
+        "name": "ImageList",
+        "manifest": "./src/ImageList/manifest.json"
+      },
+      {
+        "name": "CardList",
+        "manifest": "./src/CardList/manifest.json"
       }
     ]
   },
@@ -46,7 +54,7 @@
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
-    "@protonapp/proton-cli": "^0.0.11",
+    "@protonapp/proton-cli": "^0.0.12",
     "@storybook/addon-actions": "^4.0.2",
     "@storybook/addon-links": "^4.0.2",
     "@storybook/addons": "^4.0.2",
