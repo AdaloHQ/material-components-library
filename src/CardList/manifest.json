@@ -13,12 +13,16 @@
       "name": "titleText",
       "displayName": "Title",
       "type": "text",
+      "role": "listItem",
+      "reference": "items",
       "default": "Title Text"
     },
     {
       "name": "subtitleText",
       "displayName": "Subtitle",
       "type": "text",
+      "role": "listItem",
+      "reference": "items",
       "default": "Subtitle Text"
     },
     {
