@@ -5,11 +5,12 @@ import { View } from 'react-native'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 
-import AppBarRuntime from '../src/AppBar/AppBar'
+import AppBar from '../src/AppBar/AppBar'
 import ActionButton from '../src/ActionButton/ActionButton'
 import Button from '../src/TextButton/TextButton'
 import SimpleList from '../src/SimpleList'
 import TabNavigator from '../src/TabNavigator'
+import ImageList from '../src/ImageList'
 
 import catPhoto from './cat.jpg'
 
@@ -25,6 +26,24 @@ const wrapperStyles = {
 const innerWrapperStyles = {
   width: 400,
   background: '#fff',
+}
+
+const generateImageData = (count, title) => {
+  let data = []
+
+  for (let i = 0; i < count; i += 1) {
+    data.push({
+      id: i,
+      onPress: action(`Pressed item ${i}`),
+      image: catPhoto,
+      title: {
+        enabled: !!title,
+        text: title,
+      }
+    })
+  }
+
+  return data
 }
 
 const generateListData = (line1, line2, leftType, rightType) => {
@@ -71,7 +90,7 @@ const ListWrapper = ({ children }) => (
 
 storiesOf('AppBar', module)
   .add('Basic', () => (
-    <AppBarRuntime
+    <AppBar
       backgroundColor="#1E88E5"
       color="#fff"
       title={{ text: 'Title Text', action: action('Pressed title') }}
@@ -93,7 +112,7 @@ storiesOf('AppBar', module)
     />
   ))
   .add('Centered', () => (
-    <AppBarRuntime
+    <AppBar
       backgroundColor="#1E88E5"
       color="#fff"
       title={{
@@ -119,7 +138,7 @@ storiesOf('AppBar', module)
     />
   ))
   .add('Centered, single right icon', () => (
-    <AppBarRuntime
+    <AppBar
       backgroundColor="#1E88E5"
       color="#fff"
       title={{
@@ -135,7 +154,7 @@ storiesOf('AppBar', module)
     />
   ))
   .add('Centered, back only', () => (
-    <AppBarRuntime
+    <AppBar
       backgroundColor="#1E88E5"
       color="#fff"
       title={{
@@ -151,7 +170,7 @@ storiesOf('AppBar', module)
     />
   ))
   .add('Inverted', () => (
-    <AppBarRuntime
+    <AppBar
       backgroundColor="#f1f1f1"
       color="#333"
       title={{ text: 'Title Text' }}
@@ -161,7 +180,7 @@ storiesOf('AppBar', module)
     />
   ))
   .add('Empty', () => (
-    <AppBarRuntime />
+    <AppBar />
   ))
 
 storiesOf('ActionButton', module)
@@ -442,4 +461,30 @@ storiesOf('TabNavigator', module)
       tab3={{ icon: 'account-circle', label: 'My Personal Profile', enabled: true }}
       tab4={{ icon: 'more-horiz', label: 'More', enabled: true }}
     />
+  ))
+
+storiesOf('ImageList')
+  .add('No Title', () => (
+    <ListWrapper>
+      <ImageList
+        items={generateImageData(7)}
+        columnCount={3}
+      />
+    </ListWrapper>
+  ))
+  .add('Short Title', () => (
+    <ListWrapper>
+      <ImageList
+        items={generateImageData(7, 'Short Title')}
+        columnCount={3}
+      />
+    </ListWrapper>
+  ))
+  .add('Longer Title', () => (
+    <ListWrapper>
+      <ImageList
+        items={generateImageData(7, 'Longer title that will cut off')}
+        columnCount={4}
+      />
+    </ListWrapper>
   ))

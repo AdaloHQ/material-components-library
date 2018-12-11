@@ -1,0 +1,62 @@
+{
+  "displayName": "Image List",
+  "icon": "./icon.png",
+  "defaultWidth": 375,
+  "defaultHeight": 232,
+  "props": [
+    {
+      "name": "items",
+      "displayName": "What is this a list of?",
+      "type": "list"
+    },
+    {
+      "name": "columnCount",
+      "displayName": "Columns",
+      "type": "number",
+      "default": 3,
+      "control": {
+        "type": "menu",
+        "options": [
+          { "label": "2", "value": 2 },
+          { "label": "3", "value": 3 },
+          { "label": "4", "value": 4 }
+        ]
+      }
+    },
+    {
+      "name": "image",
+      "displayName": "Image",
+      "role": "listItem",
+      "reference": "items",
+      "type": "image"
+    },
+    {
+      "name": "onPress",
+      "displayName": "On Press",
+      "type": "action",
+      "role": "listItem",
+      "reference": "items"
+    }
+  ],
+  "childComponents": [
+    {
+      "name": "title",
+      "displayName": "Title",
+      "role": "listItem",
+      "reference": "items",
+      "props": [
+        {
+          "name": "text",
+          "displayName": "Text",
+          "type": "text",
+          "default": "Title"
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": "false"
+        }
+      ]
+    }
+  ]
+}
