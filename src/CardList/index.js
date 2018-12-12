@@ -301,7 +301,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   actionsWrapper: {
-    padding: 8,
+    paddingLeft: 8,
+    paddingRight: 8,
+    paddingBottom: 8,
     flexDirection: 'row',
   },
   button: {

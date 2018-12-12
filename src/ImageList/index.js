@@ -29,15 +29,52 @@ export default class ImageList extends Component {
 }
 
 class Cell extends Component {
+  hasIcon = () => {
+    let { iconButton } = this.props
+
+    return iconButton && iconButton.icon && iconButton.enabled
+  }
+
+  renderIcon() {
+    let { iconButton } = this.props
+
+    if (!this.hasIcon()) { return null }
+
+    let wrapperStyles = [styles.buttonWrapper]
+
+    if (iconButton.position === 'bottom') {
+      wrapperStyles.push(styles.buttonBottom)
+    }
+
+    return (
+      <View style={wrapperStyles}>
+        <IconToggle
+          name={iconButton.icon}
+          color={iconButton.color}
+          underlayColor={iconButton.color}
+          maxOpacity={0.3}
+          size={24}
+          onPress={iconButton.onPress}
+        />
+      </View>
+    )
+  }
+
   renderTitle() {
-    let { title } = this.props
+    let { title, iconButton } = this.props
 
     if (!title || !title.enabled || !title.text) {
       return null
     }
 
+    let wrapperStyles = [styles.titleWrapper]
+
+    if (this.hasIcon() && iconButton.position === 'bottom') {
+      wrapperStyles.push(styles.titleWrapperExpanded)
+    }
+
     return (
-      <View style={styles.titleWrapper}>
+      <View style={wrapperStyles}>
         <Text style={styles.title} numberOfLines={1}>
           {title.text}
         </Text>
@@ -80,6 +117,7 @@ class Cell extends Component {
           <RippleFeedback onPress={onPress} color="#fff">
             {this.renderContent()}
           </RippleFeedback>
+          {this.renderIcon()}
         </View>
       )
     }
@@ -87,6 +125,7 @@ class Cell extends Component {
     return (
       <View style={wrapperStyles}>
         {this.renderContent()}
+        {this.renderIcon()}
       </View>
     )
   }
@@ -120,6 +159,10 @@ const styles = StyleSheet.create({
     right: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
   },
+  titleWrapperExpanded: {
+    height: 48,
+    paddingRight: 48,
+  },
   title: {
     fontSize: 12,
     color: '#fff',
@@ -130,5 +173,17 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     left: 0,
+  },
+  buttonWrapper: {
+    position: 'absolute',
+    right: 6,
+    top: 6,
+    width: 48,
+    height: 48,
+  },
+  buttonBottom: {
+    top: null,
+    bottom: 2,
+    right: 2,
   },
 })

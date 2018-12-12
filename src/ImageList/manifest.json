@@ -10,6 +10,13 @@
       "type": "list"
     },
     {
+      "name": "image",
+      "displayName": "Image",
+      "role": "listItem",
+      "reference": "items",
+      "type": "image"
+    },
+    {
       "name": "columnCount",
       "displayName": "Columns",
       "type": "number",
@@ -22,13 +29,6 @@
           { "label": "4", "value": 4 }
         ]
       }
-    },
-    {
-      "name": "image",
-      "displayName": "Image",
-      "role": "listItem",
-      "reference": "items",
-      "type": "image"
     },
     {
       "name": "onPress",
@@ -50,6 +50,46 @@
           "displayName": "Text",
           "type": "text",
           "default": "Title"
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": "false"
+        }
+      ]
+    },
+    {
+      "name": "iconButton",
+      "displayName": "Icon",
+      "role": "listItem",
+      "reference": "items",
+      "props": [
+        {
+          "name": "icon",
+          "type": "icon",
+          "default": "favorite"
+        },
+        {
+          "name": "position",
+          "type": "text",
+          "default": "top",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Top", "value": "top" },
+              { "label": "Bottom", "value": "bottom" }
+            ]
+          }
+        },
+        {
+          "name": "onPress",
+          "displayName": "On Press",
+          "type": "action"
+        },
+        {
+          "name": "color",
+          "type": "color",
+          "default": "#fff"
         },
         {
           "name": "enabled",

@@ -99,6 +99,47 @@
           "default": "true"
         }
       ]
+    },
+    {
+      "name": "actions",
+      "displayName": "Buttons",
+      "role": "listItem",
+      "reference": "items",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "firstButtonText",
+          "displayName": "First Button Text",
+          "type": "text",
+          "default": "Button 1"
+        },
+        {
+          "name": "firstButtonAction",
+          "displayName": "First Button Action",
+          "type": "action"
+        },
+        {
+          "name": "secondButtonText",
+          "displayName": "Second Button Text",
+          "type": "text",
+          "default": "Button 2"
+        },
+        {
+          "name": "secondButtonAction",
+          "displayName": "Second Button Action",
+          "type": "action"
+        },
+        {
+          "name": "color",
+          "displayName": "Button Color",
+          "type": "color",
+          "default": "#6200ee"
+        }
+      ]
     }
   ]
 }

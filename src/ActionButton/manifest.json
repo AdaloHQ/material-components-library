@@ -4,6 +4,8 @@
   "defaultWidth": 56,
   "defaultHeight": 56,
   "component": "./ActionButton.js",
+  "resizeX": false,
+  "resizeY": false,
   "props": [
     {
       "name": "icon",

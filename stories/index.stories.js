@@ -29,7 +29,7 @@ const innerWrapperStyles = {
   background: '#ddd',
 }
 
-const generateImageData = (count, title) => {
+const generateImageData = (count, title, iconPosition) => {
   let data = []
 
   for (let i = 0; i < count; i += 1) {
@@ -37,6 +37,13 @@ const generateImageData = (count, title) => {
       id: i,
       onPress: action(`Pressed item ${i}`),
       image: catPhoto,
+      iconButton: {
+        enabled: !!iconPosition,
+        icon: 'favorite',
+        color: '#fff',
+        position: iconPosition,
+        onPress: action(`Pressed icon of item ${i}`),
+      },
       title: {
         enabled: !!title,
         text: title,
@@ -510,7 +517,7 @@ storiesOf('ImageList')
   .add('No Title', () => (
     <ListWrapper>
       <ImageList
-        items={generateImageData(7)}
+        items={generateImageData(7, null, 'top')}
         columnCount={3}
       />
     </ListWrapper>
@@ -518,7 +525,7 @@ storiesOf('ImageList')
   .add('Short Title', () => (
     <ListWrapper>
       <ImageList
-        items={generateImageData(7, 'Short Title')}
+        items={generateImageData(7, 'Short Title', 'top')}
         columnCount={3}
       />
     </ListWrapper>
@@ -528,6 +535,14 @@ storiesOf('ImageList')
       <ImageList
         items={generateImageData(7, 'Longer title that will cut off')}
         columnCount={4}
+      />
+    </ListWrapper>
+  ))
+  .add('Icon in Title', () => (
+    <ListWrapper>
+      <ImageList
+        items={generateImageData(7, 'Some long title text', 'bottom')}
+        columnCount={3}
       />
     </ListWrapper>
   ))
