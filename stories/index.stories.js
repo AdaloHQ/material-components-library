@@ -26,7 +26,7 @@ const wrapperStyles = {
 
 const innerWrapperStyles = {
   width: 400,
-  background: '#fff',
+  background: '#ddd',
 }
 
 const generateImageData = (count, title) => {
@@ -53,7 +53,7 @@ const generateCardData = (
   subtitleText,
   bodyText,
   media,
-  mediaPosition = 'middle',
+  actions,
 ) => {
 
   let data = []
@@ -72,8 +72,17 @@ const generateCardData = (
       media: {
         enabled: media,
         image: catPhoto,
-        position: mediaPosition,
-      }
+      },
+      actions: actions
+        ? {
+            enabled: true,
+            firstButtonText: 'Button 1',
+            firstButtonAction: action(`Item ${i} - Button 1`),
+            secondButtonText: 'Button 2',
+            secondButtonAction: action(`Item ${i} - Button 2`),
+            color: '#6200ee',
+          }
+        : null
     })
   }
 
@@ -529,10 +538,11 @@ storiesOf('CardList')
       <CardList
         items={generateCardData(7, 'Card Item Title', 'Subtitle')}
         columnCount={2}
+        layout="mediaMiddle"
       />
     </ListWrapper>
   ))
-  .add('Complete', () => (
+  .add('Single Column', () => (
     <ListWrapper>
       <CardList
         items={generateCardData(
@@ -541,8 +551,25 @@ storiesOf('CardList')
           'Subtitle',
           'Lorem ipsum doler sit amit blah blah blah',
           true,
+          true,
         )}
         columnCount={1}
+        layout="mediaMiddle"
+      />
+    </ListWrapper>
+  ))
+  .add('No subtitle', () => (
+    <ListWrapper>
+      <CardList
+        items={generateCardData(
+          1,
+          'Card Item Title',
+          null,
+          'Lorem ipsum doler sit amit blah blah blah',
+          true,
+        )}
+        columnCount={2}
+        layout="mediaMiddle"
       />
     </ListWrapper>
   ))
@@ -553,11 +580,27 @@ storiesOf('CardList')
           3,
           'Card Item Title',
           'Subtitle',
-          'Lorem ipsum doler sit amit blah blah blah',
+          'Body text lorem ipsum doler',
           true,
-          'top',
         )}
         columnCount={2}
+        layout="mediaTop"
+      />
+    </ListWrapper>
+  ))
+  .add('Media Right', () => (
+    <ListWrapper>
+      <CardList
+        items={generateCardData(
+          2,
+          'Card Item Title',
+          'Subtitle',
+          'Lorem ipsum doler sit amit blah blah blah',
+          true,
+          true,
+        )}
+        columnCount={1}
+        layout="mediaRight"
       />
     </ListWrapper>
   ))

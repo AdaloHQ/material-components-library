@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, Image, Platform } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
-import { Card } from '@protonapp/react-native-material-ui'
+import { Card, Button } from '@protonapp/react-native-material-ui'
+
+const SINGLE_COLUMN_LAYOUTS = {
+  mediaRight: true,
+}
 
 export default class ImageList extends Component {
   static defaultProps = {
@@ -9,8 +13,19 @@ export default class ImageList extends Component {
     columnCount: 1,
   }
 
+  getColumnCount() {
+    let { layout, columnCount } = this.props
+
+    if (layout in SINGLE_COLUMN_LAYOUTS) {
+      return 1
+    }
+
+    return columnCount
+  }
+
   render() {
-    let { items, columnCount } = this.props
+    let { items, layout } = this.props
+    let columnCount = this.getColumnCount()
 
     let width = `${100 / columnCount}%`
 
@@ -21,6 +36,7 @@ export default class ImageList extends Component {
             {...itm}
             key={itm.id}
             width={width}
+            layout={layout}
           />
         ))}
       </View>
@@ -47,19 +63,25 @@ class Cell extends Component {
   }
 
   renderMedia() {
-    let { media } = this.props
+    let { media, layout } = this.props
 
     if (!media || !media.enabled) {
       return null
     }
 
-    let { image, position } = media
+    let { image } = media
     let source = image ? { uri: image } : undefined
     let imageStyles = [{ paddingTop: '66.6667%' }]
     let wrapperStyles = [styles.mediaWrapper]
 
-    wrapperStyles.push(position === 'top' ? 
-      styles.topMedia : styles.middleMedia)
+    if (layout === 'mediaTop') {
+      wrapperStyles.push(styles.topMedia)
+    } else if (layout === 'mediaMiddle') {
+      wrapperStyles.push(styles.middleMedia)
+    } else if (layout === 'mediaRight') {
+      wrapperStyles = [styles.rightMedia]
+      imageStyles = [{ height: '100%', borderRadius: 2 }]
+    }
 
     if (!source) {
       imageStyles.push({ backgroundColor: '#ccc' })
@@ -93,31 +115,109 @@ class Cell extends Component {
     return null
   }
 
+  renderMediaMiddle() {
+    return (
+      <View style={styles.cellInner}>
+        {this.renderTitle()}
+        {this.renderMedia()}
+        {this.renderBody()}
+        {this.renderActions()}
+      </View>
+    )
+  }
+
+  renderMediaTop() {
+    return (
+      <View style={styles.cellInner}>
+        {this.renderMedia()}
+        {this.renderTitle()}
+        {this.renderBody()}
+        {this.renderActions()}
+      </View>
+    )
+  }
+
+  renderMediaRight() {
+    return (
+      <View style={[styles.cellInner, styles.cellRightMedia]}>
+        <View style={[styles.contentWrapper]}>
+          {this.renderTitle()}
+          {this.renderBody()}
+          {this.renderActions()}
+        </View>
+        {this.renderMedia()}
+      </View>
+    )
+  }
+
+  renderContent() {
+    let { layout } = this.props
+
+    if (layout === 'mediaMiddle') {
+      return this.renderMediaMiddle()
+    } else if (layout === 'mediaRight') {
+      return this.renderMediaRight()
+    }
+
+    return this.renderMediaTop()
+  }
+
   render() {
-    let { onPress, width, media } = this.props
+    let { onPress, width, media, actions } = this.props
 
     let wrapperStyles = { width }
     let mediaPosition = media && media.position
 
     return (
       <View style={wrapperStyles}>
-        <Card
-          onPress={onPress}
-          style={{ container: styles.cell }}
-        >
-          {mediaPosition === 'top'
-            ? <React.Fragment>
-                {this.renderMedia()}
-                {this.renderTitle()}
-              </React.Fragment>
-            : <React.Fragment>
-                {this.renderTitle()}
-                {this.renderMedia()}
-              </React.Fragment>}
-          {this.renderBody()}
-          {this.renderActions()}
-          <View style={styles.tapTarget} />
+        <Card onPress={onPress} style={{ container: styles.cell }}>
+          <View>
+            {this.renderContent()}
+            <View style={styles.tapTarget} />
+          </View>
+          {(actions && actions.enabled)
+            ? <Actions {...actions} />
+            : null}
         </Card>
+      </View>
+    )
+  }
+}
+
+class Actions extends Component {
+  renderButton(text, action) {
+    let { color } = this.props
+
+    if (!text) { return null }
+
+    return (
+      <Button
+        onPress={action}
+        text={text}
+        style={{
+          container: styles.button,
+          text: { color },
+        }}
+      />
+    )
+  }
+
+  render() {
+    let {
+      firstButtonText,
+      secondButtonText,
+      firstButtonAction,
+      secondButtonAction,
+    } = this.props
+
+    if (!firstButtonText && !secondButtonText) {
+      return null
+    }
+
+    return (
+      <View style={styles.actionsWrapper}>
+        {this.renderButton(firstButtonText, firstButtonAction)}
+        {this.renderButton(secondButtonText, secondButtonAction)}
       </View>
     )
   }
@@ -130,14 +230,17 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   cell: {
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 12,
-    paddingBottom: 8,
     marginLeft: 4,
     marginRight: 4,
     marginTop: 4,
     marginBottom: 4,
+    padding: 0,
+  },
+  cellInner: {
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 12,
+    paddingBottom: 8,
   },
   tapTarget: {
     position: 'absolute',
@@ -175,7 +278,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   middleMedia: {
-    marginTop: 6,
+    marginTop: 10,
     marginBottom: 9,
   },
   topMedia: {
@@ -183,5 +286,27 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     borderTopLeftRadius: 2,
     borderTopRightRadius: 2,
+  },
+  cellRightMedia: {
+    flexDirection: 'row',
+  },
+  rightMedia: {
+    height: 80,
+    width: 80,
+    marginTop: 4,
+    marginBottom: 8,
+    marginLeft: 16,
+  },
+  contentWrapper: {
+    flex: 1,
+  },
+  actionsWrapper: {
+    padding: 8,
+    flexDirection: 'row',
+  },
+  button: {
+    paddingLeft: 8,
+    paddingRight: 8,
+    marginRight: 8,
   }
 })

@@ -2,7 +2,7 @@
   "displayName": "Card List",
   "icon": "./icon.png",
   "defaultWidth": 375,
-  "defaultHeight": 375,
+  "defaultHeight": 528,
   "props": [
     {
       "name": "items",
@@ -26,10 +26,26 @@
       "default": "Subtitle Text"
     },
     {
+      "name": "layout",
+      "type": "text",
+      "default": "mediaTop",
+      "control": {
+        "type": "menu",
+        "options": [
+          { "label": "Image Top", "value": "mediaTop" },
+          { "label": "Image Middle", "value": "mediaMiddle" },
+          { "label": "Image Right", "value": "mediaRight" }
+        ]
+      }
+    },
+    {
       "name": "columnCount",
       "displayName": "Columns",
       "type": "number",
       "default": 2,
+      "enabled": {
+        "layout": ["mediaTop", "mediaMiddle"]
+      },
       "control": {
         "type": "menu",
         "options": [
@@ -73,16 +89,9 @@
       "reference": "items",
       "props": [
         {
-          "name": "position",
-          "type": "text",
-          "default": "top",
-          "control": {
-            "type": "menu",
-            "options": [
-              { "label": "Top", "value": "top" },
-              { "label": "Middle", "value": "middle" }
-            ]
-          }
+          "name": "image",
+          "displayName": "Image",
+          "type": "image"
         },
         {
           "name": "enabled",
