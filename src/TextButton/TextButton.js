@@ -57,10 +57,6 @@ export default class WrappedTextButton extends Component {
 
     let containerStyles = this.getContainerStyles()
 
-    if (Platform.OS === 'web') {
-      containerStyles.WebkitFontSmoothing = 'antialiased'
-    }
-
     let iconStyles = this.getTextStyles()
     let textStyles = { ...this.getTextStyles() }
 

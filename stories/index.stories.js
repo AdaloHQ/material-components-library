@@ -59,7 +59,7 @@ const generateCardData = (
   titleText,
   subtitleText,
   bodyText,
-  media,
+  mediaPosition,
   actions,
 ) => {
 
@@ -70,26 +70,46 @@ const generateCardData = (
       id: i,
       onPress: action(`Pressed item ${i}`),
       image: catPhoto,
-      titleText,
-      subtitleText,
+      title: {
+        text: titleText,
+      },
+      subtitle: {
+        enabled: true,
+        text: subtitleText,
+      },
       body: {
         enabled: !!bodyText,
         text: bodyText,
       },
       media: {
-        enabled: media,
+        enabled: !!mediaPosition,
+        position: mediaPosition,
         image: catPhoto,
       },
-      actions: actions
-        ? {
-            enabled: true,
-            firstButtonText: 'Button 1',
-            firstButtonAction: action(`Item ${i} - Button 1`),
-            secondButtonText: 'Button 2',
-            secondButtonAction: action(`Item ${i} - Button 2`),
-            color: '#6200ee',
-          }
-        : null
+      button1: actions && {
+        enabled: true,
+        text: 'Button 1',
+        onPress: action(`Item ${i} button1`),
+        color: '#f00',
+      },
+      button2: actions && {
+        enabled: true,
+        text: 'Button 2',
+        onPress: action(`Item ${i} button2`),
+        color: '#f00',
+      },
+      icon1: actions && {
+        enabled: true,
+        icon: 'favorite',
+        onPress: action(`Item ${i} button1`),
+        color: '#bbb',
+      },
+      icon2: actions && {
+        enabled: true,
+        icon: 'star',
+        onPress: action(`Item ${i} button2`),
+        color: '#bbb',
+      },
     })
   }
 
@@ -553,7 +573,6 @@ storiesOf('CardList')
       <CardList
         items={generateCardData(7, 'Card Item Title', 'Subtitle')}
         columnCount={2}
-        layout="mediaMiddle"
       />
     </ListWrapper>
   ))
@@ -565,11 +584,10 @@ storiesOf('CardList')
           'Card Item Title',
           'Subtitle',
           'Lorem ipsum doler sit amit blah blah blah',
-          true,
+          'middle',
           true,
         )}
         columnCount={1}
-        layout="mediaMiddle"
       />
     </ListWrapper>
   ))
@@ -581,10 +599,9 @@ storiesOf('CardList')
           'Card Item Title',
           null,
           'Lorem ipsum doler sit amit blah blah blah',
-          true,
+          'middle',
         )}
         columnCount={2}
-        layout="mediaMiddle"
       />
     </ListWrapper>
   ))
@@ -596,10 +613,9 @@ storiesOf('CardList')
           'Card Item Title',
           'Subtitle',
           'Body text lorem ipsum doler',
-          true,
+          'top',
         )}
         columnCount={2}
-        layout="mediaTop"
       />
     </ListWrapper>
   ))
@@ -611,11 +627,10 @@ storiesOf('CardList')
           'Card Item Title',
           'Subtitle',
           'Lorem ipsum doler sit amit blah blah blah',
-          true,
+          'right',
           true,
         )}
         columnCount={1}
-        layout="mediaRight"
       />
     </ListWrapper>
   ))

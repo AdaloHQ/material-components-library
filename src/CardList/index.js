@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, Image, Platform } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
-import { Card, Button } from '@protonapp/react-native-material-ui'
+import { Card, Button, IconToggle } from '@protonapp/react-native-material-ui'
 
 const SINGLE_COLUMN_LAYOUTS = {
   mediaRight: true,
@@ -45,8 +45,20 @@ export default class ImageList extends Component {
 }
 
 class Cell extends Component {
+  hasActions() {
+    let { button1, button2, icon1, icon2 } = this.props
+
+    return (button1 && button1.enabled && button1.text) ||
+      (button2 && button2.enabled && button2.text) ||
+      (icon1 && icon1.enabled && icon1.icon) ||
+      (icon2 && icon2.enabled && icon2.icon)
+  }
+
   renderTitle() {
-    let { titleText, subtitleText } = this.props
+    let { title, subtitle } = this.props
+
+    let titleText = title && title.text
+    let subtitleText = subtitle && subtitle.enabled && subtitle.text
 
     return (
       <View style={styles.titleWrapper}>
@@ -63,7 +75,7 @@ class Cell extends Component {
   }
 
   renderMedia() {
-    let { media, layout } = this.props
+    let { media } = this.props
 
     if (!media || !media.enabled) {
       return null
@@ -74,13 +86,13 @@ class Cell extends Component {
     let imageStyles = [{ paddingTop: '66.6667%' }]
     let wrapperStyles = [styles.mediaWrapper]
 
-    if (layout === 'mediaTop') {
+    if (media.position === 'top') {
       wrapperStyles.push(styles.topMedia)
-    } else if (layout === 'mediaMiddle') {
-      wrapperStyles.push(styles.middleMedia)
-    } else if (layout === 'mediaRight') {
+    } else if (media.position === 'right') {
       wrapperStyles = [styles.rightMedia]
       imageStyles = [{ height: '100%', borderRadius: 2 }]
+    } else {
+      wrapperStyles.push(styles.middleMedia)
     }
 
     if (!source) {
@@ -111,17 +123,12 @@ class Cell extends Component {
     )
   }
 
-  renderActions() {
-    return null
-  }
-
   renderMediaMiddle() {
     return (
       <View style={styles.cellInner}>
         {this.renderTitle()}
         {this.renderMedia()}
         {this.renderBody()}
-        {this.renderActions()}
       </View>
     )
   }
@@ -132,7 +139,6 @@ class Cell extends Component {
         {this.renderMedia()}
         {this.renderTitle()}
         {this.renderBody()}
-        {this.renderActions()}
       </View>
     )
   }
@@ -143,7 +149,6 @@ class Cell extends Component {
         <View style={[styles.contentWrapper]}>
           {this.renderTitle()}
           {this.renderBody()}
-          {this.renderActions()}
         </View>
         {this.renderMedia()}
       </View>
@@ -151,11 +156,11 @@ class Cell extends Component {
   }
 
   renderContent() {
-    let { layout } = this.props
+    let { media } = this.props
 
-    if (layout === 'mediaMiddle') {
+    if (media && media.position === 'middle') {
       return this.renderMediaMiddle()
-    } else if (layout === 'mediaRight') {
+    } else if (media && media.position === 'right') {
       return this.renderMediaRight()
     }
 
@@ -163,7 +168,7 @@ class Cell extends Component {
   }
 
   render() {
-    let { onPress, width, media, actions } = this.props
+    let { onPress, width, media, button1, button2, icon1, icon2 } = this.props
 
     let wrapperStyles = { width }
     let mediaPosition = media && media.position
@@ -175,8 +180,13 @@ class Cell extends Component {
             {this.renderContent()}
             <View style={styles.tapTarget} />
           </View>
-          {(actions && actions.enabled)
-            ? <Actions {...actions} />
+          {(this.hasActions())
+            ? <Actions
+                button1={button1}
+                button2={button2}
+                icon1={icon1}
+                icon2={icon2}
+              />
             : null}
         </Card>
       </View>
@@ -185,14 +195,14 @@ class Cell extends Component {
 }
 
 class Actions extends Component {
-  renderButton(text, action) {
-    let { color } = this.props
+  renderButton(opts) {
+    if (!opts || !opts.text || !opts.enabled) { return null }
 
-    if (!text) { return null }
+    let { text, onPress, color, enabled} = opts
 
     return (
       <Button
-        onPress={action}
+        onPress={onPress}
         text={text}
         style={{
           container: styles.button,
@@ -202,22 +212,38 @@ class Actions extends Component {
     )
   }
 
-  render() {
-    let {
-      firstButtonText,
-      secondButtonText,
-      firstButtonAction,
-      secondButtonAction,
-    } = this.props
+  renderIcon(opts) {
+    if (!opts || !opts.icon || !opts.enabled) { return null }
 
-    if (!firstButtonText && !secondButtonText) {
-      return null
-    }
+    let { icon, onPress, color, enabled } = opts
+
+    return (
+      <View style={styles.iconButtonWrapper}>
+        <IconToggle
+          name={icon}
+          color={color}
+          underlayColor={color}
+          maxOpacity={0.3}
+          size={24}
+          onPress={onPress}
+        />
+      </View>
+    )
+  }
+
+  render() {
+    let { button1, button2, icon1, icon2 } = this.props
 
     return (
       <View style={styles.actionsWrapper}>
-        {this.renderButton(firstButtonText, firstButtonAction)}
-        {this.renderButton(secondButtonText, secondButtonAction)}
+        <View style={styles.actionsWrapperSub}>
+          {this.renderButton(button1)}
+          {this.renderButton(button2)}
+        </View>
+        <View style={styles.actionsWrapperSub}>
+          {this.renderIcon(icon1)}
+          {this.renderIcon(icon2)}
+        </View>
       </View>
     )
   }
@@ -302,8 +328,13 @@ const styles = StyleSheet.create({
   },
   actionsWrapper: {
     paddingLeft: 8,
-    paddingRight: 8,
-    paddingBottom: 8,
+    paddingRight: 2,
+    height: 52,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  actionsWrapperSub: {
     flexDirection: 'row',
   },
   button: {

@@ -20,10 +20,6 @@ export default class WrappedActionButton extends Component {
       right: 'auto',
     }
 
-    if (Platform.OS === 'web') {
-      containerStyles.WebkitFontSmoothing = 'antialiased'
-    }
-
     let iconStyles = { color }
 
     return (

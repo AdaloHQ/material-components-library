@@ -10,42 +10,10 @@
       "type": "list"
     },
     {
-      "name": "titleText",
-      "displayName": "Title",
-      "type": "text",
-      "role": "listItem",
-      "reference": "items",
-      "default": "Title Text"
-    },
-    {
-      "name": "subtitleText",
-      "displayName": "Subtitle",
-      "type": "text",
-      "role": "listItem",
-      "reference": "items",
-      "default": "Subtitle Text"
-    },
-    {
-      "name": "layout",
-      "type": "text",
-      "default": "mediaTop",
-      "control": {
-        "type": "menu",
-        "options": [
-          { "label": "Image Top", "value": "mediaTop" },
-          { "label": "Image Middle", "value": "mediaMiddle" },
-          { "label": "Image Right", "value": "mediaRight" }
-        ]
-      }
-    },
-    {
       "name": "columnCount",
       "displayName": "Columns",
       "type": "number",
       "default": 2,
-      "enabled": {
-        "layout": ["mediaTop", "mediaMiddle"]
-      },
       "control": {
         "type": "menu",
         "options": [
@@ -63,6 +31,75 @@
     }
   ],
   "childComponents": [
+    {
+      "name": "title",
+      "displayName": "Title",
+      "role": "listItem",
+      "reference": "items",
+      "props": [
+        {
+          "name": "text",
+          "displayName": "Text",
+          "type": "text",
+          "default": "Title"
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": "true"
+        }
+      ]
+    },
+    {
+      "name": "subtitle",
+      "displayName": "Subtitle",
+      "role": "listItem",
+      "reference": "items",
+      "props": [
+        {
+          "name": "text",
+          "displayName": "Text",
+          "type": "text",
+          "default": "Subtitle"
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": "true"
+        }
+      ]
+    },
+    {
+      "name": "media",
+      "displayName": "Media",
+      "role": "listItem",
+      "reference": "items",
+      "props": [
+        {
+          "name": "position",
+          "type": "text",
+          "default": "top",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Image Top", "value": "top" },
+              { "label": "Image Middle", "value": "middle" },
+              { "label": "Image Right", "value": "right" }
+            ]
+          }
+        },
+        {
+          "name": "image",
+          "displayName": "Image",
+          "type": "image"
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": "true"
+        }
+      ]
+    },
     {
       "name": "body",
       "displayName": "Body",
@@ -83,26 +120,8 @@
       ]
     },
     {
-      "name": "media",
-      "displayName": "Media",
-      "role": "listItem",
-      "reference": "items",
-      "props": [
-        {
-          "name": "image",
-          "displayName": "Image",
-          "type": "image"
-        },
-        {
-          "name": "enabled",
-          "type": "boolean",
-          "default": "true"
-        }
-      ]
-    },
-    {
-      "name": "actions",
-      "displayName": "Buttons",
+      "name": "button1",
+      "displayName": "First Button",
       "role": "listItem",
       "reference": "items",
       "props": [
@@ -112,32 +131,109 @@
           "default": false
         },
         {
-          "name": "firstButtonText",
-          "displayName": "First Button Text",
+          "name": "text",
+          "displayName": "Text",
           "type": "text",
           "default": "Button 1"
         },
         {
-          "name": "firstButtonAction",
-          "displayName": "First Button Action",
-          "type": "action"
-        },
-        {
-          "name": "secondButtonText",
-          "displayName": "Second Button Text",
-          "type": "text",
-          "default": "Button 2"
-        },
-        {
-          "name": "secondButtonAction",
-          "displayName": "Second Button Action",
+          "name": "onPress",
+          "displayName": "On Press",
           "type": "action"
         },
         {
           "name": "color",
-          "displayName": "Button Color",
+          "displayName": "Text Color",
           "type": "color",
           "default": "#6200ee"
+        }
+      ]
+    },
+    {
+      "name": "button2",
+      "displayName": "Second Button",
+      "role": "listItem",
+      "reference": "items",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "text",
+          "displayName": "Text",
+          "type": "text",
+          "default": "Button 2"
+        },
+        {
+          "name": "onPress",
+          "displayName": "On Press",
+          "type": "action"
+        },
+        {
+          "name": "color",
+          "displayName": "Text Color",
+          "type": "color",
+          "default": "#6200ee"
+        }
+      ]
+    },
+    {
+      "name": "icon1",
+      "displayName": "First Icon",
+      "role": "listItem",
+      "reference": "items",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "icon",
+          "type": "icon",
+          "default": "favorite"
+        },
+        {
+          "name": "onPress",
+          "displayName": "On Press",
+          "type": "action"
+        },
+        {
+          "name": "color",
+          "displayName": "Text Color",
+          "type": "color",
+          "default": "#ccc"
+        }
+      ]
+    },
+    {
+      "name": "icon2",
+      "displayName": "Second Icon",
+      "role": "listItem",
+      "reference": "items",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "icon",
+          "type": "icon",
+          "default": "share"
+        },
+        {
+          "name": "onPress",
+          "displayName": "On Press",
+          "type": "action"
+        },
+        {
+          "name": "color",
+          "displayName": "Text Color",
+          "type": "color",
+          "default": "#ccc"
         }
       ]
     }

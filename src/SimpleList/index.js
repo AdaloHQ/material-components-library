@@ -122,10 +122,6 @@ class Row extends Component {
 
     let iconStyles = {}
 
-    if (Platform.OS === 'web') {
-      iconStyles.WebkitFontSmoothing = 'antialiased'
-    }
-
     if (rightSection.type === 'icon' && rightSection.icon) {
       return (
         <IconToggle

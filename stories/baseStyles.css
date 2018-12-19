@@ -4,4 +4,5 @@ html, body, #root {
 
 body {
   font-family: BlinkMacSystemFont, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }

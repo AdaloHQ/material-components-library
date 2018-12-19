@@ -81,10 +81,6 @@ export default class AppBar extends Component {
       }
     }
 
-    if (Platform.OS === 'web') {
-      containerStyles.WebkitFontSmoothing = 'antialiased'
-    }
-
     let titleStyles = { color }
 
     if (Platform.OS === 'ios') {
