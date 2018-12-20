@@ -32,6 +32,10 @@
         "manifest": "./src/TextButton/textButtonManifest.json"
       },
       {
+        "name": "IconToggle",
+        "manifest": "./src/IconToggle/manifest.json"
+      },
+      {
         "name": "SimpleList",
         "manifest": "./src/SimpleList/manifest.json"
       },

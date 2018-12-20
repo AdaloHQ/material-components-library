@@ -12,7 +12,9 @@ import SimpleList from '../src/SimpleList'
 import TabNavigator from '../src/TabNavigator'
 import ImageList from '../src/ImageList'
 import CardList from '../src/CardList'
+import IconToggle from '../src/IconToggle'
 
+import { FormWrapper } from './helpers'
 import catPhoto from './cat.jpg'
 
 import './baseStyles.css'
@@ -633,4 +635,26 @@ storiesOf('CardList')
         columnCount={1}
       />
     </ListWrapper>
+  ))
+
+storiesOf('IconToggle')
+  .add('basic checkbox', () => (
+    <FormWrapper initialValue={false}>
+      <IconToggle
+        inactiveIcon="check-box-outline-blank"
+        activeIcon="check-box"
+        inactiveColor="#bbb"
+        activeColor="#f00"
+      />
+    </FormWrapper>
+  ))
+  .add('star', () => (
+    <FormWrapper initialValue={false}>
+      <IconToggle
+        inactiveIcon="star-border"
+        activeIcon="star"
+        inactiveColor="#bbb"
+        activeColor="#fc0"
+      />
+    </FormWrapper>
   ))

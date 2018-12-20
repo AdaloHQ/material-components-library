@@ -5,4 +5,5 @@ export { default as SimpleList } from './src/SimpleList'
 export { default as ImageList } from './src/ImageList'
 export { default as CardList } from './src/CardList'
 export { default as TabNavigator } from './src/TabNavigator'
+export { default as IconToggle } from './src/IconToggle'
 

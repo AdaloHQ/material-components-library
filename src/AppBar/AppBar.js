@@ -108,8 +108,9 @@ export default class AppBar extends Component {
         marginLeft: 0,
         left: padding,
         right: padding,
-        textAlign: 'center',
       }
+
+      titleStyles.textAlign = 'center'
     }
 
     return (
