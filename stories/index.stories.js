@@ -19,18 +19,6 @@ import catPhoto from './cat.jpg'
 
 import './baseStyles.css'
 
-const wrapperStyles = {
-  padding: 30,
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: '100%',
-}
-
-const innerWrapperStyles = {
-  width: 400,
-  background: '#ddd',
-}
-
 const generateImageData = (count, title, iconPosition) => {
   let data = []
 
@@ -152,9 +140,26 @@ const generateListData = (line1, line2, leftType, rightType) => {
   return data
 }
 
-const ListWrapper = ({ children }) => (
+const wrapperStyles = {
+  padding: 30,
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '100%',
+}
+
+const innerWrapperStyles = {
+  width: 400,
+  background: '#fff',
+}
+
+const cardInnerWrapperStyles = {
+  width: 400,
+  background: '#ddd',
+}
+
+const ListWrapper = ({ children, card }) => (
   <View style={[wrapperStyles, { background: '#eee' }]}>
-    <View style={innerWrapperStyles}>
+    <View style={card ? cardInnerWrapperStyles : innerWrapperStyles}>
       {children}
     </View>
   </View>
@@ -571,7 +576,7 @@ storiesOf('ImageList')
 
 storiesOf('CardList')
   .add('Basic', () => (
-    <ListWrapper>
+    <ListWrapper card>
       <CardList
         items={generateCardData(7, 'Card Item Title', 'Subtitle')}
         columnCount={2}
@@ -579,7 +584,7 @@ storiesOf('CardList')
     </ListWrapper>
   ))
   .add('Single Column', () => (
-    <ListWrapper>
+    <ListWrapper card>
       <CardList
         items={generateCardData(
           1,
@@ -594,7 +599,7 @@ storiesOf('CardList')
     </ListWrapper>
   ))
   .add('No subtitle', () => (
-    <ListWrapper>
+    <ListWrapper card>
       <CardList
         items={generateCardData(
           1,
@@ -608,7 +613,7 @@ storiesOf('CardList')
     </ListWrapper>
   ))
   .add('Top Image', () => (
-    <ListWrapper>
+    <ListWrapper card>
       <CardList
         items={generateCardData(
           3,
@@ -622,7 +627,7 @@ storiesOf('CardList')
     </ListWrapper>
   ))
   .add('Media Right', () => (
-    <ListWrapper>
+    <ListWrapper card>
       <CardList
         items={generateCardData(
           2,

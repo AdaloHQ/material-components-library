@@ -120,7 +120,7 @@ class Row extends Component {
 
     if (!rightSection || !rightSection.enabled) { return null }
 
-    let iconStyles = {}
+    let iconStyles = { marginRight: -12 }
 
     if (rightSection.type === 'icon' && rightSection.icon) {
       return (
