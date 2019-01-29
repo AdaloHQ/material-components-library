@@ -1,0 +1,24 @@
+{
+  "displayName": "Icon",
+  "icon": "icon.png",
+  "defaultWidth": 24,
+  "defaultHeight": 24,
+  "component": "./index.js",
+  "resizeX": false,
+  "resizeY": false,
+  "props": [
+    {
+      "name": "iconName",
+      "displayName": "Icon",
+      "type": "icon",
+      "default": "directions-bike"
+    },
+    {
+      "name": "iconColor",
+      "displayName": "Color",
+      "type": "color",
+      "default": "#666"
+    }
+  ]
+}
+

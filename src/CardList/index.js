@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
   body: {
     fontSize: 16,
     fontWeight: '400',
-    letterSpacing: '0.5',
+    letterSpacing: 0.5,
     color: 'rgba(0, 0, 0, 0.6)',
     marginTop: 6,
     lineHeight: 21,

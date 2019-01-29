@@ -13,6 +13,7 @@ import TabNavigator from '../src/TabNavigator'
 import ImageList from '../src/ImageList'
 import CardList from '../src/CardList'
 import IconToggle from '../src/IconToggle'
+import Icon from '../src/Icon'
 
 import { FormWrapper } from './helpers'
 import catPhoto from './cat.jpg'
@@ -149,16 +150,16 @@ const wrapperStyles = {
 
 const innerWrapperStyles = {
   width: 400,
-  background: '#fff',
+  backgroundColor: '#fff',
 }
 
 const cardInnerWrapperStyles = {
   width: 400,
-  background: '#ddd',
+  backgroundColor: '#ddd',
 }
 
 const ListWrapper = ({ children, card }) => (
-  <View style={[wrapperStyles, { background: '#eee' }]}>
+  <View style={[wrapperStyles, { backgroundColor: '#eee' }]}>
     <View style={card ? cardInnerWrapperStyles : innerWrapperStyles}>
       {children}
     </View>
@@ -662,4 +663,12 @@ storiesOf('IconToggle')
         activeColor="#fc0"
       />
     </FormWrapper>
+  ))
+
+storiesOf('Icon')
+  .add('basic icon', () => (
+      <Icon
+        iconName="filter-drama"
+        iconColor="#f00"
+      />
   ))
