@@ -175,7 +175,10 @@ class Cell extends Component {
 
     return (
       <View style={wrapperStyles}>
-        <Card onPress={onPress} style={{ container: styles.cell }}>
+        <WrappedCard
+          onPress={onPress}
+          style={{ container: styles.cell }}
+        >
           <View>
             {this.renderContent()}
             <View style={styles.tapTarget} />
@@ -188,8 +191,30 @@ class Cell extends Component {
                 icon2={icon2}
               />
             : null}
-        </Card>
+        </WrappedCard>
       </View>
+    )
+  }
+}
+
+class WrappedCard extends Component {
+  render() {
+    let { children, onPress, style } = this.props
+
+    if (Platform.OS === 'ios') {
+      return (
+        <View style={styles.cellWrapper}>
+          <Card {...this.props}>
+            {children}
+          </Card>
+        </View>
+      )
+    }
+
+    return (
+      <Card {...this.props}>
+        {children}
+      </Card>
     )
   }
 }
@@ -261,6 +286,13 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 4,
     padding: 0,
+  },
+  cellWrapper: {
+    shadowColor: '#000',
+    shadowOpacity: 0.25,
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 2,
+    borderRadius: 2,
   },
   cellInner: {
     paddingLeft: 16,

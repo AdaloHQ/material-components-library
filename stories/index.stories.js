@@ -599,6 +599,17 @@ storiesOf('CardList')
       />
     </ListWrapper>
   ))
+  .add('Just title', () => (
+    <ListWrapper card>
+      <CardList
+        items={generateCardData(
+          1,
+          'Card Item Title',
+        )}
+        columnCount={2}
+      />
+    </ListWrapper>
+  ))
   .add('No subtitle', () => (
     <ListWrapper card>
       <CardList
