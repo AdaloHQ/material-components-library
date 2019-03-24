@@ -3,12 +3,6 @@ import { View, StyleSheet } from 'react-native'
 import { Icon, IconToggle } from '@protonapp/react-native-material-ui'
 
 export default class WrappedIconToggle extends Component {
-  handlePress = () => {
-    let { value, onChange } = this.props
-
-    onChange(!value)
-  }
-
   render() {
     let { iconName, iconColor, onPress } = this.props
 
@@ -32,7 +26,7 @@ export default class WrappedIconToggle extends Component {
           underlayColor={iconColor}
           maxOpacity={0.3}
           size={24}
-          onPress={this.handlePress}
+          onPress={onPress}
         />
       </View>
     )
