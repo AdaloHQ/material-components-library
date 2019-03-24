@@ -14,15 +14,10 @@
       "default": "directions-bike"
     },
     {
-      "name": "IconColor",
+      "name": "iconColor",
       "displayName": "Color",
       "type": "color",
-      "default": "#666666"
-    },
-    {
-      "name": "onPress",
-      "type": "action",
-      "displayName": "On Press"
+      "default": "#666"
     }
   ]
 }

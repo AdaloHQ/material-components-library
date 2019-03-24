@@ -678,8 +678,15 @@ storiesOf('IconToggle')
 
 storiesOf('Icon')
   .add('basic icon', () => (
-      <Icon
-        iconName="filter-drama"
-        iconColor="#f00"
-      />
+    <Icon
+      iconName="filter-drama"
+      iconColor="#f00"
+    />
+  ))
+  .add('with onPress', () => (
+    <Icon
+      iconName="filter-drama"
+      iconColor="#32f"
+      onPress={action('Clicked Icon')}
+    />
   ))

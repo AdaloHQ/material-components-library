@@ -3,6 +3,7 @@
   "icon": "./icon.png",
   "defaultWidth": 375,
   "defaultHeight": 76,
+  "componentType": "appBar",
   "snappingRules": {
     "snap": true,
     "snapType": "screenEdge",
