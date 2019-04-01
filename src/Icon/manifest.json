@@ -19,7 +19,7 @@
       "displayName": "On Press"
     },
     {
-      "name": "IconColor",
+      "name": "iconColor",
       "displayName": "Color",
       "type": "color",
       "default": "#666666"
