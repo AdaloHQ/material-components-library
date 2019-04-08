@@ -16,9 +16,11 @@ import IconToggle from '../src/IconToggle'
 import Icon from '../src/Icon'
 
 import { FormWrapper } from './helpers'
-import catPhoto from './cat.jpg'
+import catPhotoURI from './cat.jpg'
 
 import './baseStyles.css'
+
+const catPhoto = { uri: catPhotoURI }
 
 const generateImageData = (count, title, iconPosition) => {
   let data = []

@@ -82,7 +82,7 @@ class Cell extends Component {
     }
 
     let { image } = media
-    let source = image ? { uri: image } : undefined
+    let source = image
     let imageStyles = [{ paddingTop: '66.6667%' }]
     let wrapperStyles = [styles.mediaWrapper]
 

@@ -84,7 +84,7 @@ class Cell extends Component {
 
   renderContent() {
     let { title, image } = this.props
-    let source = image ? { uri: image } : undefined
+    let source = image
 
     let imageStyles = [styles.image]
 

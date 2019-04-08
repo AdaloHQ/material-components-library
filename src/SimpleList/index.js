@@ -78,7 +78,7 @@ class Row extends Component {
       return null
     }
 
-    let source = leftSection.image ? { uri: leftSection.image } : undefined
+    let source = leftSection.image
 
     if (leftSection.type === 'icon') {
       return (
