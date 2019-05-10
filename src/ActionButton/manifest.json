@@ -22,13 +22,13 @@
       "name": "backgroundColor",
       "displayName": "Fill Color",
       "type": "color",
-      "default": "#6200ee"
+      "default": "@secondary"
     },
     {
       "name": "color",
       "displayName": "Icon Color",
       "type": "color",
-      "default": "#fff"
+      "default": "@secondary-contrast"
     },
     {
       "name": "positioning",

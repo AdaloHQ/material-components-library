@@ -18,7 +18,7 @@
       "name": "backgroundColor",
       "displayName": "Fill Color",
       "type": "color",
-      "default": "#6200ee"
+      "default": "@primary"
     },
     {
       "name": "color",
