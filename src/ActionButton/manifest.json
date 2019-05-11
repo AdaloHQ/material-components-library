@@ -28,7 +28,7 @@
       "name": "color",
       "displayName": "Icon Color",
       "type": "color",
-      "default": "@secondary-contrast"
+      "default": "@contrast:backgroundColor"
     },
     {
       "name": "positioning",

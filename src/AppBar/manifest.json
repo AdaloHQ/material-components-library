@@ -24,7 +24,7 @@
       "name": "color",
       "displayName": "Text & Icons",
       "type": "color",
-      "default": "#fff"
+      "default": "@contrast:backgroundColor"
     },
     {
       "name": "positioning",

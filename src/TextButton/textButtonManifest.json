@@ -46,7 +46,7 @@
       "name": "contrastColor",
       "displayName": "Text Color",
       "type": "color",
-      "default": "@primary-contrast",
+      "default": "@contrast:primaryColor",
       "enabled": { "type": "contained" }
     },
     {
