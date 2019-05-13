@@ -23,7 +23,7 @@
       "name": "activeColor",
       "displayName": "Active Color",
       "type": "color",
-      "default": "#6200ee"
+      "default": "@primary"
     },
     {
       "name": "inactiveColor",

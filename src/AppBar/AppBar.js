@@ -10,7 +10,7 @@ export default class AppBar extends Component {
     leftIcon: {},
     rightIcon1: {},
     rightIcon2: {},
-    backgroundColor: '#6200ee',
+    backgroundColor: 'blue',
     color: '#fff',
   }
 
