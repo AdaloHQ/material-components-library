@@ -37,16 +37,16 @@
       "displayName": "On Press"
     },
     {
-      "name": "primaryColor",
-      "displayName": "Primary Color",
+      "name": "secondaryColor",
+      "displayName": "Secondary Color",
       "type": "color",
-      "default": "@primary"
+      "default": "@secondary"
     },
     {
       "name": "contrastColor",
       "displayName": "Text Color",
       "type": "color",
-      "default": "@contrast:primaryColor",
+      "default": "@contrast:secondaryColor",
       "enabled": { "type": "contained" }
     },
     {

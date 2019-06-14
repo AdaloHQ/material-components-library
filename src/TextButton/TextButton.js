@@ -7,21 +7,21 @@ import '../Shared/icons'
 
 export default class WrappedTextButton extends Component {
   static defaultProps = {
-    primaryColor: '#6200ee',
+    secondaryColor: '#6200ee',
     contrastColor: '#fff',
     text: 'Button',
     type: 'text',
   }
 
   getContainerStyles() {
-    let { type, primaryColor } = this.props
+    let { type, secondaryColor } = this.props
 
     if (type === 'contained') {
-      return { backgroundColor: primaryColor }
+      return { backgroundColor: secondaryColor }
     }
 
     if (type === 'outlined') {
-      let baseColor = color(primaryColor)
+      let baseColor = color(secondaryColor)
       let saturation = baseColor.hsl().color[1]
       let alpha = saturation <= 10 ? 0.23 : 0.5
       let borderColor = baseColor.fade(1 - alpha).toString()
@@ -33,13 +33,13 @@ export default class WrappedTextButton extends Component {
   }
 
   getTextStyles() {
-    let { primaryColor, contrastColor, type } = this.props
+    let { secondaryColor, contrastColor, type } = this.props
 
     if (type === 'contained') {
       return { color: contrastColor }
     }
 
-    return { color: primaryColor }
+    return { color: secondaryColor }
   }
 
   getAdditionalProps() {
