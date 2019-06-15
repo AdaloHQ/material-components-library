@@ -134,21 +134,25 @@ export default class AppBar extends Component {
   }
 
   render() {
+    let { v2 } = this.props
+    let wrapperStyles = v2 ? [styles.wrapper] : []
+
     if (Platform.OS === 'ios') {
-      return (
-        <View
-          style={styles.iosBar}
-        >
-          {this.renderSub()}
-        </View>
-      )
+      wrapperStyles.push(styles.iosBar)
     }
 
-    return this.renderSub()
+    return (
+      <View style={wrapperStyles}>
+        {this.renderSub()}
+      </View>
+    )
   }
 }
 
 const styles = StyleSheet.create({
+  wrapper: {
+    marginTop: -20,
+  },
   iosBar: {
     shadowColor: '#000000',
     shadowOffset: {

@@ -2,7 +2,7 @@
   "displayName": "App Bar",
   "icon": "./icon.png",
   "defaultWidth": 375,
-  "defaultHeight": 76,
+  "defaultHeight": 56,
   "componentType": "appBar",
   "snappingRules": {
     "snap": true,
@@ -10,7 +10,7 @@
     "lock": {
       "left": 0,
       "right": 0,
-      "top": 0
+      "top": 20
     }
   },
   "props": [
@@ -31,6 +31,12 @@
       "editable": false,
       "type": "text",
       "default": "fixedTop"
+    },
+    {
+      "name": "v2",
+      "editable": false,
+      "type": "boolean",
+      "default": true
     }
   ],
   "childComponents": [
