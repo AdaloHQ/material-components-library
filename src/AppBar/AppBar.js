@@ -29,7 +29,7 @@ export default class AppBar extends Component {
   getTitleText() {
     let { title: { text } } = this.props
 
-    return text
+    return text.replace(/[\r\n]/g, ' ').trim()
   }
 
   getCentered() {
