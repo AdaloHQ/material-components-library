@@ -1,11 +1,11 @@
 {
   "name": "@protonapp/material-components",
-  "version": "0.0.23",
+  "version": "0.0.25",
   "description": "Material UI Components for Proton",
   "main": "index.js",
   "scripts": {
     "build": "proton build",
-    "publish": "proton publish",
+    "publish": "S3_BUCKET=proton-libraries proton publish",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "copy": "rm -rf ../../previewer/node_modules/@protonapp/material-components/src/ && cp -r src ../../previewer/node_modules/@protonapp/material-components/src && cp -r index.js ../../previewer/node_modules/@protonapp/material-components/index.js"
@@ -62,7 +62,7 @@
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
-    "@protonapp/proton-cli": "^0.0.16",
+    "@protonapp/proton-cli": "^0.0.22",
     "@storybook/addon-actions": "^4.0.2",
     "@storybook/addon-links": "^4.0.2",
     "@storybook/addons": "^4.0.2",
