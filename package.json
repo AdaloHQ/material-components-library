@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "proton build",
-    "publish": "proton publish",
+    "publish": "S3_BUCKET=proton-libraries proton publish",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "copy": "rm -rf ../../previewer/node_modules/@protonapp/material-components/src/ && cp -r src ../../previewer/node_modules/@protonapp/material-components/src && cp -r index.js ../../previewer/node_modules/@protonapp/material-components/index.js"
