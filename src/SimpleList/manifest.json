@@ -1,7 +1,7 @@
 {
   "displayName": "Simple List",
   "icon": "./icon.png",
-  "defaultWidth": 375,
+  "defaultWidth": 600,
   "defaultHeight": 232,
   "props": [
     {
