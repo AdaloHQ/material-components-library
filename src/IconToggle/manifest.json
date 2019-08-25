@@ -1,23 +1,23 @@
 {
   "displayName": "Toggle",
   "icon": "icon.png",
-  "defaultWidth": 48,
-  "defaultHeight": 48,
+  "defaultWidth": 24,
+  "defaultHeight": 24,
   "component": "./index.js",
   "resizeX": false,
   "resizeY": false,
   "props": [
     {
+      "name": "input",
+      "displayName": "What does this toggle?",
+      "type": "boolean",
+      "role": "autosaveInput"
+    },
+    {
       "name": "activeIcon",
       "displayName": "Active Icon",
       "type": "icon",
       "default": "check-box"
-    },
-    {
-      "name": "inactiveIcon",
-      "displayName": "Inactive Icon",
-      "type": "icon",
-      "default": "check-box-outline-blank"
     },
     {
       "name": "activeColor",
@@ -26,24 +26,16 @@
       "default": "@primary"
     },
     {
+      "name": "inactiveIcon",
+      "displayName": "Inactive Icon",
+      "type": "icon",
+      "default": "check-box-outline-blank"
+    },
+    {
       "name": "inactiveColor",
       "displayName": "Inactive Color",
       "type": "color",
       "default": "#bbb"
-    },
-    {
-      "name": "value",
-      "displayName": "Value",
-      "type": "boolean",
-      "default": true,
-      "role": "formValue"
-    },
-    {
-      "name": "onChange",
-      "type": "action",
-      "displayName": "On Change",
-      "role": "formChangeHandler",
-      "reference": "value"
     }
   ]
 }

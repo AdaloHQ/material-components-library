@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
-import { StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { IconToggle } from '@protonapp/react-native-material-ui'
 
 export default class WrappedIconToggle extends Component {
   handlePress = () => {
-    let { value, onChange } = this.props
+    let { input: { value, onChange } } = this.props
 
     onChange(!value)
   }
 
   render() {
     let {
-      value,
+      input: { value },
       inactiveIcon,
       activeIcon,
       inactiveColor,
@@ -22,15 +22,25 @@ export default class WrappedIconToggle extends Component {
     let iconColor = value ? activeColor : inactiveColor
 
     return (
-      <IconToggle
-        name={iconName}
-        color={iconColor}
-        underlayColor={activeColor}
-        maxOpacity={0.3}
-        size={24}
-        onPress={this.handlePress}
-      />
+      <View style={styles.buttonWrapper}>
+        <IconToggle
+          name={iconName}
+          color={iconColor}
+          underlayColor={activeColor}
+          maxOpacity={0.3}
+          size={24}
+          onPress={this.handlePress}
+        />
+      </View>
     )
   }
 }
 
+const styles = StyleSheet.create({
+  buttonWrapper: {
+    margin: -12,
+    width: 48,
+    height: 48,
+    overflow: 'hidden',
+  }
+})
