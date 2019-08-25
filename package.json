@@ -8,7 +8,8 @@
     "publish": "S3_BUCKET=proton-libraries proton publish",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "copy": "rm -rf ../../previewer/node_modules/@protonapp/material-components/src/ && cp -r src ../../previewer/node_modules/@protonapp/material-components/src && cp -r index.js ../../previewer/node_modules/@protonapp/material-components/index.js"
+    "copy": "rm -rf ../../previewer/node_modules/@protonapp/material-components/src/ && cp -r src ../../previewer/node_modules/@protonapp/material-components/src && cp -r index.js ../../previewer/node_modules/@protonapp/material-components/index.js",
+    "dev": "FOUNDRY_DEV_SERVER=http://localhost:3035 proton dev"
   },
   "author": "Jeremy Blalock",
   "license": "ISC",
@@ -81,6 +82,7 @@
   "dependencies": {
     "@protonapp/react-native-material-ui": "^2.0.2",
     "color": "^3.1.0",
+    "react-native-masonry-layout": "^1.0.6",
     "react-native-vector-icons": "^6.0.2"
   }
 }

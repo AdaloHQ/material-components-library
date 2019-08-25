@@ -59,6 +59,14 @@ const generateCardData = (
   let data = []
 
   for (let i = 0; i < count; i += 1) {
+    let body = bodyText && bodyText.substring(
+      0,
+      Math.round(
+        Math.random() * bodyText.length * 0.6 +
+        bodyText.length * 0.4
+      )
+    )
+
     data.push({
       id: i,
       onPress: action(`Pressed item ${i}`),
@@ -72,7 +80,7 @@ const generateCardData = (
       },
       body: {
         enabled: !!bodyText,
-        text: bodyText,
+        text: body,
       },
       media: {
         enabled: !!mediaPosition,
@@ -148,6 +156,7 @@ const wrapperStyles = {
   alignItems: 'center',
   justifyContent: 'center',
   height: '100%',
+  minHeight: 'min-content',
 }
 
 const innerWrapperStyles = {
@@ -630,10 +639,10 @@ storiesOf('CardList')
     <ListWrapper card>
       <CardList
         items={generateCardData(
-          3,
+          4,
           'Card Item Title',
           'Subtitle',
-          'Body text lorem ipsum doler',
+          'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
           'top',
         )}
         columnCount={2}

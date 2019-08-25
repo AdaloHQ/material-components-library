@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, Image, Platform } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+import Masonry from 'react-native-masonry-layout'
 import { Card, Button, IconToggle } from '@protonapp/react-native-material-ui'
 
 const SINGLE_COLUMN_LAYOUTS = {
@@ -23,21 +24,74 @@ export default class ImageList extends Component {
     return columnCount
   }
 
+  masonryRef = itm => {
+    this.masonry = itm
+  }
+
+  handleRefresh = () => {
+    let { items } = this.props
+
+    if (!this.masonry) {
+      return
+    }
+
+    this.masonry.clear()
+
+    window.setTimeout(() => {
+      this.masonry.addItems(items)
+    })
+  }
+
+  componentDidUpdate = oldProps => {
+    let oldItems = oldProps.items
+    let { items } = this.props
+    let needsRefresh = false
+
+    for (let i = 0; i < Math.max(oldItems.length, items.length); i += 1) {
+      if (items[i] !== oldItems[i]) {
+        needsRefresh = true
+        break
+      }
+    }
+
+    if (needsRefresh) {
+      this.handleRefresh()
+    }
+  }
+
+  componentDidMount() {
+    this.handleRefresh()
+  }
+
+  renderCell = (itm, layout) => (
+    <Cell
+      {...itm}
+      key={itm.id}
+      layout={layout}
+      width="100%"
+    />
+  )
+
   render() {
     let { items, layout } = this.props
     let columnCount = this.getColumnCount()
 
-    let width = `${100 / columnCount}%`
+    if (columnCount > 1) {
+      return (
+        <View style={styles.wrapper}>
+          <Masonry
+            ref={this.masonryRef}
+            columns={columnCount}
+            renderItem={itm => this.renderCell(itm, layout)}
+          />
+        </View>
+      )
+    }
 
     return (
       <View style={styles.wrapper}>
-        {items.map((itm, i) => (
-          <Cell
-            {...itm}
-            key={itm.id}
-            width={width}
-            layout={layout}
-          />
+        {items.map(itm => (
+          this.renderCell(itm, layout)
         ))}
       </View>
     )
