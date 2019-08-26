@@ -63,35 +63,37 @@ export default class ImageList extends Component {
     this.handleRefresh()
   }
 
-  renderCell = (itm, layout) => (
+  renderCell = (itm, width, layout) => (
     <Cell
       {...itm}
       key={itm.id}
       layout={layout}
-      width="100%"
+      width={width}
     />
   )
 
   render() {
-    let { items, layout } = this.props
+    let { items, layout, editor } = this.props
     let columnCount = this.getColumnCount()
 
-    if (columnCount > 1) {
+    if (!editor && columnCount > 1) {
       return (
         <View style={styles.wrapper}>
           <Masonry
             ref={this.masonryRef}
             columns={columnCount}
-            renderItem={itm => this.renderCell(itm, layout)}
+            renderItem={itm => this.renderCell(itm, '100%', layout)}
           />
         </View>
       )
     }
 
+    let width = `${100 / columnCount}%`
+
     return (
       <View style={styles.wrapper}>
         {items.map(itm => (
-          this.renderCell(itm, layout)
+          this.renderCell(itm, width, layout)
         ))}
       </View>
     )
