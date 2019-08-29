@@ -309,7 +309,6 @@ const styles = StyleSheet.create({
   },
   column: {
     flexDirection: 'column',
-    justifyContent: 'flex-stars',
     flex: 1,
   },
   cell: {
