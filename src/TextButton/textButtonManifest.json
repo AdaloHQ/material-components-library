@@ -60,6 +60,13 @@
       "displayName": "Rouding",
       "type": "borderRadius",
       "enabled": { "type": ["contained", "outlined"] }
+    },
+    {
+      "name": "shadow",
+      "displayName": "Shadow",
+      "type": "boolean",
+      "default": true,
+      "enabled": { "type": "contained" }
     }
   ]
 }

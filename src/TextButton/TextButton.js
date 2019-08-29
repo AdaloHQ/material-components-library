@@ -43,9 +43,9 @@ export default class WrappedTextButton extends Component {
   }
 
   getAdditionalProps() {
-    let { type } = this.props
+    let { type, shadow = true } = this.props
 
-    if (type === 'contained') {
+    if (type === 'contained' && shadow) {
       return { raised: true }
     }
 
