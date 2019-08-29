@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, Image, Platform } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
-import Masonry from 'react-native-masonry-layout'
 import { Card, Button, IconToggle } from '@protonapp/react-native-material-ui'
 
 const SINGLE_COLUMN_LAYOUTS = {
@@ -24,76 +23,49 @@ export default class ImageList extends Component {
     return columnCount
   }
 
-  masonryRef = itm => {
-    this.masonry = itm
-  }
-
-  handleRefresh = () => {
+  getColumns() {
+    let count = this.getColumnCount()
     let { items } = this.props
+    let columns = []
 
-    if (!this.masonry) {
-      return
-    }
+    for (let i = 0; i < items.length; i += count) {
+      for (let j = 0; j < count; j += 1) {
+        let pos = i + j
 
-    this.masonry.clear()
+        if (!columns[j]) {
+          columns[j] = []
+        }
 
-    window.setTimeout(() => {
-      this.masonry.addItems(items)
-    })
-  }
-
-  componentDidUpdate = oldProps => {
-    let oldItems = oldProps.items
-    let { items } = this.props
-    let needsRefresh = false
-
-    for (let i = 0; i < Math.max(oldItems.length, items.length); i += 1) {
-      if (items[i] !== oldItems[i]) {
-        needsRefresh = true
-        break
+        if (items[pos]) {
+          columns[j].push(items[pos])
+        }
       }
     }
 
-    if (needsRefresh) {
-      this.handleRefresh()
-    }
+    return columns
   }
 
-  componentDidMount() {
-    this.handleRefresh()
-  }
-
-  renderCell = (itm, width, layout) => (
+  renderCell = (itm, layout) => (
     <Cell
       {...itm}
       key={itm.id}
       layout={layout}
-      width={width}
     />
   )
 
   render() {
     let { items, layout, editor } = this.props
-    let columnCount = this.getColumnCount()
 
-    if (!editor && columnCount > 1) {
-      return (
-        <View style={styles.wrapper}>
-          <Masonry
-            ref={this.masonryRef}
-            columns={columnCount}
-            renderItem={itm => this.renderCell(itm, '100%', layout)}
-          />
-        </View>
-      )
-    }
-
-    let width = `${100 / columnCount}%`
+    let columns = this.getColumns()
 
     return (
       <View style={styles.wrapper}>
-        {items.map(itm => (
-          this.renderCell(itm, width, layout)
+        {columns.map((column, i) => (
+          <View key={i} style={styles.column}>
+            {column.map(itm => (
+              this.renderCell(itm, layout)
+            ))}
+          </View>
         ))}
       </View>
     )
@@ -224,13 +196,12 @@ class Cell extends Component {
   }
 
   render() {
-    let { onPress, width, media, button1, button2, icon1, icon2 } = this.props
+    let { onPress, media, button1, button2, icon1, icon2 } = this.props
 
-    let wrapperStyles = { width }
     let mediaPosition = media && media.position
 
     return (
-      <View style={wrapperStyles}>
+      <View>
         <WrappedCard
           onPress={onPress}
           style={{ container: styles.cell }}
@@ -334,7 +305,12 @@ const styles = StyleSheet.create({
   wrapper: {
     margin: 4,
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+  },
+  column: {
+    flexDirection: 'column',
+    justifyContent: 'flex-stars',
+    flex: 1,
   },
   cell: {
     marginLeft: 4,

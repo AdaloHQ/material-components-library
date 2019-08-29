@@ -5944,11 +5944,6 @@ react-modal@^3.6.1:
     react-lifecycles-compat "^3.0.0"
     warning "^3.0.0"
 
-react-native-masonry-layout@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/react-native-masonry-layout/-/react-native-masonry-layout-1.0.6.tgz#b0ac509fb22a07b1df91e91b7c56374251aa68e2"
-  integrity sha1-sKxQn7IqB7HfkekbfFY3QlGqaOI=
-
 react-native-material-design-styles@^0.2.6:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/react-native-material-design-styles/-/react-native-material-design-styles-0.2.7.tgz#428560ef4d0659db1163c9f9b5476d886ed22d57"
