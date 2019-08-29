@@ -54,6 +54,12 @@
       "displayName": "Uppercase",
       "type": "boolean",
       "default": true
+    },
+    {
+      "name": "borderRadius",
+      "displayName": "Rouding",
+      "type": "borderRadius",
+      "enabled": { "type": ["contained", "outlined"] }
     }
   ]
 }

@@ -14,7 +14,7 @@ export default class WrappedTextButton extends Component {
   }
 
   getContainerStyles() {
-    let { type, primaryColor } = this.props
+    let { type, primaryColor, borderRadius } = this.props
 
     if (type === 'contained') {
       return { backgroundColor: primaryColor }
@@ -26,7 +26,7 @@ export default class WrappedTextButton extends Component {
       let alpha = saturation <= 10 ? 0.23 : 0.5
       let borderColor = baseColor.fade(1 - alpha).toString()
 
-      return { borderColor, borderWidth: 1 }
+      return { borderColor, borderWidth: 1, borderRadius }
     }
 
     return {}
