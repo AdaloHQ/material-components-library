@@ -58,7 +58,13 @@
     {
       "name": "borderRadius",
       "displayName": "Rouding",
-      "type": "borderRadius",
+      "type": "number",
+      "control": {
+        "type": "slider",
+        "max": 18,
+        "min": 0
+      },
+      "default": 0,
       "enabled": { "type": ["contained", "outlined"] }
     },
     {
