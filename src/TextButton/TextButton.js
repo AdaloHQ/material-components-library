@@ -17,7 +17,7 @@ export default class WrappedTextButton extends Component {
     let { type, primaryColor, borderRadius } = this.props
 
     if (type === 'contained') {
-      return { backgroundColor: primaryColor }
+      return { backgroundColor: primaryColor, borderRadius }
     }
 
     if (type === 'outlined') {
