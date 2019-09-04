@@ -50,12 +50,6 @@
       "enabled": { "type": "contained" }
     },
     {
-      "name": "upperCase",
-      "displayName": "Uppercase",
-      "type": "boolean",
-      "default": true
-    },
-    {
       "name": "borderRadius",
       "displayName": "Rouding",
       "type": "number",
@@ -73,6 +67,12 @@
       "type": "boolean",
       "default": true,
       "enabled": { "type": "contained" }
+    },
+    {
+      "name": "upperCase",
+      "displayName": "Uppercase",
+      "type": "boolean",
+      "default": true
     }
   ]
 }

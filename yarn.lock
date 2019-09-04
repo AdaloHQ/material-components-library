@@ -725,10 +725,10 @@
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.2.tgz#54c5a964462be3d4d78af631363c18d6fa91ac26"
 
-"@protonapp/proton-cli@^0.0.22":
-  version "0.0.22"
-  resolved "https://registry.yarnpkg.com/@protonapp/proton-cli/-/proton-cli-0.0.22.tgz#6b350ce3cf6f97678f8a554d0e5d88f2b39cbd37"
-  integrity sha512-TLciu9j7qCd1J+kOgXuxUfatbeEpZaWxclK6li0bYNv28Ngr5QdYizc6YP63D2sHMAhT/kfG3Eb4T5EDa6XWog==
+"@protonapp/proton-cli@^0.0.23":
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/@protonapp/proton-cli/-/proton-cli-0.0.23.tgz#aaf34d48dd2bcd7fc5622a45f56e57a21c317ab7"
+  integrity sha512-iWrERMxGAghsZDauhKL6WzLahhXwna9JADrTztTJexUOudgRYoxIycmU51NGEkIb+YVvtJoLqBr6vFyI1gD4Dw==
   dependencies:
     "@babel/core" "^7.1.2"
     "@babel/plugin-proposal-class-properties" "^7.1.0"

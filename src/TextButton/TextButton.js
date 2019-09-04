@@ -64,6 +64,10 @@ export default class WrappedTextButton extends Component {
       textStyles.marginRight = 5
     }
 
+    if (upperCase) {
+      textStyles.letterSpacing = 1
+    }
+
     return (
         <Button
           {...this.getAdditionalProps()}
@@ -74,7 +78,7 @@ export default class WrappedTextButton extends Component {
           style={{
             container: containerStyles,
             icon: iconStyles,
-            text: textStyles,
+            text: [textStyles, styles.text],
           }}
         />
     )
@@ -86,4 +90,10 @@ export default class WrappedTextButton extends Component {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    fontWeight: '600',
+  }
 })
