@@ -58,7 +58,7 @@
         "max": 18,
         "min": 0
       },
-      "default": 0,
+      "default": 4,
       "enabled": { "type": ["contained", "outlined"] }
     },
     {
