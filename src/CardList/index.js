@@ -23,21 +23,49 @@ export default class ImageList extends Component {
     return columnCount
   }
 
-  render() {
-    let { items, layout } = this.props
-    let columnCount = this.getColumnCount()
+  getColumns() {
+    let count = this.getColumnCount()
+    let { items } = this.props
+    let columns = []
 
-    let width = `${100 / columnCount}%`
+    for (let i = 0; i < items.length; i += count) {
+      for (let j = 0; j < count; j += 1) {
+        let pos = i + j
+
+        if (!columns[j]) {
+          columns[j] = []
+        }
+
+        if (items[pos]) {
+          columns[j].push(items[pos])
+        }
+      }
+    }
+
+    return columns
+  }
+
+  renderCell = (itm, layout) => (
+    <Cell
+      {...itm}
+      key={itm.id}
+      layout={layout}
+    />
+  )
+
+  render() {
+    let { items, layout, editor } = this.props
+
+    let columns = this.getColumns()
 
     return (
       <View style={styles.wrapper}>
-        {items.map((itm, i) => (
-          <Cell
-            {...itm}
-            key={itm.id}
-            width={width}
-            layout={layout}
-          />
+        {columns.map((column, i) => (
+          <View key={i} style={styles.column}>
+            {column.map(itm => (
+              this.renderCell(itm, layout)
+            ))}
+          </View>
         ))}
       </View>
     )
@@ -168,13 +196,12 @@ class Cell extends Component {
   }
 
   render() {
-    let { onPress, width, media, button1, button2, icon1, icon2 } = this.props
+    let { onPress, media, button1, button2, icon1, icon2 } = this.props
 
-    let wrapperStyles = { width }
     let mediaPosition = media && media.position
 
     return (
-      <View style={wrapperStyles}>
+      <View>
         <WrappedCard
           onPress={onPress}
           style={{ container: styles.cell }}
@@ -278,7 +305,11 @@ const styles = StyleSheet.create({
   wrapper: {
     margin: 4,
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+  },
+  column: {
+    flexDirection: 'column',
+    flex: 1,
   },
   cell: {
     marginLeft: 4,
