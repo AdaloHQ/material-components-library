@@ -14,10 +14,10 @@ export default class WrappedTextButton extends Component {
   }
 
   getContainerStyles() {
-    let { type, primaryColor } = this.props
+    let { type, primaryColor, borderRadius } = this.props
 
     if (type === 'contained') {
-      return { backgroundColor: primaryColor }
+      return { backgroundColor: primaryColor, borderRadius }
     }
 
     if (type === 'outlined') {
@@ -26,7 +26,7 @@ export default class WrappedTextButton extends Component {
       let alpha = saturation <= 10 ? 0.23 : 0.5
       let borderColor = baseColor.fade(1 - alpha).toString()
 
-      return { borderColor, borderWidth: 1 }
+      return { borderColor, borderWidth: 1, borderRadius }
     }
 
     return {}
@@ -43,9 +43,9 @@ export default class WrappedTextButton extends Component {
   }
 
   getAdditionalProps() {
-    let { type } = this.props
+    let { type, shadow = true } = this.props
 
-    if (type === 'contained') {
+    if (type === 'contained' && shadow) {
       return { raised: true }
     }
 
@@ -64,6 +64,10 @@ export default class WrappedTextButton extends Component {
       textStyles.marginRight = 5
     }
 
+    if (upperCase) {
+      textStyles.letterSpacing = 1
+    }
+
     return (
         <Button
           {...this.getAdditionalProps()}
@@ -74,7 +78,7 @@ export default class WrappedTextButton extends Component {
           style={{
             container: containerStyles,
             icon: iconStyles,
-            text: textStyles,
+            text: [textStyles, styles.text],
           }}
         />
     )
@@ -86,4 +90,10 @@ export default class WrappedTextButton extends Component {
 }
 
 const styles = StyleSheet.create({
+  text: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    fontWeight: '600',
+  }
 })
