@@ -6,7 +6,7 @@ import '../Shared/icons'
 
 export default class AppBar extends Component {
   static defaultProps = {
-    title: {},
+    title: { text: '' },
     leftIcon: {},
     rightIcon1: {},
     rightIcon2: {},
