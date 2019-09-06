@@ -6,7 +6,7 @@ import '../Shared/icons'
 
 export default class AppBar extends Component {
   static defaultProps = {
-    title: { text: '' },
+    title: {},
     leftIcon: {},
     rightIcon1: {},
     rightIcon2: {},
@@ -28,6 +28,8 @@ export default class AppBar extends Component {
 
   getTitleText() {
     let { title: { text } } = this.props
+
+    if (!text) { return text }
 
     return text.replace(/[\r\n]/g, ' ').trim()
   }
