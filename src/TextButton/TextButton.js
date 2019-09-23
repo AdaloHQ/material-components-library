@@ -11,6 +11,7 @@ export default class WrappedTextButton extends Component {
     contrastColor: '#fff',
     text: 'Button',
     type: 'text',
+    borderRadius: 2,
   }
 
   getContainerStyles() {

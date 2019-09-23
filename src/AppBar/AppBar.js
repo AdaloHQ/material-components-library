@@ -29,7 +29,7 @@ export default class AppBar extends Component {
   getTitleText() {
     let { title: { text } } = this.props
 
-    if (!text) { return text }
+    if (!text || typeof text !== 'string') { return undefined }
 
     return text.replace(/[\r\n]/g, ' ').trim()
   }
