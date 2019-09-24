@@ -92,9 +92,6 @@ export default class WrappedTextButton extends Component {
 
 const styles = StyleSheet.create({
   text: {
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
     fontWeight: '600',
   }
 })

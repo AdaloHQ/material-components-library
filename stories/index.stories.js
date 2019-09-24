@@ -291,6 +291,17 @@ storiesOf('Text Button', module)
       />
     </View>
   ))
+  .add('Long Text', () => (
+    <View style={wrapperStyles}>
+      <View style={{ width: 200 }}>
+        <Button
+          primaryColor="#f00"
+          text="Hello World, this is a very long button"
+          action={action('Clicked!!')}
+        />
+      </View>
+    </View>
+  ))
   .add('With Icon', () => (
     <View style={wrapperStyles}>
       <Button
