@@ -755,10 +755,10 @@
     webpack "^4.23.0"
     webpack-dev-server "^3.4.1"
 
-"@protonapp/react-native-material-ui@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@protonapp/react-native-material-ui/-/react-native-material-ui-2.0.3.tgz#78446e60f324c8a02a756cfbce6255a7e44a165a"
-  integrity sha512-nvH9FtAuuNXvdyFYoE2HGLQr0tYgQqST+bFVuREVrix7WRYbElrZSvZN/osN0Jnljq9X1jEhcW3wc4HCAN0OEA==
+"@protonapp/react-native-material-ui@^2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@protonapp/react-native-material-ui/-/react-native-material-ui-2.0.4.tgz#812b7474b709a968b8de9e5acf91cf1f1093f47a"
+  integrity sha512-y/h6emJmCpwg2tBaS+i2HPzRP1TjMr2KKrS1O/FFeG2D4hUHJHSrLUzdGS7hmEL7pzPMe54mdl7Hx4AdIS8iQw==
   dependencies:
     color "3.1.0"
     hoist-non-react-statics "^2.5.5"
