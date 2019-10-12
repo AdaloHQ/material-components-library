@@ -9,7 +9,7 @@ export default class WrappedTextButton extends Component {
   static defaultProps = {
     primaryColor: '#6200ee',
     contrastColor: '#fff',
-    text: 'Button',
+    text: '',
     type: 'text',
     borderRadius: 2,
   }
