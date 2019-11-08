@@ -132,7 +132,7 @@ class Cell extends Component {
         <Image
           resizeMode="cover"
           source={source}
-          style={imageStyles}
+          style={[imageStyles, styles.image]}
         />
       </View>
     )
@@ -306,6 +306,10 @@ const styles = StyleSheet.create({
     margin: 4,
     flexDirection: 'row',
     alignItems: 'flex-start',
+  },
+  image: {
+    width: null,
+    height: null,
   },
   column: {
     flexDirection: 'column',
