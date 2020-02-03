@@ -51,7 +51,7 @@
     },
     {
       "name": "borderRadius",
-      "displayName": "Rouding",
+      "displayName": "Rounding",
       "type": "number",
       "control": {
         "type": "slider",
