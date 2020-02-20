@@ -25,7 +25,7 @@
     },
     {
       "name": "onPress",
-      "displayName": "On Press",
+      "displayName": "Click Actions",
       "type": "action",
       "role": "listItem",
       "reference": "items"
@@ -130,9 +130,7 @@
           "default": "icon",
           "control": {
             "type": "menu",
-            "options": [
-              { "label": "Icon", "value": "icon" }
-            ]
+            "options": [{ "label": "Icon", "value": "icon" }]
           }
         },
         {
@@ -151,7 +149,7 @@
         },
         {
           "name": "onPress",
-          "displayName": "On Press",
+          "displayName": "Click Actions",
           "type": "action",
           "role": "listItem",
           "reference": "items"
