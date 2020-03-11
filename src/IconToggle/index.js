@@ -3,10 +3,15 @@ import { View, StyleSheet } from 'react-native'
 import { IconToggle } from '@protonapp/react-native-material-ui'
 
 export default class WrappedIconToggle extends Component {
-  handlePress = () => {
-    let { input: { value, onChange } } = this.props
-
-    onChange(!value)
+  handlePress = async () => {
+    let {
+      clickActions,
+      input: { value, onChange },
+    } = this.props
+    await onChange(!value)
+    if (clickActions) {
+      await clickActions()
+    }
   }
 
   render() {
@@ -42,5 +47,5 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     overflow: 'hidden',
-  }
+  },
 })
