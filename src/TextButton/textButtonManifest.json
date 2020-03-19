@@ -34,7 +34,7 @@
     {
       "name": "action",
       "type": "action",
-      "displayName": "On Press"
+      "displayName": "Click Actions"
     },
     {
       "name": "primaryColor",
@@ -76,4 +76,3 @@
     }
   ]
 }
-
