@@ -9,7 +9,10 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "copy": "rm -rf ../../Builds/Adalo/node_modules/@protonapp/material-components/src/ && cp -r src ../../Builds/Adalo/node_modules/@protonapp/material-components/src && cp -r index.js ../../Builds/Adalo/node_modules/@protonapp/material-components/index.js",
-    "dev": "FOUNDRY_DEV_SERVER=http://localhost:3035 proton dev"
+    "dev-local": "FOUNDRY_DEV_SERVER=http://localhost:3035 foundry dev",
+    "login-local": "FOUNDRY_BACKEND_SERVER=http://localhost:8084 foundry login",
+    "dev": "proton dev",
+    "login": "proton login"
   },
   "author": "Jeremy Blalock",
   "license": "ISC",
