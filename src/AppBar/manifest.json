@@ -59,7 +59,7 @@
         {
           "name": "action",
           "type": "action",
-          "displayName": "On Press"
+          "displayName": "Click Actions"
         }
       ]
     },
@@ -68,9 +68,7 @@
       "displayName": "Title",
       "actions": true,
       "dataBindings": true,
-      "dataBindingDataTypes": [
-        "text"
-      ],
+      "dataBindingDataTypes": ["text"],
       "props": [
         {
           "name": "text",
@@ -112,7 +110,7 @@
         {
           "name": "action",
           "type": "action",
-          "displayName": "On Press"
+          "displayName": "Click Actions"
         }
       ]
     },
@@ -135,10 +133,9 @@
         {
           "name": "action",
           "type": "action",
-          "displayName": "On Press"
+          "displayName": "Click Actions"
         }
       ]
     }
   ]
 }
-

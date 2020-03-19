@@ -24,7 +24,7 @@
     },
     {
       "name": "onPress",
-      "displayName": "On Press",
+      "displayName": "Click Actions",
       "type": "action",
       "role": "listItem",
       "reference": "items"
@@ -138,7 +138,7 @@
         },
         {
           "name": "onPress",
-          "displayName": "On Press",
+          "displayName": "Click Actions",
           "type": "action"
         },
         {
@@ -168,7 +168,7 @@
         },
         {
           "name": "onPress",
-          "displayName": "On Press",
+          "displayName": "Click Actions",
           "type": "action"
         },
         {
@@ -197,7 +197,7 @@
         },
         {
           "name": "onPress",
-          "displayName": "On Press",
+          "displayName": "Click Actions",
           "type": "action"
         },
         {
@@ -226,7 +226,7 @@
         },
         {
           "name": "onPress",
-          "displayName": "On Press",
+          "displayName": "Click Actions",
           "type": "action"
         },
         {

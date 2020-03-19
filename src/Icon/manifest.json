@@ -16,7 +16,7 @@
     {
       "name": "onPress",
       "type": "action",
-      "displayName": "On Press"
+      "displayName": "Click Actions"
     },
     {
       "name": "iconColor",
@@ -26,4 +26,3 @@
     }
   ]
 }
-

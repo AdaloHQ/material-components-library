@@ -36,6 +36,11 @@
       "displayName": "Inactive Color",
       "type": "color",
       "default": "#bbb"
+    },
+    {
+      "name": "clickActions",
+      "displayName": "Click Actions",
+      "type": "action" 
     }
   ]
 }
