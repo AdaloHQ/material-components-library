@@ -56,10 +56,13 @@ export default class WrappedTextButton extends Component {
     return {}
   }
 
-  async submitAction(action) {
+  submitAction = async () => {
+    let { action } = this.props
     this.setState({ loading: true })
-    await action()
-    this.setState({ loading: false })
+    let result = action()
+    await result
+    console.log(result)
+    //this.setState({ loading: false })
   }
 
   renderSub() {
@@ -85,7 +88,7 @@ export default class WrappedTextButton extends Component {
         {...this.getAdditionalProps()}
         upperCase={!!upperCase}
         icon={icon}
-        onPress={editor ? action : this.submitAction(action)}
+        onPress={editor ? action : this.submitAction}
         text={text}
         style={{
           container: containerStyles,
