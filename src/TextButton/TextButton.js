@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Platform, View, StyleSheet } from 'react-native'
+import { Platform, View, StyleSheet, ActivityIndicator } from 'react-native'
 import color from 'color'
 import { Button } from '@protonapp/react-native-material-ui'
 
@@ -12,6 +12,9 @@ export default class WrappedTextButton extends Component {
     text: '',
     type: 'text',
     borderRadius: 2,
+  }
+  state = {
+    loading: false,
   }
 
   getContainerStyles() {
@@ -53,6 +56,12 @@ export default class WrappedTextButton extends Component {
     return {}
   }
 
+  async submitAction(action) {
+    this.setState({ loading: true })
+    await action()
+    this.setState({ loading: false })
+  }
+
   renderSub() {
     let { icon, action, text, upperCase } = this.props
 
@@ -60,6 +69,8 @@ export default class WrappedTextButton extends Component {
 
     let iconStyles = this.getTextStyles()
     let textStyles = { ...this.getTextStyles() }
+
+    let { editor } = this.props
 
     if (icon) {
       textStyles.marginRight = 5
@@ -70,18 +81,21 @@ export default class WrappedTextButton extends Component {
     }
 
     return (
-        <Button
-          {...this.getAdditionalProps()}
-          upperCase={!!upperCase}
-          icon={icon}
-          onPress={action}
-          text={text}
-          style={{
-            container: containerStyles,
-            icon: iconStyles,
-            text: [textStyles, styles.text],
-          }}
-        />
+      <Button
+        {...this.getAdditionalProps()}
+        upperCase={!!upperCase}
+        icon={icon}
+        onPress={editor ? action : this.submitAction(action)}
+        text={text}
+        style={{
+          container: containerStyles,
+          icon: iconStyles,
+          text: [textStyles, styles.text],
+        }}
+        disabled={this.state.loading}
+      >
+        {this.state.loading ? <ActivityIndicator /> : null}
+      </Button>
     )
   }
 
@@ -93,5 +107,5 @@ export default class WrappedTextButton extends Component {
 const styles = StyleSheet.create({
   text: {
     fontWeight: '600',
-  }
+  },
 })
