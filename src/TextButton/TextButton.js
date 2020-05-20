@@ -62,7 +62,6 @@ export default class WrappedTextButton extends Component {
     this.setState({ loading: true })
     let result = action()
     await result
-    console.log(result)
     this.setState({ loading: false })
   }
 
@@ -72,7 +71,6 @@ export default class WrappedTextButton extends Component {
     let containerStyles = this.getContainerStyles()
     let iconStyles = this.getTextStyles()
     let textStyles = { ...this.getTextStyles() }
-    console.log('Text Syles: ', JSON.stringify(textStyles, null, 4))
     let { editor } = this.props
 
     if (icon) {
