@@ -57,17 +57,6 @@ export default class WrappedTextButton extends Component {
     return {}
   }
 
-  getButtonOpacity() {
-    if (this.state.loading) {
-      return {
-        opacity: 0.6,
-      }
-    }
-    return {
-      opacity: 1,
-    }
-  }
-
   submitAction = async () => {
     let { action } = this.props
     this.setState({ loading: true })
@@ -83,7 +72,7 @@ export default class WrappedTextButton extends Component {
     let containerStyles = this.getContainerStyles()
     let iconStyles = this.getTextStyles()
     let textStyles = { ...this.getTextStyles() }
-
+    console.log('Text Syles: ', JSON.stringify(textStyles, null, 4))
     let { editor } = this.props
 
     if (icon) {
@@ -96,13 +85,13 @@ export default class WrappedTextButton extends Component {
 
     return (
       <View>
-        <View style={this.getButtonOpacity()}>
+        <View>
           <Button
             {...this.getAdditionalProps()}
             upperCase={!!upperCase}
-            icon={icon}
+            icon={this.state.loading ? '' : icon}
             onPress={editor ? action : this.submitAction}
-            text={text}
+            text={this.state.loading ? '' : text}
             style={{
               container: containerStyles,
               icon: iconStyles,
@@ -113,7 +102,7 @@ export default class WrappedTextButton extends Component {
         </View>
         {this.state.loading && (
           <View style={styles.loading}>
-            <ActivityIndicator size="large" color={this.props.primaryColor} />
+            <ActivityIndicator size="small" color={textStyles.color} />
           </View>
         )}
       </View>
