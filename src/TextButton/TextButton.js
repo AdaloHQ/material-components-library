@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Platform, View, StyleSheet } from 'react-native'
+import { Platform, View, StyleSheet, ActivityIndicator } from 'react-native'
 import color from 'color'
 import { Button } from '@protonapp/react-native-material-ui'
 
@@ -12,6 +12,10 @@ export default class WrappedTextButton extends Component {
     text: '',
     type: 'text',
     borderRadius: 2,
+  }
+  state = {
+    loading: false,
+    backgroundColor: this.props.primaryColor,
   }
 
   getContainerStyles() {
@@ -53,13 +57,21 @@ export default class WrappedTextButton extends Component {
     return {}
   }
 
+  submitAction = async () => {
+    let { action } = this.props
+    this.setState({ loading: true })
+    let result = action()
+    await result
+    this.setState({ loading: false })
+  }
+
   renderSub() {
     let { icon, action, text, upperCase } = this.props
 
     let containerStyles = this.getContainerStyles()
-
     let iconStyles = this.getTextStyles()
     let textStyles = { ...this.getTextStyles() }
+    let { editor } = this.props
 
     if (icon) {
       textStyles.marginRight = 5
@@ -70,18 +82,28 @@ export default class WrappedTextButton extends Component {
     }
 
     return (
-        <Button
-          {...this.getAdditionalProps()}
-          upperCase={!!upperCase}
-          icon={icon}
-          onPress={action}
-          text={text}
-          style={{
-            container: containerStyles,
-            icon: iconStyles,
-            text: [textStyles, styles.text],
-          }}
-        />
+      <View>
+        <View>
+          <Button
+            {...this.getAdditionalProps()}
+            upperCase={!!upperCase}
+            icon={this.state.loading ? '' : icon}
+            onPress={editor ? action : this.submitAction}
+            text={this.state.loading ? '' : text}
+            style={{
+              container: containerStyles,
+              icon: iconStyles,
+              text: [textStyles, styles.text],
+            }}
+            disabled={this.state.loading}
+          />
+        </View>
+        {this.state.loading && (
+          <View style={styles.loading}>
+            <ActivityIndicator size="small" color={textStyles.color} />
+          </View>
+        )}
+      </View>
     )
   }
 
@@ -93,5 +115,14 @@ export default class WrappedTextButton extends Component {
 const styles = StyleSheet.create({
   text: {
     fontWeight: '600',
-  }
+  },
+  loading: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 })
