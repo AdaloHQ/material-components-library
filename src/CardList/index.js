@@ -118,7 +118,6 @@ class Cell extends Component {
       wrapperStyles.push(styles.topMedia)
     } else if (media.position === 'right') {
       wrapperStyles = [styles.rightMedia]
-      imageStyles = [{ height: '100%', borderRadius: 2 }]
     } else {
       wrapperStyles.push(styles.middleMedia)
     }
@@ -384,11 +383,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   rightMedia: {
-    height: 80,
-    width: 80,
-    marginTop: 4,
-    marginBottom: 8,
+    height: 100,
+    width: 100,
+    marginBottom: -25,
     marginLeft: 16,
+    marginRight: -16,
   },
   contentWrapper: {
     flex: 1,
