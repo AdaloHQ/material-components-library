@@ -131,7 +131,7 @@ class Cell extends Component {
         <Image
           resizeMode="cover"
           source={source}
-          style={[imageStyles, styles.image]}
+          style={[styles.image, imageStyles]}
         />
       </View>
     )
