@@ -1,0 +1,161 @@
+{
+  "displayName": "Avatar List",
+  "defaultWidth": 375,
+  "defaultHeight": 80,
+  "components": "./index.js",
+  "icon": "./thumbnail.png",
+  "props": [
+    {
+      "name": "imageList",
+      "displayName": "What is this a list of?",
+      "type": "list"
+    },
+    {
+      "name": "image",
+      "displayName": "Avatar Image",
+      "type": "image",
+      "role": "listItem",
+      "reference": "imageList"
+    },
+    {
+      "name": "imageSpacing",
+      "displayName": "List Items Spacing",
+      "type": "number",
+      "default": 15,
+      "control": { "type": "slider", "max": 30, "min": 0 }
+    },
+    {
+      "name": "avatarClickActions",
+      "displayName": "Click Actions",
+      "type": "action",
+      "role": "listItem",
+      "reference": "imageList"
+    }
+  ],
+  "childComponents": [
+    {
+      "name": "imageChild",
+      "displayName": "Image Options",
+      "props": [
+        {
+          "name": "imageSize",
+          "displayName": "Image Size (width)",
+          "type": "number",
+          "default": 69,
+          "control": { "type": "slider", "max": 200, "min": 30 }
+        },
+        {
+          "name": "imageRounding",
+          "displayName": "Image Rounding",
+          "type": "number",
+          "default": 40,
+          "control": { "type": "slider", "max": 110, "min": 0 }
+        },
+        {
+          "name": "cropMenu",
+          "displayName": "Image Cropping",
+          "type": "text",
+          "default": "cover",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Crop Image to Fill Space", "value": "cover" },
+              { "label": "Show Full Image (Don't Crop)", "value": "center" }
+            ]
+          }
+        },
+        {
+          "name": "background",
+          "displayName": "Background",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "backgroundColor",
+          "displayName": "Background Color",
+          "type": "color",
+          "default": "#f5f5f5",
+          "enabled": {
+            "background": true
+          }
+        },
+        {
+          "name": "borderBool",
+          "displayName": "Border",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "borderColor",
+          "displayName": "Border Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "borderBool": true
+          }
+        },
+        {
+          "name": "borderSize",
+          "displayName": "Border Size",
+          "type": "number",
+          "default": 1,
+          "control": { "type": "slider", "max": 3, "min": 1 },
+          "enabled": {
+            "borderBool": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "textChild",
+      "displayName": "Text",
+      "role": "listItem",
+      "reference": "imageList",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "title",
+          "displayName": "Title",
+          "type": "text"
+        },
+        {
+          "name": "textPos",
+          "displayName": "Text Position",
+          "type": "number",
+          "default": 1,
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Top", "value": 0 },
+              { "label": "Bottom", "value": 1 }
+            ]
+          }
+        },
+        {
+          "name": "textAlign",
+          "displayName": "Text Alignment",
+          "type": "text",
+          "default": "center",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Left Aligned", "value": "left" },
+              { "label": "Centered", "value": "center" },
+              { "label": "Right Aligned", "value": "right" }
+            ]
+          }
+        },
+        {
+          "name": "textColor",
+          "displayName": "Text Color",
+          "type": "color",
+          "default": "@text"
+        }
+      ]
+    }
+  ]
+}
