@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Image, ScrollView } from 'react-native'
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Platform,
+} from 'react-native'
 import ImageItem from './ImageItem.js'
 import placeholder from './holdplace.png'
 import ImageScrollViewWeb from './ImageScrollView.web.js'
@@ -7,13 +14,28 @@ import ImageScrollViewMobile from './ImageScrollView.js'
 
 class AvatarList extends Component {
   isMobileDevice = () => {
-    return (
-      typeof window.orientation !== 'undefined' ||
-      navigator.userAgent.indexOf('IEMobile') !== -1
-    )
+    if (
+      Platform.OS === 'ios' ||
+      Platform.OS === 'android' ||
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    ) {
+      return true
+    } else {
+      return false
+    }
   }
   render() {
     const { imageList, imageSpacing, imageChild } = this.props
+
+    if (
+      !imageList ||
+      typeof navigator.userAgent === undefined ||
+      !imageList[0]
+    ) {
+      return <View style={{ height: imageSize }}></View>
+    }
     const {
       imageSize,
       imageRounding,
@@ -67,10 +89,6 @@ class AvatarList extends Component {
         backgroundColor: background ? backgroundColor : '#ffffff00',
         borderWidth: borderBool ? borderSize : null,
         borderColor: borderBool ? borderColor : null,
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-      center: {
         justifyContent: 'center',
         alignItems: 'center',
       },

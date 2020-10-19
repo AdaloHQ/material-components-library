@@ -1,9 +1,18 @@
 import React, { Component } from 'react'
-import { Image, View, Text } from 'react-native'
+import { Image, View, Text, TouchableWithoutFeedback } from 'react-native'
 
 class ImageItem extends Component {
   render() {
-    let { image, style, text, bottom, resize, maxLimit, onPress } = this.props
+    let {
+      image,
+      style,
+      text,
+      bottom,
+      resize,
+      maxLimit,
+      onPress,
+      textEnabled,
+    } = this.props
 
     const textItem = text ? (
       <Text style={style.text}>
@@ -15,13 +24,13 @@ class ImageItem extends Component {
 
     return (
       <View style={style.view}>
-        {!bottom && textItem}
-        <View style={style.center}>
-          <View style={style.background} onStartShouldSetResponder={onPress}>
+        {!bottom && textEnabled && textItem}
+        <View style={style.background}>
+          <TouchableWithoutFeedback onPress={onPress}>
             <Image style={style.image} resizeMode={resize} source={image} />
-          </View>
+          </TouchableWithoutFeedback>
         </View>
-        {bottom && textItem}
+        {bottom && textEnabled && textItem}
       </View>
     )
   }

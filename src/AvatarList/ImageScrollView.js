@@ -12,6 +12,7 @@ class ImageScrollView extends Component {
       imageSize,
       imageItemStyle,
       borderBool,
+      edit,
     } = this.props
 
     return (
@@ -21,9 +22,10 @@ class ImageScrollView extends Component {
             imageList.map(({ id, image, avatarClickActions, textChild }) => (
               <ImageItem
                 key={id}
-                image={image}
+                image={edit ? placeholder : image}
                 style={imageItemStyle}
                 text={textChild.title}
+                textEnabled={textChild.enabled}
                 bottom={textPos == 1}
                 resize={cropMenu}
                 maxLimit={((imageSize - 30) / 170) * 21 + 6}
