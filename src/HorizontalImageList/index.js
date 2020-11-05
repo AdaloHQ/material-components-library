@@ -28,7 +28,7 @@ class HorizontalImageList extends Component {
       return false
     }
   }
-  getRGB = str => {
+  getRGB = (str) => {
     var match = str.match(
       /rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/
     )
@@ -40,7 +40,7 @@ class HorizontalImageList extends Component {
         }
       : null
   }
-  hexToRgb = hex => {
+  hexToRgb = (hex) => {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
     return result
       ? {
@@ -319,7 +319,6 @@ class HorizontalImageList extends Component {
         },
         shadowOpacity: 0.15,
         shadowRadius: 10,
-        ...Platform.select({ android: { elevation: 2 } }),
       },
     }
     const bbTextDummy = { bbSubtitlePos: null, bbTextColor: null }
