@@ -1,5 +1,5 @@
 {
-  "displayName": "Horizontal List",
+  "displayName": "Horizontal Card List",
   "defaultWidth": 375,
   "defaultHeight": 300,
   "components": "./index.js",
