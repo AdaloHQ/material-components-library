@@ -1,0 +1,784 @@
+{
+  "displayName": "Horizontal Card List",
+  "defaultWidth": 375,
+  "defaultHeight": 300,
+  "components": "./index.js",
+  "icon": "./image-list-thumbnail.png",
+  "props": [
+    {
+      "name": "imageList",
+      "displayName": "What is this a list of?",
+      "type": "list"
+    },
+    {
+      "name": "image",
+      "displayName": "Image",
+      "type": "image",
+      "role": "listItem",
+      "reference": "imageList"
+    },
+    {
+      "name": "imageSpacing",
+      "displayName": "List Items Spacing",
+      "type": "number",
+      "default": 16,
+      "control": { "type": "slider", "max": 30, "min": 0 }
+    },
+    {
+      "name": "clickActions",
+      "displayName": "Click Actions",
+      "type": "action",
+      "role": "listItem",
+      "reference": "imageList"
+    }
+  ],
+  "childComponents": [
+    {
+      "name": "imageChild",
+      "displayName": "Image Options",
+      "props": [
+        {
+          "name": "shape",
+          "displayName": "Image Shape",
+          "type": "number",
+          "default": 0,
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Square", "value": 0 },
+              { "label": "Portrait", "value": 1 },
+              { "label": "Landscape", "value": 2 }
+            ]
+          }
+        },
+        {
+          "name": "imageSize",
+          "displayName": "Size (width)",
+          "type": "number",
+          "default": 250,
+          "control": { "type": "slider", "max": 325, "min": 150 }
+        },
+        {
+          "name": "imageRounding",
+          "displayName": "Rounding",
+          "type": "number",
+          "default": 6,
+          "control": { "type": "slider", "max": 30, "min": 0 }
+        },
+        {
+          "name": "shadow",
+          "displayName": "Shadow",
+          "type": "boolean",
+          "default": false
+        }
+      ]
+    },
+    {
+      "name": "imageOverlay",
+      "displayName": "Image Overlay",
+      "role": "listItem",
+      "reference": "imageList",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "textSwitch",
+          "displayName": "Text",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "textPos",
+          "displayName": "Text Position",
+          "type": "number",
+          "default": 0,
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Bottom Overlay", "value": 0 },
+              { "label": "Top Overlay", "value": 1 }
+            ]
+          },
+          "enabled": {
+            "textSwitch": true
+          }
+        },
+        {
+          "name": "backgroundEffect",
+          "displayName": "Background Effect",
+          "type": "number",
+          "default": 0,
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Gradient", "value": 0 },
+              { "label": "Solid Color", "value": 1 }
+            ]
+          },
+          "enabled": {
+            "textSwitch": true
+          }
+        },
+        {
+          "name": "backgroundColor",
+          "displayName": "Overlay Background Color",
+          "type": "color",
+          "default": "#424242",
+          "enabled": {
+            "backgroundEffect": 1,
+            "textSwitch": true
+          }
+        },
+        {
+          "name": "title",
+          "displayName": "Title",
+          "type": "text",
+          "default": "Title",
+          "enabled": {
+            "textSwitch": true
+          }
+        },
+        {
+          "name": "subtitle",
+          "displayName": "Subtitle",
+          "type": "text",
+          "default": "Subtitle",
+          "enabled": {
+            "textSwitch": true
+          }
+        },
+        {
+          "name": "subtitlePosition",
+          "displayName": "Subtitle Position",
+          "type": "text",
+          "default": "column",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Below Title", "value": "column" },
+              { "label": "Above Title", "value": "column-reverse" }
+            ]
+          },
+          "enabled": {
+            "textSwitch": true
+          }
+        },
+        {
+          "name": "textColor",
+          "displayName": "Text Color",
+          "type": "color",
+          "default": "white",
+          "enabled": {
+            "textSwitch": true
+          }
+        },
+        {
+          "name": "tr",
+          "displayName": "Top Right Icon",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "trIcon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "more-vert",
+          "enabled": {
+            "tr": true
+          }
+        },
+
+        {
+          "name": "trIconColor",
+          "displayName": "Icon Color",
+          "type": "color",
+          "default": "#424242",
+          "enabled": {
+            "tr": true
+          }
+        },
+        {
+          "name": "trIconActions",
+          "displayName": "Icon Actions",
+          "type": "action",
+          "enabled": {
+            "tr": true
+          }
+        },
+        {
+          "name": "tl",
+          "displayName": "Top Left Icon",
+          "type": "boolean",
+          "default": false,
+          "enabled": {
+            "textPos": 0,
+            "textSwitch": true
+          }
+        },
+        {
+          "name": "tlIcon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "more-vert",
+          "enabled": {
+            "textPos": 0,
+            "tl": true,
+            "textSwitch": true
+          }
+        },
+        {
+          "name": "tlIconColor",
+          "displayName": "Icon Color",
+          "type": "color",
+          "default": "#424242",
+          "enabled": {
+            "tl": true,
+            "textPos": 0,
+            "textSwitch": true
+          }
+        },
+        {
+          "name": "tlIconActions",
+          "displayName": "Icon Actions",
+          "type": "action",
+          "enabled": {
+            "tl": true,
+            "textPos": 0,
+            "textSwitch": true
+          }
+        },
+        {
+          "name": "tl2",
+          "displayName": "Top Left Icon",
+          "type": "boolean",
+          "default": false,
+          "enabled": {
+            "textSwitch": false
+          }
+        },
+        {
+          "name": "tlIcon2",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "more-vert",
+          "enabled": {
+            "textSwitch": false,
+            "tl2": true
+          }
+        },
+        {
+          "name": "tlIconColor2",
+          "displayName": "Icon Color",
+          "type": "color",
+          "default": "#424242",
+          "enabled": {
+            "tl2": true,
+            "textSwitch": false
+          }
+        },
+        {
+          "name": "tlIconActions2",
+          "displayName": "Icon Actions",
+          "type": "action",
+          "enabled": {
+            "tl2": true,
+            "textSwitch": false
+          }
+        },
+        {
+          "name": "br",
+          "displayName": "Bottom Right Icon",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "brIcon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "more-vert",
+          "enabled": {
+            "br": true
+          }
+        },
+
+        {
+          "name": "brIconColor",
+          "displayName": "Icon Color",
+          "type": "color",
+          "default": "#424242",
+          "enabled": {
+            "br": true
+          }
+        },
+        {
+          "name": "brIconActions",
+          "displayName": "Icon Actions",
+          "type": "action",
+          "enabled": {
+            "br": true
+          }
+        },
+        {
+          "name": "bl",
+          "displayName": "Bottom Left Icon",
+          "type": "boolean",
+          "default": false,
+          "enabled": {
+            "textPos": 1,
+            "textSwitch": true
+          }
+        },
+        {
+          "name": "blIcon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "more-vert",
+          "enabled": {
+            "bl": true,
+            "textPos": 1,
+            "textSwitch": true
+          }
+        },
+
+        {
+          "name": "blIconColor",
+          "displayName": "Icon Color",
+          "type": "color",
+          "default": "#424242",
+          "enabled": {
+            "bl": true,
+            "textPos": 1,
+            "textSwitch": true
+          }
+        },
+        {
+          "name": "blIconActions",
+          "displayName": "Icon Actions",
+          "type": "action",
+          "enabled": {
+            "bl": true,
+            "textPos": 1,
+            "textSwitch": true
+          }
+        },
+        {
+          "name": "bl2",
+          "displayName": "Bottom Left Icon",
+          "type": "boolean",
+          "default": false,
+          "enabled": {
+            "textSwitch": false
+          }
+        },
+        {
+          "name": "blIcon2",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "more-vert",
+          "enabled": {
+            "bl2": true,
+            "textSwitch": false
+          }
+        },
+
+        {
+          "name": "blIconColor2",
+          "displayName": "Icon Color",
+          "type": "color",
+          "default": "#424242",
+          "enabled": {
+            "bl2": true,
+            "textSwitch": false
+          }
+        },
+        {
+          "name": "blIconActions2",
+          "displayName": "Icon Actions",
+          "type": "action",
+          "enabled": {
+            "bl2": true,
+            "textSwitch": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "bottomBarText",
+      "displayName": "Bottom Bar Text",
+      "role": "listItem",
+      "reference": "imageList",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "bbTitle",
+          "displayName": "Title",
+          "type": "text",
+          "default": "Title"
+        },
+        {
+          "name": "bbSubtitle",
+          "displayName": "Subtitle",
+          "type": "text",
+          "default": "Subtitle"
+        },
+        {
+          "name": "bbSubtitlePos",
+          "displayName": "Subtitle Position",
+          "type": "text",
+          "default": "column",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Below Title", "value": "column" },
+              { "label": "Above Title", "value": "column-reverse" }
+            ]
+          }
+        },
+        {
+          "name": "bbTextColor",
+          "displayName": "Text Color",
+          "type": "color",
+          "default": "@text"
+        }
+      ]
+    },
+    {
+      "name": "bottomBarButtons",
+      "displayName": "Bottom Bar Buttons",
+      "role": "listItem",
+      "reference": "imageList",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "leftButton",
+          "displayName": "Left Button",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "buttonTypeL",
+          "displayName": "Button Type",
+          "type": "text",
+          "default": "button",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Button", "value": "button" },
+              { "label": "Icon", "value": "icon" }
+            ]
+          },
+          "enabled": {
+            "leftButton": true
+          }
+        },
+        {
+          "name": "buttonTextL",
+          "displayName": "Text",
+          "type": "text",
+          "default": "BUTTON",
+          "enabled": {
+            "leftButton": true,
+            "buttonTypeL": "button"
+          }
+        },
+        {
+          "name": "buttonTextColorL",
+          "displayName": "Text Color",
+          "type": "color",
+          "default": "@contrast:buttonBackgroundColorL",
+          "enabled": {
+            "leftButton": true,
+            "buttonTypeL": "button"
+          }
+        },
+        {
+          "name": "buttonBackgroundL",
+          "displayName": "Button Background",
+          "type": "boolean",
+          "default": true,
+          "enabled": {
+            "leftButton": true,
+            "buttonTypeL": "button"
+          }
+        },
+        {
+          "name": "buttonBackgroundColorL",
+          "displayName": "Background Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "buttonBackgroundL": true,
+            "leftButton": true,
+            "buttonTypeL": "button"
+          }
+        },
+        {
+          "name": "buttonBorderL",
+          "displayName": "Button Border",
+          "type": "boolean",
+          "default": false,
+          "enabled": {
+            "leftButton": true,
+            "buttonTypeL": "button"
+          }
+        },
+        {
+          "name": "buttonBorderColorL",
+          "displayName": "Border Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "buttonBorderL": true,
+            "leftButton": true,
+            "buttonTypeL": "button"
+          }
+        },
+        {
+          "name": "buttonBorderWidthL",
+          "displayName": "Border Width",
+          "type": "number",
+          "default": 1,
+          "control": { "type": "slider", "max": 3, "min": 1 },
+          "enabled": {
+            "buttonBorderL": true,
+            "leftButton": true,
+            "buttonTypeL": "button"
+          }
+        },
+        {
+          "name": "buttonRoundingL",
+          "displayName": "Button Rounding",
+          "type": "number",
+          "default": 6,
+          "control": { "type": "slider", "max": 20, "min": 0 },
+          "enabled": {
+            "leftButton": true,
+            "buttonTypeL": "button"
+          }
+        },
+
+        {
+          "name": "iconL",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "more-vert",
+          "enabled": {
+            "leftButton": true,
+            "buttonTypeL": "icon"
+          }
+        },
+        {
+          "name": "iconColorL",
+          "displayName": "Icon Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "leftButton": true,
+            "buttonTypeL": "icon"
+          }
+        },
+        {
+          "name": "buttonActionL",
+          "displayName": "Click Actions",
+          "type": "action",
+          "enabled": {
+            "leftButton": true
+          }
+        },
+        {
+          "name": "rightButton",
+          "displayName": "Right Button",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "buttonTypeR",
+          "displayName": "Button Type",
+          "type": "text",
+          "default": "button",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Button", "value": "button" },
+              { "label": "Icon", "value": "icon" }
+            ]
+          },
+          "enabled": {
+            "rightButton": true
+          }
+        },
+        {
+          "name": "buttonTextR",
+          "displayName": "Text",
+          "type": "text",
+          "default": "BUTTON",
+          "enabled": {
+            "rightButton": true,
+            "buttonTypeR": "button"
+          }
+        },
+        {
+          "name": "buttonTextColorR",
+          "displayName": "Text Color",
+          "type": "color",
+          "default": "@contrast:buttonBackgroundColorR",
+          "enabled": {
+            "rightButton": true,
+            "buttonTypeR": "button"
+          }
+        },
+        {
+          "name": "buttonBackgroundR",
+          "displayName": "Button Background",
+          "type": "boolean",
+          "default": true,
+          "enabled": {
+            "rightButton": true,
+            "buttonTypeR": "button"
+          }
+        },
+        {
+          "name": "buttonBackgroundColorR",
+          "displayName": "Background Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "buttonBackgroundR": true,
+            "rightButton": true,
+            "buttonTypeR": "button"
+          }
+        },
+        {
+          "name": "buttonBorderR",
+          "displayName": "Button Border",
+          "type": "boolean",
+          "default": false,
+          "enabled": {
+            "rightButton": true,
+            "buttonTypeR": "button"
+          }
+        },
+        {
+          "name": "buttonBorderColorR",
+          "displayName": "Border Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "buttonBorderR": true,
+            "rightButton": true,
+            "buttonTypeR": "button"
+          }
+        },
+        {
+          "name": "buttonBorderWidthR",
+          "displayName": "Border Width",
+          "type": "number",
+          "default": 1,
+          "control": { "type": "slider", "max": 3, "min": 1 },
+          "enabled": {
+            "buttonBorderR": true,
+            "rightButton": true,
+            "buttonTypeR": "button"
+          }
+        },
+        {
+          "name": "buttonRoundingR",
+          "displayName": "Button Rounding",
+          "type": "number",
+          "default": 6,
+          "control": { "type": "slider", "max": 20, "min": 0 },
+          "enabled": {
+            "rightButton": true,
+            "buttonTypeR": "button"
+          }
+        },
+        {
+          "name": "iconR",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "more-vert",
+          "enabled": {
+            "rightButton": true,
+            "buttonTypeR": "icon"
+          }
+        },
+        {
+          "name": "iconColorR",
+          "displayName": "Icon Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "rightButton": true,
+            "buttonTypeR": "icon"
+          }
+        },
+        {
+          "name": "buttonActionR",
+          "displayName": "Click Actions",
+          "type": "action",
+          "enabled": {
+            "rightButton": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "bottomBarStyle",
+      "displayName": "Bottom Bar Style",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "bbBackground",
+          "displayName": "Background",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "bbBackgroundColor",
+          "displayName": "Background Color",
+          "type": "color",
+          "default": "#FFFFFF",
+          "enabled": {
+            "bbBackground": true
+          }
+        },
+        {
+          "name": "bbBorder",
+          "displayName": "Bar Border",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "bbBorderColor",
+          "displayName": "Border Color",
+          "type": "color",
+          "default": "#E0E0E0",
+          "enabled": {
+            "bbBorder": true
+          }
+        },
+        {
+          "name": "bbShadow",
+          "displayName": "Shadow",
+          "type": "boolean",
+          "default": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+.twocolordiv {
+  position: relative;
+  z-index: 9;
+  background: green;
+  width: 500px;
+  height: 100px;
+}
+
+.twocolordiv:before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: 20%;
+  bottom: 0;
+  left: 0;
+  background: red;
+}

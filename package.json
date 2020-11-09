@@ -58,8 +58,14 @@
       {
         "name": "AvatarList",
         "manifest": "./src/AvatarList/manifest.json"
+      },
+      {
+        "name": "HorizontalImageList",
+        "manifest": "./src/HorizontalImageList/manifest.json"
       }
-    ]
+    ],
+    "iosInstallScript": "./scripts/install.sh",
+    "androidInstallScript": "./scripts/install.sh"
   },
   "peerDependencies": {
     "react": ">=16",
