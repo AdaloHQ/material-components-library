@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import { Button } from 'react-native-material-ui'
+import { Button } from '@protonapp/react-native-material-ui'
 
 class BottomBar extends Component {
   renderTitle() {
