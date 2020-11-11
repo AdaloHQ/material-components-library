@@ -115,6 +115,7 @@ export default class WrappedTextButton extends Component {
 const styles = StyleSheet.create({
   text: {
     fontWeight: '600',
+    marginLeft: 4,
   },
   loading: {
     position: 'absolute',
