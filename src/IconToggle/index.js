@@ -2,18 +2,14 @@ import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { IconToggle } from '@protonapp/react-native-material-ui'
 
-
-
 export default class WrappedIconToggle extends Component {
   handlePress = async () => {
     let {
       clickActions,
       input: { value, onChange },
-    } = this.props
-    //await onChange(!value)
-
-    let {
       activeActions,
+      input: { value, onChange },
+      inactiveActions,
       input: { value, onChange },
     } = this.props
     await onChange(value == true)
@@ -23,11 +19,6 @@ export default class WrappedIconToggle extends Component {
     if (clickActions) {
       await clickActions()
     }
-
-    let {
-      inactiveActions,
-      input: { value, onChange },
-    } = this.props
     await onChange(value == false )
     if (inactiveActions) {
       await inactiveActions()
