@@ -23,6 +23,13 @@
       "displayName": "Color",
       "type": "color",
       "default": "#666666"
+    },
+    {
+      "name": "iconSize",
+      "displayName": "Size",
+      "type": "number",
+      "default": 24,
+      "control": { "type": "slider", "max": 70, "min": 1 }
     }
   ]
 }

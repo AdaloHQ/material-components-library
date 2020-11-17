@@ -41,6 +41,23 @@
       "name": "clickActions",
       "displayName": "Click Actions",
       "type": "action" 
+    },
+    {
+      "name": "activeActions",
+      "displayName": "Active Actions",
+      "type": "action" 
+    },
+    {
+      "name": "inactiveActions",
+      "displayName": "Inactive Actions",
+      "type": "action" 
+    },
+    {
+      "name": "toggleSize",
+      "displayName": "Size",
+      "type": "number",
+      "default": 24,
+      "control": { "type": "slider", "max": 70, "min": 1 }
     }
   ]
 }
