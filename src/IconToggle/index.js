@@ -12,15 +12,14 @@ export default class WrappedIconToggle extends Component {
       inactiveActions,
       input: { value, onChange },
     } = this.props
-    await onChange(value == true)
-    if (activeActions) {
+    await onChange(!value)
+    if (activeActions && !value) {
       await activeActions()
     }
     if (clickActions) {
       await clickActions()
     }
-    await onChange(value == false )
-    if (inactiveActions) {
+    if (inactiveActions && value) {
       await inactiveActions()
     }
     if (clickActions) {
@@ -38,7 +37,7 @@ export default class WrappedIconToggle extends Component {
       toggleSize
     } = this.props
     const defaultProps = {
-      toggleSize: "24"       
+      toggleSize: 24
     }
     const styles = {
       wrapper: {
@@ -72,4 +71,3 @@ export default class WrappedIconToggle extends Component {
     )
   }
 }
-
