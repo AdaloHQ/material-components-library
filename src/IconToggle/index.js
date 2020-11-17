@@ -47,7 +47,7 @@ export default class WrappedIconToggle extends Component {
       toggleSize
     } = this.props
     const defaultProps = {
-      toggleSize: "24"       
+      toggleSize: 24
     }
     const styles = {
       wrapper: {
@@ -81,4 +81,3 @@ export default class WrappedIconToggle extends Component {
     )
   }
 }
-
