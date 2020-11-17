@@ -16,7 +16,7 @@ export default class WrappedIconToggle extends Component {
       activeActions,
       input: { value, onChange },
     } = this.props
-    await onChange(value == true)
+    await onChange(!value)
     if (activeActions) {
       await activeActions()
     }
