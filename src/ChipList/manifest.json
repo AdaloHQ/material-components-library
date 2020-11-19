@@ -1,5 +1,5 @@
 {
-  "displayName": "Chip List",
+  "displayName": "Horizontal Chip List",
   "defaultWidth": 375,
   "defaultHeight": 80,
   "components": "./index.js",
