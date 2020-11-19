@@ -49,7 +49,7 @@
     },
     {
       "name": "inactiveActions",
-      "displayName": "Inactive Actions",
+      "displayName": "Actions when toggle is turned OFF",
       "type": "action" 
     },
     {
