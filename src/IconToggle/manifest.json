@@ -44,7 +44,7 @@
     },
     {
       "name": "activeActions",
-      "displayName": "Active Actions",
+      "displayName": "Actions when toggle is turned ON",
       "type": "action" 
     },
     {
@@ -61,4 +61,3 @@
     }
   ]
 }
-
