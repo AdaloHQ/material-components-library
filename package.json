@@ -62,6 +62,10 @@
       {
         "name": "HorizontalImageList",
         "manifest": "./src/HorizontalImageList/manifest.json"
+      },
+      {
+        "name": "ChipList",
+        "manifest": "./src/ChipList/manifest.json"
       }
     ],
     "iosInstallScript": "./scripts/install.sh",
