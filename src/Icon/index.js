@@ -6,7 +6,7 @@ export default class WrappedIconToggle extends Component {
   render() {
     let { iconName, iconColor, onPress, iconSize } = this.props
     const defaultProps = {
-      iconSize: "24"       
+      iconSize: 24
     }
 
     const styles = {
@@ -48,5 +48,4 @@ export default class WrappedIconToggle extends Component {
     )
   }
 }
-
 
