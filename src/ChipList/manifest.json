@@ -1,0 +1,167 @@
+{
+  "displayName": "Chip List",
+  "defaultWidth": 375,
+  "defaultHeight": 80,
+  "components": "./index.js",
+  "icon": "./Chip-List-Thumbnail.png",
+  "props": [
+    {
+      "name": "imageList",
+      "displayName": "What is this a list of?",
+      "type": "list"
+    },
+    {
+      "name": "imageSpacing",
+      "displayName": "List Items Spacing",
+      "type": "number",
+      "default": 8,
+      "control": { "type": "slider", "max": 30, "min": 0 }
+    },
+    {
+      "name": "clickActions",
+      "displayName": "Click Actions",
+      "type": "action",
+      "role": "listItem",
+      "reference": "imageList"
+    }
+  ],
+  "childComponents": [
+    {
+      "name": "text",
+      "displayName": "Text",
+      "role": "listItem",
+      "reference": "imageList",
+      "props": [
+        {
+          "name": "title",
+          "displayName": "Title Text",
+          "type": "text",
+          "default": "Title"
+        },
+
+        {
+          "name": "textColor",
+          "displayName": "Text Color",
+          "type": "color",
+          "default": "@text"
+        }
+      ]
+    },
+    {
+      "name": "image",
+      "displayName": "Image",
+      "role": "listItem",
+      "reference": "imageList",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "image",
+          "displayName": "Chip Image",
+          "type": "image"
+        },
+        {
+          "name": "imageRounding",
+          "displayName": "Image Rounding",
+          "type": "number",
+          "default": 0,
+          "control": { "type": "slider", "max": 20, "min": 0 }
+        }
+      ]
+    },
+    {
+      "name": "rightIcon",
+      "displayName": "Right Icon",
+      "role": "listItem",
+      "reference": "imageList",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "icon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "cancel"
+        },
+
+        {
+          "name": "iconColor",
+          "displayName": "Icon Color",
+          "type": "color",
+          "default": "#424242"
+        },
+        {
+          "name": "iconAction",
+          "displayName": "Click Actions",
+          "type": "action"
+        }
+      ]
+    },
+
+    {
+      "name": "chipStyles",
+      "displayName": "Chip Styles",
+      "role": "listItem",
+      "reference": "imageList",
+      "props": [
+        {
+          "name": "chipSize",
+          "displayName": "Chip Size",
+          "type": "number",
+          "default": 32,
+          "control": { "type": "slider", "max": 60, "min": 24 }
+        },
+        {
+          "name": "backgroundColor",
+          "displayName": "Background Color",
+          "type": "color",
+          "default": "#FFFFFF"
+        },
+        {
+          "name": "border",
+          "displayName": "Border",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "borderColor",
+          "displayName": "Border Color",
+          "type": "color",
+          "default": "#e0e0e0",
+          "enabled": {
+            "border": true
+          }
+        },
+        {
+          "name": "borderWidth",
+          "displayName": "Border Width",
+          "type": "number",
+          "default": 1,
+          "control": { "type": "slider", "max": 3, "min": 1 },
+          "enabled": {
+            "border": true
+          }
+        },
+        {
+          "name": "rounding",
+          "displayName": "Rounding",
+          "type": "number",
+          "default": 16,
+          "control": { "type": "slider", "max": 30, "min": 0 }
+        },
+        {
+          "name": "shadow",
+          "displayName": "Shadow",
+          "type": "boolean",
+          "default": "true"
+        }
+      ]
+    }
+  ]
+}
