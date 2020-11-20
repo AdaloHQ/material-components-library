@@ -14,9 +14,6 @@ export default class WrappedIconToggle extends Component {
     if (activeActions && !value) {
       await activeActions()
     }
-    if (clickActions) {
-      await clickActions()
-    }
     if (inactiveActions && value) {
       await inactiveActions()
     }
