@@ -14,11 +14,6 @@
       "default": "directions-bike"
     },
     {
-      "name": "onPress",
-      "type": "action",
-      "displayName": "Click Actions"
-    },
-    {
       "name": "iconColor",
       "displayName": "Color",
       "type": "color",
@@ -30,6 +25,11 @@
       "type": "number",
       "default": 24,
       "control": { "type": "slider", "max": 70, "min": 1 }
+    },
+    {
+      "name": "onPress",
+      "type": "action",
+      "displayName": "Click Actions"
     }
   ]
 }

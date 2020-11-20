@@ -38,26 +38,26 @@
       "default": "#bbb"
     },
     {
-      "name": "clickActions",
-      "displayName": "Click Actions",
-      "type": "action" 
-    },
-    {
-      "name": "activeActions",
-      "displayName": "Actions when toggle is turned ON",
-      "type": "action" 
-    },
-    {
-      "name": "inactiveActions",
-      "displayName": "Actions when toggle is turned OFF",
-      "type": "action" 
-    },
-    {
       "name": "toggleSize",
       "displayName": "Size",
       "type": "number",
       "default": 24,
       "control": { "type": "slider", "max": 70, "min": 1 }
+    },
+    {
+      "name": "activeActions",
+      "displayName": "Additional actions only when toggle is turned ON",
+      "type": "action" 
+    },
+    {
+      "name": "inactiveActions",
+      "displayName": "Additional actions only when toggle is turned OFF",
+      "type": "action" 
+    },
+    {
+      "name": "clickActions",
+      "displayName": "Additional actions anytime the toggle is clicked",
+      "type": "action" 
     }
   ]
 }
