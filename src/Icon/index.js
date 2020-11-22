@@ -5,9 +5,7 @@ import { Icon, IconToggle } from '@protonapp/react-native-material-ui'
 export default class WrappedIconToggle extends Component {
   render() {
     let { iconName, iconColor, onPress, iconSize } = this.props
-    const defaultProps = {
-      iconSize: 24
-    }
+    if (!iconSize) iconSize = 24
 
     const styles = {
       wrapper: {
@@ -48,4 +46,3 @@ export default class WrappedIconToggle extends Component {
     )
   }
 }
-
