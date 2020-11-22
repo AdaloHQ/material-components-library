@@ -31,9 +31,7 @@ export default class WrappedIconToggle extends Component {
       activeColor,
       toggleSize
     } = this.props
-    const defaultProps = {
-      toggleSize: 24
-    }
+    if (!toggleSize) toggleSize = 24
     const styles = {
       wrapper: {
         height: toggleSize,
