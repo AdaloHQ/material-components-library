@@ -27,6 +27,7 @@ export default class WrappedIconToggle extends Component {
             name={iconName}
             color={iconColor}
             size={iconSize}
+            key={`iconToggle.${iconSize}`}
           />
         </View>
       )
