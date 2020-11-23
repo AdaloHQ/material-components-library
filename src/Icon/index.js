@@ -4,7 +4,21 @@ import { Icon, IconToggle } from '@protonapp/react-native-material-ui'
 
 export default class WrappedIconToggle extends Component {
   render() {
-    let { iconName, iconColor, onPress } = this.props
+    let { iconName, iconColor, onPress, iconSize } = this.props
+    if (!iconSize) iconSize = 24
+
+    const styles = {
+      wrapper: {
+        height: iconSize,
+        width: iconSize,
+        overflow: 'hidden',
+      },
+      buttonWrapper: {
+        margin: -12,
+        width: 2*iconSize,
+        height: 2*iconSize,
+      }
+    }
 
     if (!onPress) {
       return (
@@ -12,7 +26,8 @@ export default class WrappedIconToggle extends Component {
           <Icon
             name={iconName}
             color={iconColor}
-            size={24}
+            size={iconSize}
+            key={`iconToggle.${iconSize}`}
           />
         </View>
       )
@@ -25,23 +40,10 @@ export default class WrappedIconToggle extends Component {
           color={iconColor}
           underlayColor={iconColor}
           maxOpacity={0.3}
-          size={24}
+          size={iconSize}
           onPress={onPress}
         />
       </View>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    height: 24,
-    width: 24,
-    overflow: 'hidden',
-  },
-  buttonWrapper: {
-    margin: -12,
-    width: 48,
-    height: 48,
-  }
-})
