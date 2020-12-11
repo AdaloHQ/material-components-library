@@ -40,21 +40,119 @@
   ],
   "childComponents": [
     {
-      "name": "title",
-      "displayName": "Title",
+      "name": "imageStyles",
+      "displayName": "Image Style",
       "role": "listItem",
       "reference": "items",
       "props": [
         {
-          "name": "text",
-          "displayName": "Text",
+          "name": "shape",
+          "displayName": "Shape",
           "type": "text",
-          "default": "Title"
+          "default": "square",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Square", "value": "square" },
+              { "label": "Portrait", "value": "portrait" },
+              { "label": "Landscape", "value": "landscape" }
+            ]
+          },
+          "enabled": {
+            "layout": "grid"
+          }
         },
+        {
+          "name": "rounding",
+          "displayName": "Rounding",
+          "type": "number",
+          "default": 6,
+          "control": { "type": "slider", "max": 30, "min": 0 }
+        },
+        {
+          "name": "shadow",
+          "displayName": "Shadow",
+          "type": "boolean",
+          "default": false
+        }
+      ]
+    },
+    {
+      "name": "title",
+      "displayName": "Text",
+      "role": "listItem",
+      "reference": "items",
+      "props": [
         {
           "name": "enabled",
           "type": "boolean",
           "default": "false"
+        },
+        {
+          "name": "textPosition",
+          "displayName": "Text Position",
+          "type": "text",
+          "default": "bottom",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Top Overlay", "value": "top" },
+              { "label": "Bottom Overlay", "value": "bottom" }
+            ]
+          }
+        },
+        {
+          "name": "backgroundEffect",
+          "displayName": "Background Effect",
+          "type": "text",
+          "default": "solid",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Gradient", "value": "gradient" },
+              { "label": "Solid Color", "value": "solid" }
+            ]
+          }
+        },
+        {
+          "name": "backgroundColor",
+          "displayName": "Overlay Background Color",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.6)",
+          "enabled": {
+            "backgroundEffect": "solid"
+          }
+        },
+        {
+          "name": "text",
+          "displayName": "Title",
+          "type": "text",
+          "default": "Title"
+        },
+        {
+          "name": "subtitle",
+          "displayName": "Subtitle",
+          "type": "text",
+          "default": "Subtitle"
+        },
+        {
+          "name": "subtitlePosition",
+          "displayName": "Subtitle Position",
+          "type": "text",
+          "default": "below",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Below Title", "value": "below" },
+              { "label": "Above Title", "value": "above" }
+            ]
+          }
+        },
+        {
+          "name": "textColor",
+          "displayName": "Text Color",
+          "type": "color",
+          "default": "@text"
         }
       ]
     },
@@ -82,14 +180,14 @@
           }
         },
         {
-          "name": "onPress",
-          "displayName": "Click Actions",
-          "type": "action"
-        },
-        {
           "name": "color",
           "type": "color",
           "default": "#fff"
+        },
+        {
+          "name": "onPress",
+          "displayName": "Click Actions",
+          "type": "action"
         },
         {
           "name": "enabled",
