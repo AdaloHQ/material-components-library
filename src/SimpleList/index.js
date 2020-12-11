@@ -14,7 +14,12 @@ export default class SimpleList extends Component {
       return null
     }
 
-    return <Text style={styles.header}>{listHeader.header}</Text>
+    return (
+      <>
+        <Text style={styles.header}>{listHeader.header}</Text>
+        <View style={{ height: 16 }}></View>
+      </>
+    )
   }
 
   render() {
@@ -337,8 +342,9 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
   },
   header: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '600',
+    marginLeft: 16,
   },
   row: {
     paddingLeft: 16,
