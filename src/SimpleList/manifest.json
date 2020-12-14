@@ -199,7 +199,8 @@
         {
           "name": "backgroundColor",
           "displayName": "Background Color",
-          "type": "color"
+          "type": "color",
+          "default": "#FFFFFF"
         },
         {
           "name": "border",

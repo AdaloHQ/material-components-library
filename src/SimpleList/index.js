@@ -7,6 +7,17 @@ export default class SimpleList extends Component {
   static defaultProps = {
     items: [],
   }
+  state = {
+    fullWidth: 0,
+  }
+  handleLayout = ({ nativeEvent }) => {
+    const { width } = (nativeEvent && nativeEvent.layout) || {}
+    const { fullWidth: prevWidth } = this.state
+
+    if (width !== prevWidth) {
+      this.setState({ fullWidth: width })
+    }
+  }
 
   renderHeader() {
     let { listHeader } = this.props
@@ -55,7 +66,7 @@ export default class SimpleList extends Component {
     return (
       <>
         {this.renderHeader()}
-        <View style={wrap}>
+        <View style={wrap} onLayout={this.handleLayout}>
           {items.map((itm, i) => (
             <Row
               {...itm}
@@ -63,6 +74,7 @@ export default class SimpleList extends Component {
               dividerType={dividerType}
               dividerColor={dividerColor}
               lastRow={i === items.length - 1}
+              fullWidth={this.state.fullWidth}
             />
           ))}
         </View>
@@ -72,6 +84,24 @@ export default class SimpleList extends Component {
 }
 
 class Row extends Component {
+  getWidthLimit() {
+    let { leftSection, rightSection, fullWidth } = this.props
+    let leftSectWidth = 0
+    let rightSectWidth = 0
+
+    if (leftSection && leftSection.enabled) {
+      if (leftSection.type === 'image') {
+        leftSectWidth = 72
+      } else {
+        leftSectWidth = 56
+      }
+    }
+    if (rightSection && rightSection.enabled) {
+      rightSectWidth = 36
+    }
+    return fullWidth - leftSectWidth - rightSectWidth - 32
+  }
+
   getDividerInset() {
     let { dividerType, leftSection } = this.props
 
@@ -99,6 +129,10 @@ class Row extends Component {
   getDividerStyles() {
     let { dividerColor } = this.props
 
+    if (!dividerColor) {
+      dividerColor = '#e0e0e0'
+    }
+
     return {
       left: this.getDividerInset(),
       backgroundColor: dividerColor,
@@ -117,7 +151,6 @@ class Row extends Component {
 
   renderLeftSection() {
     let { leftSection } = this.props
-
     if (!leftSection || !leftSection.enabled) {
       return null
     }
@@ -125,6 +158,7 @@ class Row extends Component {
     let source = leftSection.image
 
     if (leftSection.type === 'icon') {
+      //56
       return (
         <View style={styles.iconWrapper} pointerEvents="none">
           <Icon
@@ -137,6 +171,7 @@ class Row extends Component {
     }
 
     if (leftSection.type === 'avatar') {
+      //56
       return (
         <Image
           resizeMode="cover"
@@ -148,6 +183,7 @@ class Row extends Component {
     }
 
     if (leftSection.type === 'image') {
+      //72
       return (
         <Image
           resizeMode="cover"
@@ -188,14 +224,14 @@ class Row extends Component {
   renderContent() {
     let { leftSection, firstLine, secondLine } = this.props
     let hasDivider = this.hasDivider()
-    console.log(firstLine)
+
     return (
       <View style={styles.row}>
         {this.renderLeftSection()}
         <View style={styles.main} pointerEvents="none">
-          <FirstLine {...firstLine} />
+          <FirstLine {...firstLine} widthLimit={this.getWidthLimit()} />
           {secondLine && secondLine.enabled ? (
-            <SecondLine {...secondLine} />
+            <SecondLine {...secondLine} widthLimit={this.getWidthLimit()} />
           ) : null}
         </View>
         {this.renderRightSection()}
@@ -228,41 +264,43 @@ class FirstLine extends Component {
     text: '',
     color: '#212121',
   }
-
   render() {
-    let { text, color, titleLineNum } = this.props
+    let { text, color, titleLineNum, widthLimit } = this.props
+    let breakless = text.replace(/(\r\n|\n|\r)/gm, '')
+
     let propStyles = { color: color }
-    let titleLimit = 33
+    let titleLimit = widthLimit / 7.7
     if (titleLineNum == 2) {
-      if (text.length > titleLimit) {
-        const firstLine = text.substring(0, titleLimit + 1)
+      if (breakless.length > titleLimit) {
+        const firstLine = breakless.substring(0, titleLimit + 1)
         const i = firstLine.lastIndexOf(' ')
         return (
           <View style={styles.titleContainer}>
             <Text style={[styles.firstLine, propStyles]}>
-              {text.substring(0, i + 1)}
+              {breakless.substring(0, i + 1)}
             </Text>
             <Text
               style={[styles.firstLine, propStyles]}
               numberOfLines={1}
               ellipsizeMode="tail"
             >
-              {text.substring(i + 1)}
+              {breakless.substring(i + 1)}
             </Text>
           </View>
         )
       } else {
         return (
           <View style={styles.titleContainer}>
-            <Text style={[styles.firstLine, propStyles]}>{text}</Text>
+            <Text style={[styles.firstLine, propStyles]}>{breakless}</Text>
           </View>
         )
       }
     }
+
     if (titleLineNum > 2) {
       return (
         <Text style={[styles.firstLine, propStyles]} ellipsizeMode="tail">
-          {text}
+          {breakless}
         </Text>
       )
     }
@@ -273,7 +311,7 @@ class FirstLine extends Component {
         numberOfLines={1}
         ellipsizeMode="tail"
       >
-        {text}
+        {breakless}
       </Text>
     )
   }
@@ -286,51 +324,51 @@ class SecondLine extends Component {
   }
 
   render() {
-    let { text, color, subtitleLineNum } = this.props
+    let { text, color, subtitleLineNum, widthLimit } = this.props
     let propStyles = { color: color }
-
-    let titleLimit = 33
+    let subtitleLimit = widthLimit / 7
+    let breakless = text.replace(/(\r\n|\n|\r)/gm, '')
     if (subtitleLineNum == 2) {
-      if (text.length > titleLimit) {
-        const firstLine = text.substring(0, titleLimit + 1)
+      if (breakless.length > subtitleLimit) {
+        const firstLine = breakless.substring(0, subtitleLimit + 1)
         const i = firstLine.lastIndexOf(' ')
         return (
           <View style={styles.titleContainer}>
-            <Text style={[styles.firstLine, propStyles]}>
-              {text.substring(0, i + 1)}
+            <Text style={[styles.secondLine, propStyles]}>
+              {breakless.substring(0, i + 1)}
             </Text>
             <Text
-              style={[styles.firstLine, propStyles]}
+              style={[styles.secondLine, propStyles]}
               numberOfLines={1}
               ellipsizeMode="tail"
             >
-              {text.substring(i + 1)}
+              {breakless.substring(i + 1)}
             </Text>
           </View>
         )
       } else {
         return (
           <View style={styles.titleContainer}>
-            <Text style={[styles.firstLine, propStyles]}>{text}</Text>
+            <Text style={[styles.secondLine, propStyles]}>{breakless}</Text>
           </View>
         )
       }
     }
     if (subtitleLineNum > 2) {
       return (
-        <Text style={[styles.firstLine, propStyles]} ellipsizeMode="tail">
-          {text}
+        <Text style={[styles.secondLine, propStyles]} ellipsizeMode="tail">
+          {breakless}
         </Text>
       )
     }
 
     return (
       <Text
-        style={[styles.firstLine, propStyles]}
+        style={[styles.secondLine, propStyles]}
         numberOfLines={1}
         ellipsizeMode="tail"
       >
-        {text}
+        {breakless}
       </Text>
     )
   }
@@ -396,7 +434,6 @@ const styles = StyleSheet.create({
   firstLine: {
     lineHeight: 20,
     fontSize: 16,
-    maxWidth: '100%',
   },
   secondLine: {
     lineHeight: 18,
