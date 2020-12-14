@@ -39,6 +39,19 @@
   ],
   "childComponents": [
     {
+      "name": "listHeader",
+      "displayName": "List Header",
+      "props": [
+        { "name": "enabled", "type": "boolean", "default": false },
+        {
+          "name": "header",
+          "displayName": "Title",
+          "type": "text",
+          "default": "Title"
+        }
+      ]
+    },
+    {
       "name": "firstLine",
       "displayName": "Title",
       "role": "listItem",
@@ -161,15 +174,13 @@
           "name": "icon",
           "displayName": "Icon",
           "type": "icon",
-          "default": "add",
-          "enabled": { "type": "icon" }
+          "default": "add"
         },
         {
           "name": "iconColor",
           "displayName": "Icon Color",
           "type": "color",
-          "default": "#ccc",
-          "enabled": { "type": "icon" }
+          "default": "#ccc"
         },
         {
           "name": "onPress",
@@ -227,19 +238,6 @@
           "displayName": "Shadow",
           "type": "boolean",
           "default": false
-        }
-      ]
-    },
-    {
-      "name": "listHeader",
-      "displayName": "List Header",
-      "props": [
-        { "name": "enabled", "type": "boolean", "default": false },
-        {
-          "name": "header",
-          "displayName": "Title",
-          "type": "text",
-          "default": "Title"
         }
       ]
     }

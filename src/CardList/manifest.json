@@ -71,12 +71,23 @@
     },
     {
       "name": "media",
-      "displayName": "Media",
+      "displayName": "Image",
       "role": "listItem",
       "reference": "items",
       "props": [
         {
+          "name": "image",
+          "displayName": "Image",
+          "type": "image"
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": "true"
+        },
+        {
           "name": "position",
+          "displayName": "Position",
           "type": "text",
           "default": "top",
           "control": {
@@ -89,14 +100,18 @@
           }
         },
         {
-          "name": "image",
-          "displayName": "Image",
-          "type": "image"
-        },
-        {
-          "name": "enabled",
-          "type": "boolean",
-          "default": "true"
+          "name": "shape",
+          "displayName": "Shape",
+          "type": "text",
+          "default": "landscape",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Square", "value": "square" },
+              { "label": "Portrait", "value": "portrait" },
+              { "label": "Landscape", "value": "landscape" }
+            ]
+          }
         }
       ]
     },
@@ -120,6 +135,78 @@
       ]
     },
     {
+      "name": "listStyles",
+      "displayName": "List Styles",
+      "props": [
+        {
+          "name": "layout",
+          "displayName": "Layout",
+          "type": "text",
+          "default": "masonry",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Grid", "value": "grid" },
+              { "label": "Masonry", "value": "masonry" }
+            ]
+          }
+        },
+        {
+          "name": "background",
+          "displayName": "Background",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "backgroundColor",
+          "displayName": "Background Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "background": true
+          }
+        },
+        {
+          "name": "border",
+          "displayName": "Border",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "borderColor",
+          "displayName": "Border Color",
+          "type": "color",
+          "default": "#e0e0e0",
+          "enabled": {
+            "border": true
+          }
+        },
+        {
+          "name": "borderSize",
+          "displayName": "Border Size",
+          "type": "number",
+          "default": 1,
+          "control": { "type": "slider", "max": 3, "min": 1 },
+          "enabled": {
+            "border": true
+          }
+        },
+        {
+          "name": "rounding",
+          "displayName": "Rounding",
+          "type": "number",
+          "default": 1,
+          "control": { "type": "slider", "max": 60, "min": 0 }
+        },
+        {
+          "name": "shadow",
+          "displayName": "Shadow",
+          "type": "boolean",
+          "default": false
+        }
+      ]
+    },
+    {
       "name": "button1",
       "displayName": "First Button",
       "role": "listItem",
@@ -137,15 +224,62 @@
           "default": "Button 1"
         },
         {
-          "name": "onPress",
-          "displayName": "Click Actions",
-          "type": "action"
-        },
-        {
           "name": "color",
           "displayName": "Text Color",
           "type": "color",
           "default": "@primary"
+        },
+        {
+          "name": "background",
+          "displayName": "Button Background",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "backgroundColor",
+          "displayName": "Background Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "background": true
+          }
+        },
+        {
+          "name": "border",
+          "displayName": "Button Border",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "borderColor",
+          "displayName": "Border Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "border": true
+          }
+        },
+        {
+          "name": "borderSize",
+          "displayName": "Border Size",
+          "type": "number",
+          "default": 1,
+          "control": { "type": "slider", "max": 3, "min": 1 },
+          "enabled": {
+            "border": true
+          }
+        },
+        {
+          "name": "rounding",
+          "displayName": "Button Rounding",
+          "type": "number",
+          "default": 0,
+          "control": { "type": "slider", "max": 18, "min": 0 }
+        },
+        {
+          "name": "onPress",
+          "displayName": "Click Actions",
+          "type": "action"
         }
       ]
     },
@@ -167,15 +301,62 @@
           "default": "Button 2"
         },
         {
-          "name": "onPress",
-          "displayName": "Click Actions",
-          "type": "action"
-        },
-        {
           "name": "color",
           "displayName": "Text Color",
           "type": "color",
           "default": "@primary"
+        },
+        {
+          "name": "background",
+          "displayName": "Button Background",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "backgroundColor",
+          "displayName": "Background Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "background": true
+          }
+        },
+        {
+          "name": "border",
+          "displayName": "Button Border",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "borderColor",
+          "displayName": "Border Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "border": true
+          }
+        },
+        {
+          "name": "borderSize",
+          "displayName": "Border Size",
+          "type": "number",
+          "default": 1,
+          "control": { "type": "slider", "max": 3, "min": 1 },
+          "enabled": {
+            "border": true
+          }
+        },
+        {
+          "name": "rounding",
+          "displayName": "Button Rounding",
+          "type": "number",
+          "default": 0,
+          "control": { "type": "slider", "max": 18, "min": 0 }
+        },
+        {
+          "name": "onPress",
+          "displayName": "Click Actions",
+          "type": "action"
         }
       ]
     },
@@ -234,6 +415,19 @@
           "displayName": "Text Color",
           "type": "color",
           "default": "#ccc"
+        }
+      ]
+    },
+    {
+      "name": "listHeader",
+      "displayName": "List Header",
+      "props": [
+        { "name": "enabled", "type": "boolean", "default": false },
+        {
+          "name": "header",
+          "displayName": "Title",
+          "type": "text",
+          "default": "Title"
         }
       ]
     }

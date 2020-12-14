@@ -105,7 +105,7 @@
           "name": "backgroundEffect",
           "displayName": "Background Effect",
           "type": "text",
-          "default": "solid",
+          "default": "gradient",
           "control": {
             "type": "menu",
             "options": [
@@ -152,7 +152,7 @@
           "name": "textColor",
           "displayName": "Text Color",
           "type": "color",
-          "default": "@text"
+          "default": "#FFFFFF"
         }
       ]
     },

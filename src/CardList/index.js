@@ -12,6 +12,9 @@ export default class ImageList extends Component {
     items: [],
     columnCount: 1,
   }
+  state = {
+    fullWidth: null,
+  }
 
   getColumnCount() {
     let { layout, columnCount } = this.props
@@ -22,7 +25,14 @@ export default class ImageList extends Component {
 
     return columnCount
   }
+  handleLayout = ({ nativeEvent }) => {
+    const { width } = (nativeEvent && nativeEvent.layout) || {}
+    const { fullWidth: prevWidth } = this.state
 
+    if (width !== prevWidth) {
+      this.setState({ fullWidth: width })
+    }
+  }
   getColumns() {
     let count = this.getColumnCount()
     let { items } = this.props
@@ -45,28 +55,97 @@ export default class ImageList extends Component {
     return columns
   }
 
-  renderCell = (itm, layout) => (
-    <Cell
-      {...itm}
-      key={itm.id}
-      layout={layout}
-    />
+  renderCell = (itm, layout, width) => (
+    <Cell {...itm} key={itm.id} layout={layout} width={width} />
   )
 
-  render() {
-    let { items, layout, editor } = this.props
+  renderMasonry() {
+    let { items, layout, editor, listStyles } = this.props
 
     let columns = this.getColumns()
 
+    let wrap = [styles.wrapper]
+
     return (
-      <View style={styles.wrapper}>
+      <View style={wrap}>
         {columns.map((column, i) => (
           <View key={i} style={styles.column}>
-            {column.map(itm => (
-              this.renderCell(itm, layout)
-            ))}
+            {column.map((itm) => this.renderCell(itm, layout))}
           </View>
         ))}
+      </View>
+    )
+  }
+  renderGrid() {
+    let { items, layout, columnCount } = this.props
+
+    let { fullWidth } = this.state
+    let width = fullWidth / columnCount - 8
+
+    return (
+      <View onLayout={this.handleLayout} style={styles.gridWrap}>
+        {items.map((itm, i) => this.renderCell(itm, layout, width))}
+      </View>
+    )
+  }
+
+  renderHeader() {
+    let { listHeader } = this.props
+    if (!listHeader || !listHeader.header || !listHeader.enabled) {
+      return null
+    }
+
+    return <Text style={styles.header}>{listHeader.header}</Text>
+  }
+
+  render() {
+    let { listStyles } = this.props
+    let {
+      background,
+      backgroundColor,
+      border,
+      borderColor,
+      borderSize,
+      rounding,
+      shadow,
+    } = listStyles
+
+    let wrap = [styles.wrap]
+    if (background) {
+      wrap.push({ backgroundColor: backgroundColor })
+    }
+    if (border) {
+      wrap.push({
+        borderWidth: borderSize,
+        borderColor: borderColor,
+      })
+    }
+
+    if (shadow) {
+      wrap.push({
+        shadowColor: '#000000',
+        shadowOffset: {
+          width: 2,
+          height: 2,
+        },
+        shadowOpacity: 0.15,
+        shadowRadius: 10,
+      })
+    }
+    wrap.push({ borderRadius: rounding })
+
+    if (listStyles && listStyles.layout === 'grid') {
+      return (
+        <View style={wrap}>
+          {this.renderHeader()}
+          {this.renderGrid()}
+        </View>
+      )
+    }
+    return (
+      <View style={wrap}>
+        {this.renderHeader()}
+        {this.renderMasonry()}
       </View>
     )
   }
@@ -76,10 +155,12 @@ class Cell extends Component {
   hasActions() {
     let { button1, button2, icon1, icon2 } = this.props
 
-    return (button1 && button1.enabled && button1.text) ||
+    return (
+      (button1 && button1.enabled && button1.text) ||
       (button2 && button2.enabled && button2.text) ||
       (icon1 && icon1.enabled && icon1.icon) ||
       (icon2 && icon2.enabled && icon2.icon)
+    )
   }
 
   renderTitle() {
@@ -90,14 +171,10 @@ class Cell extends Component {
 
     return (
       <View style={styles.titleWrapper}>
-        <Text style={styles.title}>
-          {titleText}
-        </Text>
-        {subtitleText
-          ? <Text style={styles.subtitle}>
-            {subtitleText}
-            </Text>
-          : null}
+        <Text style={styles.title}>{titleText}</Text>
+        {subtitleText ? (
+          <Text style={styles.subtitle}>{subtitleText}</Text>
+        ) : null}
       </View>
     )
   }
@@ -111,7 +188,13 @@ class Cell extends Component {
 
     let { image } = media
     let source = image
-    let imageStyles = [{ paddingTop: '66.6667%' }]
+    let percent =
+      media.shape === 'square'
+        ? '100%'
+        : media.shape === 'portrait'
+        ? '150%'
+        : '66.6667%'
+    let imageStyles = [{ paddingTop: percent }]
     let wrapperStyles = [styles.mediaWrapper]
 
     if (media.position === 'top') {
@@ -142,13 +225,11 @@ class Cell extends Component {
     let { body } = this.props
     let { enabled, text } = body
 
-    if (!enabled || !text) { return null }
+    if (!enabled || !text) {
+      return null
+    }
 
-    return (
-      <Text style={styles.body}>
-        {text}
-      </Text>
-    )
+    return <Text style={styles.body}>{text}</Text>
   }
 
   renderMediaMiddle() {
@@ -196,30 +277,27 @@ class Cell extends Component {
   }
 
   render() {
-    let { onPress, media, button1, button2, icon1, icon2 } = this.props
+    let { onPress, media, button1, button2, icon1, icon2, width } = this.props
 
     let mediaPosition = media && media.position
 
+    let celly = [styles.cell, { width }]
+
     return (
-      <View>
-        <WrappedCard
-          onPress={onPress}
-          style={{ container: styles.cell }}
-        >
-          <View>
-            {this.renderContent()}
-            <View style={styles.tapTarget} />
-          </View>
-          {(this.hasActions())
-            ? <Actions
-                button1={button1}
-                button2={button2}
-                icon1={icon1}
-                icon2={icon2}
-              />
-            : null}
-        </WrappedCard>
-      </View>
+      <WrappedCard onPress={onPress} style={{ container: celly }}>
+        <View>
+          {this.renderContent()}
+          <View style={styles.tapTarget} />
+        </View>
+        {this.hasActions() ? (
+          <Actions
+            button1={button1}
+            button2={button2}
+            icon1={icon1}
+            icon2={icon2}
+          />
+        ) : null}
+      </WrappedCard>
     )
   }
 }
@@ -231,33 +309,53 @@ class WrappedCard extends Component {
     if (Platform.OS === 'ios') {
       return (
         <View style={styles.cellWrapper}>
-          <Card {...this.props}>
-            {children}
-          </Card>
+          <Card {...this.props}>{children}</Card>
         </View>
       )
     }
 
-    return (
-      <Card {...this.props}>
-        {children}
-      </Card>
-    )
+    return <Card {...this.props}>{children}</Card>
   }
 }
 
 class Actions extends Component {
   renderButton(opts) {
-    if (!opts || !opts.text || !opts.enabled) { return null }
+    if (!opts || !opts.text || !opts.enabled) {
+      return null
+    }
 
-    let { text, onPress, color, enabled} = opts
+    let {
+      text,
+      onPress,
+      color,
+      background,
+      backgroundColor,
+      border,
+      borderSize,
+      borderColor,
+      rounding,
+    } = opts
+
+    let buttonContainer = [styles.button]
+
+    if (background) {
+      buttonContainer.push({ backgroundColor: backgroundColor })
+    }
+    if (border) {
+      buttonContainer.push({
+        borderWidth: borderSize,
+        borderColor: borderColor,
+      })
+    }
+
+    buttonContainer.push({ borderRadius: rounding })
 
     return (
       <Button
         onPress={onPress}
         text={text}
         style={{
-          container: styles.button,
+          container: buttonContainer,
           text: { color },
         }}
       />
@@ -265,7 +363,9 @@ class Actions extends Component {
   }
 
   renderIcon(opts) {
-    if (!opts || !opts.icon || !opts.enabled) { return null }
+    if (!opts || !opts.icon || !opts.enabled) {
+      return null
+    }
 
     let { icon, onPress, color, enabled } = opts
 
@@ -302,6 +402,12 @@ class Actions extends Component {
 }
 
 const styles = StyleSheet.create({
+  gridWrap: {
+    margin: 4,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  wrap: {},
   wrapper: {
     margin: 4,
     flexDirection: 'row',
@@ -408,5 +514,11 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
     paddingRight: 8,
     marginRight: 8,
-  }
+  },
+  header: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginLeft: 8,
+    paddingBottom: 8,
+  },
 })
