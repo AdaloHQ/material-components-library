@@ -20,21 +20,31 @@ export default class SimpleList extends Component {
   }
 
   renderHeader() {
-    let { listHeader } = this.props
+    let { listHeader, background } = this.props
     if (!listHeader || !listHeader.header || !listHeader.enabled) {
       return null
+    }
+    let space = 0
+    if (background && background.enabled) {
+      space = 10
     }
 
     return (
       <>
         <Text style={styles.header}>{listHeader.header}</Text>
-        <View style={{ height: 16 }}></View>
+        <View style={{ height: space }}></View>
       </>
     )
   }
 
   render() {
-    let { items, dividerType, dividerColor, background } = this.props
+    let {
+      items,
+      dividerType,
+      dividerColor,
+      background,
+      listHeader,
+    } = this.props
 
     let wrap = [styles.wrapper]
     if (background && background.enabled) {
@@ -60,6 +70,12 @@ export default class SimpleList extends Component {
           shadowOpacity: 0.15,
           shadowRadius: 10,
         })
+      }
+    } else {
+      if (listHeader && listHeader.enabled) {
+        wrap.push({ paddingTop: 4 })
+      } else {
+        wrap.push({ paddingTop: 8 })
       }
     }
 
