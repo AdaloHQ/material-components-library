@@ -95,7 +95,7 @@ export default class ImageList extends Component {
 
   render() {
     let { items } = this.props
-    console.log(this.props)
+
     let layout = 'grid' //items[0] ? items[0].imageStyles.layout : 'grid'
 
     if (layout === 'masonry') {
@@ -157,7 +157,7 @@ class Cell extends Component {
     }
 
     return (
-      <Text style={subtitleStyles} numberOfLines={1}>
+      <Text style={subtitleStyles} numberOfLines={1} ellipsizeMode={'tail'}>
         {title.subtitle}
       </Text>
     )
@@ -180,20 +180,24 @@ class Cell extends Component {
         borderTopLeftRadius: imageStyles.rounding,
       })
     }
-    if (title.textPosition === 'bottom') {
+    if (title.textPosition === 'bottom' || !title.textPosition) {
       wrapperStyles.push({
         top: null,
         bottom: 0,
-        borderBottomRightRadius: imageStyles.rounding,
-        borderBottomLeftRadius: imageStyles.rounding,
+        borderBottomRightRadius: imageStyles ? imageStyles.rounding : 0,
+        borderBottomLeftRadius: imageStyles ? imageStyles.rounding : 0,
       })
     }
 
     if (title.backgroundEffect === 'gradient') {
       wrapperStyles.push({ backgroundColor: '#FFFFFF00' })
     }
-    if (title.backgroundEffect === 'solid') {
-      wrapperStyles.push({ backgroundColor: title.backgroundColor })
+    if (title.backgroundEffect === 'solid' || !title.backgroundEffect) {
+      if (title.backgroundColor) {
+        wrapperStyles.push({ backgroundColor: title.backgroundColor })
+      } else {
+        wrapperStyles.push({ backgroundColor: 'rgba(0, 0, 0, 0.6)' })
+      }
     }
 
     if (this.hasIcon() && iconButton.position === title.textPosition) {
@@ -202,7 +206,7 @@ class Cell extends Component {
 
     let titleStyles = {
       fontSize: 12,
-      color: title.textColor,
+      color: title.textColor ? title.textColor : '#FFFFFF',
     }
 
     return (
@@ -223,13 +227,16 @@ class Cell extends Component {
     let source = image
 
     let imageStyling = [styles.image]
+    let shadowStyle = [styles.cellSub]
 
     if (!source) {
       imageStyling.push({ backgroundColor: '#ccc' })
     }
 
     if (imageStyles) {
-      imageStyling.push({ borderRadius: imageStyles.rounding })
+      if (imageStyles.rounding) {
+        imageStyling.push({ borderRadius: imageStyles.rounding })
+      }
 
       if (imageStyles.shape === 'portrait' && imageStyles.layout === 'grid') {
         imageStyling.push({ height: width * 1.5 })
@@ -238,25 +245,22 @@ class Cell extends Component {
         imageStyles.layout === 'grid'
       ) {
         imageStyling.push({ height: Math.round((width * 2) / 3) })
-        console.log('height', imageStyling)
       } else {
         imageStyling.push({ height: width })
       }
-    }
 
-    let shadowStyle = [styles.cellSub]
-
-    if (imageStyles.shadow) {
-      shadowStyle.push({
-        borderRadius: imageStyles.rounding,
-        shadowColor: '#000000',
-        shadowOffset: {
-          width: 2,
-          height: 2,
-        },
-        shadowOpacity: 0.15,
-        shadowRadius: 10,
-      })
+      if (imageStyles.shadow) {
+        shadowStyle.push({
+          borderRadius: imageStyles.rounding ? imageStyles.rounding : 0,
+          shadowColor: '#000000',
+          shadowOffset: {
+            width: 2,
+            height: 2,
+          },
+          shadowOpacity: 0.15,
+          shadowRadius: 10,
+        })
+      }
     }
 
     return (
@@ -272,7 +276,7 @@ class Cell extends Component {
         <Gradient
           textPos={title.textPosition}
           backgroundEffect={title.backgroundEffect}
-          rounding={imageStyles.rounding}
+          rounding={imageStyles ? imageStyles.rounding : 0}
           enabled={title.enabled}
         />
         {this.renderBar()}
@@ -345,6 +349,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
     paddingVertical: 4,
+    width: '100%',
   },
   titleWrapperExpanded: {
     height: 48,

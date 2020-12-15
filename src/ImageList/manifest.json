@@ -40,44 +40,6 @@
   ],
   "childComponents": [
     {
-      "name": "imageStyles",
-      "displayName": "Image Style",
-      "role": "listItem",
-      "reference": "items",
-      "props": [
-        {
-          "name": "shape",
-          "displayName": "Shape",
-          "type": "text",
-          "default": "square",
-          "control": {
-            "type": "menu",
-            "options": [
-              { "label": "Square", "value": "square" },
-              { "label": "Portrait", "value": "portrait" },
-              { "label": "Landscape", "value": "landscape" }
-            ]
-          },
-          "enabled": {
-            "layout": "grid"
-          }
-        },
-        {
-          "name": "rounding",
-          "displayName": "Rounding",
-          "type": "number",
-          "default": 6,
-          "control": { "type": "slider", "max": 30, "min": 0 }
-        },
-        {
-          "name": "shadow",
-          "displayName": "Shadow",
-          "type": "boolean",
-          "default": false
-        }
-      ]
-    },
-    {
       "name": "title",
       "displayName": "Text",
       "role": "listItem",
@@ -87,6 +49,18 @@
           "name": "enabled",
           "type": "boolean",
           "default": "false"
+        },
+        {
+          "name": "text",
+          "displayName": "Title",
+          "type": "text",
+          "default": "Title"
+        },
+        {
+          "name": "subtitle",
+          "displayName": "Subtitle",
+          "type": "text",
+          "default": "Subtitle"
         },
         {
           "name": "textPosition",
@@ -123,18 +97,7 @@
             "backgroundEffect": "solid"
           }
         },
-        {
-          "name": "text",
-          "displayName": "Title",
-          "type": "text",
-          "default": "Title"
-        },
-        {
-          "name": "subtitle",
-          "displayName": "Subtitle",
-          "type": "text",
-          "default": "Subtitle"
-        },
+
         {
           "name": "subtitlePosition",
           "displayName": "Subtitle Position",
@@ -156,6 +119,7 @@
         }
       ]
     },
+
     {
       "name": "iconButton",
       "displayName": "Icon",
