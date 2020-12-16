@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, Image, Platform } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+import placeholder from './holdplace.png'
 import { Card, Button, IconToggle } from '@protonapp/react-native-material-ui'
 
 const SINGLE_COLUMN_LAYOUTS = {
@@ -55,8 +56,8 @@ export default class ImageList extends Component {
     return columns
   }
 
-  renderCell = (itm, layout, width) => (
-    <Cell {...itm} key={itm.id} layout={layout} width={width} />
+  renderCell = (itm, layout, width, editor) => (
+    <Cell {...itm} key={itm.id} layout={layout} width={width} editor={editor} />
   )
 
   renderMasonry() {
@@ -70,21 +71,21 @@ export default class ImageList extends Component {
       <View style={wrap}>
         {columns.map((column, i) => (
           <View key={i} style={styles.column}>
-            {column.map((itm) => this.renderCell(itm, layout))}
+            {column.map((itm) => this.renderCell(itm, layout, editor))}
           </View>
         ))}
       </View>
     )
   }
   renderGrid() {
-    let { items, layout, columnCount } = this.props
+    let { items, layout, columnCount, editor } = this.props
 
     let { fullWidth } = this.state
     let width = fullWidth / columnCount - 8
 
     return (
       <View onLayout={this.handleLayout} style={styles.gridWrap}>
-        {items.map((itm, i) => this.renderCell(itm, layout, width))}
+        {items.map((itm, i) => this.renderCell(itm, layout, width, editor))}
       </View>
     )
   }
@@ -148,14 +149,19 @@ class Cell extends Component {
   }
 
   renderMedia() {
-    let { media } = this.props
+    let { media, editor } = this.props
 
     if (!media || !media.enabled) {
       return null
     }
 
     let { image } = media
+
     let source = image
+
+    if (editor) {
+      source = placeholder
+    }
     let percent =
       media.shape === 'square'
         ? '100%'
@@ -169,7 +175,7 @@ class Cell extends Component {
       wrapperStyles.push(styles.topMedia)
     } else if (media.position === 'right') {
       wrapperStyles = [styles.rightMedia]
-      imageStyles = [{ height: '100%', borderRadius: 2 }]
+      imageStyles = [{ height: percent, borderRadius: 2 }]
     } else {
       wrapperStyles.push(styles.middleMedia)
     }

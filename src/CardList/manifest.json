@@ -33,6 +33,9 @@
           { "label": "Grid", "value": "grid" },
           { "label": "Masonry", "value": "masonry" }
         ]
+      },
+      "enabled": {
+        "columnCount": 2
       }
     },
     {
@@ -44,6 +47,19 @@
     }
   ],
   "childComponents": [
+    {
+      "name": "listHeader",
+      "displayName": "List Header",
+      "props": [
+        { "name": "enabled", "type": "boolean", "default": false },
+        {
+          "name": "header",
+          "displayName": "Title",
+          "type": "text",
+          "default": "Title"
+        }
+      ]
+    },
     {
       "name": "title",
       "displayName": "Title",
@@ -417,19 +433,6 @@
           "displayName": "Text Color",
           "type": "color",
           "default": "#ccc"
-        }
-      ]
-    },
-    {
-      "name": "listHeader",
-      "displayName": "List Header",
-      "props": [
-        { "name": "enabled", "type": "boolean", "default": false },
-        {
-          "name": "header",
-          "displayName": "Title",
-          "type": "text",
-          "default": "Title"
         }
       ]
     }
