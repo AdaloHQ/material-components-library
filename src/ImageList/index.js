@@ -206,6 +206,7 @@ class Cell extends Component {
 
     let titleStyles = {
       fontSize: 12,
+      fontWeight: '600',
       color: title.textColor ? title.textColor : '#FFFFFF',
     }
 

@@ -63,6 +63,19 @@
           "default": "Subtitle"
         },
         {
+          "name": "subtitlePosition",
+          "displayName": "Subtitle Position",
+          "type": "text",
+          "default": "below",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Below Title", "value": "below" },
+              { "label": "Above Title", "value": "above" }
+            ]
+          }
+        },
+        {
           "name": "textPosition",
           "displayName": "Text Position",
           "type": "text",
@@ -97,20 +110,6 @@
             "backgroundEffect": "solid"
           }
         },
-
-        {
-          "name": "subtitlePosition",
-          "displayName": "Subtitle Position",
-          "type": "text",
-          "default": "below",
-          "control": {
-            "type": "menu",
-            "options": [
-              { "label": "Below Title", "value": "below" },
-              { "label": "Above Title", "value": "above" }
-            ]
-          }
-        },
         {
           "name": "textColor",
           "displayName": "Text Color",
@@ -119,7 +118,44 @@
         }
       ]
     },
-
+    {
+      "name": "imageStyles",
+      "displayName": "Image Style",
+      "role": "listItem",
+      "reference": "items",
+      "props": [
+        {
+          "name": "shape",
+          "displayName": "Shape",
+          "type": "text",
+          "default": "square",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Square", "value": "square" },
+              { "label": "Portrait", "value": "portrait" },
+              { "label": "Landscape", "value": "landscape" }
+            ]
+          },
+          "enabled": {
+            "layout": "grid"
+          }
+        },
+        {
+          "name": "rounding",
+          "displayName": "Rounding",
+          "type": "number",
+          "default": 6,
+          "control": { "type": "slider", "max": 30, "min": 0 }
+        },
+        {
+          "name": "shadow",
+          "displayName": "Shadow",
+          "type": "boolean",
+          "default": false
+        }
+      ]
+    },
     {
       "name": "iconButton",
       "displayName": "Icon",

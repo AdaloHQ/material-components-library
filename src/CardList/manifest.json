@@ -23,6 +23,19 @@
       }
     },
     {
+      "name": "cardLayout",
+      "displayName": "Layout",
+      "type": "text",
+      "default": "masonry",
+      "control": {
+        "type": "menu",
+        "options": [
+          { "label": "Grid", "value": "grid" },
+          { "label": "Masonry", "value": "masonry" }
+        ]
+      }
+    },
+    {
       "name": "onPress",
       "displayName": "Click Actions",
       "type": "action",
@@ -135,33 +148,22 @@
       ]
     },
     {
-      "name": "listStyles",
-      "displayName": "List Styles",
+      "name": "cardStyles",
+      "displayName": "Card Styles",
+      "role": "listItem",
+      "reference": "items",
       "props": [
-        {
-          "name": "layout",
-          "displayName": "Layout",
-          "type": "text",
-          "default": "masonry",
-          "control": {
-            "type": "menu",
-            "options": [
-              { "label": "Grid", "value": "grid" },
-              { "label": "Masonry", "value": "masonry" }
-            ]
-          }
-        },
         {
           "name": "background",
           "displayName": "Background",
           "type": "boolean",
-          "default": false
+          "default": true
         },
         {
           "name": "backgroundColor",
           "displayName": "Background Color",
           "type": "color",
-          "default": "@primary",
+          "default": "#FFFFFF",
           "enabled": {
             "background": true
           }
@@ -202,7 +204,7 @@
           "name": "shadow",
           "displayName": "Shadow",
           "type": "boolean",
-          "default": false
+          "default": true
         }
       ]
     },
@@ -227,7 +229,7 @@
           "name": "color",
           "displayName": "Text Color",
           "type": "color",
-          "default": "@primary"
+          "default": "@contrast:backgroundColor"
         },
         {
           "name": "background",
@@ -273,7 +275,7 @@
           "name": "rounding",
           "displayName": "Button Rounding",
           "type": "number",
-          "default": 0,
+          "default": 4,
           "control": { "type": "slider", "max": 18, "min": 0 }
         },
         {
@@ -304,7 +306,7 @@
           "name": "color",
           "displayName": "Text Color",
           "type": "color",
-          "default": "@primary"
+          "default": "@contrast:backgroundColor"
         },
         {
           "name": "background",
@@ -350,7 +352,7 @@
           "name": "rounding",
           "displayName": "Button Rounding",
           "type": "number",
-          "default": 0,
+          "default": 4,
           "control": { "type": "slider", "max": 18, "min": 0 }
         },
         {

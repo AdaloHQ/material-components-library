@@ -60,7 +60,7 @@ export default class ImageList extends Component {
   )
 
   renderMasonry() {
-    let { items, layout, editor, listStyles } = this.props
+    let { items, layout, editor } = this.props
 
     let columns = this.getColumns()
 
@@ -99,42 +99,10 @@ export default class ImageList extends Component {
   }
 
   render() {
-    let { listStyles } = this.props
-    let {
-      background,
-      backgroundColor,
-      border,
-      borderColor,
-      borderSize,
-      rounding,
-      shadow,
-    } = listStyles
-
+    let { cardLayout } = this.props
     let wrap = [styles.wrap]
-    if (background) {
-      wrap.push({ backgroundColor: backgroundColor })
-    }
-    if (border) {
-      wrap.push({
-        borderWidth: borderSize,
-        borderColor: borderColor,
-      })
-    }
 
-    if (shadow) {
-      wrap.push({
-        shadowColor: '#000000',
-        shadowOffset: {
-          width: 2,
-          height: 2,
-        },
-        shadowOpacity: 0.15,
-        shadowRadius: 10,
-      })
-    }
-    wrap.push({ borderRadius: rounding })
-
-    if (listStyles && listStyles.layout === 'grid') {
+    if (cardLayout === 'grid') {
       return (
         <View style={wrap}>
           {this.renderHeader()}
@@ -277,14 +245,48 @@ class Cell extends Component {
   }
 
   render() {
-    let { onPress, media, button1, button2, icon1, icon2, width } = this.props
+    let {
+      onPress,
+      media,
+      button1,
+      button2,
+      icon1,
+      icon2,
+      width,
+      cardStyles,
+    } = this.props
 
     let mediaPosition = media && media.position
 
-    let celly = [styles.cell, { width }]
+    let cell = [styles.cell, { width }]
+
+    let {
+      background,
+      backgroundColor,
+      border,
+      borderColor,
+      borderSize,
+      rounding,
+      shadow,
+    } = cardStyles
+
+    if (background) {
+      cell.push({ backgroundColor: backgroundColor })
+    }
+    if (border) {
+      cell.push({
+        borderWidth: borderSize,
+        borderColor: borderColor,
+      })
+    }
+    cell.push({ borderRadius: rounding })
+
+    if (shadow) {
+      cell.push(styles.cellWrapper)
+    }
 
     return (
-      <WrappedCard onPress={onPress} style={{ container: celly }}>
+      <WrappedCard onPress={onPress} style={{ container: cell }}>
         <View>
           {this.renderContent()}
           <View style={styles.tapTarget} />
@@ -306,13 +308,13 @@ class WrappedCard extends Component {
   render() {
     let { children, onPress, style } = this.props
 
-    if (Platform.OS === 'ios') {
-      return (
-        <View style={styles.cellWrapper}>
-          <Card {...this.props}>{children}</Card>
-        </View>
-      )
-    }
+    // if (Platform.OS === 'ios') {
+    //   return (
+    //     <View style={styles.cellWrapper}>
+    //       <Card {...this.props}>{children}</Card>
+    //     </View>
+    //   )
+    // }
 
     return <Card {...this.props}>{children}</Card>
   }
@@ -427,13 +429,13 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 4,
     padding: 0,
+    backgroundColor: '#FFFFFF00',
   },
   cellWrapper: {
     shadowColor: '#000',
     shadowOpacity: 0.25,
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 2,
-    borderRadius: 2,
   },
   cellInner: {
     paddingLeft: 16,
@@ -500,7 +502,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   actionsWrapper: {
-    paddingLeft: 8,
+    paddingLeft: 16,
     paddingRight: 2,
     height: 52,
     flexDirection: 'row',
@@ -511,9 +513,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   button: {
-    paddingLeft: 8,
-    paddingRight: 8,
+    paddingLeft: 16,
+    paddingRight: 16,
     marginRight: 8,
+    height: 32,
   },
   header: {
     fontSize: 18,
