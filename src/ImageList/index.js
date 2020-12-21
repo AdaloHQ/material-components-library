@@ -200,7 +200,9 @@ class Cell extends Component {
       }
     }
 
-    if (this.hasIcon() && iconButton.position === title.textPosition) {
+    let barPosition = title.textPosition ? title.textPosition : 'bottom'
+
+    if (this.hasIcon() && iconButton.position === barPosition) {
       wrapperStyles.push(styles.titleWrapperExpanded)
     }
 
@@ -349,7 +351,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    paddingVertical: 4,
+    paddingVertical: 10,
     width: '100%',
   },
   titleWrapperExpanded: {

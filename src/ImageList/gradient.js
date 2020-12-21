@@ -9,8 +9,8 @@ const Gradient = (props) => {
       colors={
         backgroundEffect === 'gradient' && enabled
           ? textPos == 'top'
-            ? ['rgba(0,0,0,.8)', '#FFFFFF00']
-            : ['#FFFFFF00', 'rgba(0,0,0,.8)']
+            ? ['rgba(0,0,0,.8)', 'rgba(0,0,0,.25)', '#FFFFFF00']
+            : ['#FFFFFF00', 'rgba(0,0,0,.25)', 'rgba(0,0,0,.8)']
           : ['#FFFFFF00', '#FFFFFF00']
       }
       style={{

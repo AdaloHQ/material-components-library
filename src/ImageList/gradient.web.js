@@ -10,8 +10,8 @@ const Gradient = (props) => {
     background:
       backgroundEffect === 'gradient' && enabled
         ? textPos == 'top'
-          ? `linear-gradient(rgba(0,0,0,.7),#FFFFFF00 ) `
-          : `linear-gradient(#FFFFFF00 , rgba(0,0,0,.7))`
+          ? `linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.2), #FFFFFF00 ) `
+          : `linear-gradient(#FFFFFF00, rgba(0,0,0,.2), rgba(0,0,0,.7))`
         : null,
   }
 
