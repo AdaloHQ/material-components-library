@@ -206,7 +206,7 @@
           "name": "border",
           "displayName": "Border",
           "type": "boolean",
-          "default": false
+          "default": true
         },
         {
           "name": "borderColor",
@@ -231,14 +231,14 @@
           "name": "rounding",
           "displayName": "Rounding",
           "type": "number",
-          "default": 1,
+          "default": 4,
           "control": { "type": "slider", "max": 60, "min": 0 }
         },
         {
           "name": "shadow",
           "displayName": "Shadow",
           "type": "boolean",
-          "default": false
+          "default": true
         }
       ]
     }

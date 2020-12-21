@@ -189,48 +189,62 @@ class Row extends Component {
     if (leftSection.type === 'avatar') {
       //56
       return (
-        <Image
-          resizeMode="cover"
-          source={source}
-          style={styles.avatar}
-          pointerEvents="none"
-        />
+        <View style={styles.imageWrapper}>
+          <Image
+            resizeMode="cover"
+            source={source}
+            style={styles.avatar}
+            pointerEvents="none"
+          />
+        </View>
       )
     }
 
     if (leftSection.type === 'image') {
       //72
       return (
-        <Image
-          resizeMode="cover"
-          source={source}
-          style={styles.image}
-          pointerEvents="none"
-        />
+        <View style={styles.imageWrapper}>
+          <Image
+            resizeMode="cover"
+            source={source}
+            style={styles.image}
+            pointerEvents="none"
+          />
+        </View>
       )
     }
   }
 
   renderRightSection() {
-    let { rightSection } = this.props
+    let { rightSection, firstLine, secondLine } = this.props
 
     if (!rightSection || !rightSection.enabled) {
       return null
     }
 
-    let iconStyles = { marginRight: -12 }
+    let iconStyles = [{ marginRight: -12 }]
+    let iconWrap = [styles.iconWrap]
+
+    // if (firstLine.titleLineNum > 2 && secondLine.subtitleLineNum > 2) {
+    //   iconStyles.push({ paddingTop: '10%' })
+    //   iconWrap.push({ paddingTop: '4%' })
+    // }
 
     if (rightSection.icon) {
       return (
-        <IconToggle
-          name={rightSection.icon}
-          color={rightSection.iconColor}
-          underlayColor={rightSection.iconColor}
-          maxOpacity={0.3}
-          size={24}
-          onPress={rightSection.onPress}
-          style={{ container: iconStyles }}
-        />
+        <View style={{ justifyContent: 'flex-start' }}>
+          <View style={iconWrap}>
+            <IconToggle
+              name={rightSection.icon}
+              color={rightSection.iconColor}
+              underlayColor={rightSection.iconColor}
+              maxOpacity={0.3}
+              size={24}
+              onPress={rightSection.onPress}
+              style={{ container: iconStyles }}
+            />
+          </View>
+        </View>
       )
     }
 
@@ -241,8 +255,13 @@ class Row extends Component {
     let { leftSection, firstLine, secondLine } = this.props
     let hasDivider = this.hasDivider()
 
+    let row = [styles.row]
+    if (firstLine.titleLineNum <= 2 && secondLine.subtitleLineNum <= 2) {
+      row.push({ alignItems: 'center' })
+    }
+
     return (
-      <View style={styles.row}>
+      <View style={row}>
         {this.renderLeftSection()}
         <View style={styles.main} pointerEvents="none">
           <FirstLine {...firstLine} widthLimit={this.getWidthLimit()} />
@@ -404,7 +423,6 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16,
     flexDirection: 'row',
-    alignItems: 'center',
   },
   divider: {
     position: 'absolute',
@@ -425,6 +443,7 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
   },
+  iconWrap: { justifyContent: 'center', height: 72 },
   avatar: {
     marginRight: 16,
     borderRadius: 20,
@@ -441,6 +460,11 @@ const styles = StyleSheet.create({
     height: 56,
     width: 56,
     backgroundColor: '#ccc',
+    //paddingTop: '10%',
+  },
+  imageWrapper: {
+    height: '100%',
+    justifyContent: 'flex-start',
   },
   main: {
     flex: 1,
