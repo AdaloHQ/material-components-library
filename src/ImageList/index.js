@@ -241,12 +241,9 @@ class Cell extends Component {
         imageStyling.push({ borderRadius: imageStyles.rounding })
       }
 
-      if (imageStyles.shape === 'portrait' && imageStyles.layout === 'grid') {
+      if (imageStyles.shape === 'portrait') {
         imageStyling.push({ height: width * 1.5 })
-      } else if (
-        imageStyles.shape === 'landscape' &&
-        imageStyles.layout === 'grid'
-      ) {
+      } else if (imageStyles.shape === 'landscape') {
         imageStyling.push({ height: Math.round((width * 2) / 3) })
       } else {
         imageStyling.push({ height: width })
@@ -255,13 +252,13 @@ class Cell extends Component {
       if (imageStyles.shadow) {
         shadowStyle.push({
           borderRadius: imageStyles.rounding ? imageStyles.rounding : 0,
-          shadowColor: '#000000',
+          shadowColor: '#000',
           shadowOffset: {
-            width: 2,
-            height: 2,
+            width: 1,
+            height: 1,
           },
           shadowOpacity: 0.15,
-          shadowRadius: 10,
+          shadowRadius: 3,
         })
       }
     }
@@ -325,7 +322,6 @@ const styles = StyleSheet.create({
   cell: {
     padding: 2,
     width: '100%',
-    aspectRatio: 1,
   },
   cellSub: {},
   column: {
@@ -333,9 +329,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   image: {
-    flex: 1,
     width: '100%',
-    paddingTop: '100%',
   },
   barWrapper: {
     paddingLeft: 16,

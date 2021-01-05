@@ -91,6 +91,7 @@ export default class SimpleList extends Component {
               dividerColor={dividerColor}
               lastRow={i === items.length - 1}
               fullWidth={this.state.fullWidth}
+              editor={this.props.editor}
             />
           ))}
         </View>
@@ -166,7 +167,7 @@ class Row extends Component {
   }
 
   renderLeftSection() {
-    let { leftSection } = this.props
+    let { leftSection, firstLine, secondLine, editor } = this.props
     if (!leftSection || !leftSection.enabled) {
       return null
     }
@@ -187,13 +188,19 @@ class Row extends Component {
     }
 
     if (leftSection.type === 'avatar') {
-      //56
+      let avatarStyle = [styles.avatar]
+
+      if (firstLine.titleLineNum > 2 || secondLine.subtitleLineNum > 2) {
+        avatarStyle.push({ marginTop: 18 })
+      } else if (!editor) {
+        avatarStyle.push({ marginTop: 16 })
+      }
       return (
         <View style={styles.imageWrapper}>
           <Image
             resizeMode="cover"
             source={source}
-            style={styles.avatar}
+            style={avatarStyle}
             pointerEvents="none"
           />
         </View>
@@ -201,13 +208,17 @@ class Row extends Component {
     }
 
     if (leftSection.type === 'image') {
-      //72
+      let imageStyle = [styles.image]
+
+      if (firstLine.titleLineNum > 2 || secondLine.subtitleLineNum > 2) {
+        imageStyle.push({ marginTop: 18 })
+      }
       return (
         <View style={styles.imageWrapper}>
           <Image
             resizeMode="cover"
             source={source}
-            style={styles.image}
+            style={imageStyle}
             pointerEvents="none"
           />
         </View>

@@ -288,11 +288,19 @@ class Cell extends Component {
     cell.push({ borderRadius: rounding })
 
     if (shadow) {
-      cell.push(styles.cellWrapper)
+      cell.push(styles.shadow)
+    }
+
+    if (button1 || button2) {
+      cell.push({ paddingBottom: 6 })
     }
 
     return (
-      <WrappedCard onPress={onPress} style={{ container: cell }}>
+      <WrappedCard
+        onPress={onPress}
+        style={{ container: cell }}
+        shadow={shadow}
+      >
         <View>
           {this.renderContent()}
           <View style={styles.tapTarget} />
@@ -312,17 +320,36 @@ class Cell extends Component {
 
 class WrappedCard extends Component {
   render() {
-    let { children, onPress, style } = this.props
+    let { children, onPress, style, shadow } = this.props
 
-    // if (Platform.OS === 'ios') {
-    //   return (
-    //     <View style={styles.cellWrapper}>
-    //       <Card {...this.props}>{children}</Card>
-    //     </View>
-    //   )
-    // }
+    if (Platform.OS === 'ios') {
+      let shadowStyle = styles.shadow
 
-    return <Card {...this.props}>{children}</Card>
+      if (shadow) {
+        shadowStyle = {
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 1,
+            height: 1,
+          },
+          shadowOpacity: 0.6,
+          shadowRadius: 2,
+        }
+      }
+      return (
+        <View style={shadowStyle}>
+          <Card onPress={onPress} style={style}>
+            {children}
+          </Card>
+        </View>
+      )
+    }
+
+    return (
+      <Card onPress={onPress} style={style}>
+        {children}
+      </Card>
+    )
   }
 }
 
@@ -331,6 +358,7 @@ class Actions extends Component {
     if (!opts || !opts.text || !opts.enabled) {
       return null
     }
+    let { button1, button2, icon1, icon2 } = this.props
 
     let {
       text,
@@ -346,6 +374,10 @@ class Actions extends Component {
 
     let buttonContainer = [styles.button]
 
+    if (button1 && button2 && button1.enabled && button2.enabled) {
+      buttonContainer.push({ marginRight: 8 })
+    }
+
     if (background) {
       buttonContainer.push({ backgroundColor: backgroundColor })
     }
@@ -356,7 +388,17 @@ class Actions extends Component {
       })
     }
 
+    if (!background && !border) {
+      buttonContainer.push({ paddingLeft: 0, paddingRight: 8 })
+    }
+
     buttonContainer.push({ borderRadius: rounding })
+
+    let buttonTextStyle = [{ color: color, paddingBottom: 2 }]
+
+    if (Platform.OS === 'ios') {
+      buttonTextStyle.push({ paddingBottom: 0 })
+    }
 
     return (
       <Button
@@ -364,7 +406,7 @@ class Actions extends Component {
         text={text}
         style={{
           container: buttonContainer,
-          text: { color },
+          text: buttonTextStyle,
         }}
       />
     )
@@ -437,7 +479,7 @@ const styles = StyleSheet.create({
     padding: 0,
     backgroundColor: '#FFFFFF00',
   },
-  cellWrapper: {
+  shadow: {
     shadowColor: '#000',
     shadowOpacity: 0.25,
     shadowOffset: { width: 0, height: 1 },
@@ -509,25 +551,26 @@ const styles = StyleSheet.create({
   },
   actionsWrapper: {
     paddingLeft: 16,
-    paddingRight: 2,
+    paddingRight: 12,
     height: 52,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    flex: 1,
   },
   actionsWrapperSub: {
     flexDirection: 'row',
   },
   button: {
-    paddingLeft: 16,
-    paddingRight: 16,
-    marginRight: 8,
-    height: 32,
+    paddingLeft: 15,
+    paddingRight: 15,
+    height: 34,
   },
   header: {
     fontSize: 18,
     fontWeight: '600',
     marginLeft: 8,
     paddingBottom: 8,
+    paddingRight: 8,
   },
 })
