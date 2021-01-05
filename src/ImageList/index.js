@@ -314,6 +314,7 @@ const styles = StyleSheet.create({
     margin: -2,
     flexDirection: 'row',
     flexWrap: 'wrap',
+    paddingLeft: 2,
   },
   header: {
     fontSize: 24,

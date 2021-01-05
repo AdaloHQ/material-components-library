@@ -136,9 +136,6 @@
               { "label": "Portrait", "value": "portrait" },
               { "label": "Landscape", "value": "landscape" }
             ]
-          },
-          "enabled": {
-            "layout": "grid"
           }
         },
         {

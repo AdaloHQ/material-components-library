@@ -287,8 +287,8 @@ class Cell extends Component {
     }
     cell.push({ borderRadius: rounding })
 
-    if (shadow) {
-      cell.push(styles.shadow)
+    if (!shadow) {
+      cell.push(styles.shadowless)
     }
 
     if (button1 || button2) {
@@ -479,11 +479,16 @@ const styles = StyleSheet.create({
     padding: 0,
     backgroundColor: '#FFFFFF00',
   },
-  shadow: {
+  shadowless: {
     shadowColor: '#000',
-    shadowOpacity: 0.25,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 2,
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0,
+    shadowRadius: 0,
+    elevation: 0,
+    boxShadow: 0,
   },
   cellInner: {
     paddingLeft: 16,
