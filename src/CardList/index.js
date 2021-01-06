@@ -132,6 +132,20 @@ class Cell extends Component {
     )
   }
 
+  isMobileDevice = () => {
+    if (
+      Platform.OS === 'ios' ||
+      Platform.OS === 'android' ||
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    ) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   renderTitle() {
     let { title, subtitle } = this.props
 
@@ -288,7 +302,11 @@ class Cell extends Component {
     cell.push({ borderRadius: rounding })
 
     if (!shadow) {
-      cell.push(styles.shadowless)
+      if (this.isMobileDevice()) {
+        cell.push(styles.shadowless)
+      } else {
+        cell.push({ boxShadow: 0 })
+      }
     }
 
     if (button1 || button2) {
@@ -323,7 +341,7 @@ class WrappedCard extends Component {
     let { children, onPress, style, shadow } = this.props
 
     if (Platform.OS === 'ios') {
-      let shadowStyle = styles.shadow
+      let shadowStyle = styles.shadowless
 
       if (shadow) {
         shadowStyle = {
@@ -396,7 +414,7 @@ class Actions extends Component {
 
     let buttonTextStyle = [{ color: color, paddingBottom: 2 }]
 
-    if (Platform.OS === 'ios') {
+    if (this.isMobileDevice()) {
       buttonTextStyle.push({ paddingBottom: 0 })
     }
 
@@ -488,7 +506,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0,
     shadowRadius: 0,
     elevation: 0,
-    boxShadow: 0,
   },
   cellInner: {
     paddingLeft: 16,
