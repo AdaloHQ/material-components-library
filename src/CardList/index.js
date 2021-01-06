@@ -337,10 +337,24 @@ class Cell extends Component {
 }
 
 class WrappedCard extends Component {
+  isMobileDevice = () => {
+    if (
+      Platform.OS === 'ios' ||
+      Platform.OS === 'android' ||
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    ) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   render() {
     let { children, onPress, style, shadow } = this.props
 
-    if (Platform.OS === 'ios') {
+    if (this.isMobileDevice()) {
       let shadowStyle = styles.shadowless
 
       if (shadow) {
@@ -372,6 +386,20 @@ class WrappedCard extends Component {
 }
 
 class Actions extends Component {
+  isMobileDevice = () => {
+    if (
+      Platform.OS === 'ios' ||
+      Platform.OS === 'android' ||
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    ) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   renderButton(opts) {
     if (!opts || !opts.text || !opts.enabled) {
       return null
@@ -416,6 +444,8 @@ class Actions extends Component {
 
     if (this.isMobileDevice()) {
       buttonTextStyle.push({ paddingBottom: 0 })
+    } else {
+      buttonContainer.push({ marginBottom: 8 })
     }
 
     return (
