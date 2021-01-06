@@ -236,11 +236,6 @@ class Row extends Component {
     let iconStyles = [{ marginRight: -12 }]
     let iconWrap = [styles.iconWrap]
 
-    // if (firstLine.titleLineNum > 2 && secondLine.subtitleLineNum > 2) {
-    //   iconStyles.push({ paddingTop: '10%' })
-    //   iconWrap.push({ paddingTop: '4%' })
-    // }
-
     if (rightSection.icon) {
       return (
         <View style={{ justifyContent: 'flex-start' }}>
@@ -267,7 +262,11 @@ class Row extends Component {
     let hasDivider = this.hasDivider()
 
     let row = [styles.row]
-    if (firstLine.titleLineNum <= 2 && secondLine.subtitleLineNum <= 2) {
+    if (
+      (firstLine.titleLineNum <= 2 && secondLine.subtitleLineNum <= 2) ||
+      !firstLine.titleLineNum ||
+      secondLine.subtitleLineNum
+    ) {
       row.push({ alignItems: 'center' })
     }
 
