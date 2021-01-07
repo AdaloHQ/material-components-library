@@ -265,7 +265,7 @@ class Row extends Component {
     if (
       (firstLine.titleLineNum <= 2 && secondLine.subtitleLineNum <= 2) ||
       !firstLine.titleLineNum ||
-      secondLine.subtitleLineNum
+      !secondLine.subtitleLineNum
     ) {
       row.push({ alignItems: 'center' })
     }

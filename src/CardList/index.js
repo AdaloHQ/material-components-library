@@ -338,13 +338,7 @@ class Cell extends Component {
 
 class WrappedCard extends Component {
   isMobileDevice = () => {
-    if (
-      Platform.OS === 'ios' ||
-      Platform.OS === 'android' ||
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      )
-    ) {
+    if (Platform.OS === 'ios' || Platform.OS === 'android') {
       return true
     } else {
       return false
@@ -621,7 +615,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 18,
     fontWeight: '600',
-    marginLeft: 8,
+    marginLeft: 16,
     paddingBottom: 8,
     paddingRight: 8,
   },
