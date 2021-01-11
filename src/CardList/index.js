@@ -301,7 +301,8 @@ class Cell extends Component {
     }
     cell.push({ borderRadius: rounding })
 
-    if (!shadow) {
+    //uncomment below to fix android bug
+    if (!shadow /*|| Platform.OS === 'android'*/) {
       if (this.isMobileDevice()) {
         cell.push(styles.shadowless)
       } else {
@@ -519,7 +520,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 4,
     padding: 0,
-    backgroundColor: '#FFFFFF00',
+    backgroundColor: '#FFFFFF00', //take this out to fix android bug
   },
   shadowless: {
     shadowColor: '#000',

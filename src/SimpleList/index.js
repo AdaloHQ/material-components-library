@@ -256,6 +256,10 @@ class Row extends Component {
 
     return null
   }
+  renderSubtitle() {
+    let { secondLine } = this.props
+    return secondLine && secondLine.enabled
+  }
 
   renderContent() {
     let { leftSection, firstLine, secondLine } = this.props
@@ -275,7 +279,7 @@ class Row extends Component {
         {this.renderLeftSection()}
         <View style={styles.main} pointerEvents="none">
           <FirstLine {...firstLine} widthLimit={this.getWidthLimit()} />
-          {secondLine && secondLine.enabled ? (
+          {this.renderSubtitle() ? (
             <SecondLine {...secondLine} widthLimit={this.getWidthLimit()} />
           ) : null}
         </View>
