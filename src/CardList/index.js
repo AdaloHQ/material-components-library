@@ -163,7 +163,7 @@ class Cell extends Component {
   }
 
   renderMedia() {
-    let { media, editor } = this.props
+    let { media, editor, cardStyles } = this.props
 
     if (!media || !media.enabled) {
       return null
@@ -192,6 +192,14 @@ class Cell extends Component {
       imageStyles = [{ height: percent, borderRadius: 2 }]
     } else {
       wrapperStyles.push(styles.middleMedia)
+    }
+    if (cardStyles) {
+      if (!cardStyles.shadow && !cardStyles.background && !cardStyles.border) {
+        imageStyles.push({
+          borderBottomLeftRadius: cardStyles.rounding,
+          borderBottomRightRadius: cardStyles.rounding,
+        })
+      }
     }
 
     if (!source) {
