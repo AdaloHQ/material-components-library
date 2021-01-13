@@ -296,7 +296,15 @@ class Cell extends Component {
       borderSize,
       rounding,
       shadow,
-    } = cardStyles || {}
+    } = cardStyles || {
+      background: true,
+      backgroundColor: '#FFFFFF',
+      border: false,
+      borderColor: '#FFFFFF00',
+      borderSize: 0,
+      rounding: 2,
+      shadow: true,
+    }
 
     if (background) {
       cell.push({ backgroundColor: backgroundColor })

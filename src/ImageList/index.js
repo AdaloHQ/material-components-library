@@ -235,6 +235,7 @@ class Cell extends Component {
     if (!source) {
       imageStyling.push({ backgroundColor: '#ccc' })
     }
+    let shapeWidth = width
 
     if (imageStyles) {
       if (imageStyles.rounding) {
@@ -242,11 +243,9 @@ class Cell extends Component {
       }
 
       if (imageStyles.shape === 'portrait') {
-        imageStyling.push({ height: width * 1.5 })
+        shapeWidth = width * 1.5
       } else if (imageStyles.shape === 'landscape') {
-        imageStyling.push({ height: Math.round((width * 2) / 3) })
-      } else {
-        imageStyling.push({ height: width })
+        shapeWidth = Math.round((width * 2) / 3)
       }
 
       if (imageStyles.shadow) {
@@ -262,6 +261,8 @@ class Cell extends Component {
         })
       }
     }
+
+    imageStyling.push({ height: shapeWidth })
 
     return (
       <View>
