@@ -147,9 +147,16 @@ class Cell extends Component {
 
   renderSubtitle() {
     let { title } = this.props
-    let subtitleStyles = {
-      fontSize: 10,
-      color: title.textColor,
+
+    let subtitleStyles = [
+      {
+        fontSize: 10,
+        color: title.textColor ? title.textColor : '#fff',
+      },
+    ]
+
+    if (title.styles) {
+      subtitleStyles.push(title.styles.subtitle)
     }
 
     if (!title.subtitle) {
@@ -206,12 +213,17 @@ class Cell extends Component {
       wrapperStyles.push(styles.titleWrapperExpanded)
     }
 
-    let titleStyles = {
-      fontSize: 12,
-      fontWeight: '600',
-      color: title.textColor ? title.textColor : '#FFFFFF',
-    }
+    let titleStyles = [
+      {
+        fontSize: 12,
+        fontWeight: '600',
+        color: title.textColor ? title.textColor : '#FFFFFF',
+      },
+    ]
 
+    if (title.styles) {
+      titleStyles.push(title.styles.text)
+    }
     return (
       <View style={wrapperStyles}>
         <View style={styles.textWrapper}>

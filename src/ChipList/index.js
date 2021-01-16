@@ -27,6 +27,10 @@ class ChipList extends Component {
     }
   }
 
+  customFontsEnabled = () => {
+    return this.props.text && this.props.text.styles
+  }
+
   render() {
     const { imageList, imageSpacing, editor } = this.props
 
@@ -123,13 +127,23 @@ class ChipList extends Component {
         paddingVertical: 10,
       },
       text: {
-        fontWeight: '600',
         fontSize: ((chipSize - 24) / 36) * 6 + 12,
-        color: textColor,
+
         paddingLeft: enabled ? 8 : 0,
         paddingRight: iconEnabled ? 8 : 0,
       },
     }
+
+    if (this.customFontsEnabled()) {
+      let { color, fontWeight, fontFamily } = this.props.text.styles.title
+      style.text.color = color
+      style.text.fontWeight = fontWeight
+      style.text.fontFamily = fontFamily
+    } else {
+      style.text.color = textColor ? textColor : '#212121'
+      style.text.fontWeight = '600'
+    }
+
     if (shadow) {
       style.background = { ...style.background, ...shadowStyle }
     }

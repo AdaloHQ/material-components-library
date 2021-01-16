@@ -96,7 +96,13 @@ export default class ImageList extends Component {
       return null
     }
 
-    return <Text style={styles.header}>{listHeader.header}</Text>
+    let headerStyles = [styles.header]
+
+    if (listHeader.styles) {
+      headerStyles.push(listHeader.styles.header)
+    }
+
+    return <Text style={headerStyles}>{listHeader.header}</Text>
   }
 
   render() {
@@ -152,11 +158,19 @@ class Cell extends Component {
     let titleText = title && title.text
     let subtitleText = subtitle && subtitle.enabled && subtitle.text
 
+    let titleStyles = [styles.title]
+    let subtitleStyles = [styles.subtitle]
+
+    if (title.styles.text && subtitle.styles.text) {
+      titleStyles.push(title.styles.text)
+      subtitleStyles.push(subtitle.styles.text)
+    }
+
     return (
       <View style={styles.titleWrapper}>
-        <Text style={styles.title}>{titleText}</Text>
+        <Text style={titleStyles}>{titleText}</Text>
         {subtitleText ? (
-          <Text style={styles.subtitle}>{subtitleText}</Text>
+          <Text style={subtitleStyles}>{subtitleText}</Text>
         ) : null}
       </View>
     )
@@ -224,8 +238,13 @@ class Cell extends Component {
     if (!enabled || !text) {
       return null
     }
+    let bodyStyles = [styles.body]
 
-    return <Text style={styles.body}>{text}</Text>
+    if (body.styles.text) {
+      bodyStyles.push(body.styles.text)
+    }
+
+    return <Text style={bodyStyles}>{text}</Text>
   }
 
   renderMediaMiddle() {
@@ -420,7 +439,6 @@ class Actions extends Component {
     let {
       text,
       onPress,
-      color,
       background,
       backgroundColor,
       border,
@@ -451,12 +469,21 @@ class Actions extends Component {
 
     buttonContainer.push({ borderRadius: rounding })
 
-    let buttonTextStyle = [{ color: color, paddingBottom: 2 }]
+    let buttonTextStyle = [
+      {
+        color: opts.color ? opts.color : opts.styles.text.color,
+        paddingBottom: 2,
+      },
+    ]
 
     if (this.isMobileDevice()) {
       buttonTextStyle.push({ paddingBottom: 0 })
     } else {
       buttonContainer.push({ marginBottom: 8 })
+    }
+
+    if (opts.styles) {
+      buttonTextStyle.push(opts.styles.text)
     }
 
     return (

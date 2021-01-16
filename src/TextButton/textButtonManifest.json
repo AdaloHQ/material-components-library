@@ -23,7 +23,10 @@
       "name": "text",
       "displayName": "Text",
       "type": "text",
-      "default": "Button"
+      "default": "Button",
+      "styles": {
+        "fontFamily": "@body"
+      }
     },
     {
       "name": "icon",

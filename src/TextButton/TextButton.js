@@ -38,20 +38,24 @@ export default class WrappedTextButton extends Component {
   }
 
   getTextStyles() {
-    let { primaryColor, contrastColor, type, icon } = this.props
+    let { primaryColor, contrastColor, type, icon, styles } = this.props
 
-    const styles = {}
+    const textStyles = {}
 
     if (type === 'contained') {
-      styles.color = contrastColor
+      textStyles.color = contrastColor
     } else {
-      styles.color = primaryColor
+      textStyles.color = primaryColor
+    }
+
+    if (styles) {
+      textStyles.fontFamily = styles.text.fontFamily
     }
 
     if (icon) {
-      styles.marginLeft = 8
+      textStyles.marginLeft = 8
     }
-    return styles
+    return textStyles
   }
 
   getAdditionalProps() {

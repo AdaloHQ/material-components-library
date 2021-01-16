@@ -74,7 +74,12 @@
           "name": "text",
           "displayName": "Text",
           "type": "text",
-          "default": "Screen Title"
+          "default": "Screen Title",
+          "styles": {
+            "fontFamily": "@heading",
+            "color": "#fff",
+            "fontWeight": "600"
+          }
         },
         {
           "name": "align",
