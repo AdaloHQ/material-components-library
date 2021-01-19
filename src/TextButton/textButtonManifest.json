@@ -25,7 +25,9 @@
       "type": "text",
       "default": "Button",
       "styles": {
-        "fontFamily": "@body"
+        "fontFamily": "@body",
+        "fontWeight": "600",
+        "color": "#fff"
       }
     },
     {
@@ -45,13 +47,7 @@
       "type": "color",
       "default": "@primary"
     },
-    {
-      "name": "contrastColor",
-      "displayName": "Text Color",
-      "type": "color",
-      "default": "@contrast:primaryColor",
-      "enabled": { "type": "contained" }
-    },
+
     {
       "name": "borderRadius",
       "displayName": "Rounding",
