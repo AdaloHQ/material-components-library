@@ -128,17 +128,13 @@ class ChipList extends Component {
       },
       text: {
         fontSize: ((chipSize - 24) / 36) * 6 + 12,
-
         paddingLeft: enabled ? 8 : 0,
         paddingRight: iconEnabled ? 8 : 0,
       },
     }
 
     if (this.customFontsEnabled()) {
-      let { color, fontWeight, fontFamily } = this.props.text.styles.title
-      style.text.color = color
-      style.text.fontWeight = fontWeight
-      style.text.fontFamily = fontFamily
+      style.text = { ...style.text, ...this.props.text.styles.title }
     } else {
       style.text.color = textColor ? textColor : '#212121'
       style.text.fontWeight = '600'

@@ -63,6 +63,7 @@ class BottomBar extends Component {
       iconL,
       iconR,
       enabled,
+      styles,
     } = buttonProps
 
     const buttons = {
@@ -98,8 +99,6 @@ class BottomBar extends Component {
         },
         text: {
           fontSize: ((buttonSize - 12) / 20) * 4 + 12,
-          color: buttonTextColorR,
-          fontWeight: '600',
         },
       },
       off: {
@@ -108,6 +107,26 @@ class BottomBar extends Component {
       rightIcon: {
         color: iconColorR,
       },
+    }
+    //custom fonts
+    if (styles) {
+      buttons.rightButton.text = {
+        ...buttons.rightButton.text,
+        ...styles.buttonTextR,
+      }
+      buttons.leftButton.text = {
+        ...buttons.leftButton.text,
+        ...styles.buttonTextL,
+      }
+    } else {
+      buttons.rightButton.text.color = buttonTextColorR
+        ? buttonTextColorR
+        : '#fff'
+      buttons.rightButton.text.fontWeight = '600'
+      buttons.leftButton.text.color = buttonTextColorL
+        ? buttonTextColorL
+        : '#fff'
+      buttons.leftButton.text.fontWeight = '600'
     }
 
     return (

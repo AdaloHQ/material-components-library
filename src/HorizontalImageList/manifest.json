@@ -137,6 +137,11 @@
           "displayName": "Title",
           "type": "text",
           "default": "Title",
+          "styles": {
+            "fontFamily": "@body",
+            "color": "@text",
+            "fontWeight": "600"
+          },
           "enabled": {
             "textSwitch": true
           }
@@ -146,6 +151,11 @@
           "displayName": "Subtitle",
           "type": "text",
           "default": "Subtitle",
+          "styles": {
+            "fontFamily": "@body",
+            "color": "@text",
+            "fontWeight": "400"
+          },
           "enabled": {
             "textSwitch": true
           }
@@ -162,15 +172,6 @@
               { "label": "Above Title", "value": "column-reverse" }
             ]
           },
-          "enabled": {
-            "textSwitch": true
-          }
-        },
-        {
-          "name": "textColor",
-          "displayName": "Text Color",
-          "type": "color",
-          "default": "white",
           "enabled": {
             "textSwitch": true
           }
@@ -420,13 +421,23 @@
           "name": "bbTitle",
           "displayName": "Title",
           "type": "text",
-          "default": "Title"
+          "default": "Title",
+          "styles": {
+            "fontFamily": "@body",
+            "color": "@text",
+            "fontWeight": "600"
+          }
         },
         {
           "name": "bbSubtitle",
           "displayName": "Subtitle",
           "type": "text",
-          "default": "Subtitle"
+          "default": "Subtitle",
+          "styles": {
+            "fontFamily": "@body",
+            "color": "@text",
+            "fontWeight": "400"
+          }
         },
         {
           "name": "bbSubtitlePos",
@@ -440,12 +451,6 @@
               { "label": "Above Title", "value": "column-reverse" }
             ]
           }
-        },
-        {
-          "name": "bbTextColor",
-          "displayName": "Text Color",
-          "type": "color",
-          "default": "@text"
         }
       ]
     },
@@ -487,21 +492,17 @@
           "displayName": "Text",
           "type": "text",
           "default": "BUTTON",
+          "styles": {
+            "fontFamily": "@body",
+            "color": "@text",
+            "fontWeight": "600"
+          },
           "enabled": {
             "leftButton": true,
             "buttonTypeL": "button"
           }
         },
-        {
-          "name": "buttonTextColorL",
-          "displayName": "Text Color",
-          "type": "color",
-          "default": "@contrast:buttonBackgroundColorL",
-          "enabled": {
-            "leftButton": true,
-            "buttonTypeL": "button"
-          }
-        },
+
         {
           "name": "buttonBackgroundL",
           "displayName": "Button Background",
@@ -623,21 +624,17 @@
           "displayName": "Text",
           "type": "text",
           "default": "BUTTON",
+          "styles": {
+            "fontFamily": "@body",
+            "color": "@text",
+            "fontWeight": "600"
+          },
           "enabled": {
             "rightButton": true,
             "buttonTypeR": "button"
           }
         },
-        {
-          "name": "buttonTextColorR",
-          "displayName": "Text Color",
-          "type": "color",
-          "default": "@contrast:buttonBackgroundColorR",
-          "enabled": {
-            "rightButton": true,
-            "buttonTypeR": "button"
-          }
-        },
+
         {
           "name": "buttonBackgroundR",
           "displayName": "Button Background",
