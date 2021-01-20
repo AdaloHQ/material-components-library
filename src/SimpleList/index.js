@@ -322,6 +322,7 @@ class FirstLine extends Component {
   render() {
     let { text, color, titleLineNum, widthLimit } = this.props
     let breakless = text.replace(/(\r\n|\n|\r)/gm, '')
+    //custom fonts
     let customFontStyles = this.props.styles ? this.props.styles.text : null
     let propStyles = [
       { color: customFontStyles ? customFontStyles.color : color },

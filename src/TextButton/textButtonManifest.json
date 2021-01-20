@@ -45,7 +45,8 @@
       "name": "primaryColor",
       "displayName": "Primary Color",
       "type": "color",
-      "default": "@primary"
+      "default": "@primary",
+      "enabled": { "type": ["contained", "outlined"] }
     },
 
     {

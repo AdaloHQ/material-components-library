@@ -50,9 +50,6 @@ export default class TabNavigator extends Component {
     enabledTabs.forEach((tabName) => {
       tabs[tabName] = this.props[tabName]
     })
-    {
-      console.log(tabs)
-    }
 
     let wrapperStyles = editor ? styles.editorWrapper : styles.wrapper
 

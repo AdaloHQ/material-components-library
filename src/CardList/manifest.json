@@ -79,7 +79,7 @@
           "default": "Title",
           "styles": {
             "fontFamily": "@body",
-            "color": "rgba(0, 0, 0, 0.6)",
+            "color": "@text",
             "fontWeight": "500",
             "fontSize": "20",
             "textAlignment": "left"
@@ -105,7 +105,7 @@
           "default": "Subtitle",
           "styles": {
             "fontFamily": "@body",
-            "color": "rgba(0, 0, 0, 0.6)",
+            "color": "@text",
             "fontWeight": "400",
             "fontSize": "14",
             "textAlignment": "left"
@@ -177,7 +177,7 @@
           "default": "Body text lorem ipsum doler",
           "styles": {
             "fontFamily": "@body",
-            "color": "rgba(0, 0, 0, 0.6)",
+            "color": "@text",
             "fontWeight": "400",
             "fontSize": "16",
             "textAlignment": "left"

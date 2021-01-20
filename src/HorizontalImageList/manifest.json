@@ -139,7 +139,7 @@
           "default": "Title",
           "styles": {
             "fontFamily": "@body",
-            "color": "@text",
+            "color": "#fff",
             "fontWeight": "600"
           },
           "enabled": {
@@ -153,7 +153,7 @@
           "default": "Subtitle",
           "styles": {
             "fontFamily": "@body",
-            "color": "@text",
+            "color": "#fff",
             "fontWeight": "400"
           },
           "enabled": {
