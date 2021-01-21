@@ -161,7 +161,12 @@ class Cell extends Component {
     let titleStyles = [styles.title]
     let subtitleStyles = [styles.subtitle]
 
-    if (title.styles.text && subtitle.styles.text) {
+    if (
+      title.styles &&
+      subtitle.styles &&
+      title.styles.text &&
+      subtitle.styles.text
+    ) {
       titleStyles.push(title.styles.text)
       subtitleStyles.push(subtitle.styles.text)
     }
@@ -471,7 +476,7 @@ class Actions extends Component {
 
     let buttonTextStyle = [
       {
-        color: opts.color ? opts.color : opts.styles.text.color,
+        color: opts.color ? opts.color : '#fff',
         paddingBottom: 2,
       },
     ]

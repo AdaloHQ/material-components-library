@@ -78,7 +78,7 @@
           "styles": {
             "fontFamily": "@heading",
             "color": "#fff",
-            "fontWeight": "bold"
+            "fontWeight": "600"
           }
         },
         {
