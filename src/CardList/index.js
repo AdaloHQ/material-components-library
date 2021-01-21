@@ -245,7 +245,7 @@ class Cell extends Component {
     }
     let bodyStyles = [styles.body]
 
-    if (body.styles.text) {
+    if (body.styles && body.styles.text) {
       bodyStyles.push(body.styles.text)
     }
 
