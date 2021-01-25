@@ -51,7 +51,6 @@ export default class WrappedTextButton extends Component {
     if (styles) {
       textStyles.fontFamily = styles.text.fontFamily
       textStyles.fontWeight = styles.text.fontWeight
-      textStyles.color = styles.text.color
     }
 
     if (icon) {

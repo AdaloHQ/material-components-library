@@ -26,8 +26,7 @@
       "default": "Button",
       "styles": {
         "fontFamily": "@body",
-        "fontWeight": "600",
-        "color": "#fff"
+        "fontWeight": "600"
       }
     },
     {
@@ -37,18 +36,18 @@
       "default": "add"
     },
     {
-      "name": "action",
-      "type": "action",
-      "displayName": "Click Actions"
+      "name": "primaryColor",
+      "displayName": "Button Color",
+      "type": "color",
+      "default": "@primary"
     },
     {
-      "name": "primaryColor",
-      "displayName": "Primary Color",
+      "name": "contrastColor",
+      "displayName": "Icon & Text Color",
       "type": "color",
-      "default": "@primary",
-      "enabled": { "type": ["contained", "outlined"] }
+      "default": "@contrast:primaryColor",
+      "enabled": { "type": "contained" }
     },
-
     {
       "name": "borderRadius",
       "displayName": "Rounding",
@@ -73,6 +72,11 @@
       "displayName": "Uppercase",
       "type": "boolean",
       "default": true
+    },
+    {
+      "name": "action",
+      "type": "action",
+      "displayName": "Click Actions"
     }
   ]
 }
