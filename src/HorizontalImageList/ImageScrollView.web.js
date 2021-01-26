@@ -50,14 +50,13 @@ class ImageScrollView extends Component {
                 },
                 index
               ) => (
-                <View style={imageStyles.view}>
+                <View style={imageStyles.view} key={index}>
                   <View
                     style={
                       bbShadow && bottomBarStyle.enabled
                         ? imageStyles.shadow
                         : null
                     }
-                    key={index}
                   >
                     <TouchableWithoutFeedback onPress={clickActions}>
                       <View>

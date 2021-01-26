@@ -38,20 +38,27 @@ export default class WrappedTextButton extends Component {
   }
 
   getTextStyles() {
-    let { primaryColor, contrastColor, type, icon } = this.props
+    let { primaryColor, contrastColor, type, icon, styles, _fonts } = this.props
 
-    const styles = {}
+    const textStyles = { fontWeight: '600' }
 
-    if (type === 'contained') {
-      styles.color = contrastColor
+    if (contrastColor && type === 'contained') {
+      textStyles.color = contrastColor
     } else {
-      styles.color = primaryColor
+      textStyles.color = primaryColor
+    }
+    //custom fonts
+    if (styles) {
+      textStyles.fontFamily = styles.text.fontFamily
+      textStyles.fontWeight = styles.text.fontWeight
+    } else if (_fonts) {
+      textStyles.fontFamily = _fonts.body
     }
 
     if (icon) {
-      styles.marginLeft = 8
+      textStyles.marginLeft = 8
     }
-    return styles
+    return textStyles
   }
 
   getAdditionalProps() {
@@ -120,9 +127,6 @@ export default class WrappedTextButton extends Component {
 }
 
 const styles = StyleSheet.create({
-  text: {
-    fontWeight: '600',
-  },
   loading: {
     position: 'absolute',
     left: 0,

@@ -26,8 +26,13 @@ class AvatarList extends Component {
       return false
     }
   }
+
+  customFontsEnabled = () => {
+    return this.props.textChild && this.props.textChild.styles
+  }
+
   render() {
-    const { imageList, imageSpacing, imageChild } = this.props
+    const { imageList, imageSpacing, imageChild, _fonts } = this.props
 
     if (
       !imageList ||
@@ -76,11 +81,8 @@ class AvatarList extends Component {
         alignItems: 'center',
       },
       text: {
-        textAlign: textAlign,
-        color: textColor,
         fontSize: ((imageSize - 30) / 170) * 6 + 10,
         paddingVertical: 4,
-        fontWeight: '600',
       },
       background: {
         width: borderBool ? imageSize + borderSize * 2 : imageSize,
@@ -93,6 +95,19 @@ class AvatarList extends Component {
         alignItems: 'center',
       },
     }
+
+    if (this.customFontsEnabled()) {
+      imageItemStyle.text = {
+        ...imageItemStyle.text,
+        ...this.props.textChild.styles.title,
+      }
+    } else {
+      imageItemStyle.text.color = textColor ? textColor : '#424242'
+      imageItemStyle.text.textAlign = textAlign ? textAlign : 'center'
+      imageItemStyle.text.fontWeight = '600'
+      imageItemStyle.text.fontFamily = _fonts ? _fonts.body : 'inherit'
+    }
+
     const imageScrollView = this.isMobileDevice() ? (
       <ImageScrollViewMobile
         imageList={imageList}

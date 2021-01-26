@@ -36,14 +36,12 @@
           "name": "title",
           "displayName": "Title Text",
           "type": "text",
-          "default": "Title"
-        },
-
-        {
-          "name": "textColor",
-          "displayName": "Text Color",
-          "type": "color",
-          "default": "@text"
+          "default": "Title",
+          "styles": {
+            "fontFamily": "@body",
+            "color": "@text",
+            "fontWeight": "600"
+          }
         }
       ]
     },

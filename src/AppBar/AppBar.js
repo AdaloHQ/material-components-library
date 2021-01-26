@@ -15,7 +15,9 @@ export default class AppBar extends Component {
   }
 
   getIcon(propName) {
-    let { [propName]: { icon, enabled } } = this.props
+    let {
+      [propName]: { icon, enabled },
+    } = this.props
 
     return enabled ? icon : null
   }
@@ -23,19 +25,25 @@ export default class AppBar extends Component {
   getRightIcons() {
     let icons = [this.getIcon('rightIcon1'), this.getIcon('rightIcon2')]
 
-    return icons.filter(i => i)
+    return icons.filter((i) => i)
   }
 
   getTitleText() {
-    let { title: { text } } = this.props
+    let {
+      title: { text },
+    } = this.props
 
-    if (!text || typeof text !== 'string') { return undefined }
+    if (!text || typeof text !== 'string') {
+      return undefined
+    }
 
     return text.replace(/[\r\n]/g, ' ').trim()
   }
 
   getCentered() {
-    let { title: { align } } = this.props
+    let {
+      title: { align },
+    } = this.props
 
     return align === 'center'
   }
@@ -52,19 +60,23 @@ export default class AppBar extends Component {
   }
 
   handleLeftElementPress = () => {
-    let { leftIcon: { action } } = this.props
+    let {
+      leftIcon: { action },
+    } = this.props
 
     action && action()
   }
 
   handleCenterElementPress = () => {
-    let { title: { action } } = this.props
+    let {
+      title: { action },
+    } = this.props
 
     action && action()
   }
 
   renderSub() {
-    let { color, backgroundColor, editor } = this.props
+    let { color, backgroundColor, editor, title, _fonts } = this.props
     let centered = this.getCentered()
 
     let containerStyles = {
@@ -116,6 +128,14 @@ export default class AppBar extends Component {
       titleStyles.textAlign = 'center'
     }
 
+    let customFontTitleStyles = [titleStyles]
+
+    if (title.styles) {
+      customFontTitleStyles.push(title.styles.text)
+    } else if (_fonts) {
+      customFontTitleStyles.push({ fontFamily: _fonts.heading })
+    }
+
     return (
       <Toolbar
         leftElement={leftIcon}
@@ -126,7 +146,7 @@ export default class AppBar extends Component {
         onPress={this.handleCenterElementPress}
         style={{
           container: containerStyles,
-          titleText: titleStyles,
+          titleText: customFontTitleStyles,
           centerElementContainer: titleContainerStyles,
           leftElement: { color },
           rightElement: { color },
@@ -143,11 +163,7 @@ export default class AppBar extends Component {
       wrapperStyles.push(styles.iosBar)
     }
 
-    return (
-      <View style={wrapperStyles}>
-        {this.renderSub()}
-      </View>
-    )
+    return <View style={wrapperStyles}>{this.renderSub()}</View>
   }
 }
 
@@ -159,9 +175,9 @@ const styles = StyleSheet.create({
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowRadius: 4,
     shadowOpacity: 0.25,
-  }
+  },
 })

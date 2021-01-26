@@ -47,7 +47,13 @@
           "name": "header",
           "displayName": "Title",
           "type": "text",
-          "default": "Title"
+          "default": "Title",
+          "styles": {
+            "fontFamily": "@heading",
+            "fontWeight": "600",
+            "color": "@text",
+            "fontSize": "16"
+          }
         }
       ]
     },
@@ -61,7 +67,12 @@
           "name": "text",
           "displayName": "Text",
           "type": "text",
-          "default": "Title"
+          "default": "Title",
+          "styles": {
+            "fontFamily": "@body",
+            "color": "#212121",
+            "fontWeight": "normal"
+          }
         },
         {
           "name": "titleLineNum",
@@ -94,7 +105,12 @@
           "name": "text",
           "displayName": "Text",
           "type": "text",
-          "default": "Subtitle"
+          "default": "Subtitle",
+          "styles": {
+            "fontFamily": "@body",
+            "color": "#757575",
+            "fontWeight": "normal"
+          }
         },
         {
           "name": "subtitleLineNum",

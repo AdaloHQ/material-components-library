@@ -120,7 +120,13 @@
         {
           "name": "title",
           "displayName": "Title",
-          "type": "text"
+          "type": "text",
+          "styles": {
+            "fontFamily": "@body",
+            "fontWeight": "600",
+            "color": "@text",
+            "textAlignment": "center"
+          }
         },
         {
           "name": "textPos",
@@ -134,26 +140,6 @@
               { "label": "Bottom", "value": 1 }
             ]
           }
-        },
-        {
-          "name": "textAlign",
-          "displayName": "Text Alignment",
-          "type": "text",
-          "default": "center",
-          "control": {
-            "type": "menu",
-            "options": [
-              { "label": "Left Aligned", "value": "left" },
-              { "label": "Centered", "value": "center" },
-              { "label": "Right Aligned", "value": "right" }
-            ]
-          }
-        },
-        {
-          "name": "textColor",
-          "displayName": "Text Color",
-          "type": "color",
-          "default": "@text"
         }
       ]
     }

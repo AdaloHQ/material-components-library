@@ -70,7 +70,12 @@
           "name": "label",
           "displayName": "Text",
           "type": "text",
-          "default": "Home"
+          "default": "Home",
+          "styles": {
+            "fontFamily": "@body",
+            "fontWeight": "400",
+            "fontSize": 11
+          }
         },
         {
           "name": "action",
@@ -99,7 +104,12 @@
           "name": "label",
           "displayName": "Text",
           "type": "text",
-          "default": "Search"
+          "default": "Search",
+          "styles": {
+            "fontFamily": "@body",
+            "fontWeight": "400",
+            "fontSize": 11
+          }
         },
         {
           "name": "action",
@@ -128,7 +138,12 @@
           "name": "label",
           "displayName": "Text",
           "type": "text",
-          "default": "Team"
+          "default": "Team",
+          "styles": {
+            "fontFamily": "@body",
+            "fontWeight": "400",
+            "fontSize": 11
+          }
         },
         {
           "name": "action",
@@ -157,7 +172,12 @@
           "name": "label",
           "displayName": "Text",
           "type": "text",
-          "default": "Profile"
+          "default": "Profile",
+          "styles": {
+            "fontFamily": "@body",
+            "fontWeight": "400",
+            "fontSize": 11
+          }
         },
         {
           "name": "action",
@@ -186,7 +206,12 @@
           "name": "label",
           "displayName": "Text",
           "type": "text",
-          "default": "More"
+          "default": "More",
+          "styles": {
+            "fontFamily": "@body",
+            "fontWeight": "400",
+            "fontSize": 11
+          }
         },
         {
           "name": "action",

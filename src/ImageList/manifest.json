@@ -54,13 +54,25 @@
           "name": "text",
           "displayName": "Title",
           "type": "text",
-          "default": "Title"
+          "default": "Title",
+          "styles": {
+            "fontFamily": "@body",
+            "color": "#FFFFFF",
+            "fontWeight": "600",
+            "fontSize": "12"
+          }
         },
         {
           "name": "subtitle",
           "displayName": "Subtitle",
           "type": "text",
-          "default": "Subtitle"
+          "default": "Subtitle",
+          "styles": {
+            "fontFamily": "@body",
+            "color": "#FFFFFF",
+            "fontWeight": "normal",
+            "fontSize": "10"
+          }
         },
         {
           "name": "subtitlePosition",
@@ -109,12 +121,6 @@
           "enabled": {
             "backgroundEffect": "solid"
           }
-        },
-        {
-          "name": "textColor",
-          "displayName": "Text Color",
-          "type": "color",
-          "default": "#FFFFFF"
         }
       ]
     },

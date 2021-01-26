@@ -50,6 +50,14 @@ class HorizontalImageList extends Component {
         }
       : null
   }
+  customFontsEnabled = () => {
+    return (
+      this.props.imageOverlay &&
+      this.props.imageOverlay.styles &&
+      this.props.bottomBarText &&
+      this.props.bottomBarText.styles
+    )
+  }
   render() {
     const {
       imageList,
@@ -58,6 +66,7 @@ class HorizontalImageList extends Component {
       editor,
       bottomBarStyle,
       bottomBarButtons,
+      _fonts,
     } = this.props
     if (
       !imageList ||
@@ -217,12 +226,9 @@ class HorizontalImageList extends Component {
         paddingVertical: 1,
       },
       title: {
-        color: enabled ? textColor : '#FFFFFF00',
         fontSize: ((imageSize - 150) / 175) * 6 + 12,
-        fontWeight: '600',
       },
       subtitle: {
-        color: enabled ? textColor : '#FFFFFF00',
         fontSize: ((imageSize - 150) / 175) * 6 + 10,
         paddingVertical: 1,
         height: subtitle == '' ? 0 : null,
@@ -344,12 +350,9 @@ class HorizontalImageList extends Component {
       subtitle: {
         fontSize: ((imageSize - 150) / 175) * 6 + 10,
         paddingVertical: 1,
-        color: bbTextColor,
       },
       title: {
         fontSize: ((imageSize - 150) / 175) * 6 + 12,
-        fontWeight: '600',
-        color: bbTextColor,
       },
       titleContainer: {
         paddingVertical: 1,
@@ -368,6 +371,46 @@ class HorizontalImageList extends Component {
           ? ((imageSize - 150) / 175) * 6 + 9
           : ((imageSize - 150) / 175) * 6 + 10,
       },
+    }
+
+    //custom fonts additions
+
+    if (this.customFontsEnabled()) {
+      imageStyles.title = {
+        ...imageStyles.title,
+        ...this.props.imageOverlay.styles.title,
+      }
+      imageStyles.subtitle = {
+        ...imageStyles.title,
+        ...this.props.imageOverlay.styles.subtitle,
+      }
+      bbStyles.title = {
+        ...bbStyles.title,
+        ...this.props.bottomBarText.styles.bbTitle,
+      }
+      bbStyles.subtitle = {
+        ...bbStyles.subtitle,
+        ...this.props.bottomBarText.styles.bbSubtitle,
+      }
+    } else {
+      imageStyles.title.color = enabled
+        ? textColor
+          ? textColor
+          : '#fff'
+        : '#FFFFFF00'
+      imageStyles.title.fontWeight = '600'
+      imageStyles.title.fontFamily = _fonts.body
+      imageStyles.subtitle.fontFamily = _fonts.body
+      bbStyles.title.fontFamily = _fonts.body
+      bbStyles.subtitle.fontFamily = _fonts.body
+      bbStyles.title.color = bbTextColor ? bbTextColor : '#424242'
+      bbStyles.title.fontWeight = '600'
+      imageStyles.subtitle.color = enabled
+        ? textColor
+          ? textColor
+          : '#fff'
+        : '#FFFFFF00'
+      bbStyles.subtitle.color = bbTextColor ? bbTextColor : '#424242'
     }
 
     const imageScrollView = this.isMobileDevice() ? (

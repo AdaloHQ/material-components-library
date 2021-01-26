@@ -56,7 +56,13 @@
           "name": "header",
           "displayName": "Title",
           "type": "text",
-          "default": "Title"
+          "default": "Title",
+          "styles": {
+            "fontFamily": "@heading",
+            "fontWeight": "600",
+            "color": "@text",
+            "fontSize": "18"
+          }
         }
       ]
     },
@@ -70,7 +76,14 @@
           "name": "text",
           "displayName": "Text",
           "type": "text",
-          "default": "Title"
+          "default": "Title",
+          "styles": {
+            "fontFamily": "@body",
+            "color": "@text",
+            "fontWeight": "500",
+            "fontSize": "20",
+            "textAlignment": "left"
+          }
         },
         {
           "name": "enabled",
@@ -89,7 +102,14 @@
           "name": "text",
           "displayName": "Text",
           "type": "text",
-          "default": "Subtitle"
+          "default": "Subtitle",
+          "styles": {
+            "fontFamily": "@body",
+            "color": "@text",
+            "fontWeight": "400",
+            "fontSize": "14",
+            "textAlignment": "left"
+          }
         },
         {
           "name": "enabled",
@@ -154,7 +174,14 @@
           "name": "text",
           "displayName": "Text",
           "type": "text",
-          "default": "Body text lorem ipsum doler"
+          "default": "Body text lorem ipsum doler",
+          "styles": {
+            "fontFamily": "@body",
+            "color": "@text",
+            "fontWeight": "400",
+            "fontSize": "16",
+            "textAlignment": "left"
+          }
         },
         {
           "name": "enabled",
@@ -239,13 +266,12 @@
           "name": "text",
           "displayName": "Text",
           "type": "text",
-          "default": "Button 1"
-        },
-        {
-          "name": "color",
-          "displayName": "Text Color",
-          "type": "color",
-          "default": "@contrast:backgroundColor"
+          "default": "Button 1",
+          "styles": {
+            "fontFamily": "@body",
+            "color": "@contrast:backgroundColor",
+            "fontWeight": "500"
+          }
         },
         {
           "name": "background",
@@ -316,13 +342,12 @@
           "name": "text",
           "displayName": "Text",
           "type": "text",
-          "default": "Button 2"
-        },
-        {
-          "name": "color",
-          "displayName": "Text Color",
-          "type": "color",
-          "default": "@contrast:backgroundColor"
+          "default": "Button 2",
+          "styles": {
+            "fontFamily": "@body",
+            "color": "@contrast:backgroundColor",
+            "fontWeight": "500"
+          }
         },
         {
           "name": "background",
