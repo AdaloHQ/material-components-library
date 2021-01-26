@@ -56,12 +56,19 @@ export default class ImageList extends Component {
     return columns
   }
 
-  renderCell = (itm, layout, width, editor) => (
-    <Cell {...itm} key={itm.id} layout={layout} width={width} editor={editor} />
+  renderCell = (itm, layout, editor, _fonts, width = null) => (
+    <Cell
+      {...itm}
+      key={itm.id}
+      layout={layout}
+      width={width}
+      editor={editor}
+      _fonts={_fonts}
+    />
   )
 
   renderMasonry() {
-    let { items, layout, editor } = this.props
+    let { items, layout, editor, _fonts } = this.props
 
     let columns = this.getColumns()
 
@@ -71,27 +78,29 @@ export default class ImageList extends Component {
       <View style={wrap}>
         {columns.map((column, i) => (
           <View key={i} style={styles.column}>
-            {column.map((itm) => this.renderCell(itm, layout, editor))}
+            {column.map((itm) => this.renderCell(itm, layout, editor, _fonts))}
           </View>
         ))}
       </View>
     )
   }
   renderGrid() {
-    let { items, layout, columnCount, editor } = this.props
+    let { items, layout, columnCount, editor, _fonts } = this.props
 
     let { fullWidth } = this.state
     let width = fullWidth / columnCount - 8
 
     return (
       <View onLayout={this.handleLayout} style={styles.gridWrap}>
-        {items.map((itm, i) => this.renderCell(itm, layout, width, editor))}
+        {items.map((itm, i) =>
+          this.renderCell(itm, layout, editor, _fonts, width)
+        )}
       </View>
     )
   }
 
   renderHeader() {
-    let { listHeader } = this.props
+    let { listHeader, _fonts } = this.props
     if (!listHeader || !listHeader.header || !listHeader.enabled) {
       return null
     }
@@ -100,6 +109,8 @@ export default class ImageList extends Component {
 
     if (listHeader.styles) {
       headerStyles.push(listHeader.styles.header)
+    } else if (_fonts) {
+      headerStyles.push({ fontFamily: _fonts.heading })
     }
 
     return <Text style={headerStyles}>{listHeader.header}</Text>
@@ -153,7 +164,7 @@ class Cell extends Component {
   }
 
   renderTitle() {
-    let { title, subtitle } = this.props
+    let { title, subtitle, _fonts } = this.props
 
     let titleText = title && title.text
     let subtitleText = subtitle && subtitle.enabled && subtitle.text
@@ -169,6 +180,9 @@ class Cell extends Component {
     ) {
       titleStyles.push(title.styles.text)
       subtitleStyles.push(subtitle.styles.text)
+    } else if (_fonts) {
+      titleStyles.push({ fontFamily: _fonts.body })
+      subtitleStyles.push({ fontFamily: _fonts.body })
     }
 
     return (
@@ -237,7 +251,7 @@ class Cell extends Component {
   }
 
   renderBody() {
-    let { body } = this.props
+    let { body, _fonts } = this.props
     let { enabled, text } = body
 
     if (!enabled || !text) {
@@ -247,6 +261,8 @@ class Cell extends Component {
 
     if (body.styles && body.styles.text) {
       bodyStyles.push(body.styles.text)
+    } else if (_fonts) {
+      bodyStyles.push({ fontFamily: _fonts.body })
     }
 
     return <Text style={bodyStyles}>{text}</Text>
@@ -306,6 +322,7 @@ class Cell extends Component {
       icon2,
       width,
       cardStyles,
+      _fonts,
     } = this.props
 
     let mediaPosition = media && media.position
@@ -370,6 +387,7 @@ class Cell extends Component {
             button2={button2}
             icon1={icon1}
             icon2={icon2}
+            _fonts={_fonts}
           />
         ) : null}
       </WrappedCard>
@@ -439,7 +457,7 @@ class Actions extends Component {
     if (!opts || !opts.text || !opts.enabled) {
       return null
     }
-    let { button1, button2, icon1, icon2 } = this.props
+    let { button1, button2, icon1, icon2, _fonts } = this.props
 
     let {
       text,
@@ -489,6 +507,8 @@ class Actions extends Component {
 
     if (opts.styles) {
       buttonTextStyle.push(opts.styles.text)
+    } else if (_fonts) {
+      buttonTextStyle.push({ fontFamily: _fonts.body })
     }
 
     return (

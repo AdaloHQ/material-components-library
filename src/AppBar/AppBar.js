@@ -76,7 +76,7 @@ export default class AppBar extends Component {
   }
 
   renderSub() {
-    let { color, backgroundColor, editor, title } = this.props
+    let { color, backgroundColor, editor, title, _fonts } = this.props
     let centered = this.getCentered()
 
     let containerStyles = {
@@ -132,6 +132,8 @@ export default class AppBar extends Component {
 
     if (title.styles) {
       customFontTitleStyles.push(title.styles.text)
+    } else if (_fonts) {
+      customFontTitleStyles.push({ fontFamily: _fonts.heading })
     }
 
     return (

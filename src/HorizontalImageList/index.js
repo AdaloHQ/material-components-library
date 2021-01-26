@@ -66,6 +66,7 @@ class HorizontalImageList extends Component {
       editor,
       bottomBarStyle,
       bottomBarButtons,
+      _fonts,
     } = this.props
     if (
       !imageList ||
@@ -398,14 +399,18 @@ class HorizontalImageList extends Component {
           : '#fff'
         : '#FFFFFF00'
       imageStyles.title.fontWeight = '600'
-      bbStyles.title.color = bbColor ? bbColor : '#424242'
+      imageStyles.title.fontFamily = _fonts.body
+      imageStyles.subtitle.fontFamily = _fonts.body
+      bbStyles.title.fontFamily = _fonts.body
+      bbStyles.subtitle.fontFamily = _fonts.body
+      bbStyles.title.color = bbTextColor ? bbTextColor : '#424242'
       bbStyles.title.fontWeight = '600'
       imageStyles.subtitle.color = enabled
         ? textColor
           ? textColor
           : '#fff'
         : '#FFFFFF00'
-      bbStyles.subtitle.color = bbColor ? bbColor : '#424242'
+      bbStyles.subtitle.color = bbTextColor ? bbTextColor : '#424242'
     }
 
     const imageScrollView = this.isMobileDevice() ? (

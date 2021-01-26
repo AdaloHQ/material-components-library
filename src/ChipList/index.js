@@ -32,7 +32,7 @@ class ChipList extends Component {
   }
 
   render() {
-    const { imageList, imageSpacing, editor } = this.props
+    const { imageList, imageSpacing, editor, _fonts } = this.props
 
     if (
       !imageList ||
@@ -138,6 +138,7 @@ class ChipList extends Component {
     } else {
       style.text.color = textColor ? textColor : '#212121'
       style.text.fontWeight = '600'
+      style.text.fontFamily = _fonts.body
     }
 
     if (shadow) {
@@ -153,7 +154,6 @@ class ChipList extends Component {
       <View
         style={{
           justifyContent: 'center',
-          alignItems: 'space-between',
         }}
       >
         {imageScrollView}

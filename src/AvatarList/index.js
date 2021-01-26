@@ -32,7 +32,7 @@ class AvatarList extends Component {
   }
 
   render() {
-    const { imageList, imageSpacing, imageChild } = this.props
+    const { imageList, imageSpacing, imageChild, _fonts } = this.props
 
     if (
       !imageList ||
@@ -105,6 +105,7 @@ class AvatarList extends Component {
       imageItemStyle.text.color = textColor ? textColor : '#424242'
       imageItemStyle.text.textAlign = textAlign ? textAlign : 'center'
       imageItemStyle.text.fontWeight = '600'
+      imageItemStyle.text.fontFamily = _fonts ? _fonts.body : 'inherit'
     }
 
     const imageScrollView = this.isMobileDevice() ? (
