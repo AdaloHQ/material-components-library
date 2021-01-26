@@ -20,7 +20,7 @@ export default class SimpleList extends Component {
   }
 
   renderHeader() {
-    let { listHeader, background } = this.props
+    let { listHeader, background, _fonts } = this.props
 
     if (!listHeader || !listHeader.header || !listHeader.enabled) {
       return null
@@ -33,6 +33,8 @@ export default class SimpleList extends Component {
     let headerStyles = [styles.header]
     if (listHeader.styles) {
       headerStyles.push(listHeader.styles.header)
+    } else if (_fonts) {
+      headerStyles.push({ fontFamily: _fonts.heading })
     }
 
     return (
@@ -98,6 +100,7 @@ export default class SimpleList extends Component {
               lastRow={i === items.length - 1}
               fullWidth={this.state.fullWidth}
               editor={this.props.editor}
+              _fonts={this.props._fonts}
             />
           ))}
         </View>
@@ -268,7 +271,7 @@ class Row extends Component {
   }
 
   renderContent() {
-    let { leftSection, firstLine, secondLine } = this.props
+    let { leftSection, firstLine, secondLine, _fonts } = this.props
     let hasDivider = this.hasDivider()
 
     let row = [styles.row]
@@ -284,9 +287,17 @@ class Row extends Component {
       <View style={row}>
         {this.renderLeftSection()}
         <View style={styles.main} pointerEvents="none">
-          <FirstLine {...firstLine} widthLimit={this.getWidthLimit()} />
+          <FirstLine
+            {...firstLine}
+            widthLimit={this.getWidthLimit()}
+            _fonts={_fonts}
+          />
           {this.renderSubtitle() ? (
-            <SecondLine {...secondLine} widthLimit={this.getWidthLimit()} />
+            <SecondLine
+              {...secondLine}
+              widthLimit={this.getWidthLimit()}
+              _fonts={_fonts}
+            />
           ) : null}
         </View>
         {this.renderRightSection()}
@@ -320,7 +331,7 @@ class FirstLine extends Component {
     color: '#212121',
   }
   render() {
-    let { text, color, titleLineNum, widthLimit } = this.props
+    let { text, color, titleLineNum, widthLimit, _fonts } = this.props
     let breakless = text.replace(/(\r\n|\n|\r)/gm, '')
     //custom fonts
     let customFontStyles = this.props.styles ? this.props.styles.text : null
@@ -332,6 +343,8 @@ class FirstLine extends Component {
         fontFamily: customFontStyles.fontFamily,
         fontWeight: customFontStyles.fontWeight,
       })
+    } else if (_fonts) {
+      propStyles.push({ fontFamily: _fonts.body })
     }
     let titleLimit = widthLimit / 7.7
     if (titleLineNum == 2) {
@@ -388,7 +401,7 @@ class SecondLine extends Component {
   }
 
   render() {
-    let { text, color, subtitleLineNum, widthLimit } = this.props
+    let { text, color, subtitleLineNum, widthLimit, _fonts } = this.props
     let customFontStyles = this.props.styles ? this.props.styles.text : null
     let propStyles = [
       { color: customFontStyles ? customFontStyles.color : color },
@@ -398,6 +411,8 @@ class SecondLine extends Component {
         fontFamily: customFontStyles.fontFamily,
         fontWeight: customFontStyles.fontWeight,
       })
+    } else if (_fonts) {
+      propStyles.push({ fontFamily: _fonts.body })
     }
     let subtitleLimit = widthLimit / 7
     let breakless = text.replace(/(\r\n|\n|\r)/gm, '')

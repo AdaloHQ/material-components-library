@@ -38,7 +38,7 @@ export default class TabNavigator extends Component {
   }
 
   render() {
-    let { backgroundColor, editor, activeTab } = this.props
+    let { backgroundColor, editor, activeTab, _fonts } = this.props
 
     let enabledTabs = tabNames.filter((tabName) => {
       let tab = this.props[tabName]
@@ -52,6 +52,10 @@ export default class TabNavigator extends Component {
     })
 
     let wrapperStyles = editor ? styles.editorWrapper : styles.wrapper
+
+    let defaultFontStyle = _fonts
+      ? { fontFamily: _fonts.body, fontSize: 11 }
+      : { fontSize: 11 }
 
     return (
       <ThemeContext.Provider value={this.getTheme()}>
@@ -71,7 +75,7 @@ export default class TabNavigator extends Component {
                 container: styles.tabItem,
                 label: tabs[tabName].styles
                   ? tabs[tabName].styles.label
-                  : { fontSize: 11 },
+                  : defaultFontStyle,
               }}
             />
           ))}

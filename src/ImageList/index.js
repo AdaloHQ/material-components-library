@@ -21,7 +21,12 @@ export default class ImageList extends Component {
     return (
       <View style={styles.wrapper}>
         {items.map((itm, i) => (
-          <Cell {...itm} key={itm.id} width={width} />
+          <Cell
+            {...itm}
+            key={itm.id}
+            width={width}
+            _fonts={this.props._fonts}
+          />
         ))}
       </View>
     )
@@ -63,7 +68,12 @@ export default class ImageList extends Component {
         {columns.map((column, i) => (
           <View key={i} style={styles.column}>
             {column.map((itm) => (
-              <Cell {...itm} key={itm.id} width={width} />
+              <Cell
+                {...itm}
+                key={itm.id}
+                width={width}
+                _fonts={this.props._fonts}
+              />
             ))}
           </View>
         ))}
@@ -146,7 +156,7 @@ class Cell extends Component {
   }
 
   renderSubtitle() {
-    let { title } = this.props
+    let { title, _fonts } = this.props
 
     let subtitleStyles = [
       {
@@ -157,6 +167,8 @@ class Cell extends Component {
 
     if (title.styles) {
       subtitleStyles.push(title.styles.subtitle)
+    } else if (_fonts) {
+      subtitleStyles.push({ fontFamily: _fonts.body })
     }
 
     if (!title.subtitle) {
@@ -171,7 +183,7 @@ class Cell extends Component {
   }
 
   renderBar() {
-    let { title, imageStyles, iconButton } = this.props
+    let { title, imageStyles, iconButton, _fonts } = this.props
 
     if (!title || !title.enabled || !title.text) {
       return null
@@ -223,6 +235,8 @@ class Cell extends Component {
 
     if (title.styles) {
       titleStyles.push(title.styles.text)
+    } else if (_fonts) {
+      titleStyles.push({ fontFamily: _fonts.body })
     }
     return (
       <View style={wrapperStyles}>
