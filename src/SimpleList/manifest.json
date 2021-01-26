@@ -24,6 +24,12 @@
       }
     },
     {
+      "name": "dividerColor",
+      "displayName": "Divider Color",
+      "type": "color",
+      "default": "#e0e0e0"
+    },
+    {
       "name": "onPress",
       "displayName": "Click Actions",
       "type": "action",
@@ -32,6 +38,19 @@
     }
   ],
   "childComponents": [
+    {
+      "name": "listHeader",
+      "displayName": "List Header",
+      "props": [
+        { "name": "enabled", "type": "boolean", "default": false },
+        {
+          "name": "header",
+          "displayName": "Title",
+          "type": "text",
+          "default": "Title"
+        }
+      ]
+    },
     {
       "name": "firstLine",
       "displayName": "Title",
@@ -43,6 +62,20 @@
           "displayName": "Text",
           "type": "text",
           "default": "Title"
+        },
+        {
+          "name": "titleLineNum",
+          "displayName": "Title Max Number of Lines",
+          "type": "number",
+          "default": 1,
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "One Line", "value": 1 },
+              { "label": "Two Lines", "value": 2 },
+              { "label": "No Max", "value": 3 }
+            ]
+          }
         }
       ]
     },
@@ -62,6 +95,20 @@
           "displayName": "Text",
           "type": "text",
           "default": "Subtitle"
+        },
+        {
+          "name": "subtitleLineNum",
+          "displayName": "Subtitle Max Number of Lines",
+          "type": "number",
+          "default": 1,
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "One Line", "value": 1 },
+              { "label": "Two Lines", "value": 2 },
+              { "label": "No Max", "value": 3 }
+            ]
+          }
         }
       ]
     },
@@ -124,28 +171,16 @@
           "default": false
         },
         {
-          "name": "type",
-          "displayName": "Type",
-          "type": "text",
-          "default": "icon",
-          "control": {
-            "type": "menu",
-            "options": [{ "label": "Icon", "value": "icon" }]
-          }
-        },
-        {
           "name": "icon",
           "displayName": "Icon",
           "type": "icon",
-          "default": "add",
-          "enabled": { "type": "icon" }
+          "default": "add"
         },
         {
           "name": "iconColor",
           "displayName": "Icon Color",
           "type": "color",
-          "default": "#ccc",
-          "enabled": { "type": "icon" }
+          "default": "#ccc"
         },
         {
           "name": "onPress",
@@ -153,6 +188,57 @@
           "type": "action",
           "role": "listItem",
           "reference": "items"
+        }
+      ]
+    },
+    {
+      "name": "background",
+      "displayName": "Background",
+      "props": [
+        { "name": "enabled", "type": "boolean", "default": false },
+        {
+          "name": "backgroundColor",
+          "displayName": "Background Color",
+          "type": "color",
+          "default": "#FFFFFF"
+        },
+        {
+          "name": "border",
+          "displayName": "Border",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "borderColor",
+          "displayName": "Border Color",
+          "type": "color",
+          "default": "#e0e0e0",
+          "enabled": {
+            "border": true
+          }
+        },
+        {
+          "name": "borderSize",
+          "displayName": "Border Size",
+          "type": "number",
+          "default": 1,
+          "control": { "type": "slider", "max": 3, "min": 1 },
+          "enabled": {
+            "border": true
+          }
+        },
+        {
+          "name": "rounding",
+          "displayName": "Rounding",
+          "type": "number",
+          "default": 4,
+          "control": { "type": "slider", "max": 60, "min": 0 }
+        },
+        {
+          "name": "shadow",
+          "displayName": "Shadow",
+          "type": "boolean",
+          "default": true
         }
       ]
     }

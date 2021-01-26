@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, Image, Platform } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+import placeholder from './holdplace.png'
 import { Card, Button, IconToggle } from '@protonapp/react-native-material-ui'
 
 const SINGLE_COLUMN_LAYOUTS = {
@@ -12,6 +13,9 @@ export default class ImageList extends Component {
     items: [],
     columnCount: 1,
   }
+  state = {
+    fullWidth: null,
+  }
 
   getColumnCount() {
     let { layout, columnCount } = this.props
@@ -22,7 +26,14 @@ export default class ImageList extends Component {
 
     return columnCount
   }
+  handleLayout = ({ nativeEvent }) => {
+    const { width } = (nativeEvent && nativeEvent.layout) || {}
+    const { fullWidth: prevWidth } = this.state
 
+    if (width !== prevWidth) {
+      this.setState({ fullWidth: width })
+    }
+  }
   getColumns() {
     let count = this.getColumnCount()
     let { items } = this.props
@@ -45,28 +56,65 @@ export default class ImageList extends Component {
     return columns
   }
 
-  renderCell = (itm, layout) => (
-    <Cell
-      {...itm}
-      key={itm.id}
-      layout={layout}
-    />
+  renderCell = (itm, layout, width, editor) => (
+    <Cell {...itm} key={itm.id} layout={layout} width={width} editor={editor} />
   )
 
-  render() {
+  renderMasonry() {
     let { items, layout, editor } = this.props
 
     let columns = this.getColumns()
 
+    let wrap = [styles.wrapper]
+
     return (
-      <View style={styles.wrapper}>
+      <View style={wrap}>
         {columns.map((column, i) => (
           <View key={i} style={styles.column}>
-            {column.map(itm => (
-              this.renderCell(itm, layout)
-            ))}
+            {column.map((itm) => this.renderCell(itm, layout, editor))}
           </View>
         ))}
+      </View>
+    )
+  }
+  renderGrid() {
+    let { items, layout, columnCount, editor } = this.props
+
+    let { fullWidth } = this.state
+    let width = fullWidth / columnCount - 8
+
+    return (
+      <View onLayout={this.handleLayout} style={styles.gridWrap}>
+        {items.map((itm, i) => this.renderCell(itm, layout, width, editor))}
+      </View>
+    )
+  }
+
+  renderHeader() {
+    let { listHeader } = this.props
+    if (!listHeader || !listHeader.header || !listHeader.enabled) {
+      return null
+    }
+
+    return <Text style={styles.header}>{listHeader.header}</Text>
+  }
+
+  render() {
+    let { cardLayout } = this.props
+    let wrap = [styles.wrap]
+
+    if (cardLayout === 'grid') {
+      return (
+        <View style={wrap}>
+          {this.renderHeader()}
+          {this.renderGrid()}
+        </View>
+      )
+    }
+    return (
+      <View style={wrap}>
+        {this.renderHeader()}
+        {this.renderMasonry()}
       </View>
     )
   }
@@ -76,10 +124,26 @@ class Cell extends Component {
   hasActions() {
     let { button1, button2, icon1, icon2 } = this.props
 
-    return (button1 && button1.enabled && button1.text) ||
+    return (
+      (button1 && button1.enabled && button1.text) ||
       (button2 && button2.enabled && button2.text) ||
       (icon1 && icon1.enabled && icon1.icon) ||
       (icon2 && icon2.enabled && icon2.icon)
+    )
+  }
+
+  isMobileDevice = () => {
+    if (
+      Platform.OS === 'ios' ||
+      Platform.OS === 'android' ||
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    ) {
+      return true
+    } else {
+      return false
+    }
   }
 
   renderTitle() {
@@ -90,37 +154,52 @@ class Cell extends Component {
 
     return (
       <View style={styles.titleWrapper}>
-        <Text style={styles.title}>
-          {titleText}
-        </Text>
-        {subtitleText
-          ? <Text style={styles.subtitle}>
-            {subtitleText}
-            </Text>
-          : null}
+        <Text style={styles.title}>{titleText}</Text>
+        {subtitleText ? (
+          <Text style={styles.subtitle}>{subtitleText}</Text>
+        ) : null}
       </View>
     )
   }
 
   renderMedia() {
-    let { media } = this.props
+    let { media, editor, cardStyles } = this.props
 
     if (!media || !media.enabled) {
       return null
     }
 
     let { image } = media
+
     let source = image
-    let imageStyles = [{ paddingTop: '66.6667%' }]
+
+    if (editor) {
+      source = placeholder
+    }
+    let percent =
+      media.shape === 'square'
+        ? '100%'
+        : media.shape === 'portrait'
+        ? '150%'
+        : '66.6667%'
+    let imageStyles = [{ paddingTop: percent }]
     let wrapperStyles = [styles.mediaWrapper]
 
     if (media.position === 'top') {
       wrapperStyles.push(styles.topMedia)
     } else if (media.position === 'right') {
       wrapperStyles = [styles.rightMedia]
-      imageStyles = [{ height: '100%', borderRadius: 2 }]
+      imageStyles = [{ height: percent, borderRadius: 2 }]
     } else {
       wrapperStyles.push(styles.middleMedia)
+    }
+    if (cardStyles) {
+      if (!cardStyles.shadow && !cardStyles.background && !cardStyles.border) {
+        imageStyles.push({
+          borderBottomLeftRadius: cardStyles.rounding,
+          borderBottomRightRadius: cardStyles.rounding,
+        })
+      }
     }
 
     if (!source) {
@@ -142,13 +221,11 @@ class Cell extends Component {
     let { body } = this.props
     let { enabled, text } = body
 
-    if (!enabled || !text) { return null }
+    if (!enabled || !text) {
+      return null
+    }
 
-    return (
-      <Text style={styles.body}>
-        {text}
-      </Text>
-    )
+    return <Text style={styles.body}>{text}</Text>
   }
 
   renderMediaMiddle() {
@@ -196,42 +273,115 @@ class Cell extends Component {
   }
 
   render() {
-    let { onPress, media, button1, button2, icon1, icon2 } = this.props
+    let {
+      onPress,
+      media,
+      button1,
+      button2,
+      icon1,
+      icon2,
+      width,
+      cardStyles,
+    } = this.props
 
     let mediaPosition = media && media.position
 
+    let cell = [styles.cell, { width }]
+
+    let {
+      background,
+      backgroundColor,
+      border,
+      borderColor,
+      borderSize,
+      rounding,
+      shadow,
+    } = cardStyles || {
+      background: true,
+      backgroundColor: '#FFFFFF',
+      border: false,
+      borderColor: '#FFFFFF00',
+      borderSize: 0,
+      rounding: 2,
+      shadow: true,
+    }
+
+    if (background) {
+      cell.push({ backgroundColor: backgroundColor })
+    }
+    if (border) {
+      cell.push({
+        borderWidth: borderSize,
+        borderColor: borderColor,
+      })
+    }
+    cell.push({ borderRadius: rounding })
+
+    //uncomment below to fix android bug
+    if (!shadow /*|| Platform.OS === 'android'*/) {
+      if (this.isMobileDevice()) {
+        cell.push(styles.shadowless)
+      } else {
+        cell.push({ boxShadow: 0 })
+      }
+    }
+
+    if (button1 || button2) {
+      cell.push({ paddingBottom: 6 })
+    }
+
     return (
-      <View>
-        <WrappedCard
-          onPress={onPress}
-          style={{ container: styles.cell }}
-        >
-          <View>
-            {this.renderContent()}
-            <View style={styles.tapTarget} />
-          </View>
-          {(this.hasActions())
-            ? <Actions
-                button1={button1}
-                button2={button2}
-                icon1={icon1}
-                icon2={icon2}
-              />
-            : null}
-        </WrappedCard>
-      </View>
+      <WrappedCard
+        onPress={onPress}
+        style={{ container: cell }}
+        shadow={shadow}
+      >
+        <View>
+          {this.renderContent()}
+          <View style={styles.tapTarget} />
+        </View>
+        {this.hasActions() ? (
+          <Actions
+            button1={button1}
+            button2={button2}
+            icon1={icon1}
+            icon2={icon2}
+          />
+        ) : null}
+      </WrappedCard>
     )
   }
 }
 
 class WrappedCard extends Component {
-  render() {
-    let { children, onPress, style } = this.props
+  isMobileDevice = () => {
+    if (Platform.OS === 'ios' || Platform.OS === 'android') {
+      return true
+    } else {
+      return false
+    }
+  }
 
-    if (Platform.OS === 'ios') {
+  render() {
+    let { children, onPress, style, shadow } = this.props
+
+    if (this.isMobileDevice()) {
+      let shadowStyle = styles.shadowless
+
+      if (shadow) {
+        shadowStyle = {
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 1,
+            height: 1,
+          },
+          shadowOpacity: 0.6,
+          shadowRadius: 2,
+        }
+      }
       return (
-        <View style={styles.cellWrapper}>
-          <Card {...this.props}>
+        <View style={shadowStyle}>
+          <Card onPress={onPress} style={style}>
             {children}
           </Card>
         </View>
@@ -239,7 +389,7 @@ class WrappedCard extends Component {
     }
 
     return (
-      <Card {...this.props}>
+      <Card onPress={onPress} style={style}>
         {children}
       </Card>
     )
@@ -247,25 +397,84 @@ class WrappedCard extends Component {
 }
 
 class Actions extends Component {
-  renderButton(opts) {
-    if (!opts || !opts.text || !opts.enabled) { return null }
+  isMobileDevice = () => {
+    if (
+      Platform.OS === 'ios' ||
+      Platform.OS === 'android' ||
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    ) {
+      return true
+    } else {
+      return false
+    }
+  }
 
-    let { text, onPress, color, enabled} = opts
+  renderButton(opts) {
+    if (!opts || !opts.text || !opts.enabled) {
+      return null
+    }
+    let { button1, button2, icon1, icon2 } = this.props
+
+    let {
+      text,
+      onPress,
+      color,
+      background,
+      backgroundColor,
+      border,
+      borderSize,
+      borderColor,
+      rounding,
+    } = opts
+
+    let buttonContainer = [styles.button]
+
+    if (button1 && button2 && button1.enabled && button2.enabled) {
+      buttonContainer.push({ marginRight: 8 })
+    }
+
+    if (background) {
+      buttonContainer.push({ backgroundColor: backgroundColor })
+    }
+    if (border) {
+      buttonContainer.push({
+        borderWidth: borderSize,
+        borderColor: borderColor,
+      })
+    }
+
+    if (!background && !border) {
+      buttonContainer.push({ paddingLeft: 0, paddingRight: 8 })
+    }
+
+    buttonContainer.push({ borderRadius: rounding })
+
+    let buttonTextStyle = [{ color: color, paddingBottom: 2 }]
+
+    if (this.isMobileDevice()) {
+      buttonTextStyle.push({ paddingBottom: 0 })
+    } else {
+      buttonContainer.push({ marginBottom: 8 })
+    }
 
     return (
       <Button
         onPress={onPress}
         text={text}
         style={{
-          container: styles.button,
-          text: { color },
+          container: buttonContainer,
+          text: buttonTextStyle,
         }}
       />
     )
   }
 
   renderIcon(opts) {
-    if (!opts || !opts.icon || !opts.enabled) { return null }
+    if (!opts || !opts.icon || !opts.enabled) {
+      return null
+    }
 
     let { icon, onPress, color, enabled } = opts
 
@@ -302,6 +511,12 @@ class Actions extends Component {
 }
 
 const styles = StyleSheet.create({
+  gridWrap: {
+    margin: 4,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  wrap: {},
   wrapper: {
     margin: 4,
     flexDirection: 'row',
@@ -321,13 +536,17 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 4,
     padding: 0,
+    backgroundColor: '#FFFFFF00', //take this out to fix android bug
   },
-  cellWrapper: {
+  shadowless: {
     shadowColor: '#000',
-    shadowOpacity: 0.25,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 2,
-    borderRadius: 2,
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0,
+    shadowRadius: 0,
+    elevation: 0,
   },
   cellInner: {
     paddingLeft: 16,
@@ -394,19 +613,27 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   actionsWrapper: {
-    paddingLeft: 8,
-    paddingRight: 2,
+    paddingLeft: 16,
+    paddingRight: 12,
     height: 52,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    flex: 1,
   },
   actionsWrapperSub: {
     flexDirection: 'row',
   },
   button: {
-    paddingLeft: 8,
+    paddingLeft: 15,
+    paddingRight: 15,
+    height: 34,
+  },
+  header: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginLeft: 16,
+    paddingBottom: 8,
     paddingRight: 8,
-    marginRight: 8,
-  }
+  },
 })

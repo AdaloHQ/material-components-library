@@ -5,41 +5,132 @@ import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 
 export default class SimpleList extends Component {
   static defaultProps = {
-    items: []
+    items: [],
+  }
+  state = {
+    fullWidth: 0,
+  }
+  handleLayout = ({ nativeEvent }) => {
+    const { width } = (nativeEvent && nativeEvent.layout) || {}
+    const { fullWidth: prevWidth } = this.state
+
+    if (width !== prevWidth) {
+      this.setState({ fullWidth: width })
+    }
+  }
+
+  renderHeader() {
+    let { listHeader, background } = this.props
+    if (!listHeader || !listHeader.header || !listHeader.enabled) {
+      return null
+    }
+    let space = 0
+    if (background && background.enabled) {
+      space = 10
+    }
+
+    return (
+      <>
+        <Text style={styles.header}>{listHeader.header}</Text>
+        <View style={{ height: space }}></View>
+      </>
+    )
   }
 
   render() {
-    let { items, dividerType, dividerColor} = this.props
+    let {
+      items,
+      dividerType,
+      dividerColor,
+      background,
+      listHeader,
+    } = this.props
+
+    let wrap = [styles.wrapper]
+    if (background && background.enabled) {
+      let {
+        backgroundColor,
+        border,
+        borderSize,
+        borderColor,
+        rounding,
+        shadow,
+      } = background
+      wrap.push({ backgroundColor: backgroundColor, borderRadius: rounding })
+      if (border) {
+        wrap.push({ borderWidth: borderSize, borderColor: borderColor })
+      }
+      if (shadow) {
+        wrap.push({
+          shadowColor: '#000000',
+          shadowOffset: {
+            width: 2,
+            height: 2,
+          },
+          shadowOpacity: 0.15,
+          shadowRadius: 10,
+        })
+      }
+    } else {
+      if (listHeader && listHeader.enabled) {
+        wrap.push({ paddingTop: 4 })
+      } else {
+        wrap.push({ paddingTop: 8 })
+      }
+    }
 
     return (
-      <View style={styles.wrapper}>
-        {items.map((itm, i) => (
-          <Row
-            {...itm}
-            key={itm.id}
-            dividerType={dividerType}
-            dividerColor={dividerColor}
-            lastRow={i === items.length - 1}
-          />
-        ))}
-      </View>
+      <>
+        {this.renderHeader()}
+        <View style={wrap} onLayout={this.handleLayout}>
+          {items.map((itm, i) => (
+            <Row
+              {...itm}
+              key={itm.id}
+              dividerType={dividerType}
+              dividerColor={dividerColor}
+              lastRow={i === items.length - 1}
+              fullWidth={this.state.fullWidth}
+              editor={this.props.editor}
+            />
+          ))}
+        </View>
+      </>
     )
   }
 }
 
 class Row extends Component {
-  static defaultProps = {
-    dividerColor: '#e0e0e0',
+  getWidthLimit() {
+    let { leftSection, rightSection, fullWidth } = this.props
+    let leftSectWidth = 0
+    let rightSectWidth = 0
+
+    if (leftSection && leftSection.enabled) {
+      if (leftSection.type === 'image') {
+        leftSectWidth = 72
+      } else {
+        leftSectWidth = 56
+      }
+    }
+    if (rightSection && rightSection.enabled) {
+      rightSectWidth = 36
+    }
+    return fullWidth - leftSectWidth - rightSectWidth - 32
   }
 
   getDividerInset() {
     let { dividerType, leftSection } = this.props
 
-    if (dividerType !== 'inset') { return 0 }
+    if (dividerType !== 'inset') {
+      return 0
+    }
 
     let baseInset = 16
 
-    if (!leftSection || !leftSection.enabled) { return baseInset }
+    if (!leftSection || !leftSection.enabled) {
+      return baseInset
+    }
 
     if (leftSection.type === 'icon' || leftSection.type === 'avatar') {
       return baseInset * 2 + 40
@@ -54,6 +145,10 @@ class Row extends Component {
 
   getDividerStyles() {
     let { dividerColor } = this.props
+
+    if (!dividerColor) {
+      dividerColor = '#e0e0e0'
+    }
 
     return {
       left: this.getDividerInset(),
@@ -72,8 +167,7 @@ class Row extends Component {
   }
 
   renderLeftSection() {
-    let { leftSection } = this.props
-    
+    let { leftSection, firstLine, secondLine, editor } = this.props
     if (!leftSection || !leftSection.enabled) {
       return null
     }
@@ -81,6 +175,7 @@ class Row extends Component {
     let source = leftSection.image
 
     if (leftSection.type === 'icon') {
+      //56
       return (
         <View style={styles.iconWrapper} pointerEvents="none">
           <Icon
@@ -93,69 +188,105 @@ class Row extends Component {
     }
 
     if (leftSection.type === 'avatar') {
+      let avatarStyle = [styles.avatar]
+
+      if (firstLine.titleLineNum > 2 || secondLine.subtitleLineNum > 2) {
+        avatarStyle.push({ marginTop: 18 })
+      } else if (!editor) {
+        avatarStyle.push({ marginTop: 16 })
+      }
       return (
-        <Image
-          resizeMode="cover"
-          source={source}
-          style={styles.avatar}
-          pointerEvents="none"
-        />
+        <View style={styles.imageWrapper}>
+          <Image
+            resizeMode="cover"
+            source={source}
+            style={avatarStyle}
+            pointerEvents="none"
+          />
+        </View>
       )
     }
 
     if (leftSection.type === 'image') {
+      let imageStyle = [styles.image]
+
+      if (firstLine.titleLineNum > 2 || secondLine.subtitleLineNum > 2) {
+        imageStyle.push({ marginTop: 18 })
+      }
       return (
-        <Image
-          resizeMode="cover"
-          source={source}
-          style={styles.image}
-          pointerEvents="none"
-        />
+        <View style={styles.imageWrapper}>
+          <Image
+            resizeMode="cover"
+            source={source}
+            style={imageStyle}
+            pointerEvents="none"
+          />
+        </View>
       )
     }
   }
 
   renderRightSection() {
-    let { rightSection } = this.props
+    let { rightSection, firstLine, secondLine } = this.props
 
-    if (!rightSection || !rightSection.enabled) { return null }
+    if (!rightSection || !rightSection.enabled) {
+      return null
+    }
 
-    let iconStyles = { marginRight: -12 }
+    let iconStyles = [{ marginRight: -12 }]
+    let iconWrap = [styles.iconWrap]
 
-    if (rightSection.type === 'icon' && rightSection.icon) {
+    if (rightSection.icon) {
       return (
-        <IconToggle
-          name={rightSection.icon}
-          color={rightSection.iconColor}
-          underlayColor={rightSection.iconColor}
-          maxOpacity={0.3}
-          size={24}
-          onPress={rightSection.onPress}
-          style={{ container: iconStyles }}
-        />
+        <View style={{ justifyContent: 'flex-start' }}>
+          <View style={iconWrap}>
+            <IconToggle
+              name={rightSection.icon}
+              color={rightSection.iconColor}
+              underlayColor={rightSection.iconColor}
+              maxOpacity={0.3}
+              size={24}
+              onPress={rightSection.onPress}
+              style={{ container: iconStyles }}
+            />
+          </View>
+        </View>
       )
     }
 
     return null
+  }
+  renderSubtitle() {
+    let { secondLine } = this.props
+    return secondLine && secondLine.enabled
   }
 
   renderContent() {
     let { leftSection, firstLine, secondLine } = this.props
     let hasDivider = this.hasDivider()
 
+    let row = [styles.row]
+    if (
+      (firstLine.titleLineNum <= 2 && secondLine.subtitleLineNum <= 2) ||
+      !firstLine.titleLineNum ||
+      !secondLine.subtitleLineNum
+    ) {
+      row.push({ alignItems: 'center' })
+    }
+
     return (
-      <View style={styles.row}>
+      <View style={row}>
         {this.renderLeftSection()}
         <View style={styles.main} pointerEvents="none">
-          <FirstLine {...firstLine} />
-          {(secondLine && secondLine.enabled)
-            ? <SecondLine {...secondLine} />
-            : null}
+          <FirstLine {...firstLine} widthLimit={this.getWidthLimit()} />
+          {this.renderSubtitle() ? (
+            <SecondLine {...secondLine} widthLimit={this.getWidthLimit()} />
+          ) : null}
         </View>
         {this.renderRightSection()}
-        {hasDivider
-          ? <View style={[styles.divider, this.getDividerStyles()]} />
-          : null}
+        {hasDivider ? (
+          <View style={[styles.divider, this.getDividerStyles()]} />
+        ) : null}
       </View>
     )
   }
@@ -173,11 +304,7 @@ class Row extends Component {
       )
     }
 
-    return (
-      <View style={styles.rowWrapper}>
-        {this.renderContent()}
-      </View>
-    )
+    return <View style={styles.rowWrapper}>{this.renderContent()}</View>
   }
 }
 
@@ -186,10 +313,46 @@ class FirstLine extends Component {
     text: '',
     color: '#212121',
   }
-
   render() {
-    let { text, color } = this.props
+    let { text, color, titleLineNum, widthLimit } = this.props
+    let breakless = text.replace(/(\r\n|\n|\r)/gm, '')
+
     let propStyles = { color: color }
+    let titleLimit = widthLimit / 7.7
+    if (titleLineNum == 2) {
+      if (breakless.length > titleLimit) {
+        const firstLine = breakless.substring(0, titleLimit + 1)
+        const i = firstLine.lastIndexOf(' ')
+        return (
+          <View style={styles.titleContainer}>
+            <Text style={[styles.firstLine, propStyles]}>
+              {breakless.substring(0, i + 1)}
+            </Text>
+            <Text
+              style={[styles.firstLine, propStyles]}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
+              {breakless.substring(i + 1)}
+            </Text>
+          </View>
+        )
+      } else {
+        return (
+          <View style={styles.titleContainer}>
+            <Text style={[styles.firstLine, propStyles]}>{breakless}</Text>
+          </View>
+        )
+      }
+    }
+
+    if (titleLineNum > 2) {
+      return (
+        <Text style={[styles.firstLine, propStyles]} ellipsizeMode="tail">
+          {breakless}
+        </Text>
+      )
+    }
 
     return (
       <Text
@@ -197,7 +360,7 @@ class FirstLine extends Component {
         numberOfLines={1}
         ellipsizeMode="tail"
       >
-        {text}
+        {breakless}
       </Text>
     )
   }
@@ -210,8 +373,43 @@ class SecondLine extends Component {
   }
 
   render() {
-    let { text, color } = this.props
+    let { text, color, subtitleLineNum, widthLimit } = this.props
     let propStyles = { color: color }
+    let subtitleLimit = widthLimit / 7
+    let breakless = text.replace(/(\r\n|\n|\r)/gm, '')
+    if (subtitleLineNum == 2) {
+      if (breakless.length > subtitleLimit) {
+        const firstLine = breakless.substring(0, subtitleLimit + 1)
+        const i = firstLine.lastIndexOf(' ')
+        return (
+          <View style={styles.titleContainer}>
+            <Text style={[styles.secondLine, propStyles]}>
+              {breakless.substring(0, i + 1)}
+            </Text>
+            <Text
+              style={[styles.secondLine, propStyles]}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
+              {breakless.substring(i + 1)}
+            </Text>
+          </View>
+        )
+      } else {
+        return (
+          <View style={styles.titleContainer}>
+            <Text style={[styles.secondLine, propStyles]}>{breakless}</Text>
+          </View>
+        )
+      }
+    }
+    if (subtitleLineNum > 2) {
+      return (
+        <Text style={[styles.secondLine, propStyles]} ellipsizeMode="tail">
+          {breakless}
+        </Text>
+      )
+    }
 
     return (
       <Text
@@ -219,7 +417,7 @@ class SecondLine extends Component {
         numberOfLines={1}
         ellipsizeMode="tail"
       >
-        {text}
+        {breakless}
       </Text>
     )
   }
@@ -230,11 +428,15 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 8,
   },
+  header: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginLeft: 16,
+  },
   row: {
     paddingLeft: 16,
     paddingRight: 16,
     flexDirection: 'row',
-    alignItems: 'center',
   },
   divider: {
     position: 'absolute',
@@ -255,6 +457,7 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
   },
+  iconWrap: { justifyContent: 'center', height: 72 },
   avatar: {
     marginRight: 16,
     borderRadius: 20,
@@ -271,6 +474,11 @@ const styles = StyleSheet.create({
     height: 56,
     width: 56,
     backgroundColor: '#ccc',
+    //paddingTop: '10%',
+  },
+  imageWrapper: {
+    height: '100%',
+    justifyContent: 'flex-start',
   },
   main: {
     flex: 1,
@@ -280,12 +488,12 @@ const styles = StyleSheet.create({
   firstLine: {
     lineHeight: 20,
     fontSize: 16,
-    maxWidth: '100%',
   },
   secondLine: {
     lineHeight: 18,
     marginTop: 2,
     fontSize: 14,
     maxWidth: '100%',
-  }
+  },
+  titleContainer: {},
 })
