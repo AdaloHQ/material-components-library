@@ -1,5 +1,5 @@
 {
-  "name": "@protonapp/material-components",
+  "name": "@adalo-components/protonapp-material-components",
   "version": "0.0.75",
   "description": "Material UI Components for Proton",
   "main": "index.js",
@@ -100,6 +100,7 @@
     "@protonapp/react-native-material-ui": "^2.0.6",
     "color": "^3.1.0",
     "react-indiana-drag-scroll": "^1.7.0",
+    "react-native-paper": "^4.7.1",
     "react-native-vector-icons": "^7.1.0"
   }
 }

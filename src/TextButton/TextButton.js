@@ -122,6 +122,7 @@ export default class WrappedTextButton extends Component {
   }
 
   render() {
+    console.log('yeet button')
     return this.renderSub()
   }
 }
