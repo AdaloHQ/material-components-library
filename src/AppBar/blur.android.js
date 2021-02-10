@@ -2,14 +2,27 @@ import React from 'react'
 import { View } from 'react-native'
 import { BlurView } from '@react-native-community/blur'
 
-const Blur = (props) => {
-  const { translucentColor, borderStyle } = props
+const BlurAndroid = (props) => {
+  const { translucentColor, containerStyles } = props
 
   const style = {
     backgroundColor: translucentColor,
     height: 106,
     paddingTop: 50,
     marginTop: -30,
+    position: 'absolute',
+    right: 0,
+    left: 0,
+    top: 0,
+  }
+
+  const viewStyles = {
+    ...containerStyles,
+    backgroundColor: '#FFFFFF00',
+    position: 'absolute',
+    right: 0,
+    left: 0,
+    top: 0,
   }
 
   return (
@@ -19,12 +32,10 @@ const Blur = (props) => {
         blurAmount={10}
         reducedTransparencyFallbackColor="white"
         style={style}
-      >
-        {props.children}
-      </BlurView>
-      <View style={borderStyle}></View>
+      ></BlurView>
+      <View style={viewStyles}>{props.children}</View>
     </>
   )
 }
 
-export default Blur
+export default BlurAndroid

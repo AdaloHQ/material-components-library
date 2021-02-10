@@ -1,6 +1,6 @@
 {
-  "name": "@adalo-components/protonapp-material-components",
-  "version": "0.0.75",
+  "name": "@protonapp/material-components",
+  "version": "0.1.0",
   "description": "Material UI Components for Proton",
   "main": "index.js",
   "scripts": {
