@@ -216,7 +216,6 @@ class HorizontalImageList extends Component {
         borderRadius: !bottomBarStyle.enabled ? imageRounding : 0,
         borderTopLeftRadius: imageRounding,
         borderTopRightRadius: imageRounding,
-        flex: 1,
       },
       rounding: {
         borderTopLeftRadius: imageRounding,
