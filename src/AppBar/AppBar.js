@@ -40,13 +40,6 @@ export default class AppBar extends Component {
     return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + transparency + ')'
   }
 
-  getPadding() {
-    // if (Platform.OS === 'android') {
-    //   return 35
-    // }
-    return 50
-  }
-
   getBorderStyle(height) {
     let { borderWidth, borderColor, bottomBorder } = this.props
     if (bottomBorder) {
@@ -98,7 +91,7 @@ export default class AppBar extends Component {
     } = this.props
 
     return enabled ? (
-      <View style={newStyles.icon}>
+      <View style={styles.icon}>
         <Icon name={icon} color={color} size={24} onPress={action}></Icon>
       </View>
     ) : null
@@ -107,8 +100,7 @@ export default class AppBar extends Component {
     let { title, editor } = this.props
     let { logoImage, logoSize } = title
     let source = editor ? (logoImage ? logoImage.binding : null) : logoImage
-    let imageStyles = [newStyles.imageContainer]
-    console.log(source)
+    let imageStyles = [styles.imageContainer]
     imageStyles.push({ width: `${logoSize}%`, height: `${logoSize}%` })
     return (
       <Image
@@ -123,7 +115,7 @@ export default class AppBar extends Component {
   renderTitle() {
     let { title, color, titleType, _fonts } = this.props
 
-    let titleStyles = [newStyles.title, { color }]
+    let titleStyles = [styles.title, { color }]
     // if (Platform.OS === 'ios') {
     //   titleStyles.push({ fontFamily: 'System' })
     // } else if (Platform.OS === 'web') {
@@ -140,15 +132,12 @@ export default class AppBar extends Component {
   }
 
   renderLeft() {
-    return (
-      <View style={newStyles.leftWrapper}>{this.renderIcon('leftIcon')}</View>
-    )
+    return <View style={styles.leftWrapper}>{this.renderIcon('leftIcon')}</View>
   }
-
   renderCenter() {
     let { title } = this.props
     let { align, titleType } = title
-    let centerStyles = [newStyles.centerWrapper]
+    let centerStyles = [styles.centerWrapper]
 
     if (align === 'center') {
       centerStyles.push({ marginLeft: 100, alignItems: 'center' })
@@ -159,43 +148,22 @@ export default class AppBar extends Component {
       </View>
     )
   }
-
   renderRight() {
     return (
-      <View style={newStyles.rightWrapper}>
+      <View style={styles.rightWrapper}>
         {this.renderIcon('rightIcon1')}
         {this.renderIcon('rightIcon2')}
       </View>
     )
   }
+
   renderContent() {
     return (
-      <View style={newStyles.contentContainer}>
+      <View style={styles.contentContainer}>
         {this.renderLeft()}
         {this.renderCenter()}
         {this.renderRight()}
       </View>
-    )
-  }
-
-  renderImageBackgroundToolbar() {
-    let { backgroundImage, editor } = this.props
-    let source = editor ? backgroundImage.binding : backgroundImage
-    let imageStyles = [
-      newStyles.imageBackground,
-      this.getBorderStyle(180),
-      this.getShadowStyle(),
-    ]
-
-    return (
-      <ImageBackground
-        resizeMode="cover"
-        source={{ uri: source }}
-        style={imageStyles}
-        pointerEvents="none"
-      >
-        {this.renderContent()}
-      </ImageBackground>
     )
   }
 
@@ -210,6 +178,27 @@ export default class AppBar extends Component {
       >
         {this.renderContent()}
       </Blur>
+    )
+  }
+
+  renderImageBackgroundToolbar() {
+    let { backgroundImage, editor } = this.props
+    let source = editor ? backgroundImage.binding : backgroundImage
+    let imageStyles = [
+      styles.imageBackground,
+      this.getBorderStyle(180),
+      this.getShadowStyle(),
+    ]
+
+    return (
+      <ImageBackground
+        resizeMode="cover"
+        source={{ uri: source }}
+        style={imageStyles}
+        pointerEvents="none"
+      >
+        {this.renderContent()}
+      </ImageBackground>
     )
   }
 
@@ -252,7 +241,10 @@ export default class AppBar extends Component {
     )
   }
 }
-const newStyles = StyleSheet.create({
+const styles = StyleSheet.create({
+  wrapper: {
+    marginTop: -20,
+  },
   imageBackground: {
     height: 180,
     width: '100%',
@@ -299,31 +291,5 @@ const newStyles = StyleSheet.create({
     width: '40%',
     height: '40%',
     maxWidth: 150,
-  },
-})
-const styles = StyleSheet.create({
-  wrapper: {
-    marginTop: -20,
-  },
-  iosBar: {
-    shadowColor: 'blue',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowRadius: 4,
-    shadowOpacity: 0.25,
-  },
-  image: {
-    flex: 1,
-    width: '100%',
-    paddingTop: 0,
-    paddingBottom: 0,
-    justifyContent: 'center',
-  },
-  logoImage: {
-    height: 35,
-    width: '90%',
-    flex: 1,
   },
 })
