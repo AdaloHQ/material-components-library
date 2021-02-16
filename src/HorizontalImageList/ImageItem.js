@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Gradient from './gradient'
+import { IconToggle } from '@protonapp/react-native-material-ui'
 
 class ImageItem extends Component {
   renderTitle() {
@@ -48,10 +49,10 @@ class ImageItem extends Component {
       iconActions,
       iconSize,
       gradientProps,
+      onPress,
     } = this.props
 
     const { textPos, backgroundEffect, gradientEnabled } = gradientProps
-
     return (
       <ImageBackground
         style={shadow ? [style.shadow, style.image] : style.image}
@@ -78,29 +79,32 @@ class ImageItem extends Component {
                     </Text>
                   </View>
                 ) : textSwitch ? (
-                  <Icon
+                  <IconToggle
                     name={icons[0]}
                     color={iconSwitches[0] ? iconColors[0] : '#FFFFFF00'}
                     onPress={iconSwitches[0] ? iconActions[0] : null}
                     size={iconSize}
+                    maxOpacity={0.0}
                     style={style.topIcon}
-                  ></Icon>
+                  ></IconToggle>
                 ) : (
-                  <Icon
+                  <IconToggle
                     name={icons[4]}
                     color={iconSwitches[4] ? iconColors[4] : '#FFFFFF00'}
                     onPress={iconSwitches[4] ? iconActions[4] : null}
                     size={iconSize}
+                    maxOpacity={0.0}
                     style={style.topIcon}
-                  ></Icon>
+                  ></IconToggle>
                 )}
-                <Icon
+                <IconToggle
                   name={icons[1]}
                   color={iconSwitches[1] ? iconColors[1] : '#FFFFFF00'}
                   onPress={iconSwitches[1] ? iconActions[1] : null}
                   size={iconSize}
+                  maxOpacity={0.0}
                   style={style.topIcon}
-                ></Icon>
+                ></IconToggle>
               </View>
               <View style={style.bottom}>
                 {textPos == 'bottom' && textSwitch ? (
@@ -111,29 +115,32 @@ class ImageItem extends Component {
                     </Text>
                   </View>
                 ) : textSwitch ? (
-                  <Icon
+                  <IconToggle
                     name={icons[3]}
                     color={iconSwitches[3] ? iconColors[3] : '#FFFFFF00'}
                     onPress={iconSwitches[3] ? iconActions[3] : null}
                     size={iconSize}
+                    maxOpacity={0.0}
                     style={style.topIcon}
-                  ></Icon>
+                  ></IconToggle>
                 ) : (
-                  <Icon
+                  <IconToggle
                     name={icons[5]}
                     color={iconSwitches[5] ? iconColors[5] : '#FFFFFF00'}
                     onPress={iconSwitches[5] ? iconActions[5] : null}
                     size={iconSize}
+                    maxOpacity={0.0}
                     style={style.topIcon}
-                  ></Icon>
+                  ></IconToggle>
                 )}
-                <Icon
+                <IconToggle
                   name={icons[2]}
                   color={iconSwitches[2] ? iconColors[2] : '#FFFFFF00'}
                   onPress={iconSwitches[2] ? iconActions[2] : null}
                   size={iconSize}
+                  maxOpacity={0.0}
                   style={style.topIcon}
-                ></Icon>
+                ></IconToggle>
               </View>
             </View>
           </Gradient>

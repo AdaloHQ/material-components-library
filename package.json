@@ -1,6 +1,6 @@
 {
   "name": "@protonapp/material-components",
-  "version": "0.0.75",
+  "version": "0.0.76",
   "description": "Material UI Components for Proton",
   "main": "index.js",
   "scripts": {
