@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Gradient from './gradient'
-import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
+import { IconToggle } from '@protonapp/react-native-material-ui'
 
 class ImageItem extends Component {
   renderTitle() {
