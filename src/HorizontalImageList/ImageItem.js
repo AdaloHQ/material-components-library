@@ -79,38 +79,32 @@ class ImageItem extends Component {
                     </Text>
                   </View>
                 ) : textSwitch ? (
-                  <View>
-                    <IconToggle
-                      name={icons[0]}
-                      color={iconSwitches[0] ? iconColors[0] : '#FFFFFF00'}
-                      onPress={iconSwitches[0] ? iconActions[0] : null}
-                      size={iconSize}
-                      maxOpacity={0.0}
-                      style={style.topIcon}
-                    ></IconToggle>
-                  </View>
-                ) : (
-                  <View>
-                    <IconToggle
-                      name={icons[4]}
-                      color={iconSwitches[4] ? iconColors[4] : '#FFFFFF00'}
-                      onPress={iconSwitches[4] ? iconActions[4] : null}
-                      size={iconSize}
-                      maxOpacity={0.0}
-                      style={style.topIcon}
-                    ></IconToggle>
-                  </View>
-                )}
-                <View>
                   <IconToggle
-                    name={icons[1]}
-                    color={iconSwitches[1] ? iconColors[1] : '#FFFFFF00'}
-                    onPress={iconSwitches[1] ? iconActions[1] : null}
+                    name={icons[0]}
+                    color={iconSwitches[0] ? iconColors[0] : '#FFFFFF00'}
+                    onPress={iconSwitches[0] ? iconActions[0] : null}
                     size={iconSize}
                     maxOpacity={0.0}
                     style={style.topIcon}
                   ></IconToggle>
-                </View>
+                ) : (
+                  <IconToggle
+                    name={icons[4]}
+                    color={iconSwitches[4] ? iconColors[4] : '#FFFFFF00'}
+                    onPress={iconSwitches[4] ? iconActions[4] : null}
+                    size={iconSize}
+                    maxOpacity={0.0}
+                    style={style.topIcon}
+                  ></IconToggle>
+                )}
+                <IconToggle
+                  name={icons[1]}
+                  color={iconSwitches[1] ? iconColors[1] : '#FFFFFF00'}
+                  onPress={iconSwitches[1] ? iconActions[1] : null}
+                  size={iconSize}
+                  maxOpacity={0.0}
+                  style={style.topIcon}
+                ></IconToggle>
               </View>
               <View style={style.bottom}>
                 {textPos == 'bottom' && textSwitch ? (
