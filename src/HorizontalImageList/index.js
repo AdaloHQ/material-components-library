@@ -325,6 +325,13 @@ class HorizontalImageList extends Component {
         shadowOpacity: 0.15,
         shadowRadius: 10,
       },
+      topIcon: {
+        container: {
+          padding: 0,
+          width: 24,
+          height: 24,
+        },
+      },
     }
     const bbTextDummy = { bbSubtitlePos: null, bbTextColor: null }
     const { bbSubtitlePos, bbTextColor } = imageList
