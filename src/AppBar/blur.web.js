@@ -11,12 +11,12 @@ const Blur = (props) => {
   }
 
   return (
-    <>
+    <View style={borderStyle[1]}>
       <div className="box blur" style={style}>
         {props.children}
       </div>
-      <View style={borderStyle}></View>
-    </>
+      <View style={[borderStyle[0]]}></View>
+    </View>
   )
 }
 

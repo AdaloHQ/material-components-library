@@ -13,7 +13,7 @@ const Blur = (props) => {
   }
 
   return (
-    <>
+    <View style={borderStyle[1]}>
       <BlurView
         blurType="light"
         blurAmount={10}
@@ -22,8 +22,8 @@ const Blur = (props) => {
       >
         {props.children}
       </BlurView>
-      <View style={borderStyle}></View>
-    </>
+      <View style={borderStyle[0]}></View>
+    </View>
   )
 }
 

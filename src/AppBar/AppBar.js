@@ -40,9 +40,15 @@ export default class AppBar extends Component {
     return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + transparency + ')'
   }
 
-  getBorderStyle(height) {
+  getBorderStyle(height, web) {
     let { borderWidth, borderColor, bottomBorder } = this.props
     if (bottomBorder) {
+      if (web) {
+        return {
+          borderBottomWidth: borderWidth,
+          borderBottomColor: borderColor,
+        }
+      }
       return {
         height: height + borderWidth,
         borderBottomWidth: borderWidth,
@@ -173,7 +179,8 @@ export default class AppBar extends Component {
     return (
       <Blur
         translucentColor={this.hexToRGBA(translucentColor, 0.5)}
-        borderStyle={[this.getBorderStyle(0), this.getShadowStyle()]}
+        borderStyle={[this.getBorderStyle(0, false), this.getShadowStyle()]}
+        borderStyleWeb={[this.getBorderStyle(0, true), this.getShadowStyle()]}
         containerStyles={containerStyles}
       >
         {this.renderContent()}
@@ -186,7 +193,7 @@ export default class AppBar extends Component {
     let source = editor ? backgroundImage.binding : backgroundImage
     let imageStyles = [
       styles.imageBackground,
-      this.getBorderStyle(180),
+      this.getBorderStyle(180, false),
       this.getShadowStyle(),
     ]
 
@@ -209,7 +216,7 @@ export default class AppBar extends Component {
       height: 76,
       paddingTop: 20,
       justifyContent: 'space-between',
-      ...this.getBorderStyle(76),
+      ...this.getBorderStyle(76, false),
       ...this.getShadowStyle(),
     }
     if (!editor) {
@@ -218,7 +225,7 @@ export default class AppBar extends Component {
         height: 106,
         paddingTop: 50,
         marginTop: -30,
-        ...this.getBorderStyle(106),
+        ...this.getBorderStyle(106, false),
       }
     }
     if (barType === 'translucent') {
