@@ -10,6 +10,9 @@ import {
 import { Toolbar } from '@protonapp/react-native-material-ui'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Blur from './blur'
+import Gradient from './gradient'
+import background from './backgroundPlaceholder.png'
+import placeholder from './placeholder.png'
 
 import '../Shared/icons'
 
@@ -105,9 +108,29 @@ export default class AppBar extends Component {
   renderLogo() {
     let { title, editor } = this.props
     let { logoImage, logoSize } = title
-    let source = editor ? (logoImage ? logoImage.binding : null) : logoImage
+    let source = placeholder
+    if (editor) {
+      console.log('editor: ', logoImage)
+      if (logoImage && logoImage.binding) {
+        source = logoImage.binding
+        console.log('newSource: ', source)
+      } else {
+        console.log('logoImage.binding not defined', logoImage)
+      }
+    } else {
+      if (logoImage) {
+        console.log('no editor: ', logoImage)
+        source = logoImage
+      } else {
+        console.log('could not read outside editor', logoImage)
+      }
+    }
+
     let imageStyles = [styles.imageContainer]
     imageStyles.push({ width: `${logoSize}%`, height: `${logoSize}%` })
+    if (editor && !source) {
+      imageStyles.push({ backgroundColor: '#ccc' })
+    }
     return (
       <Image
         resizeMode="contain"
@@ -134,7 +157,11 @@ export default class AppBar extends Component {
       titleStyles.push({ fontFamily: _fonts.heading })
     }
 
-    return <Text style={titleStyles}>{title.text}</Text>
+    return (
+      <Text style={titleStyles} numberOfLines={1}>
+        {title.text}
+      </Text>
+    )
   }
 
   renderLeft() {
@@ -164,10 +191,11 @@ export default class AppBar extends Component {
   }
 
   renderContent() {
+    let { barType } = this.props
     return (
       <View style={styles.contentContainer}>
         {this.renderLeft()}
-        {this.renderCenter()}
+        {barType !== 'backgroundImage' && this.renderCenter()}
         {this.renderRight()}
       </View>
     )
@@ -190,7 +218,11 @@ export default class AppBar extends Component {
 
   renderImageBackgroundToolbar() {
     let { backgroundImage, editor } = this.props
-    let source = editor ? backgroundImage.binding : backgroundImage
+    let source = editor
+      ? backgroundImage && backgroundImage.binding
+        ? { uri: backgroundImage.binding }
+        : background
+      : { uri: backgroundImage }
     let imageStyles = [
       styles.imageBackground,
       this.getBorderStyle(180, false),
@@ -200,11 +232,18 @@ export default class AppBar extends Component {
     return (
       <ImageBackground
         resizeMode="cover"
-        source={{ uri: source }}
+        source={source}
         style={imageStyles}
         pointerEvents="none"
       >
-        {this.renderContent()}
+        <Gradient>
+          <View style={styles.imageContentContainer}>
+            {this.renderContent()}
+            <View style={styles.imageTitleContainer}>
+              {this.renderCenter()}
+            </View>
+          </View>
+        </Gradient>
       </ImageBackground>
     )
   }
@@ -236,7 +275,6 @@ export default class AppBar extends Component {
 
   render() {
     let { v2, barType } = this.props
-
     let wrapperStyles = v2 ? [styles.wrapper] : []
 
     return (
@@ -257,8 +295,21 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingTop: 50,
     marginTop: -30,
+    justifyContent: 'space-between',
   },
   contentContainer: {
+    height: 56,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  imageContentContainer: {
+    height: 130,
+    width: '100%',
+    justifyContent: 'space-between',
+  },
+  imageTitleContainer: {
+    paddingBottom: 26,
     height: 56,
     flexDirection: 'row',
     alignItems: 'center',

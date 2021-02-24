@@ -64,7 +64,7 @@
       "name": "shadow",
       "displayName": "Shadow",
       "type": "boolean",
-      "default": false
+      "default": true
     },
     {
       "name": "bottomBorder",
@@ -114,7 +114,7 @@
           "name": "icon",
           "displayName": "Icon",
           "type": "icon",
-          "default": "menu"
+          "default": "arrow-back"
         },
         {
           "name": "enabled",
@@ -161,7 +161,7 @@
           "displayName": "Logo Size",
           "type": "number",
           "default": 50,
-          "control": { "type": "slider", "max": 100, "min": 1 },
+          "control": { "type": "slider", "max": 100, "min": 30 },
           "enabled": {
             "titleType": "logo"
           }
@@ -184,11 +184,11 @@
           "name": "align",
           "displayName": "Align",
           "type": "text",
-          "default": "left",
+          "default": "center",
           "control": {
             "type": "menu",
             "options": [
-              { "label": "Left (default)", "value": "left" },
+              { "label": "Left", "value": "left" },
               { "label": "Center", "value": "center" }
             ]
           }
@@ -209,7 +209,7 @@
         {
           "name": "enabled",
           "type": "boolean",
-          "default": true
+          "default": false
         },
         {
           "name": "action",
@@ -232,7 +232,7 @@
         {
           "name": "enabled",
           "type": "boolean",
-          "default": true
+          "default": false
         },
         {
           "name": "action",
