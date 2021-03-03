@@ -73,6 +73,9 @@ export default class WrappedTextButton extends Component {
 
   submitAction = async () => {
     let { action } = this.props
+
+    if (!action) return null
+
     this.setState({ loading: true })
     let result = action()
     await result
