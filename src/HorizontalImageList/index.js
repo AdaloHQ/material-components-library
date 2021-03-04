@@ -216,7 +216,6 @@ class HorizontalImageList extends Component {
         borderRadius: !bottomBarStyle.enabled ? imageRounding : 0,
         borderTopLeftRadius: imageRounding,
         borderTopRightRadius: imageRounding,
-        flex: 1,
       },
       rounding: {
         borderTopLeftRadius: imageRounding,
@@ -325,6 +324,13 @@ class HorizontalImageList extends Component {
         },
         shadowOpacity: 0.15,
         shadowRadius: 10,
+      },
+      topIcon: {
+        container: {
+          padding: 0,
+          width: 24,
+          height: 24,
+        },
       },
     }
     const bbTextDummy = { bbSubtitlePos: null, bbTextColor: null }

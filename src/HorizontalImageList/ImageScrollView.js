@@ -81,7 +81,6 @@ class ImageScrollView extends Component {
                     iconSize={iconSize}
                     gradientProps={gradientProps}
                   />
-
                   <BottomBar
                     style={bbStyles}
                     title={bottomBarText.enabled ? bottomBarText.bbTitle : ''}
