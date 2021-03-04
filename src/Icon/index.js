@@ -39,6 +39,7 @@ export default class WrappedIconToggle extends Component {
           maxOpacity={0.3}
           size={iconSize}
           onPress={onPress}
+          key={`iconToggle.${iconSize}`}
         />
       </View>
     )
