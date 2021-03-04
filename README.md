@@ -1,5 +1,7 @@
 ### Installation
-Make sure you have cloned and started [Developer Proxy](https://github.com/AdaloHQ/developer-proxy). Use your local credentials when asked while running the commands below:
+Make sure you have cloned and started [Developer Proxy](https://github.com/AdaloHQ/developer-proxy) before start. 
+
+Use your local credentials when asked while running the commands below. If you log on Adalo with another credential, you won't be able to see the new Development tab.
 
 ```sh
 $ git clone https://github.com/AdaloHQ/cli.git && cd cli && yarn && yarn link & cd ..  
