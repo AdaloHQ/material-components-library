@@ -11,13 +11,10 @@ export default class WrappedIconToggle extends Component {
       wrapper: {
         height: iconSize,
         width: iconSize,
-        overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
       },
-      buttonWrapper: {
-        margin: -12,
-        width: 2*iconSize,
-        height: 2*iconSize,
-      }
     }
 
     if (!onPress) {
@@ -34,7 +31,7 @@ export default class WrappedIconToggle extends Component {
     }
 
     return (
-      <View style={styles.wrapper, styles.buttonWrapper}>
+      <View style={styles.wrapper}>
         <IconToggle
           name={iconName}
           color={iconColor}
@@ -42,6 +39,7 @@ export default class WrappedIconToggle extends Component {
           maxOpacity={0.3}
           size={iconSize}
           onPress={onPress}
+          key={`iconToggle.${iconSize}`}
         />
       </View>
     )
