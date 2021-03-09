@@ -152,6 +152,7 @@
           "name": "logoImage",
           "displayName": "Image",
           "type": "image",
+          "role": "placeholder",
           "enabled": {
             "titleType": "logo"
           }
@@ -177,7 +178,7 @@
             "fontWeight": "500"
           },
           "enabled": {
-            "titleType": "text"
+            "titleType": ["logo", "!previous!"]
           }
         },
         {

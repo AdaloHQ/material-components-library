@@ -12,7 +12,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import Blur from './blur'
 import Gradient from './gradient'
 import background from './backgroundPlaceholder.png'
-import placeholder from './placeholder.png'
 
 import '../Shared/icons'
 
@@ -108,33 +107,16 @@ export default class AppBar extends Component {
   renderLogo() {
     let { title, editor } = this.props
     let { logoImage, logoSize } = title
-    let source = placeholder
-    if (editor) {
-      console.log('editor: ', logoImage)
-      if (logoImage && logoImage.binding) {
-        source = logoImage.binding
-        console.log('newSource: ', source)
-      } else {
-        console.log('logoImage.binding not defined', logoImage)
-      }
-    } else {
-      if (logoImage) {
-        console.log('no editor: ', logoImage)
-        source = logoImage
-      } else {
-        console.log('could not read outside editor', logoImage)
-      }
-    }
 
     let imageStyles = [styles.imageContainer]
-    imageStyles.push({ width: `${logoSize}%`, height: `${logoSize}%` })
-    if (editor && !source) {
-      imageStyles.push({ backgroundColor: '#ccc' })
+    imageStyles.push({ width: `50%`, height: `50%` })
+    if (logoSize) {
+      imageStyles.push({ width: `${logoSize}%`, height: `${logoSize}%` })
     }
     return (
       <Image
         resizeMode="contain"
-        source={{ uri: source }}
+        source={logoImage}
         style={imageStyles}
         pointerEvents="none"
       />
@@ -168,12 +150,25 @@ export default class AppBar extends Component {
     return <View style={styles.leftWrapper}>{this.renderIcon('leftIcon')}</View>
   }
   renderCenter() {
-    let { title } = this.props
+    let { title, leftIcon, rightIcon1, rightIcon2 } = this.props
     let { align, titleType } = title
     let centerStyles = [styles.centerWrapper]
-
+    let iconMargin = 72
+    if (rightIcon1.enabled && rightIcon2.enabled) {
+      iconMargin = 100
+    } else if (
+      !leftIcon.enabled &&
+      !rightIcon1.enabled &&
+      !rightIcon2.enabled
+    ) {
+      iconMargin = 12
+    }
+    if (!leftIcon.enabled) {
+      centerStyles.push({ marginLeft: 12 })
+    }
+    centerStyles.push({ marginRight: iconMargin })
     if (align === 'center') {
-      centerStyles.push({ marginLeft: 100, alignItems: 'center' })
+      centerStyles.push({ marginLeft: iconMargin, alignItems: 'center' })
     }
     return (
       <View style={centerStyles}>
@@ -325,7 +320,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
-    marginRight: 100,
+    marginRight: 0,
     marginLeft: 72,
     justifyContent: 'center',
   },
