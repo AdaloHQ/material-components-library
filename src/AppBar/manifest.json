@@ -178,7 +178,7 @@
             "fontWeight": "500"
           },
           "enabled": {
-            "titleType": ["logo", "!previous!"]
+            "titleType": ["logo", "ADALO_INTERNAL_!previous"]
           }
         },
         {
