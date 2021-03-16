@@ -212,12 +212,8 @@ export default class AppBar extends Component {
   }
 
   renderImageBackgroundToolbar() {
-    let { backgroundImage, editor } = this.props
-    let source = editor
-      ? backgroundImage && backgroundImage.binding
-        ? { uri: backgroundImage.binding }
-        : background
-      : { uri: backgroundImage }
+    let { backgroundImage } = this.props
+
     let imageStyles = [
       styles.imageBackground,
       this.getBorderStyle(180, false),
@@ -227,7 +223,7 @@ export default class AppBar extends Component {
     return (
       <ImageBackground
         resizeMode="cover"
-        source={source}
+        source={backgroundImage}
         style={imageStyles}
         pointerEvents="none"
       >
