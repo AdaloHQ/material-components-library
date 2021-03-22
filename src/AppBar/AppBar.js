@@ -267,8 +267,8 @@ export default class AppBar extends Component {
   }
 
   render() {
-    let { v3, v2, barType } = this.props
-    let wrapperStyles = v3 || v2 ? [styles.wrapper] : []
+    let { v2, barType } = this.props
+    let wrapperStyles = v2 ? [styles.wrapper] : []
 
     return (
       <View style={wrapperStyles}>
