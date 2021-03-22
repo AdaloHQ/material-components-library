@@ -98,7 +98,7 @@
       "default": "fixedTop"
     },
     {
-      "name": "v2",
+      "name": "v3",
       "editable": false,
       "type": "boolean",
       "default": true

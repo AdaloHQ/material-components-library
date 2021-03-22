@@ -62,9 +62,10 @@ export default class AppBar extends Component {
   }
 
   getShadowStyle() {
-    let { shadow } = this.props
-
-    if (shadow) {
+    let { shadow, v3 } = this.props
+    console.log('shadow: ', shadow)
+    console.log('v3: ', v3)
+    if (shadow || !v3) {
       if (Platform.OS === 'android') {
         return {}
       }
@@ -152,6 +153,7 @@ export default class AppBar extends Component {
   renderCenter() {
     let { title, leftIcon, rightIcon1, rightIcon2 } = this.props
     let { align, titleType } = title
+
     let centerStyles = [styles.centerWrapper]
     let iconMargin = 72
     if (rightIcon1.enabled && rightIcon2.enabled) {
@@ -265,8 +267,8 @@ export default class AppBar extends Component {
   }
 
   render() {
-    let { v2, barType } = this.props
-    let wrapperStyles = v2 ? [styles.wrapper] : []
+    let { v3, v2, barType } = this.props
+    let wrapperStyles = v3 || v2 ? [styles.wrapper] : []
 
     return (
       <View style={wrapperStyles}>
