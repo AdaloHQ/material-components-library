@@ -71,11 +71,7 @@ export default class WrappedActionButton extends Component {
 
     let containerStyles = {
       backgroundColor,
-      //position: 'relative',
-      //bottom: 'auto',
-      //right: 'auto',
       height: 48,
-      //width: '100%',
       width: text ? null : 48,
       borderRadius: 24,
       alignItems: 'center',
@@ -86,47 +82,22 @@ export default class WrappedActionButton extends Component {
     if (this.props.styles && this.props.styles.text) {
       console.log(this.props.styles.text)
       labelStyles = this.props.styles.text
+    } else if (_fonts) {
+      labelStyles = { fontFamily: _fonts.body }
     }
-
     return (
-      <FAB
-        style={containerStyles}
-        theme={{ fonts: { medium: labelStyles } }}
-        color={color}
-        icon={icon}
-        onPress={action}
-        label={text ? text : null}
-        small={false}
-      ></FAB>
-    )
-  }
-
-  renderSub() {
-    let { color, backgroundColor, icon, action } = this.props
-
-    let containerStyles = {
-      backgroundColor,
-      position: 'relative',
-      bottom: 'auto',
-      right: 'auto',
-      height: 48,
-      width: '100%',
-      minWidth: 48,
-    }
-
-    let iconStyles = { color }
-
-    return (
-      <View style={styles.wrapper} pointerEvents="box-none">
-        <ActionButton
-          icon={this.renderExtendedFAB()}
+      <View style={styles.wrapper}>
+        <FAB
+          style={containerStyles}
+          theme={{ fonts: { medium: labelStyles } }}
+          color={color}
+          icon={({ size, color }) => (
+            <Icon name={icon} style={{ color }} size={size}></Icon>
+          )}
           onPress={action}
-          style={{
-            container: containerStyles,
-            icon: iconStyles,
-            positionContainer: { flex: 1, width: 300 },
-          }}
-        />
+          label={text ? text : null}
+          small={false}
+        ></FAB>
       </View>
     )
   }
@@ -138,26 +109,9 @@ export default class WrappedActionButton extends Component {
 
 const styles = StyleSheet.create({
   wrapper: {
-    height: 68,
-    marginRight: -20,
     alignItems: 'center',
     justifyContent: 'center',
+    height: 56,
+    minWidth: 56,
   },
-  inner: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  extendedWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 12,
-  },
-  fab: {},
-  icon: { padding: 12 },
-})
-
-const chencoStyles = StyleSheet.create({
-  wrapper: {},
-  contentWrapper: {},
 })
