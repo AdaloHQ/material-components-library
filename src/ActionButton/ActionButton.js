@@ -16,55 +16,6 @@ export default class WrappedActionButton extends Component {
     color: '#fff',
   }
 
-  darkenOrLighten(color, ratio = 0.5) {
-    const c = Color(color)
-    return c.luminosity() > 0.5 ? c.darken(ratio) : c.lighten(ratio)
-  }
-
-  renderChenco() {
-    let { backgroundColor, action } = this.props
-
-    let buttonStyles = {
-      backgroundColor: backgroundColor,
-      position: 'relative',
-      bottom: 'auto',
-      right: 'auto',
-      borderRadius: 24,
-      height: 48,
-      minWidth: 48,
-      alignItems: 'center',
-    }
-
-    return (
-      <View style={{ position: 'absolute' }}>
-        <View style={buttonStyles}>
-          <TouchableRipple
-            style={{ height: 48, borderRadius: 24 }}
-            rippleColor={this.darkenOrLighten(backgroundColor).toString()}
-            onPress={action}
-            delayPressIn={20}
-          >
-            {this.renderExtendedFAB()}
-          </TouchableRipple>
-        </View>
-      </View>
-    )
-  }
-  renderExtendedFAB() {
-    let { text, icon, color } = this.props
-
-    return (
-      <View style={styles.extendedWrapper}>
-        <Icon
-          style={styles.icon}
-          name={icon}
-          style={{ color }}
-          size={24}
-        ></Icon>
-        <Text>{text}</Text>
-      </View>
-    )
-  }
   renderPaper() {
     let { text, icon, color, backgroundColor, action, _fonts } = this.props
     console.log('props: ', this.props)
