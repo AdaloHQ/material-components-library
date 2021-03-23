@@ -1,8 +1,8 @@
 {
   "displayName": "Action Button",
   "icon": "icon.png",
-  "defaultWidth": 56,
-  "defaultHeight": 56,
+  "defaultWidth": 48,
+  "defaultHeight": 48,
   "component": "./ActionButton.js",
   "resizeX": false,
   "resizeY": false,
@@ -35,6 +35,15 @@
       "editable": false,
       "type": "text",
       "default": "fixedBottom"
+    },
+    {
+      "name": "text",
+      "displayName": "text",
+      "type": "text",
+      "styles": {
+        "fontFamily": "@body",
+        "fontWeight": "600"
+      }
     }
   ]
 }
