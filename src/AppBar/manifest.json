@@ -152,7 +152,6 @@
           "name": "logoImage",
           "displayName": "Image",
           "type": "image",
-          "role": "placeholder",
           "enabled": {
             "titleType": "logo"
           }
