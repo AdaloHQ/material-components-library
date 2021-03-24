@@ -26,7 +26,7 @@ export default class AppBar extends Component {
     bottomBorder: false,
     borderColor: '#fff',
     borderWidth: 1,
-    shadow: false,
+    shadow: true,
     barType: 'solid',
     backgroundImage: {},
     translucentColor: '#fff',
@@ -62,10 +62,9 @@ export default class AppBar extends Component {
   }
 
   getShadowStyle() {
-    let { shadow, v3 } = this.props
+    let { shadow } = this.props
     console.log('shadow: ', shadow)
-    console.log('v3: ', v3)
-    if (shadow || !v3) {
+    if (shadow) {
       if (Platform.OS === 'android') {
         return {}
       }

@@ -102,12 +102,6 @@
       "editable": false,
       "type": "boolean",
       "default": true
-    },
-    {
-      "name": "v3",
-      "editable": false,
-      "type": "boolean",
-      "default": true
     }
   ],
   "childComponents": [
