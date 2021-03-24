@@ -18,7 +18,6 @@ export default class WrappedActionButton extends Component {
 
   renderPaper() {
     let { text, icon, color, backgroundColor, action, _fonts } = this.props
-    console.log('props: ', this.props)
 
     let containerStyles = {
       backgroundColor,
@@ -31,7 +30,6 @@ export default class WrappedActionButton extends Component {
 
     let labelStyles = {}
     if (this.props.styles && this.props.styles.text) {
-      console.log(this.props.styles.text)
       labelStyles = this.props.styles.text
     } else if (_fonts) {
       labelStyles = { fontFamily: _fonts.body }
