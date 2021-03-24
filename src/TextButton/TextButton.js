@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Platform, View, StyleSheet, ActivityIndicator } from 'react-native'
+import { View, StyleSheet, ActivityIndicator } from 'react-native'
 import color from 'color'
 import { Button } from '@protonapp/react-native-material-ui'
 
@@ -73,9 +73,11 @@ export default class WrappedTextButton extends Component {
 
   submitAction = async () => {
     let { action } = this.props
+
     this.setState({ loading: true })
-    let result = action()
-    await result
+
+    await action()
+
     this.setState({ loading: false })
   }
 
@@ -85,7 +87,6 @@ export default class WrappedTextButton extends Component {
     let containerStyles = this.getContainerStyles()
     let iconStyles = this.getTextStyles()
     let textStyles = { ...this.getTextStyles() }
-    let { editor } = this.props
 
     if (icon) {
       textStyles.marginRight = 5
@@ -102,14 +103,14 @@ export default class WrappedTextButton extends Component {
             {...this.getAdditionalProps()}
             upperCase={!!upperCase}
             icon={this.state.loading ? '' : icon}
-            onPress={editor ? action : this.submitAction}
+            onPress={action && this.submitAction}
             text={this.state.loading ? '' : text}
             style={{
               container: containerStyles,
               icon: iconStyles,
               text: [textStyles, styles.text],
             }}
-            disabled={this.state.loading}
+            disabled={action ? this.state.loading : true}
           />
         </View>
         {this.state.loading && (
