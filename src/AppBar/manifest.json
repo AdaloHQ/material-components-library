@@ -15,16 +15,81 @@
   },
   "props": [
     {
+      "name": "barType",
+      "displayName": "App Bar Type",
+      "type": "text",
+      "default": "solid",
+      "control": {
+        "type": "menu",
+        "options": [
+          { "label": "Solid Color", "value": "solid" },
+          { "label": "Translucent", "value": "translucent" },
+          { "label": "Background Image", "value": "backgroundImage" }
+        ]
+      }
+    },
+    {
+      "name": "backgroundImage",
+      "displayName": "Image",
+      "type": "image",
+      "enabled": {
+        "barType": "backgroundImage"
+      }
+    },
+    {
       "name": "backgroundColor",
       "displayName": "Fill Color",
       "type": "color",
-      "default": "@primary"
+      "default": "@primary",
+      "enabled": {
+        "barType": "solid"
+      }
+    },
+    {
+      "name": "translucentColor",
+      "displayName": "Base Translucent Color",
+      "type": "color",
+      "default": "@primary",
+      "enabled": {
+        "barType": "translucent"
+      }
     },
     {
       "name": "color",
       "displayName": "Icon Color",
       "type": "color",
       "default": "@contrast:backgroundColor"
+    },
+    {
+      "name": "shadow",
+      "displayName": "Shadow",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "bottomBorder",
+      "displayName": "Bottom Border",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "borderColor",
+      "displayName": "Border Color",
+      "type": "color",
+      "default": "@primaryDark",
+      "enabled": {
+        "bottomBorder": true
+      }
+    },
+    {
+      "name": "borderWidth",
+      "displayName": "Border Width",
+      "type": "number",
+      "default": 1,
+      "control": { "type": "slider", "max": 5, "min": 1 },
+      "enabled": {
+        "bottomBorder": true
+      }
     },
     {
       "name": "positioning",
@@ -49,7 +114,7 @@
           "name": "icon",
           "displayName": "Icon",
           "type": "icon",
-          "default": "menu"
+          "default": "arrow-back"
         },
         {
           "name": "enabled",
@@ -71,6 +136,37 @@
       "dataBindingDataTypes": ["text"],
       "props": [
         {
+          "name": "titleType",
+          "displayName": "Title Type",
+          "type": "text",
+          "default": "text",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Logo", "value": "logo" },
+              { "label": "Text", "value": "text" }
+            ]
+          }
+        },
+        {
+          "name": "logoImage",
+          "displayName": "Image",
+          "type": "image",
+          "enabled": {
+            "titleType": "logo"
+          }
+        },
+        {
+          "name": "logoSize",
+          "displayName": "Logo Size",
+          "type": "number",
+          "default": 50,
+          "control": { "type": "slider", "max": 100, "min": 30 },
+          "enabled": {
+            "titleType": "logo"
+          }
+        },
+        {
           "name": "text",
           "displayName": "Text",
           "type": "text",
@@ -78,18 +174,21 @@
           "styles": {
             "fontFamily": "@heading",
             "color": "#fff",
-            "fontWeight": "600"
+            "fontWeight": "500"
+          },
+          "enabled": {
+            "titleType": ["logo", "ADALO_INTERNAL_!previous"]
           }
         },
         {
           "name": "align",
           "displayName": "Align",
           "type": "text",
-          "default": "left",
+          "default": "center",
           "control": {
             "type": "menu",
             "options": [
-              { "label": "Left (default)", "value": "left" },
+              { "label": "Left", "value": "left" },
               { "label": "Center", "value": "center" }
             ]
           }
@@ -110,7 +209,7 @@
         {
           "name": "enabled",
           "type": "boolean",
-          "default": true
+          "default": false
         },
         {
           "name": "action",
@@ -133,7 +232,7 @@
         {
           "name": "enabled",
           "type": "boolean",
-          "default": true
+          "default": false
         },
         {
           "name": "action",
