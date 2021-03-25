@@ -63,7 +63,6 @@ export default class AppBar extends Component {
 
   getShadowStyle() {
     let { shadow } = this.props
-    console.log('shadow: ', shadow)
     if (shadow) {
       if (Platform.OS === 'android') {
         return {}
