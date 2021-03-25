@@ -19,10 +19,6 @@ const BlurAndroid = (props) => {
   const viewStyles = {
     ...containerStyles,
     backgroundColor: '#FFFFFF00',
-    position: 'absolute',
-    right: 0,
-    left: 0,
-    top: 0,
   }
 
   return (
