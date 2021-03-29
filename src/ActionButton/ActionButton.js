@@ -1,12 +1,7 @@
 import React, { Component } from 'react'
-import Color from 'color'
 import { Platform, View, StyleSheet, Text, Animated } from 'react-native'
-import {
-  ActionButton,
-  Icon,
-  RippleFeedback,
-} from '@protonapp/react-native-material-ui'
-import { TouchableRipple, FAB, Title } from 'react-native-paper'
+import { Icon } from '@protonapp/react-native-material-ui'
+import { FAB } from 'react-native-paper'
 
 import '../Shared/icons'
 
@@ -14,7 +9,7 @@ export default class WrappedActionButton extends Component {
   static defaultProps = {
     backgroundColor: '#6200ee',
     color: '#fff',
-  }
+  } 
 
   renderPaper() {
     let { text, icon, color, backgroundColor, action, _fonts } = this.props
