@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, Platform } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import Gradient from './gradient'
+import WrappedIconToggle from '../IconToggle/index.js'
 
 export default class ImageList extends Component {
   static defaultProps = {
@@ -141,17 +142,27 @@ class Cell extends Component {
       wrapperStyles.push(styles.buttonBottom)
     }
 
+    return <View style={wrapperStyles}>{this.renderIconType()}</View>
+  }
+  renderIconType() {
+    let { iconButton } = this.props
+
+    if (iconButton.iconType === 'toggle') {
+      return (
+        <View style={{ padding: 12 }}>
+          <WrappedIconToggle {...iconButton} />
+        </View>
+      )
+    }
     return (
-      <View style={wrapperStyles}>
-        <IconToggle
-          name={iconButton.icon}
-          color={iconButton.color}
-          underlayColor={iconButton.color}
-          maxOpacity={0.3}
-          size={24}
-          onPress={iconButton.onPress}
-        />
-      </View>
+      <IconToggle
+        name={iconButton.icon}
+        color={iconButton.color}
+        underlayColor={iconButton.color}
+        maxOpacity={0.3}
+        size={24}
+        onPress={iconButton.onPress}
+      />
     )
   }
 

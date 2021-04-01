@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, Platform } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import placeholder from './holdplace.png'
 import { Card, Button, IconToggle } from '@protonapp/react-native-material-ui'
+import WrappedIconToggle from '../IconToggle/index.js'
 
 const SINGLE_COLUMN_LAYOUTS = {
   mediaRight: true,
@@ -528,8 +529,15 @@ class Actions extends Component {
       return null
     }
 
-    let { icon, onPress, color, enabled } = opts
+    let { icon, onPress, color, iconType } = opts
 
+    if (iconType == 'toggle') {
+      return (
+        <View style={{ padding: 12 }}>
+          <WrappedIconToggle {...opts}></WrappedIconToggle>
+        </View>
+      )
+    }
     return (
       <View style={styles.iconButtonWrapper}>
         <IconToggle
@@ -675,6 +683,7 @@ const styles = StyleSheet.create({
   },
   actionsWrapperSub: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
   button: {
     paddingLeft: 15,

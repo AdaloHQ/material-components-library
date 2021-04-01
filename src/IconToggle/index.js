@@ -29,7 +29,7 @@ export default class WrappedIconToggle extends Component {
       activeIcon,
       inactiveColor,
       activeColor,
-      toggleSize
+      toggleSize,
     } = this.props
     if (!toggleSize) toggleSize = 24
     const styles = {
@@ -40,17 +40,19 @@ export default class WrappedIconToggle extends Component {
       },
       buttonWrapper: {
         margin: -12,
-        width: 2*toggleSize,
-        height: 2*toggleSize,
+        width: 2 * toggleSize,
+        height: 2 * toggleSize,
         overflow: 'hidden',
-      }
+      },
     }
+
+    //console.log('props: ', this.props)
 
     let iconName = value ? activeIcon : inactiveIcon
     let iconColor = value ? activeColor : inactiveColor
 
     return (
-      <View style={styles.wrapper, styles.buttonWrapper}>
+      <View style={(styles.wrapper, styles.buttonWrapper)}>
         <IconToggle
           name={iconName}
           color={iconColor}

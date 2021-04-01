@@ -201,10 +201,26 @@
       "actions": true,
       "props": [
         {
+          "name": "iconType",
+          "displayName": "Icon Type",
+          "type": "text",
+          "default": "icon",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Icon", "value": "icon" },
+              { "label": "Toggle", "value": "toggle" }
+            ]
+          }
+        },
+        {
           "name": "icon",
           "displayName": "Icon",
           "type": "icon",
-          "default": "favorite"
+          "default": "favorite",
+          "enabled": {
+            "iconType": ["toggle", "ADALO_INTERNAL_!previous"]
+          }
         },
         {
           "name": "enabled",
@@ -214,7 +230,10 @@
         {
           "name": "action",
           "type": "action",
-          "displayName": "Click Actions"
+          "displayName": "Click Actions",
+          "enabled": {
+            "iconType": ["toggle", "ADALO_INTERNAL_!previous"]
+          }
         }
       ]
     },
