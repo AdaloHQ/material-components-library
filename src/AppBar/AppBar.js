@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import Blur from './blur'
 import Gradient from './gradient'
 import background from './backgroundPlaceholder.png'
+import WrappedIconToggle from '../IconToggle/index.js'
 
 import '../Shared/icons'
 
@@ -93,13 +94,16 @@ export default class AppBar extends Component {
 
   renderIcon(propName) {
     let {
-      [propName]: { icon, enabled, action },
+      [propName]: { icon, enabled, action, iconType },
       color,
     } = this.props
-
     return enabled ? (
       <View style={styles.icon}>
-        <Icon name={icon} color={color} size={24} onPress={action}></Icon>
+        {iconType === 'toggle' ? (
+          <WrappedIconToggle {...this.props[propName]} />
+        ) : (
+          <Icon name={icon} color={color} size={24} onPress={action}></Icon>
+        )}
       </View>
     ) : null
   }
