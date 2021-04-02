@@ -1,8 +1,8 @@
 {
   "displayName": "Action Button",
   "icon": "icon.png",
-  "defaultWidth": 48,
-  "defaultHeight": 48,
+  "defaultWidth": 56,
+  "defaultHeight": 56,
   "component": "./ActionButton.js",
   "resizeX": false,
   "resizeY": false,
@@ -14,9 +14,13 @@
       "default": "add"
     },
     {
-      "name": "action",
-      "type": "action",
-      "displayName": "Click Actions"
+      "name": "text",
+      "displayName": "Text",
+      "type": "text",
+      "styles": {
+        "fontFamily": "@body",
+        "fontWeight": "600"
+      }
     },
     {
       "name": "backgroundColor",
@@ -26,7 +30,7 @@
     },
     {
       "name": "color",
-      "displayName": "Icon Color",
+      "displayName": "Icon and Text Color",
       "type": "color",
       "default": "@contrast:backgroundColor"
     },
@@ -37,13 +41,9 @@
       "default": "fixedBottom"
     },
     {
-      "name": "text",
-      "displayName": "text",
-      "type": "text",
-      "styles": {
-        "fontFamily": "@body",
-        "fontWeight": "600"
-      }
+      "name": "action",
+      "type": "action",
+      "displayName": "Click Actions"
     }
   ]
 }

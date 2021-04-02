@@ -9,7 +9,7 @@ export default class WrappedActionButton extends Component {
   static defaultProps = {
     backgroundColor: '#6200ee',
     color: '#fff',
-  } 
+  }
 
   renderPaper() {
     let { text, icon, color, backgroundColor, action, _fonts } = this.props
@@ -25,9 +25,9 @@ export default class WrappedActionButton extends Component {
 
     let labelStyles = {}
     if (this.props.styles && this.props.styles.text) {
-      labelStyles = this.props.styles.text
+      labelStyles = { ...this.props.styles.text, alignSelf: 'center' }
     } else if (_fonts) {
-      labelStyles = { fontFamily: _fonts.body }
+      labelStyles = { fontFamily: _fonts.body, alignSelf: 'center' }
     }
     return (
       <View style={styles.wrapper}>
@@ -41,6 +41,7 @@ export default class WrappedActionButton extends Component {
           onPress={action}
           label={text ? text : null}
           small={false}
+          animated={false}
         ></FAB>
       </View>
     )
