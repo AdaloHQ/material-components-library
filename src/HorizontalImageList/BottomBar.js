@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Button } from '@protonapp/react-native-material-ui'
+import WrappedIconToggle from '../IconToggle/index.js'
 
 class BottomBar extends Component {
   renderTitle() {
@@ -64,6 +65,20 @@ class BottomBar extends Component {
       iconR,
       enabled,
       styles,
+      inputL,
+      activeIconL,
+      activeColorL,
+      inactiveIconL,
+      inactiveColorL,
+      activeActionsL,
+      inactiveActionsL,
+      inputR,
+      activeIconR,
+      activeColorR,
+      inactiveIconR,
+      inactiveColorR,
+      activeActionsR,
+      inactiveActionsR,
     } = buttonProps
 
     const buttons = {
@@ -152,6 +167,16 @@ class BottomBar extends Component {
                 text={leftButton ? buttonTextL : ''}
                 onPress={buttonActionL}
               ></Button>
+            ) : buttonTypeL === 'toggle' && leftButton ? (
+              <WrappedIconToggle
+                input={inputL}
+                activeIcon={activeIconL}
+                inactiveIcon={inactiveIconL}
+                activeColor={activeColorL}
+                inactiveColor={inactiveColorL}
+                activeActions={activeActionsL}
+                inactiveActions={inactiveActionsL}
+              ></WrappedIconToggle>
             ) : (
               <Icon
                 name={iconL}
@@ -167,6 +192,16 @@ class BottomBar extends Component {
                 text={rightButton ? buttonTextR : ''}
                 onPress={buttonActionR}
               ></Button>
+            ) : buttonTypeR === 'toggle' && rightButton ? (
+              <WrappedIconToggle
+                input={inputR}
+                activeIcon={activeIconR}
+                inactiveIcon={inactiveIconR}
+                activeColor={activeColorR}
+                inactiveColor={inactiveColorR}
+                activeActions={activeActionsR}
+                inactiveActions={inactiveActionsR}
+              ></WrappedIconToggle>
             ) : (
               <Icon
                 name={iconR}
