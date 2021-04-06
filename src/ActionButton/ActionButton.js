@@ -16,19 +16,32 @@ export default class WrappedActionButton extends Component {
 
     let containerStyles = {
       backgroundColor,
-      height: 48,
-      width: text ? null : 48,
-      borderRadius: 24,
+      height: 56,
+      width: '100%',
+      flexDirection: 'row',
+      alignSelf: 'stretch',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'stretch',
+      //justifyItems: 'stretch',
     }
 
     let labelStyles = {}
     if (this.props.styles && this.props.styles.text) {
-      labelStyles = { ...this.props.styles.text, alignSelf: 'center' }
+      labelStyles = {
+        ...this.props.styles.text,
+        paddingRight: 8,
+      }
     } else if (_fonts) {
-      labelStyles = { fontFamily: _fonts.body, alignSelf: 'center' }
+      labelStyles = {
+        fontFamily: _fonts.body,
+        paddingRight: 8,
+      }
     }
+    console.log('text: ', text)
+    //text = text.replace('%C2%A0', '%20')
+    console.log('encoded: ', encodeURI(text))
+    // text = decodeURI(text)
+    //console.log('decoded: ', text)
     return (
       <View style={styles.wrapper}>
         <FAB
@@ -55,7 +68,9 @@ export default class WrappedActionButton extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'stretch',
+    flexDirection: 'row',
+
     height: 56,
     minWidth: 56,
   },
