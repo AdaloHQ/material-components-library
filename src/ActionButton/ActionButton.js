@@ -27,14 +27,14 @@ export default class WrappedActionButton extends Component {
     if (this.props.styles && this.props.styles.text) {
       labelStyles = {
         ...this.props.styles.text,
-        paddingRight: 8,
       }
     } else if (_fonts) {
       labelStyles = {
         fontFamily: _fonts.body,
-        paddingRight: 8,
       }
     }
+
+    let breakless = text.replace(/(\r\n|\n|\r)/gm, '')
 
     return (
       <View style={styles.wrapper}>
@@ -46,7 +46,7 @@ export default class WrappedActionButton extends Component {
             <Icon name={icon} style={{ color }} size={size}></Icon>
           )}
           onPress={action}
-          label={text ? text : null}
+          label={breakless ? breakless : null}
           small={false}
           animated={false}
         ></FAB>
