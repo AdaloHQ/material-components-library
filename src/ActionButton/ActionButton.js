@@ -34,7 +34,7 @@ export default class WrappedActionButton extends Component {
       }
     }
 
-    let breakless = text.replace(/(\r\n|\n|\r)/gm, '')
+    let breakless = text ? text.replace(/(\r\n|\n|\r)/gm, '') : null
 
     return (
       <View style={styles.wrapper}>
