@@ -23,6 +23,10 @@ export default class WrappedActionButton extends Component {
       justifyContent: 'stretch',
     }
 
+    if (Platform.OS === 'ios' || Platform.OS === 'android') {
+      delete containerStyles.justifyContent
+    }
+
     let labelStyles = {}
     if (this.props.styles && this.props.styles.text) {
       labelStyles = {
