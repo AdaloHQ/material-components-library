@@ -22,9 +22,18 @@ export default class WrappedActionButton extends Component {
       alignItems: 'center',
       justifyContent: 'stretch',
     }
+    
+    let wrapperStyles = {
+      alignItems: 'center',
+      justifyContent: 'stretch',
+      flexDirection: 'row',
+      height: 56,
+      minWidth: 56,
+    }
 
     if (Platform.OS === 'ios' || Platform.OS === 'android') {
       delete containerStyles.justifyContent
+      delete wrapperStyles.justifyContent
     }
 
     let labelStyles = {}
@@ -41,7 +50,7 @@ export default class WrappedActionButton extends Component {
     let breakless = text ? text.replace(/(\r\n|\n|\r)/gm, '') : null
 
     return (
-      <View style={styles.wrapper}>
+      <View style={wrapperStyles}>
         <FAB
           style={containerStyles}
           theme={{ fonts: { medium: labelStyles } }}
@@ -62,13 +71,3 @@ export default class WrappedActionButton extends Component {
     return this.renderPaper()
   }
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    alignItems: 'center',
-    justifyContent: 'stretch',
-    flexDirection: 'row',
-    height: 56,
-    minWidth: 56,
-  },
-})
