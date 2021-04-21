@@ -11,8 +11,34 @@ export default class WrappedActionButton extends Component {
     color: '#fff',
   }
 
+  state = {
+    width: null,
+  }
+
+  handleLayout = ({
+    nativeEvent: {
+      layout: { width },
+    },
+  }) => {
+    if (!this.state.width !== width) {
+      this.setState({ width })
+    }
+  }
+
   renderPaper() {
-    let { text, icon, color, backgroundColor, action, _fonts } = this.props
+    let {
+      text,
+      icon,
+      color,
+      backgroundColor,
+      action,
+      _fonts,
+      editor,
+      _width,
+      buttonType,
+      resizeMethod,
+    } = this.props
+    let { width } = this.state
 
     let containerStyles = {
       backgroundColor,
@@ -22,13 +48,29 @@ export default class WrappedActionButton extends Component {
       alignItems: 'center',
       justifyContent: 'stretch',
     }
-    
+
+    let offset = 0
+
+    if (!editor && buttonType === 'extended' && width) {
+      switch (resizeMethod) {
+        case 'left':
+          offset = width - _width
+          break
+        case 'right':
+          offset = 0
+          break
+        case 'center':
+          offset = (width - _width) / 2
+      }
+    }
+
     let wrapperStyles = {
       alignItems: 'center',
       justifyContent: 'stretch',
       flexDirection: 'row',
       height: 56,
       minWidth: 56,
+      right: offset,
     }
 
     if (Platform.OS === 'ios' || Platform.OS === 'android') {
@@ -47,7 +89,10 @@ export default class WrappedActionButton extends Component {
       }
     }
 
-    let breakless = text ? text.replace(/(\r\n|\n|\r)/gm, '') : null
+    let breakless =
+      text && buttonType === 'extended'
+        ? text.replace(/(\r\n|\n|\r)/gm, '')
+        : null
 
     return (
       <View style={wrapperStyles}>
@@ -62,6 +107,7 @@ export default class WrappedActionButton extends Component {
           label={breakless ? breakless : null}
           small={false}
           animated={false}
+          onLayout={this.handleLayout}
         ></FAB>
       </View>
     )
