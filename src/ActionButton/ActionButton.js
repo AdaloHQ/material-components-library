@@ -20,13 +20,13 @@ export default class WrappedActionButton extends Component {
       layout: { width },
     },
   }) => {
-    if (!this.state.width !== width) {
+    if (this.state.width !== width) {
       this.setState({ width })
     }
   }
 
-  renderPaper() {
-    let {
+  renderSub() {
+    const {
       text,
       icon,
       color,
@@ -38,9 +38,9 @@ export default class WrappedActionButton extends Component {
       buttonType,
       resizeMethod,
     } = this.props
-    let { width } = this.state
+    const { width } = this.state
 
-    let containerStyles = {
+    const containerStyles = {
       backgroundColor,
       height: 56,
       flexDirection: 'row',
@@ -64,7 +64,7 @@ export default class WrappedActionButton extends Component {
       }
     }
 
-    let wrapperStyles = {
+    const wrapperStyles = {
       alignItems: 'center',
       justifyContent: 'stretch',
       flexDirection: 'row',
@@ -89,10 +89,10 @@ export default class WrappedActionButton extends Component {
       }
     }
 
-    let breakless =
+    const breakless =
       text && buttonType === 'extended'
         ? text.replace(/(\r\n|\n|\r)/gm, '')
-        : null
+        : ''
 
     return (
       <View style={wrapperStyles}>
@@ -104,7 +104,7 @@ export default class WrappedActionButton extends Component {
             <Icon name={icon} style={{ color }} size={size}></Icon>
           )}
           onPress={action}
-          label={breakless ? breakless : null}
+          label={breakless}
           small={false}
           animated={false}
           onLayout={this.handleLayout}
@@ -114,6 +114,6 @@ export default class WrappedActionButton extends Component {
   }
 
   render() {
-    return this.renderPaper()
+    return this.renderSub()
   }
 }
