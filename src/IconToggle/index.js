@@ -41,7 +41,6 @@ export default (props) => {
   }
 
   useEffect(() => {
-    console.log('value changed. new value:', value)
     if (typeof localValue === 'undefined' && typeof value !== 'undefined') {
       setLocalValue(value)
     }
@@ -72,8 +71,8 @@ export default (props) => {
     },
   }
 
-  let iconName = localValue ? activeIcon : inactiveIcon
-  let iconColor = localValue ? activeColor : inactiveColor
+  const iconName = localValue ? activeIcon : inactiveIcon
+  const iconColor = localValue ? activeColor : inactiveColor
 
   return (
     <View style={(styles.wrapper, styles.buttonWrapper)}>
