@@ -16,7 +16,8 @@ export default (props) => {
   } = props
 
   const [localChanges, setLocalChanges] = useState([])
-  const [localValue, setLocalValue] = useState(value)
+  const localValue =
+    localChanges.length !== 0 ? localChanges[localChanges.length - 1] : value
 
   const handlePress = async () => {
     if (typeof value !== 'undefined') {
@@ -26,7 +27,6 @@ export default (props) => {
       const newValue = !localValue
       localChanges.push(newValue)
       setLocalChanges(localChanges)
-      setLocalValue(newValue)
       await onChange(newValue)
       if (activeActions && newValue) {
         await activeActions()
@@ -41,17 +41,10 @@ export default (props) => {
   }
 
   useEffect(() => {
-    if (typeof localValue === 'undefined' && typeof value !== 'undefined') {
-      setLocalValue(value)
-    }
-
     if (localChanges.length !== 0) {
       // There are local changes queued up.
       if (value === localChanges[0]) {
         localChanges.shift()
-        if (localChanges.length !== 0 && localValue !== value) {
-          setLocalValue(value)
-        }
         setLocalChanges(localChanges)
       }
     }
