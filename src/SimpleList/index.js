@@ -267,7 +267,6 @@ class Row extends Component {
     }
 
     if (iconType == 'toggle') {
-      console.log('rightSection: ', rightSection)
       return (
         <WrappedIconToggle
           {...rightSection}
