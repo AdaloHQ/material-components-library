@@ -20,7 +20,7 @@ export default (props) => {
     localChanges.length !== 0 ? localChanges[localChanges.length - 1] : value
 
   const handlePress = async () => {
-    if (typeof value !== 'undefined') {
+    if (onChange) {
       // Currently there's no error handling for when this onChange function errors out.
       // TODO: Handle when it doesn't properly update. To do this, you would make a setInterval
       // function to wait 2s (or something similar) and then check if the props did successfully change.
