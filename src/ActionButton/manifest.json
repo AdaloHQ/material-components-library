@@ -8,15 +8,68 @@
   "resizeY": false,
   "props": [
     {
+      "name": "buttonType",
+      "displayName": "Button Type",
+      "type": "text",
+      "default": "standard",
+      "control": {
+        "type": "menu",
+        "options": [
+          {
+            "label": "Icon",
+            "value": "standard"
+          },
+          {
+            "label": "Icon & Text",
+            "value": "extended"
+          }
+        ]
+      }
+    },
+    {
       "name": "icon",
       "displayName": "Icon",
       "type": "icon",
       "default": "add"
     },
     {
-      "name": "action",
-      "type": "action",
-      "displayName": "Click Actions"
+      "name": "text",
+      "displayName": "Text",
+      "type": "text",
+      "styles": {
+        "fontFamily": "@body",
+        "fontWeight": "600"
+      },
+      "enabled": {
+        "buttonType": "extended"
+      }
+    },
+    {
+      "name": "resizeMethod",
+      "displayName": "How should the button resize with magic text?",
+      "type": "text",
+      "default": "left",
+      "control": {
+        "type": "menu",
+        "options": [
+          {
+            "label": "To the Left",
+            "value": "left"
+          },
+          {
+            "label": "To the Right",
+            "value": "right"
+          },
+          {
+            "label": "Centered",
+            "value": "center"
+          }
+        ]
+      },
+      "enabled": {
+        "buttonType": "extended"
+      },
+      "helpText": "Magic text can be different lengths. If the button is on the right side of the screen, choose “To the left.” Choose “Centered” to have it resize equally in both directions."
     },
     {
       "name": "backgroundColor",
@@ -26,7 +79,7 @@
     },
     {
       "name": "color",
-      "displayName": "Icon Color",
+      "displayName": "Icon and Text Color",
       "type": "color",
       "default": "@contrast:backgroundColor"
     },
@@ -35,6 +88,11 @@
       "editable": false,
       "type": "text",
       "default": "fixedBottom"
+    },
+    {
+      "name": "action",
+      "type": "action",
+      "displayName": "Click Actions"
     }
   ]
 }
