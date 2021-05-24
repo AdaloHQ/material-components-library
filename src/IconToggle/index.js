@@ -1,68 +1,83 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { IconToggle } from '@protonapp/react-native-material-ui'
 
-export default class WrappedIconToggle extends Component {
-  handlePress = async () => {
-    let {
-      clickActions,
-      input: { value, onChange },
-      activeActions,
-      inactiveActions,
-    } = this.props
-    await onChange(!value)
-    if (activeActions && !value) {
-      await activeActions()
-    }
-    if (inactiveActions && value) {
-      await inactiveActions()
-    }
-    if (clickActions) {
-      await clickActions()
+export default (props) => {
+  const {
+    inactiveIcon,
+    activeIcon,
+    inactiveColor,
+    activeColor,
+    toggleSize = 24,
+    clickActions,
+    input: { value, onChange },
+    activeActions,
+    inactiveActions,
+  } = props
+
+  const [localChanges, setLocalChanges] = useState([])
+  const localValue =
+    localChanges.length !== 0 ? localChanges[localChanges.length - 1] : value
+
+  const handlePress = async () => {
+    if (onChange) {
+      // Currently there's no error handling for when this onChange function errors out.
+      // TODO: Handle when it doesn't properly update. To do this, you would make a setInterval
+      // function to wait 2s (or something similar) and then check if the props did successfully change.
+      const newValue = !localValue
+      localChanges.push(newValue)
+      setLocalChanges(localChanges)
+      await onChange(newValue)
+      if (activeActions && newValue) {
+        await activeActions()
+      }
+      if (inactiveActions && !newValue) {
+        await inactiveActions()
+      }
+      if (clickActions) {
+        await clickActions()
+      }
     }
   }
 
-  render() {
-    let {
-      input: { value },
-      inactiveIcon,
-      activeIcon,
-      inactiveColor,
-      activeColor,
-      toggleSize,
-    } = this.props
-    if (!toggleSize) toggleSize = 24
-    const styles = {
-      wrapper: {
-        height: toggleSize,
-        width: toggleSize,
-        overflow: 'hidden',
-      },
-      buttonWrapper: {
-        margin: -12,
-        width: 2 * toggleSize,
-        height: 2 * toggleSize,
-        overflow: 'hidden',
-      },
+  useEffect(() => {
+    if (localChanges.length !== 0) {
+      // There are local changes queued up.
+      if (value === localChanges[0]) {
+        localChanges.shift()
+        setLocalChanges(localChanges)
+      }
     }
+  }, [value])
 
-    //console.log('props: ', this.props)
-
-    let iconName = value ? activeIcon : inactiveIcon
-    let iconColor = value ? activeColor : inactiveColor
-
-    return (
-      <View style={(styles.wrapper, styles.buttonWrapper)}>
-        <IconToggle
-          name={iconName}
-          color={iconColor}
-          underlayColor={activeColor}
-          maxOpacity={0.3}
-          size={toggleSize}
-          onPress={this.handlePress}
-          key={`iconToggle.${toggleSize}`}
-        />
-      </View>
-    )
+  const styles = {
+    wrapper: {
+      height: toggleSize,
+      width: toggleSize,
+      overflow: 'hidden',
+    },
+    buttonWrapper: {
+      margin: -12,
+      width: 2 * toggleSize,
+      height: 2 * toggleSize,
+      overflow: 'hidden',
+    },
   }
+
+  const iconName = localValue ? activeIcon : inactiveIcon
+  const iconColor = localValue ? activeColor : inactiveColor
+
+  return (
+    <View style={(styles.wrapper, styles.buttonWrapper)}>
+      <IconToggle
+        name={iconName}
+        color={iconColor}
+        underlayColor={activeColor}
+        maxOpacity={0.3}
+        size={toggleSize}
+        onPress={handlePress}
+        key={`iconToggle.${toggleSize}`}
+      />
+    </View>
+  )
 }
