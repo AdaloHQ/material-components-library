@@ -43,7 +43,7 @@ export default (props) => {
   useEffect(() => {
     if (localChanges.length !== 0) {
       // There are local changes queued up.
-      if (value === localChanges[0]) {
+      if (!!value === localChanges[0]) {
         localChanges.shift()
         setLocalChanges(localChanges)
       }
