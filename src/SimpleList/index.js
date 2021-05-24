@@ -47,13 +47,8 @@ export default class SimpleList extends Component {
   }
 
   render() {
-    let {
-      items,
-      dividerType,
-      dividerColor,
-      background,
-      listHeader,
-    } = this.props
+    let { items, dividerType, dividerColor, background, listHeader } =
+      this.props
 
     let wrap = [styles.wrapper]
     if (background && background.enabled) {

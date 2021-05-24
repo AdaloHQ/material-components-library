@@ -257,7 +257,7 @@
           "name": "activeColor",
           "displayName": "Active Color",
           "type": "color",
-          "default": "@primary",
+          "default": "@background",
           "enabled": {
             "iconType": "toggle"
           }
@@ -360,7 +360,7 @@
           "name": "activeColor",
           "displayName": "Active Color",
           "type": "color",
-          "default": "@primary",
+          "default": "@background",
           "enabled": {
             "iconType": "toggle"
           }
