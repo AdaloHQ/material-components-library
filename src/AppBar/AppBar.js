@@ -13,6 +13,7 @@ import Blur from './blur'
 import Gradient from './gradient'
 import background from './backgroundPlaceholder.png'
 import WrappedIconToggle from '../IconToggle/index.js'
+import IconToggleEditor from '../Shared/IconToggleEditor'
 
 import '../Shared/icons'
 
@@ -96,16 +97,22 @@ export default class AppBar extends Component {
     let {
       [propName]: { icon, enabled, action, iconType },
       color,
+      editor,
     } = this.props
-    return enabled ? (
-      <View style={styles.icon}>
-        {iconType === 'toggle' ? (
-          <WrappedIconToggle {...this.props[propName]} />
-        ) : (
-          <Icon name={icon} color={color} size={24} onPress={action}></Icon>
-        )}
-      </View>
-    ) : null
+    if (!enabled) return null
+
+    let iconComponent
+
+    if (iconType !== 'toggle') {
+      iconComponent = (
+        <Icon name={icon} color={color} size={24} onPress={action} />
+      )
+    } else if (editor) {
+      iconComponent = <IconToggleEditor {...this.props[propName]} />
+    } else {
+      iconComponent = <WrappedIconToggle {...this.props[propName]} />
+    }
+    return <View style={styles.icon}>{iconComponent}</View>
   }
   renderLogo() {
     let { title, editor } = this.props
