@@ -103,6 +103,7 @@ class ImageScrollView extends Component {
                           styleSwitch={bottomBarStyle.enabled}
                           buttonProps={bottomBarButtons}
                           buttonSize={((imageSize - 150) / 175) * 20 + 12}
+                          editor={editor}
                         ></BottomBar>
                       </View>
                     </TouchableWithoutFeedback>
