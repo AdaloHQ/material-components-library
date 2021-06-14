@@ -54,13 +54,11 @@ export default (props) => {
     wrapper: {
       height: toggleSize,
       width: toggleSize,
-      overflow: 'hidden',
     },
     buttonWrapper: {
       margin: -12,
       width: 2 * toggleSize,
       height: 2 * toggleSize,
-      overflow: 'hidden',
     },
   }
 
