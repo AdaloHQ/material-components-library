@@ -6,7 +6,6 @@ import {
   Image,
   TextInput,
   Platform,
-  SafeAreaView,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import placeholder from './holdplace.png'
@@ -163,9 +162,9 @@ export default class ImageList extends Component {
           onFilterElement={this.filterElement}
         ></SearchBar>
         {newItems.length == 0 ? (
-          <SafeAreaView style={([styles.input], { alignItems: 'center' })}>
+          <View style={([styles.input], { alignItems: 'center' })}>
             {searchBar.notFoundText}
-          </SafeAreaView>
+          </View>
         ) : (
           <View style={wrap}>
             {this.renderHeader()}

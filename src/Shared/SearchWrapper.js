@@ -6,7 +6,6 @@ import {
   Image,
   TextInput,
   Platform,
-  SafeAreaView,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 

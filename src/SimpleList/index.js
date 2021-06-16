@@ -6,10 +6,10 @@ import {
   Image,
   Platform,
   TextInput,
-  SafeAreaView,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
+import SearchBar from '../Shared/SearchWrapper'
 
 export default class SimpleList extends Component {
   static defaultProps = {
@@ -130,9 +130,9 @@ export default class SimpleList extends Component {
         <>{this.renderHeader()}</>
         <View style={wrap} onLayout={this.handleLayout}>
           {newItems.length == 0 ? (
-            <SafeAreaView style={([styles.input], { alignItems: 'center' })}>
+            <View style={([styles.input], { alignItems: 'center' })}>
               {searchBar.notFoundText}
-            </SafeAreaView>
+            </View>
           ) : (
             newItems.map((itm, i) => (
               <Row

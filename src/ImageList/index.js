@@ -6,7 +6,6 @@ import {
   Image,
   Platform,
   TextInput,
-  SafeAreaView,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
@@ -137,9 +136,9 @@ export default class ImageList extends Component {
             onFilterElement={this.filterElement}
           ></SearchBar>
           {newItems.length == 0 ? (
-            <SafeAreaView style={([styles.input], { alignItems: 'center' })}>
+            <View style={([styles.input], { alignItems: 'center' })}>
               {searchBar.notFoundText}
-            </SafeAreaView>
+            </View>
           ) : (
             <View onLayout={this.handleLayout}>
               {this.renderHeader()}
@@ -156,9 +155,9 @@ export default class ImageList extends Component {
             onFilterElement={this.filterElement}
           ></SearchBar>
           {newItems.length == 0 ? (
-            <SafeAreaView style={([styles.input], { alignItems: 'center' })}>
+            <View style={([styles.input], { alignItems: 'center' })}>
               {searchBar.notFoundText}
-            </SafeAreaView>
+            </View>
           ) : (
             <View onLayout={this.handleLayout}>{this.renderGrid()}</View>
           )}
