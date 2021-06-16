@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Image, Platform,
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Platform,
   TextInput,
-  SafeAreaView, } from 'react-native'
+  SafeAreaView,
+} from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import Gradient from './gradient'
@@ -92,7 +98,7 @@ export default class ImageList extends Component {
       this.setState({ fullWidth: width })
     }
   }
-  
+
   filterElement = (query) => {
     let timeout
 
@@ -114,51 +120,51 @@ export default class ImageList extends Component {
   }
 
   render() {
-    let { items, searchBar  } = this.props
+    let { items, searchBar } = this.props
 
-    console.log(this.props);
+    console.log(this.props)
 
     let layout = 'grid' //items[0] ? items[0].imageStyles.layout : 'grid'
-
 
     const newItems = items.filter(
       (itm) => itm.title.text.indexOf(this.state.currentQuery) >= 0
     )
 
-
     if (layout === 'masonry') {
       return (
         <>
-        <SearchBar
-          searchBar={this.props.searchBar}
-        onFilterElement={this.filterElement}
-        ></SearchBar>
-        {newItems.length == 0 ? (
-          <SafeAreaView style={([styles.input], { alignItems: 'center' })}>
-            {searchBar.searchBarNotFoundText}
-          </SafeAreaView>
-        ) : 
-        (<View onLayout={this.handleLayout}>
-          {this.renderHeader()}
-          {this.renderMasonry()}
-        </View>
-        )}
+          <SearchBar
+            searchBar={this.props.searchBar}
+            onFilterElement={this.filterElement}
+          ></SearchBar>
+          {newItems.length == 0 ? (
+            <SafeAreaView style={([styles.input], { alignItems: 'center' })}>
+              {searchBar.searchBarNotFoundText}
+            </SafeAreaView>
+          ) : (
+            <View onLayout={this.handleLayout}>
+              {this.renderHeader()}
+              {this.renderMasonry()}
+            </View>
+          )}
         </>
       )
     } else {
       return (
-      <>
-        <SearchBar
-          searchBar={this.props.searchBar}
-        onFilterElement={this.filterElement}
-        ></SearchBar>
-        {newItems.length == 0 ? (
-          <SafeAreaView style={([styles.input], { alignItems: 'center' })}>
-            {searchBar.searchBarNotFoundText}
-          </SafeAreaView>
-        ) : (<View onLayout={this.handleLayout}>{this.renderGrid()}</View>)
-      }
-      </>)
+        <>
+          <SearchBar
+            searchBar={this.props.searchBar}
+            onFilterElement={this.filterElement}
+          ></SearchBar>
+          {newItems.length == 0 ? (
+            <SafeAreaView style={([styles.input], { alignItems: 'center' })}>
+              {searchBar.searchBarNotFoundText}
+            </SafeAreaView>
+          ) : (
+            <View onLayout={this.handleLayout}>{this.renderGrid()}</View>
+          )}
+        </>
+      )
     }
   }
 }
