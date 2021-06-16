@@ -5,6 +5,25 @@
   "defaultHeight": 375,
   "props": [
     {
+      "name": "listHeader",
+      "displayName": "List Header",
+      "props": [
+        { "name": "enabled", "type": "boolean", "default": false },
+        {
+          "name": "header",
+          "displayName": "Title",
+          "type": "text",
+          "default": "Title",
+          "styles": {
+            "fontFamily": "@heading",
+            "fontWeight": "600",
+            "color": "@text",
+            "fontSize": "18"
+          }
+        }
+      ]
+    },
+    {
       "name": "items",
       "displayName": "What is this a list of?",
       "type": "list"
@@ -39,6 +58,63 @@
     }
   ],
   "childComponents": [
+    {
+      "name": "searchBar",
+      "displayName": "Search Bar",
+      "props": [
+        { "name": "enabled", "type": "boolean", "default": false },
+        {
+          "name": "searchBarPlaceholderText",
+          "displayName": "Search Bar Placeholder Text",
+          "type": "text",
+          "default": "Search..."
+        },
+        {
+          "name": "searchBarNotFoundText",
+          "displayName": "Search Bar Not Found Text",
+          "type": "text",
+          "default": "No Results"
+        },
+        {
+          "name": "icon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "search"
+        },
+        {
+          "name": "iconColor",
+          "displayName": "Icon Color",
+          "type": "color",
+          "default": "@secondary"
+        },
+        {
+          "name": "backgroundColor",
+          "displayName": "Background Color",
+          "type": "color",
+          "default": "#FFFFFF"
+        },
+        {
+          "name": "borderColor",
+          "displayName": "Border Color",
+          "type": "color",
+          "default": "#E0E0E0"
+        },
+        {
+          "name": "borderSize",
+          "displayName": "Border Size",
+          "type": "number",
+          "default": 1,
+          "control": { "type": "slider", "max": 18, "min": 0 }
+        },
+        {
+          "name": "rounding",
+          "displayName": "Rounding",
+          "type": "number",
+          "default": 4,
+          "control": { "type": "slider", "max": 18, "min": 0 }
+        }
+      ]
+    },
     {
       "name": "title",
       "displayName": "Text",

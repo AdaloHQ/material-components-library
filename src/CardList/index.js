@@ -14,7 +14,6 @@ import { Card, Button, IconToggle } from '@protonapp/react-native-material-ui'
 
 const SINGLE_COLUMN_LAYOUTS = {
   mediaRight: true,
-  currentQuery: '',
 }
 
 export default class ImageList extends Component {
@@ -24,6 +23,7 @@ export default class ImageList extends Component {
   }
   state = {
     fullWidth: null,
+    currentQuery: '',
   }
 
   getColumnCount() {
@@ -662,7 +662,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
   },
-
   searchBar: {
     flexDirection: 'row',
     height: 60,
