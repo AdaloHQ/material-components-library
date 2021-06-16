@@ -131,7 +131,7 @@ export default class SimpleList extends Component {
         <View style={wrap} onLayout={this.handleLayout}>
           {newItems.length == 0 ? (
             <SafeAreaView style={([styles.input], { alignItems: 'center' })}>
-              {searchBar.searchBarNotFoundText}
+              {searchBar.notFoundText}
             </SafeAreaView>
           ) : (
             newItems.map((itm, i) => (
@@ -150,53 +150,6 @@ export default class SimpleList extends Component {
         </View>
       </>
     )
-  }
-}
-
-class SearchBar extends Component {
-  state = {
-    searchResult: '',
-  }
-
-  render() {
-    let { searchBar, onFilterElement } = this.props
-    if (searchBar.enabled) {
-      return (
-        <>
-          <View
-            style={[
-              styles.searchBar,
-              {
-                backgroundColor: searchBar.backgroundColor,
-                borderWidth: searchBar.borderSize,
-                borderRadius: searchBar.rounding,
-              },
-            ]}
-          >
-            <View style={([styles.icon], {})}>
-              <Icon
-                size={24}
-                name={searchBar.icon}
-                styles={styles.icon}
-                color={searchBar.iconColor}
-              />
-            </View>
-            <View style={styles.input}>
-              <TextInput
-                style={styles.input}
-                placeholder={searchBar.searchBarPlaceholderText}
-                onChange={(e) => {
-                  this.setState({ searchResult: e.target.value })
-                  onFilterElement(e.target.value)
-                }}
-              />
-            </View>
-          </View>
-        </>
-      )
-    } else {
-      return <></>
-    }
   }
 }
 
@@ -400,7 +353,7 @@ class Row extends Component {
   }
 
   render() {
-    let { onPress, firstLine } = this.props
+    let { onPress } = this.props
 
     if (onPress) {
       return (
@@ -562,23 +515,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     marginLeft: 16,
-  },
-  searchBar: {
-    flexDirection: 'row',
-    height: 60,
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 15,
-  },
-  input: {
-    flex: 0.95,
-    height: 40,
-    font: '18px',
-  },
-  icon: {
-    justifyContent: 'center',
-    flex: 0.05,
   },
   row: {
     paddingLeft: 16,

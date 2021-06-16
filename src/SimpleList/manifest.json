@@ -40,17 +40,17 @@
   "childComponents": [
     {
       "name": "searchBar",
-      "displayName": "Search Bar",
+      "displayName": "List Search",
       "props": [
         { "name": "enabled", "type": "boolean", "default": false },
         {
-          "name": "searchBarPlaceholderText",
+          "name": "placeholderText",
           "displayName": "Search Bar Placeholder Text",
           "type": "text",
           "default": "Search..."
         },
         {
-          "name": "searchBarNotFoundText",
+          "name": "notFoundText",
           "displayName": "Search Bar Not Found Text",
           "type": "text",
           "default": "No Results"

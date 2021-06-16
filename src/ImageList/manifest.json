@@ -5,25 +5,6 @@
   "defaultHeight": 375,
   "props": [
     {
-      "name": "listHeader",
-      "displayName": "List Header",
-      "props": [
-        { "name": "enabled", "type": "boolean", "default": false },
-        {
-          "name": "header",
-          "displayName": "Title",
-          "type": "text",
-          "default": "Title",
-          "styles": {
-            "fontFamily": "@heading",
-            "fontWeight": "600",
-            "color": "@text",
-            "fontSize": "18"
-          }
-        }
-      ]
-    },
-    {
       "name": "items",
       "displayName": "What is this a list of?",
       "type": "list"
@@ -60,17 +41,17 @@
   "childComponents": [
     {
       "name": "searchBar",
-      "displayName": "Search Bar",
+      "displayName": "List Search",
       "props": [
         { "name": "enabled", "type": "boolean", "default": false },
         {
-          "name": "searchBarPlaceholderText",
+          "name": "placeholderText",
           "displayName": "Search Bar Placeholder Text",
           "type": "text",
           "default": "Search..."
         },
         {
-          "name": "searchBarNotFoundText",
+          "name": "notFoundText",
           "displayName": "Search Bar Not Found Text",
           "type": "text",
           "default": "No Results"
@@ -112,6 +93,25 @@
           "type": "number",
           "default": 4,
           "control": { "type": "slider", "max": 18, "min": 0 }
+        }
+      ]
+    },
+    {
+      "name": "listHeader",
+      "displayName": "List Header",
+      "props": [
+        { "name": "enabled", "type": "boolean", "default": false },
+        {
+          "name": "header",
+          "displayName": "Title",
+          "type": "text",
+          "default": "Title",
+          "styles": {
+            "fontFamily": "@heading",
+            "fontWeight": "600",
+            "color": "@text",
+            "fontSize": "18"
+          }
         }
       ]
     },

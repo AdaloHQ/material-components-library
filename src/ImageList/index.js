@@ -11,6 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import Gradient from './gradient'
+import SearchBar from '../Shared/SearchWrapper'
 
 export default class ImageList extends Component {
   static defaultProps = {
@@ -122,8 +123,6 @@ export default class ImageList extends Component {
   render() {
     let { items, searchBar } = this.props
 
-    console.log(this.props)
-
     let layout = 'grid' //items[0] ? items[0].imageStyles.layout : 'grid'
 
     const newItems = items.filter(
@@ -139,7 +138,7 @@ export default class ImageList extends Component {
           ></SearchBar>
           {newItems.length == 0 ? (
             <SafeAreaView style={([styles.input], { alignItems: 'center' })}>
-              {searchBar.searchBarNotFoundText}
+              {searchBar.notFoundText}
             </SafeAreaView>
           ) : (
             <View onLayout={this.handleLayout}>
@@ -158,59 +157,13 @@ export default class ImageList extends Component {
           ></SearchBar>
           {newItems.length == 0 ? (
             <SafeAreaView style={([styles.input], { alignItems: 'center' })}>
-              {searchBar.searchBarNotFoundText}
+              {searchBar.notFoundText}
             </SafeAreaView>
           ) : (
             <View onLayout={this.handleLayout}>{this.renderGrid()}</View>
           )}
         </>
       )
-    }
-  }
-}
-class SearchBar extends Component {
-  state = {
-    searchResult: '',
-  }
-
-  render() {
-    let { searchBar, onFilterElement } = this.props
-    if (searchBar.enabled) {
-      return (
-        <>
-          <View
-            style={[
-              styles.searchBar,
-              {
-                backgroundColor: searchBar.backgroundColor,
-                borderWidth: searchBar.borderSize,
-                borderRadius: searchBar.rounding,
-              },
-            ]}
-          >
-            <View style={([styles.icon], {})}>
-              <Icon
-                size={24}
-                name={searchBar.icon}
-                styles={styles.icon}
-                color={searchBar.iconColor}
-              />
-            </View>
-            <View style={styles.input}>
-              <TextInput
-                style={styles.input}
-                placeholder={searchBar.searchBarPlaceholderText}
-                onChange={(e) => {
-                  this.setState({ searchResult: e.target.value })
-                  onFilterElement(e.target.value)
-                }}
-              />
-            </View>
-          </View>
-        </>
-      )
-    } else {
-      return <></>
     }
   }
 }
@@ -436,23 +389,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingLeft: 2,
-  },
-  searchBar: {
-    flexDirection: 'row',
-    height: 60,
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 15,
-  },
-  input: {
-    flex: 0.95,
-    height: 40,
-    font: '18px',
-  },
-  icon: {
-    justifyContent: 'center',
-    flex: 0.05,
   },
   header: {
     fontSize: 24,
