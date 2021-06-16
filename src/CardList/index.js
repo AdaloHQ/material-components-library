@@ -1,11 +1,20 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Image, Platform } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TextInput,
+  Platform,
+  SafeAreaView,
+} from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import placeholder from './holdplace.png'
 import { Card, Button, IconToggle } from '@protonapp/react-native-material-ui'
 
 const SINGLE_COLUMN_LAYOUTS = {
   mediaRight: true,
+  currentQuery: '',
 }
 
 export default class ImageList extends Component {
@@ -99,6 +108,13 @@ export default class ImageList extends Component {
     )
   }
 
+  filterElement = (query) => {
+    let timeout
+
+    clearTimeout(timeout)
+    timeout = setTimeout(this.setState({ currentQuery: query }), 300)
+  }
+
   renderHeader() {
     let { listHeader, _fonts } = this.props
     if (!listHeader || !listHeader.header || !listHeader.enabled) {
@@ -117,23 +133,95 @@ export default class ImageList extends Component {
   }
 
   render() {
-    let { cardLayout } = this.props
+    let { cardLayout, searchBar, items } = this.props
     let wrap = [styles.wrap]
 
     if (cardLayout === 'grid') {
       return (
-        <View style={wrap}>
-          {this.renderHeader()}
-          {this.renderGrid()}
-        </View>
+        <>
+          <SearchBar
+            searchBar={this.props.searchBar}
+            onFilterElement={this.filterElement}
+          ></SearchBar>
+          <View style={wrap}>
+            {this.renderHeader()}
+            {this.renderGrid()}
+          </View>
+        </>
       )
     }
-    return (
-      <View style={wrap}>
-        {this.renderHeader()}
-        {this.renderMasonry()}
-      </View>
+
+    const newItems = items.filter(
+      (itm) => itm.title.text.indexOf(this.state.currentQuery) >= 0
     )
+
+    console.log(newItems)
+
+    return (
+      <>
+        <SearchBar
+          searchBar={this.props.searchBar}
+          onFilterElement={this.filterElement}
+        ></SearchBar>
+        {newItems.length == 0 ? (
+          <SafeAreaView style={([styles.input], { alignItems: 'center' })}>
+            {searchBar.searchBarNotFoundText}
+          </SafeAreaView>
+        ) : (
+          <View style={wrap}>
+            {this.renderHeader()}
+            {this.renderMasonry()}
+          </View>
+        )}
+      </>
+    )
+  }
+}
+
+class SearchBar extends Component {
+  state = {
+    searchResult: '',
+  }
+
+  render() {
+    let { searchBar, onFilterElement } = this.props
+    if (searchBar.enabled) {
+      return (
+        <>
+          <View
+            style={[
+              styles.searchBar,
+              {
+                backgroundColor: searchBar.backgroundColor,
+                borderWidth: searchBar.borderSize,
+                borderRadius: searchBar.rounding,
+              },
+            ]}
+          >
+            <View style={([styles.icon], {})}>
+              <Icon
+                size={24}
+                name={searchBar.icon}
+                styles={styles.icon}
+                color={searchBar.iconColor}
+              />
+            </View>
+            <View style={styles.input}>
+              <TextInput
+                style={styles.input}
+                placeholder={searchBar.searchBarPlaceholderText}
+                onChange={(e) => {
+                  this.setState({ searchResult: e.target.value })
+                  onFilterElement(e.target.value)
+                }}
+              />
+            </View>
+          </View>
+        </>
+      )
+    } else {
+      return <></>
+    }
   }
 }
 
@@ -573,6 +661,24 @@ const styles = StyleSheet.create({
     margin: 4,
     flexDirection: 'row',
     alignItems: 'flex-start',
+  },
+
+  searchBar: {
+    flexDirection: 'row',
+    height: 60,
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 15,
+  },
+  input: {
+    flex: 0.95,
+    height: 40,
+    font: '18px',
+  },
+  icon: {
+    justifyContent: 'center',
+    flex: 0.05,
   },
   image: {
     width: null,
