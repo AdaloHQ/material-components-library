@@ -15,7 +15,9 @@ export default class SearchBar extends Component {
   }
 
   render() {
-    let { searchBar, onFilterElement } = this.props
+    let { searchBar, onFilterElement, notFound, notFoundText, children } =
+      this.props
+
     if (searchBar.enabled) {
       return (
         <>
@@ -48,10 +50,17 @@ export default class SearchBar extends Component {
               />
             </View>
           </View>
+          {notFound ? (
+            <View style={([styles.input], { alignItems: 'center' })}>
+              {notFoundText}
+            </View>
+          ) : (
+            children
+          )}
         </>
       )
     } else {
-      return <></>
+      return <>{children}</>
     }
   }
 }
@@ -59,11 +68,14 @@ export default class SearchBar extends Component {
 const styles = StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
-    height: 60,
-    padding: 10,
+    height: 50,
+    paddingTop: 3,
+    paddingBottom: 3,
+    paddingLeft: 30,
+    paddingRight: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 15,
+    margin: 30,
   },
   input: {
     flex: 0.95,

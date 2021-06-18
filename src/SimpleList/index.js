@@ -71,7 +71,7 @@ export default class SimpleList extends Component {
     this.setState({ currentQuery: query })
 
     clearTimeout(timeout)
-    timeout = setTimeout(functionCall, 300)
+    timeout = setTimeout(this.setState({ currentQuery: query }), 300)
   }
 
   render() {
@@ -117,36 +117,38 @@ export default class SimpleList extends Component {
       }
     }
 
-    const newItems = items.filter(
-      (itm) => itm.firstLine.text.indexOf(this.state.currentQuery) >= 0
-    )
+    const newItems = items.filter((itm) => {
+      if (itm.firstLine.text.indexOf(this.state.currentQuery) >= 0) {
+        return true
+      } else if (itm.secondLine.text.indexOf(this.state.currentQuery) >= 0) {
+        return true
+      }
+    })
+
+    const notFound = newItems.length === 0
 
     return (
       <>
         <SearchBar
           searchBar={this.props.searchBar}
           onFilterElement={this.filterElement}
+          notFound={notFound}
+          notFoundText={searchBar.notFoundText}
         ></SearchBar>
         <>{this.renderHeader()}</>
         <View style={wrap} onLayout={this.handleLayout}>
-          {newItems.length == 0 ? (
-            <View style={([styles.input], { alignItems: 'center' })}>
-              {searchBar.notFoundText}
-            </View>
-          ) : (
-            newItems.map((itm, i) => (
-              <Row
-                {...itm}
-                key={itm.id}
-                dividerType={dividerType}
-                dividerColor={dividerColor}
-                lastRow={i === newItems.length - 1}
-                fullWidth={this.state.fullWidth}
-                editor={this.props.editor}
-                _fonts={this.props._fonts}
-              />
-            ))
-          )}
+          {newItems.map((itm, i) => (
+            <Row
+              {...itm}
+              key={itm.id}
+              dividerType={dividerType}
+              dividerColor={dividerColor}
+              lastRow={i === newItems.length - 1}
+              fullWidth={this.state.fullWidth}
+              editor={this.props.editor}
+              _fonts={this.props._fonts}
+            />
+          ))}
         </View>
       </>
     )

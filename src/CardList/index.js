@@ -43,9 +43,8 @@ export default class ImageList extends Component {
       this.setState({ fullWidth: width })
     }
   }
-  getColumns() {
+  getColumns(items) {
     let count = this.getColumnCount()
-    let { items } = this.props
     let columns = []
 
     for (let i = 0; i < items.length; i += count) {
@@ -76,8 +75,10 @@ export default class ImageList extends Component {
     />
   )
 
-  renderMasonry(columns) {
-    let { items, layout, editor, _fonts } = this.props
+  renderMasonry(items) {
+    let { layout, editor, _fonts } = this.props
+
+    const columns = this.getColumns(items)
 
     let wrap = [styles.wrapper]
 
@@ -85,7 +86,7 @@ export default class ImageList extends Component {
       <View style={wrap}>
         {columns.map((column, i) => (
           <View key={i} style={styles.column}>
-            {(column) => this.renderCell(column, layout, editor, _fonts)}
+            {column.map((itm) => this.renderCell(itm, layout, editor, _fonts))}
           </View>
         ))}
       </View>
@@ -132,11 +133,26 @@ export default class ImageList extends Component {
 
   render() {
     let { cardLayout, searchBar, items } = this.props
+    const { currentQuery } = this.state
     let wrap = [styles.wrap]
 
-    const newItems = items.filter(
-      (itm) => itm.title.text.indexOf(this.state.currentQuery) >= 0
-    )
+    const newItems = items.filter((itm) => {
+      if (!currentQuery) {
+        return true
+      }
+      if (itm.title.text && itm.title.text.indexOf(currentQuery) >= 0) {
+        return true
+      } else if (
+        itm.subtitle.text &&
+        itm.subtitle.text.indexOf(currentQuery) >= 0
+      ) {
+        return true
+      } else if (itm.body.text && itm.body.text.indexOf(currentQuery) >= 0) {
+        return true
+      }
+    })
+
+    const notFound = newItems.length === 0
 
     if (cardLayout === 'grid') {
       return (
@@ -144,11 +160,14 @@ export default class ImageList extends Component {
           <SearchBar
             searchBar={this.props.searchBar}
             onFilterElement={this.filterElement}
-          ></SearchBar>
-          <View style={wrap}>
-            {this.renderHeader()}
-            {this.renderGrid(newItems)}
-          </View>
+            notFound={notFound}
+            notFoundText={searchBar.notFoundText}
+          >
+            <View style={wrap}>
+              {this.renderHeader()}
+              {this.renderGrid(newItems)}
+            </View>
+          </SearchBar>
         </>
       )
     }
@@ -158,17 +177,14 @@ export default class ImageList extends Component {
         <SearchBar
           searchBar={this.props.searchBar}
           onFilterElement={this.filterElement}
-        ></SearchBar>
-        {newItems.length == 0 ? (
-          <View style={([styles.input], { alignItems: 'center' })}>
-            {searchBar.notFoundText}
-          </View>
-        ) : (
+          notFound={notFound}
+          notFoundText={searchBar.notFoundText}
+        >
           <View style={wrap}>
             {this.renderHeader()}
             {this.renderMasonry(newItems)}
           </View>
-        )}
+        </SearchBar>
       </>
     )
   }

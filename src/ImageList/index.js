@@ -66,8 +66,6 @@ export default class ImageList extends Component {
     let { columnCount } = this.props
     let { fullWidth } = this.state
 
-    console.log(columns)
-
     let width = fullWidth / columnCount
 
     let wrap = [styles.wrapper]
@@ -125,9 +123,15 @@ export default class ImageList extends Component {
 
     let layout = 'grid' //items[0] ? items[0].imageStyles.layout : 'grid'
 
-    const newItems = items.filter(
-      (itm) => itm.title.text.indexOf(this.state.currentQuery) >= 0
-    )
+    const newItems = items.filter((itm) => {
+      if (itm.title.text.indexOf(this.state.currentQuery) >= 0) {
+        return true
+      } else if (itm.title.subtitle.indexOf(this.state.currentQuery) >= 0) {
+        return true
+      }
+    })
+
+    const notFound = newItems.length === 0
 
     if (layout === 'masonry') {
       return (
@@ -135,17 +139,13 @@ export default class ImageList extends Component {
           <SearchBar
             searchBar={this.props.searchBar}
             onFilterElement={this.filterElement}
+            notFound={notFound}
+            notFoundText={searchBar.notFoundText}
           ></SearchBar>
-          {newItems.length == 0 ? (
-            <View style={([styles.input], { alignItems: 'center' })}>
-              {searchBar.notFoundText}
-            </View>
-          ) : (
-            <View onLayout={this.handleLayout}>
-              {this.renderHeader()}
-              {this.renderMasonry(newItems)}
-            </View>
-          )}
+          <View onLayout={this.handleLayout}>
+            {this.renderHeader()}
+            {this.renderMasonry(newItems)}
+          </View>
         </>
       )
     } else {
@@ -154,16 +154,10 @@ export default class ImageList extends Component {
           <SearchBar
             searchBar={this.props.searchBar}
             onFilterElement={this.filterElement}
+            notFound={notFound}
+            notFoundText={searchBar.notFoundText}
           ></SearchBar>
-          {newItems.length == 0 ? (
-            <View style={([styles.input], { alignItems: 'center' })}>
-              {searchBar.notFoundText}
-            </View>
-          ) : (
-            <View onLayout={this.handleLayout}>
-              {this.renderGrid(newItems)}
-            </View>
-          )}
+          <View onLayout={this.handleLayout}>{this.renderGrid(newItems)}</View>
         </>
       )
     }
