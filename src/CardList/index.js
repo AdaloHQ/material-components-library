@@ -76,10 +76,8 @@ export default class ImageList extends Component {
     />
   )
 
-  renderMasonry() {
+  renderMasonry(columns) {
     let { items, layout, editor, _fonts } = this.props
-
-    let columns = this.getColumns()
 
     let wrap = [styles.wrapper]
 
@@ -87,14 +85,14 @@ export default class ImageList extends Component {
       <View style={wrap}>
         {columns.map((column, i) => (
           <View key={i} style={styles.column}>
-            {column.map((itm) => this.renderCell(itm, layout, editor, _fonts))}
+            {(column) => this.renderCell(column, layout, editor, _fonts)}
           </View>
         ))}
       </View>
     )
   }
-  renderGrid() {
-    let { items, layout, columnCount, editor, _fonts } = this.props
+  renderGrid(items) {
+    let { layout, columnCount, editor, _fonts } = this.props
 
     let { fullWidth } = this.state
     let width = fullWidth / columnCount - 8
@@ -136,6 +134,10 @@ export default class ImageList extends Component {
     let { cardLayout, searchBar, items } = this.props
     let wrap = [styles.wrap]
 
+    const newItems = items.filter(
+      (itm) => itm.title.text.indexOf(this.state.currentQuery) >= 0
+    )
+
     if (cardLayout === 'grid') {
       return (
         <>
@@ -145,15 +147,11 @@ export default class ImageList extends Component {
           ></SearchBar>
           <View style={wrap}>
             {this.renderHeader()}
-            {this.renderGrid()}
+            {this.renderGrid(newItems)}
           </View>
         </>
       )
     }
-
-    const newItems = items.filter(
-      (itm) => itm.title.text.indexOf(this.state.currentQuery) >= 0
-    )
 
     return (
       <>
@@ -168,7 +166,7 @@ export default class ImageList extends Component {
         ) : (
           <View style={wrap}>
             {this.renderHeader()}
-            {this.renderMasonry()}
+            {this.renderMasonry(newItems)}
           </View>
         )}
       </>

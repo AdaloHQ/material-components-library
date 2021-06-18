@@ -22,8 +22,8 @@ export default class ImageList extends Component {
     currentQuery: '',
   }
 
-  renderGrid() {
-    let { items, columnCount } = this.props
+  renderGrid(items) {
+    let { columnCount } = this.props
     let { fullWidth } = this.state
     let width = fullWidth / columnCount
 
@@ -62,10 +62,11 @@ export default class ImageList extends Component {
     return columns
   }
 
-  renderMasonry() {
+  renderMasonry(columns) {
     let { columnCount } = this.props
     let { fullWidth } = this.state
-    let columns = this.getColumns()
+
+    console.log(columns)
 
     let width = fullWidth / columnCount
 
@@ -142,7 +143,7 @@ export default class ImageList extends Component {
           ) : (
             <View onLayout={this.handleLayout}>
               {this.renderHeader()}
-              {this.renderMasonry()}
+              {this.renderMasonry(newItems)}
             </View>
           )}
         </>
@@ -159,7 +160,9 @@ export default class ImageList extends Component {
               {searchBar.notFoundText}
             </View>
           ) : (
-            <View onLayout={this.handleLayout}>{this.renderGrid()}</View>
+            <View onLayout={this.handleLayout}>
+              {this.renderGrid(newItems)}
+            </View>
           )}
         </>
       )

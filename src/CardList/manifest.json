@@ -48,63 +48,6 @@
   ],
   "childComponents": [
     {
-      "name": "searchBar",
-      "displayName": "List Search",
-      "props": [
-        { "name": "enabled", "type": "boolean", "default": false },
-        {
-          "name": "placeholderText",
-          "displayName": "Search Bar Placeholder Text",
-          "type": "text",
-          "default": "Search..."
-        },
-        {
-          "name": "notFoundText",
-          "displayName": "Search Bar Not Found Text",
-          "type": "text",
-          "default": "No Results"
-        },
-        {
-          "name": "icon",
-          "displayName": "Icon",
-          "type": "icon",
-          "default": "search"
-        },
-        {
-          "name": "iconColor",
-          "displayName": "Icon Color",
-          "type": "color",
-          "default": "@secondary"
-        },
-        {
-          "name": "backgroundColor",
-          "displayName": "Background Color",
-          "type": "color",
-          "default": "#FFFFFF"
-        },
-        {
-          "name": "borderColor",
-          "displayName": "Border Color",
-          "type": "color",
-          "default": "#E0E0E0"
-        },
-        {
-          "name": "borderSize",
-          "displayName": "Border Size",
-          "type": "number",
-          "default": 1,
-          "control": { "type": "slider", "max": 18, "min": 0 }
-        },
-        {
-          "name": "rounding",
-          "displayName": "Rounding",
-          "type": "number",
-          "default": 4,
-          "control": { "type": "slider", "max": 18, "min": 0 }
-        }
-      ]
-    },
-    {
       "name": "listHeader",
       "displayName": "List Header",
       "props": [
@@ -515,6 +458,94 @@
           "displayName": "Text Color",
           "type": "color",
           "default": "#ccc"
+        }
+      ]
+    },
+    {
+      "name": "searchBar",
+      "displayName": "List Search",
+      "props": [
+        { "name": "enabled", "type": "boolean", "default": false },
+        {
+          "name": "placeholderText",
+          "displayName": "Placeholder Text",
+          "type": "text",
+          "default": "Search..."
+        },
+        {
+          "name": "notFoundText",
+          "displayName": "No Search Results Message",
+          "type": "text",
+          "default": "No Results"
+        },
+        {
+          "name": "searchInputStyles",
+          "displayName": "Search Input Styles",
+          "type": "boolean",
+          "default": false,
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Preset", "value": false },
+              { "label": "Custom", "value": true }
+            ]
+          }
+        },
+        {
+          "name": "icon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "search",
+          "enabled": {
+            "searchInputStyles": true
+          }
+        },
+        {
+          "name": "iconColor",
+          "displayName": "Icon Color",
+          "type": "color",
+          "default": "@secondary",
+          "enabled": {
+            "searchInputStyles": true
+          }
+        },
+        {
+          "name": "backgroundColor",
+          "displayName": "Background Color",
+          "type": "color",
+          "default": "#FFFFFF",
+          "enabled": {
+            "searchInputStyles": true
+          }
+        },
+        {
+          "name": "borderColor",
+          "displayName": "Border Color",
+          "type": "color",
+          "default": "#E0E0E0",
+          "enabled": {
+            "searchInputStyles": true
+          }
+        },
+        {
+          "name": "borderSize",
+          "displayName": "Border Size",
+          "type": "number",
+          "default": 1,
+          "control": { "type": "slider", "max": 18, "min": 0 },
+          "enabled": {
+            "searchInputStyles": true
+          }
+        },
+        {
+          "name": "rounding",
+          "displayName": "Rounding",
+          "type": "number",
+          "default": 4,
+          "control": { "type": "slider", "max": 18, "min": 0 },
+          "enabled": {
+            "searchInputStyles": true
+          }
         }
       ]
     }
