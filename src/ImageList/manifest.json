@@ -230,13 +230,25 @@
           "name": "placeholderText",
           "displayName": "Placeholder Text",
           "type": "text",
-          "default": "Search..."
+          "default": "Search...",
+          "styles": {
+            "fontFamily": "@heading",
+            "fontWeight": "600",
+            "color": "@text",
+            "fontSize": "18"
+          }
         },
         {
           "name": "notFoundText",
           "displayName": "No Search Results Message",
           "type": "text",
-          "default": "No Results"
+          "default": "No Results",
+          "styles": {
+            "fontFamily": "@heading",
+            "fontWeight": "600",
+            "color": "@text",
+            "fontSize": "18"
+          }
         },
         {
           "name": "searchInputStyles",
