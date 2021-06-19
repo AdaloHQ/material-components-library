@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
-import SearchBar from '../Shared/SearchWrapper'
+import SearchBarWrapper from '../Shared/SearchWrapper'
 
 export default class SimpleList extends Component {
   static defaultProps = {
@@ -74,6 +74,16 @@ export default class SimpleList extends Component {
     timeout = setTimeout(this.setState({ currentQuery: query }), 300)
   }
 
+  filterItems(items) {
+    return items.filter((itm) => {
+      if (itm.firstLine.text.indexOf(this.state.currentQuery) >= 0) {
+        return true
+      } else if (itm.secondLine.text.indexOf(this.state.currentQuery) >= 0) {
+        return true
+      }
+    })
+  }
+
   render() {
     let {
       items,
@@ -117,24 +127,18 @@ export default class SimpleList extends Component {
       }
     }
 
-    const newItems = items.filter((itm) => {
-      if (itm.firstLine.text.indexOf(this.state.currentQuery) >= 0) {
-        return true
-      } else if (itm.secondLine.text.indexOf(this.state.currentQuery) >= 0) {
-        return true
-      }
-    })
+    const newItems = this.filterItems(items)
 
     const notFound = newItems.length === 0
 
     return (
       <>
-        <SearchBar
+        <SearchBarWrapper
           searchBar={this.props.searchBar}
           onFilterElement={this.filterElement}
           notFound={notFound}
           notFoundText={searchBar.notFoundText}
-        ></SearchBar>
+        ></SearchBarWrapper>
         <>{this.renderHeader()}</>
         <View style={wrap} onLayout={this.handleLayout}>
           {newItems.map((itm, i) => (

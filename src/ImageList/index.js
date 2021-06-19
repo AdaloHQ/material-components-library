@@ -10,7 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import Gradient from './gradient'
-import SearchBar from '../Shared/SearchWrapper'
+import SearchBarWrapper from '../Shared/SearchWrapper'
 
 export default class ImageList extends Component {
   static defaultProps = {
@@ -41,8 +41,8 @@ export default class ImageList extends Component {
     )
   }
 
-  getColumns() {
-    let { items, columnCount } = this.props
+  getColumns(items) {
+    let { columnCount } = this.props
     let columns = []
 
     for (let i = 0; i < items.length; i += columnCount) {
@@ -62,7 +62,7 @@ export default class ImageList extends Component {
     return columns
   }
 
-  renderMasonry(columns) {
+  renderMasonry(items) {
     let { columnCount } = this.props
     let { fullWidth } = this.state
 
@@ -118,45 +118,49 @@ export default class ImageList extends Component {
     )
   }
 
-  render() {
-    let { items, searchBar } = this.props
-
-    let layout = 'grid' //items[0] ? items[0].imageStyles.layout : 'grid'
-
-    const newItems = items.filter((itm) => {
+  filterItems(items) {
+    return items.filter((itm) => {
       if (itm.title.text.indexOf(this.state.currentQuery) >= 0) {
         return true
       } else if (itm.title.subtitle.indexOf(this.state.currentQuery) >= 0) {
         return true
       }
     })
+  }
+
+  render() {
+    let { items, searchBar } = this.props
+
+    let layout = 'grid' //items[0] ? items[0].imageStyles.layout : 'grid'
+
+    const newItems = this.filterItems(items)
 
     const notFound = newItems.length === 0
 
     if (layout === 'masonry') {
       return (
         <>
-          <SearchBar
+          <SearchBarWrapper
             searchBar={this.props.searchBar}
             onFilterElement={this.filterElement}
             notFound={notFound}
             notFoundText={searchBar.notFoundText}
-          ></SearchBar>
+          ></SearchBarWrapper>
           <View onLayout={this.handleLayout}>
             {this.renderHeader()}
-            {this.renderMasonry(newItems)}
+            {this.renderMasonry(this.getColumns(newItems))}
           </View>
         </>
       )
     } else {
       return (
         <>
-          <SearchBar
+          <SearchBarWrapper
             searchBar={this.props.searchBar}
             onFilterElement={this.filterElement}
             notFound={notFound}
             notFoundText={searchBar.notFoundText}
-          ></SearchBar>
+          ></SearchBarWrapper>
           <View onLayout={this.handleLayout}>{this.renderGrid(newItems)}</View>
         </>
       )

@@ -10,7 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import placeholder from './holdplace.png'
 import { Card, Button, IconToggle } from '@protonapp/react-native-material-ui'
-import SearchBar from '../Shared/SearchWrapper'
+import SearchBarWrapper from '../Shared/SearchWrapper'
 
 const SINGLE_COLUMN_LAYOUTS = {
   mediaRight: true,
@@ -131,12 +131,8 @@ export default class ImageList extends Component {
     return <Text style={headerStyles}>{listHeader.header}</Text>
   }
 
-  render() {
-    let { cardLayout, searchBar, items } = this.props
-    const { currentQuery } = this.state
-    let wrap = [styles.wrap]
-
-    const newItems = items.filter((itm) => {
+  filterItems(items) {
+    return items.filter((itm) => {
       if (!currentQuery) {
         return true
       }
@@ -151,13 +147,21 @@ export default class ImageList extends Component {
         return true
       }
     })
+  }
+
+  render() {
+    let { cardLayout, searchBar, items } = this.props
+    const { currentQuery } = this.state
+    let wrap = [styles.wrap]
+
+    const newItems = this.filterItems(item)
 
     const notFound = newItems.length === 0
 
     if (cardLayout === 'grid') {
       return (
         <>
-          <SearchBar
+          <SearchBarWrapper
             searchBar={this.props.searchBar}
             onFilterElement={this.filterElement}
             notFound={notFound}
@@ -167,14 +171,14 @@ export default class ImageList extends Component {
               {this.renderHeader()}
               {this.renderGrid(newItems)}
             </View>
-          </SearchBar>
+          </SearchBarWrapper>
         </>
       )
     }
 
     return (
       <>
-        <SearchBar
+        <SearchBarWrapper
           searchBar={this.props.searchBar}
           onFilterElement={this.filterElement}
           notFound={notFound}
@@ -184,7 +188,7 @@ export default class ImageList extends Component {
             {this.renderHeader()}
             {this.renderMasonry(newItems)}
           </View>
-        </SearchBar>
+        </SearchBarWrapper>
       </>
     )
   }

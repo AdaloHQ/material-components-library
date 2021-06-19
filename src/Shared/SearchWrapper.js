@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
-export default class SearchBar extends Component {
+export default class SearchBarWrapper extends Component {
   state = {
     searchResult: '',
   }
