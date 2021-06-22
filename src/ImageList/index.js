@@ -142,11 +142,12 @@ export default class ImageList extends Component {
             onFilterElement={this.filterElement}
             notFound={notFound}
             notFoundText={searchBar.notFoundText}
-          ></SearchBarWrapper>
-          <View onLayout={this.handleLayout}>
-            {this.renderHeader()}
-            {this.renderMasonry(this.getColumns(newItems))}
-          </View>
+          >
+            <View onLayout={this.handleLayout}>
+              {this.renderHeader()}
+              {this.renderMasonry(this.getColumns(newItems))}
+            </View>
+          </SearchBarWrapper>
         </>
       )
     } else {

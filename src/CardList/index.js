@@ -133,14 +133,20 @@ export default class ImageList extends Component {
       if (!this.state.currentQuery) {
         return true
       }
-      if (itm.title.text && itm.title.text.indexOf(this.state.currentQuery) >= 0) {
+      if (
+        itm.title.text &&
+        itm.title.text.indexOf(this.state.currentQuery) >= 0
+      ) {
         return true
       } else if (
         itm.subtitle.text &&
         itm.subtitle.text.indexOf(this.state.currentQuery) >= 0
       ) {
         return true
-      } else if (itm.body.text && itm.body.text.indexOf(this.state.currentQuery) >= 0) {
+      } else if (
+        itm.body.text &&
+        itm.body.text.indexOf(this.state.currentQuery) >= 0
+      ) {
         return true
       }
     })

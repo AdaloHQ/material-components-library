@@ -10,10 +10,6 @@ import {
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
 export default class SearchBarWrapper extends Component {
-  state = {
-    searchResult: '',
-  }
-
   debounce = (fn, time) => {
     let timeout
 
@@ -55,7 +51,6 @@ export default class SearchBarWrapper extends Component {
                 style={styles.input}
                 placeholder={searchBar.placeholderText}
                 onChange={(e) => {
-                  this.setState({ searchResult: e.target.value })
                   this.debounce(onFilterElement(e.target.value), 300)
                 }}
               />

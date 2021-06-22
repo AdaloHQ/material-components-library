@@ -55,8 +55,6 @@ export default class SimpleList extends Component {
     )
   }
 
-
-
   filterElement = (query) => {
     this.setState({ currentQuery: query })
   }
@@ -125,22 +123,23 @@ export default class SimpleList extends Component {
           onFilterElement={this.filterElement}
           notFound={notFound}
           notFoundText={searchBar.notFoundText}
-        ></SearchBarWrapper>
-        <>{this.renderHeader()}</>
-        <View style={wrap} onLayout={this.handleLayout}>
-          {newItems.map((itm, i) => (
-            <Row
-              {...itm}
-              key={itm.id}
-              dividerType={dividerType}
-              dividerColor={dividerColor}
-              lastRow={i === newItems.length - 1}
-              fullWidth={this.state.fullWidth}
-              editor={this.props.editor}
-              _fonts={this.props._fonts}
-            />
-          ))}
-        </View>
+        >
+          <>{this.renderHeader()}</>
+          <View style={wrap} onLayout={this.handleLayout}>
+            {newItems.map((itm, i) => (
+              <Row
+                {...itm}
+                key={itm.id}
+                dividerType={dividerType}
+                dividerColor={dividerColor}
+                lastRow={i === newItems.length - 1}
+                fullWidth={this.state.fullWidth}
+                editor={this.props.editor}
+                _fonts={this.props._fonts}
+              />
+            ))}
+          </View>
+        </SearchBarWrapper>
       </>
     )
   }
