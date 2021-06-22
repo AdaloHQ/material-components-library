@@ -108,10 +108,7 @@ export default class ImageList extends Component {
   }
 
   filterElement = (query) => {
-    let timeout
-
-    clearTimeout(timeout)
-    timeout = setTimeout(this.setState({ currentQuery: query }), 300)
+    this.setState({ currentQuery: query })
   }
 
   renderHeader() {
@@ -133,17 +130,17 @@ export default class ImageList extends Component {
 
   filterItems(items) {
     return items.filter((itm) => {
-      if (!currentQuery) {
+      if (!this.state.currentQuery) {
         return true
       }
-      if (itm.title.text && itm.title.text.indexOf(currentQuery) >= 0) {
+      if (itm.title.text && itm.title.text.indexOf(this.state.currentQuery) >= 0) {
         return true
       } else if (
         itm.subtitle.text &&
-        itm.subtitle.text.indexOf(currentQuery) >= 0
+        itm.subtitle.text.indexOf(this.state.currentQuery) >= 0
       ) {
         return true
-      } else if (itm.body.text && itm.body.text.indexOf(currentQuery) >= 0) {
+      } else if (itm.body.text && itm.body.text.indexOf(this.state.currentQuery) >= 0) {
         return true
       }
     })
@@ -154,7 +151,7 @@ export default class ImageList extends Component {
     const { currentQuery } = this.state
     let wrap = [styles.wrap]
 
-    const newItems = this.filterItems(item)
+    const newItems = this.filterItems(items)
 
     const notFound = newItems.length === 0
 

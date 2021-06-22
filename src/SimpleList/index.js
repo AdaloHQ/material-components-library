@@ -55,23 +55,10 @@ export default class SimpleList extends Component {
     )
   }
 
-  debounce = (fn, time) => {
-    let timeout
 
-    return function () {
-      const functionCall = () => fn.apply(this, arguments)
-
-      clearTimeout(timeout)
-      timeout = setTimeout(functionCall, time)
-    }
-  }
 
   filterElement = (query) => {
-    let timeout
     this.setState({ currentQuery: query })
-
-    clearTimeout(timeout)
-    timeout = setTimeout(this.setState({ currentQuery: query }), 300)
   }
 
   filterItems(items) {

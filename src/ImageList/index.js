@@ -99,10 +99,7 @@ export default class ImageList extends Component {
   }
 
   filterElement = (query) => {
-    let timeout
-
-    clearTimeout(timeout)
-    timeout = setTimeout(this.setState({ currentQuery: query }), 300)
+    this.setState({ currentQuery: query })
   }
 
   renderHeader() {

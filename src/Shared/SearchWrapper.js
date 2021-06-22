@@ -14,6 +14,17 @@ export default class SearchBarWrapper extends Component {
     searchResult: '',
   }
 
+  debounce = (fn, time) => {
+    let timeout
+
+    return function () {
+      const functionCall = () => fn.apply(this, arguments)
+
+      clearTimeout(timeout)
+      timeout = setTimeout(functionCall, time)
+    }
+  }
+
   render() {
     let { searchBar, onFilterElement, notFound, notFoundText, children } =
       this.props
@@ -45,7 +56,7 @@ export default class SearchBarWrapper extends Component {
                 placeholder={searchBar.placeholderText}
                 onChange={(e) => {
                   this.setState({ searchResult: e.target.value })
-                  onFilterElement(e.target.value)
+                  this.debounce(onFilterElement(e.target.value), 300)
                 }}
               />
             </View>
