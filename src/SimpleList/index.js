@@ -243,7 +243,7 @@ class Row extends Component {
 
     let { iconType, icon } = rightSection
 
-    if (iconType == 'icon' && icon) {
+    if ((!iconType || iconType === 'icon') && icon) {
       return (
         <View style={{ justifyContent: 'flex-start' }}>
           <View style={iconWrap}>
