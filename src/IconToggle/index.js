@@ -4,9 +4,7 @@ import { IconToggle } from '@protonapp/react-native-material-ui'
 
 export default (props) => {
   const {
-    inactiveIcon,
     activeIcon,
-    inactiveColor,
     activeColor,
     toggleSize = 24,
     clickActions,
@@ -14,6 +12,16 @@ export default (props) => {
     activeActions,
     inactiveActions,
   } = props
+
+  let { inactiveIcon, inactiveColor } = props
+
+  if (!inactiveIcon) {
+    inactiveIcon = 'check-box-outline-blank'
+  }
+
+  if (!inactiveColor) {
+    inactiveColor = '#bbb'
+  }
 
   const [localChanges, setLocalChanges] = useState([])
   const localValue =
