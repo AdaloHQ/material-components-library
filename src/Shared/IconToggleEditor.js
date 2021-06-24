@@ -3,13 +3,17 @@ import { View, StyleSheet } from 'react-native'
 import { IconToggle } from '@protonapp/react-native-material-ui'
 
 export default (props) => {
-  const {
-    inactiveIcon,
-    activeIcon,
-    inactiveColor,
-    activeColor,
-    toggleSize = 24,
-  } = props
+  const { activeColor, toggleSize = 24 } = props
+
+  let { inactiveIcon, inactiveColor } = props
+
+  if (!inactiveIcon) {
+    inactiveIcon = 'check-box-outline-blank'
+  }
+
+  if (!inactiveColor) {
+    inactiveColor = '#bbb'
+  }
 
   const styles = {
     wrapper: {
