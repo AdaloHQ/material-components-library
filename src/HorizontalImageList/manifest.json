@@ -480,7 +480,8 @@
             "type": "menu",
             "options": [
               { "label": "Button", "value": "button" },
-              { "label": "Icon", "value": "icon" }
+              { "label": "Icon", "value": "icon" },
+              { "label": "Toggle", "value": "toggle" }
             ]
           },
           "enabled": {
@@ -594,7 +595,76 @@
           "displayName": "Click Actions",
           "type": "action",
           "enabled": {
-            "leftButton": true
+            "leftButton": true,
+            "buttonTypeL": ["icon", "button"]
+          }
+        },
+        {
+          "name": "inputL",
+          "displayName": "What does this toggle?",
+          "type": "boolean",
+          "role": "autosaveInput",
+          "enabled": {
+            "leftButton": true,
+            "buttonTypeL": "toggle"
+          }
+        },
+        {
+          "name": "activeIconL",
+          "displayName": "Active Icon",
+          "type": "icon",
+          "default": "check-box",
+          "enabled": {
+            "leftButton": true,
+            "buttonTypeL": "toggle"
+          }
+        },
+        {
+          "name": "activeColorL",
+          "displayName": "Active Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "leftButton": true,
+            "buttonTypeL": "toggle"
+          }
+        },
+        {
+          "name": "inactiveIconL",
+          "displayName": "Inactive Icon",
+          "type": "icon",
+          "default": "check-box-outline-blank",
+          "enabled": {
+            "leftButton": true,
+            "buttonTypeL": "toggle"
+          }
+        },
+        {
+          "name": "inactiveColorL",
+          "displayName": "Inactive Color",
+          "type": "color",
+          "default": "#bbb",
+          "enabled": {
+            "leftButton": true,
+            "buttonTypeL": "toggle"
+          }
+        },
+        {
+          "name": "activeActionsL",
+          "displayName": "Additional actions only when toggle is turned ON",
+          "type": "action",
+          "enabled": {
+            "leftButton": true,
+            "buttonTypeL": "toggle"
+          }
+        },
+        {
+          "name": "inactiveActionsL",
+          "displayName": "Additional actions only when toggle is turned OFF",
+          "type": "action",
+          "enabled": {
+            "leftButton": true,
+            "buttonTypeL": "toggle"
           }
         },
         {
@@ -612,7 +682,8 @@
             "type": "menu",
             "options": [
               { "label": "Button", "value": "button" },
-              { "label": "Icon", "value": "icon" }
+              { "label": "Icon", "value": "icon" },
+              { "label": "Toggle", "value": "toggle" }
             ]
           },
           "enabled": {
@@ -725,7 +796,76 @@
           "displayName": "Click Actions",
           "type": "action",
           "enabled": {
-            "rightButton": true
+            "rightButton": true,
+            "buttonTypeR": ["icon", "button"]
+          }
+        },
+        {
+          "name": "inputR",
+          "displayName": "What does this toggle?",
+          "type": "boolean",
+          "role": "autosaveInput",
+          "enabled": {
+            "rightButton": true,
+            "buttonTypeR": "toggle"
+          }
+        },
+        {
+          "name": "activeIconR",
+          "displayName": "Active Icon",
+          "type": "icon",
+          "default": "check-box",
+          "enabled": {
+            "rightButton": true,
+            "buttonTypeR": "toggle"
+          }
+        },
+        {
+          "name": "activeColorR",
+          "displayName": "Active Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "rightButton": true,
+            "buttonTypeR": "toggle"
+          }
+        },
+        {
+          "name": "inactiveIconR",
+          "displayName": "Inactive Icon",
+          "type": "icon",
+          "default": "check-box-outline-blank",
+          "enabled": {
+            "rightButton": true,
+            "buttonTypeR": "toggle"
+          }
+        },
+        {
+          "name": "inactiveColorR",
+          "displayName": "Inactive Color",
+          "type": "color",
+          "default": "#bbb",
+          "enabled": {
+            "rightButton": true,
+            "buttonTypeR": "toggle"
+          }
+        },
+        {
+          "name": "activeActionsR",
+          "displayName": "Additional actions only when toggle is turned ON",
+          "type": "action",
+          "enabled": {
+            "rightButton": true,
+            "buttonTypeR": "toggle"
+          }
+        },
+        {
+          "name": "inactiveActionsR",
+          "displayName": "Additional actions only when toggle is turned OFF",
+          "type": "action",
+          "enabled": {
+            "rightButton": true,
+            "buttonTypeR": "toggle"
           }
         }
       ]

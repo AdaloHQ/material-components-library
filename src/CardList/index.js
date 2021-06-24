@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, Image, Platform } from 'react-native'
-import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import placeholder from './holdplace.png'
 import { Card, Button, IconToggle } from '@protonapp/react-native-material-ui'
+import WrappedIconToggle from '../IconToggle/index.js'
+import IconToggleEditor from '../Shared/IconToggleEditor'
 
 const SINGLE_COLUMN_LAYOUTS = {
   mediaRight: true,
@@ -323,6 +324,7 @@ class Cell extends Component {
       width,
       cardStyles,
       _fonts,
+      editor,
     } = this.props
 
     let mediaPosition = media && media.position
@@ -388,6 +390,7 @@ class Cell extends Component {
             icon1={icon1}
             icon2={icon2}
             _fonts={_fonts}
+            editor={editor}
           />
         ) : null}
       </WrappedCard>
@@ -528,8 +531,25 @@ class Actions extends Component {
       return null
     }
 
-    let { icon, onPress, color, enabled } = opts
+    const { icon, onPress, color, iconType } = opts
 
+    const { editor } = this.props
+
+    if (iconType === 'toggle') {
+      if (editor) {
+        return (
+          <View style={{ padding: 12 }}>
+            <IconToggleEditor {...opts}></IconToggleEditor>
+          </View>
+        )
+      } else {
+        return (
+          <View style={{ padding: 12 }}>
+            <WrappedIconToggle {...opts}></WrappedIconToggle>
+          </View>
+        )
+      }
+    }
     return (
       <View style={styles.iconButtonWrapper}>
         <IconToggle
@@ -675,6 +695,7 @@ const styles = StyleSheet.create({
   },
   actionsWrapperSub: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
   button: {
     paddingLeft: 15,
