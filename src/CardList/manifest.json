@@ -415,20 +415,103 @@
           "default": false
         },
         {
+          "name": "iconType",
+          "displayName": "Icon Type",
+          "type": "text",
+          "default": "icon",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Icon", "value": "icon" },
+              { "label": "Toggle", "value": "toggle" }
+            ]
+          }
+        },
+        {
           "name": "icon",
           "type": "icon",
-          "default": "favorite"
+          "default": "favorite",
+          "enabled": {
+            "iconType": ["toggle", "ADALO_INTERNAL_!previous"]
+          }
         },
         {
           "name": "onPress",
           "displayName": "Click Actions",
-          "type": "action"
+          "type": "action",
+          "enabled": {
+            "iconType": ["toggle", "ADALO_INTERNAL_!previous"]
+          }
         },
         {
           "name": "color",
           "displayName": "Text Color",
           "type": "color",
-          "default": "#ccc"
+          "default": "#ccc",
+          "enabled": {
+            "iconType": ["toggle", "ADALO_INTERNAL_!previous"]
+          }
+        },
+        {
+          "name": "input",
+          "displayName": "What does this toggle?",
+          "type": "boolean",
+          "role": "autosaveInput",
+          "enabled": {
+            "iconType": "toggle"
+          }
+        },
+        {
+          "name": "activeIcon",
+          "displayName": "Active Icon",
+          "type": "icon",
+          "default": "check-box",
+          "enabled": {
+            "iconType": "toggle"
+          }
+        },
+        {
+          "name": "activeColor",
+          "displayName": "Active Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "iconType": "toggle"
+          }
+        },
+        {
+          "name": "inactiveIcon",
+          "displayName": "Inactive Icon",
+          "type": "icon",
+          "default": "check-box-outline-blank",
+          "enabled": {
+            "iconType": "toggle"
+          }
+        },
+        {
+          "name": "inactiveColor",
+          "displayName": "Inactive Color",
+          "type": "color",
+          "default": "#bbb",
+          "enabled": {
+            "iconType": "toggle"
+          }
+        },
+        {
+          "name": "activeActions",
+          "displayName": "Additional actions only when toggle is turned ON",
+          "type": "action",
+          "enabled": {
+            "iconType": "toggle"
+          }
+        },
+        {
+          "name": "inactiveActions",
+          "displayName": "Additional actions only when toggle is turned OFF",
+          "type": "action",
+          "enabled": {
+            "iconType": "toggle"
+          }
         }
       ]
     },
@@ -444,20 +527,103 @@
           "default": false
         },
         {
+          "name": "iconType",
+          "displayName": "Icon Type",
+          "type": "text",
+          "default": "icon",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Icon", "value": "icon" },
+              { "label": "Toggle", "value": "toggle" }
+            ]
+          }
+        },
+        {
           "name": "icon",
           "type": "icon",
-          "default": "share"
+          "default": "share",
+          "enabled": {
+            "iconType": ["toggle", "ADALO_INTERNAL_!previous"]
+          }
         },
         {
           "name": "onPress",
           "displayName": "Click Actions",
-          "type": "action"
+          "type": "action",
+          "enabled": {
+            "iconType": ["toggle", "ADALO_INTERNAL_!previous"]
+          }
         },
         {
           "name": "color",
           "displayName": "Text Color",
           "type": "color",
-          "default": "#ccc"
+          "default": "#ccc",
+          "enabled": {
+            "iconType": ["toggle", "ADALO_INTERNAL_!previous"]
+          }
+        },
+        {
+          "name": "input",
+          "displayName": "What does this toggle?",
+          "type": "boolean",
+          "role": "autosaveInput",
+          "enabled": {
+            "iconType": "toggle"
+          }
+        },
+        {
+          "name": "activeIcon",
+          "displayName": "Active Icon",
+          "type": "icon",
+          "default": "check-box",
+          "enabled": {
+            "iconType": "toggle"
+          }
+        },
+        {
+          "name": "activeColor",
+          "displayName": "Active Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "iconType": "toggle"
+          }
+        },
+        {
+          "name": "inactiveIcon",
+          "displayName": "Inactive Icon",
+          "type": "icon",
+          "default": "check-box-outline-blank",
+          "enabled": {
+            "iconType": "toggle"
+          }
+        },
+        {
+          "name": "inactiveColor",
+          "displayName": "Inactive Color",
+          "type": "color",
+          "default": "#bbb",
+          "enabled": {
+            "iconType": "toggle"
+          }
+        },
+        {
+          "name": "activeActions",
+          "displayName": "Additional actions only when toggle is turned ON",
+          "type": "action",
+          "enabled": {
+            "iconType": "toggle"
+          }
+        },
+        {
+          "name": "inactiveActions",
+          "displayName": "Additional actions only when toggle is turned OFF",
+          "type": "action",
+          "enabled": {
+            "iconType": "toggle"
+          }
         }
       ]
     },

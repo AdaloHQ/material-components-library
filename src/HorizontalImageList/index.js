@@ -367,8 +367,6 @@ class HorizontalImageList extends Component {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-
-        overflow: 'hidden',
         paddingTop: ((imageSize - 150) / 175) * 8 + 12,
       },
       styleless: {

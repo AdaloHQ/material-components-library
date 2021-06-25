@@ -4,9 +4,7 @@ import { IconToggle } from '@protonapp/react-native-material-ui'
 
 export default (props) => {
   const {
-    inactiveIcon,
     activeIcon,
-    inactiveColor,
     activeColor,
     toggleSize = 24,
     clickActions,
@@ -14,6 +12,16 @@ export default (props) => {
     activeActions,
     inactiveActions,
   } = props
+
+  let { inactiveIcon, inactiveColor } = props
+
+  if (!inactiveIcon) {
+    inactiveIcon = 'check-box-outline-blank'
+  }
+
+  if (!inactiveColor) {
+    inactiveColor = '#bbb'
+  }
 
   const [localChanges, setLocalChanges] = useState([])
   const localValue =
@@ -43,7 +51,7 @@ export default (props) => {
   useEffect(() => {
     if (localChanges.length !== 0) {
       // There are local changes queued up.
-      if (value === localChanges[0]) {
+      if (!!value === localChanges[0]) {
         localChanges.shift()
         setLocalChanges(localChanges)
       }
@@ -54,13 +62,11 @@ export default (props) => {
     wrapper: {
       height: toggleSize,
       width: toggleSize,
-      overflow: 'hidden',
     },
     buttonWrapper: {
       margin: -12,
       width: 2 * toggleSize,
       height: 2 * toggleSize,
-      overflow: 'hidden',
     },
   }
 

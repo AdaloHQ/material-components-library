@@ -10,6 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import SearchBarWrapper from '../Shared/SearchWrapper'
+import WrappedIconToggle from '../IconToggle/index.js'
 
 export default class SimpleList extends Component {
   static defaultProps = {
@@ -272,7 +273,7 @@ class Row extends Component {
   }
 
   renderRightSection() {
-    let { rightSection, firstLine, secondLine } = this.props
+    let { rightSection } = this.props
 
     if (!rightSection || !rightSection.enabled) {
       return null
@@ -281,7 +282,9 @@ class Row extends Component {
     let iconStyles = [{ marginRight: -12 }]
     let iconWrap = [styles.iconWrap]
 
-    if (rightSection.icon) {
+    let { iconType, icon } = rightSection
+
+    if ((!iconType || iconType === 'icon') && icon) {
       return (
         <View style={{ justifyContent: 'flex-start' }}>
           <View style={iconWrap}>
@@ -296,6 +299,15 @@ class Row extends Component {
             />
           </View>
         </View>
+      )
+    }
+
+    if (iconType == 'toggle') {
+      return (
+        <WrappedIconToggle
+          {...rightSection}
+          input={rightSection.input ? rightSection.input : {}}
+        ></WrappedIconToggle>
       )
     }
 
