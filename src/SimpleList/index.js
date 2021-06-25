@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
+import EmptyListWrapper from '../Shared/EmptyListWrapper'
 
 export default class SimpleList extends Component {
   static defaultProps = {
@@ -78,7 +79,9 @@ export default class SimpleList extends Component {
       background,
       listHeader,
       searchBar,
+      listEmptyState,
     } = this.props
+    console.log(this.props)
 
     let wrap = [styles.wrapper]
     if (background && background.enabled) {
@@ -119,28 +122,30 @@ export default class SimpleList extends Component {
 
     return (
       <>
-        <SearchBarWrapper
-          searchBar={this.props.searchBar}
-          onFilterElement={this.filterElement}
-          notFound={notFound}
-          notFoundText={searchBar.notFoundText}
-        >
-          <>{this.renderHeader()}</>
-          <View style={wrap} onLayout={this.handleLayout}>
-            {newItems.map((itm, i) => (
-              <Row
-                {...itm}
-                key={itm.id}
-                dividerType={dividerType}
-                dividerColor={dividerColor}
-                lastRow={i === newItems.length - 1}
-                fullWidth={this.state.fullWidth}
-                editor={this.props.editor}
-                _fonts={this.props._fonts}
-              />
-            ))}
-          </View>
-        </SearchBarWrapper>
+        <EmptyListWrapper listEmptyState={listEmptyState} items={items}>
+          <SearchBarWrapper
+            searchBar={this.props.searchBar}
+            onFilterElement={this.filterElement}
+            notFound={notFound}
+            notFoundText={searchBar.notFoundText}
+          >
+            <>{this.renderHeader()}</>
+            <View style={wrap} onLayout={this.handleLayout}>
+              {newItems.map((itm, i) => (
+                <Row
+                  {...itm}
+                  key={itm.id}
+                  dividerType={dividerType}
+                  dividerColor={dividerColor}
+                  lastRow={i === newItems.length - 1}
+                  fullWidth={this.state.fullWidth}
+                  editor={this.props.editor}
+                  _fonts={this.props._fonts}
+                />
+              ))}
+            </View>
+          </SearchBarWrapper>
+        </EmptyListWrapper>
       </>
     )
   }
