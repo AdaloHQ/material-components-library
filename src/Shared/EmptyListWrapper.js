@@ -1,23 +1,35 @@
 import React, { Component } from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TextInput,
-  Platform,
-} from 'react-native'
+import { View, Text, StyleSheet, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+
+import WrappedTextButton from '../TextButton/TextButton.js'
 
 export default class EmptyListWrapper extends Component {
   render() {
     let { listEmptyState, items, children } = this.props
 
-    console.log(this.props)
+    if (!listEmptyState) {
+      return <View>Loading...</View>
+    }
 
     if (items.length == 0) {
-      return <>
-      <ImageHolder listEmptyState={listEmptyState}></ImageHolder></>
+      return (
+        <>
+          <ImageHolder listEmptyState={listEmptyState} />
+            <WrappedTextButton
+              type={listEmptyState.type}
+              text={listEmptyState.text}
+              icon={listEmptyState.icon}
+              primaryColor={listEmptyState.primaryColor}
+              contrastColor={listEmptyState.contrastColor}
+              borderRadius={listEmptyState.borderRadius}
+              shadow={listEmptyState.shadow}
+              upperCase={listEmptyState.upperCase}
+              action={listEmptyState.action}
+              style={[styles.buttonContainer, {width: 150, alignSelf: 'center'}]}
+            />
+        </>
+      )
     } else {
       return <>{children}</>
     }
@@ -27,24 +39,41 @@ export default class EmptyListWrapper extends Component {
 class ImageHolder extends Component {
   render() {
     let { listEmptyState } = this.props
+    console.log(listEmptyState.imageSource)
+    if (!listEmptyState) {
+      return <View>Loading...</View>
+    }
     let emptyStateImage = listEmptyState.emptyStateImageStatus
     if (emptyStateImage == 'noImage') {
-      return <>{children}</>
+      return (
+        <>
+          <TitleHolder listEmptyState={listEmptyState}></TitleHolder>
+        </>
+      )
     } else if (emptyStateImage == 'above') {
       return (
         <>
           <View style={[styles.emptyList]}>
-            <Text>Image Holder</Text>
+            <Image
+              resizeMode="cover"
+              style={styles.image}
+              source={listEmptyState.imageSource}
+              pointerEvents="none"
+            />
           </View>
-          <Title listEmptyState={listEmptyState}></Title>
+          <TitleHolder listEmptyState={listEmptyState}></TitleHolder>
         </>
       )
     } else {
       return (
         <>
-          <Title listEmptyState={listEmptyState}></Title>
           <View style={[styles.emptyList]}>
-            <Text>Image Holder</Text>
+            <TitleHolder listEmptyState={listEmptyState}></TitleHolder>
+            <Image
+              style={styles.image}
+              source={listEmptyState.source}
+              pointerEvents="none"
+            />
           </View>
         </>
       )
@@ -52,19 +81,30 @@ class ImageHolder extends Component {
   }
 }
 
-class Title extends Component {
+class TitleHolder extends Component {
   render() {
     let { listEmptyState } = this.props
+    if (!listEmptyState) {
+      return <View>Loading...</View>
+    }
     let titleDisplay = listEmptyState.textTitleDisplay
     if (titleDisplay == 'noText') {
       return <></>
     } else if (titleDisplay == 'titleOnly') {
-      return <Text>{listEmptyState.title}</Text>
+      return (
+        <Text style={[styles.textStyle, listEmptyState.styles.title]}>
+          {listEmptyState.title}
+        </Text>
+      )
     } else {
       return (
         <View>
-          <Text>{listEmptyState.title}</Text>
-          <Text>{listEmptyState.subtitle}</Text>
+          <Text style={[styles.textStyle, listEmptyState.styles.title]}>
+            {listEmptyState.title}
+          </Text>
+          <Text style={[styles.textStyle, listEmptyState.styles.subtitle]}>
+            {listEmptyState.subtitle}
+          </Text>
         </View>
       )
     }
@@ -74,17 +114,29 @@ class Title extends Component {
 const styles = StyleSheet.create({
   emptyList: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'center',
     margin: 30,
   },
   input: {
     flex: 0.95,
     height: 40,
-    font: '18px',
+    fontSize: 18,
   },
   icon: {
     justifyContent: 'center',
     flex: 0.05,
+  },
+  image: {
+    width: 300,
+    height: 300,
+  },
+  textStyle: {
+    justifyContent: 'center',
+    textAlign: 'center',
+    fontSize: 18,
+  },
+  buttonContainer: {
+    width: '100%',
+    alignSelf: 'center',
   },
 })

@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 0.95,
     height: 40,
-    font: '18px',
+    fontSize: 18,
   },
   icon: {
     justifyContent: 'center',
