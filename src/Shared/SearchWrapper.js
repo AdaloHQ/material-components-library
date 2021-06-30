@@ -10,13 +10,6 @@ import {
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
 export default class SearchBarWrapper extends Component {
-  state = {
-    fontSize: 18,
-    color: '#CCCCCC',
-    fontFamily: 'Oswald',
-    fontWeight: 600,
-  }
-
   debounce = (fn, time) => {
     let timeout
 
@@ -26,17 +19,6 @@ export default class SearchBarWrapper extends Component {
       clearTimeout(timeout)
       timeout = setTimeout(functionCall, time)
     }
-  }
-
-  _onChange(e) {
-    let { searchBar } = this.props
-    let placeholderStyle = searchBar.styles.placeholderText
-    this.setState({
-      fontSize: placeholderStyle.fontSize,
-      color: placeholderStyle.color,
-      fontFamily: placeholderStyle.fontFamily,
-      fontWeight: placeholderStyle.fontWeight,
-    })
   }
 
   render() {
@@ -51,7 +33,7 @@ export default class SearchBarWrapper extends Component {
 
     if (searchBar.enabled) {
       return (
-        <>
+        <View style={styles.totalWrapper}>
           <View
             style={[
               styles.searchBar,
@@ -75,21 +57,13 @@ export default class SearchBarWrapper extends Component {
               fontSize={searchBar.styles.placeholderText.fontSize}
             >
               <TextInput
-                style={[
-                  styles.input,
-                  {
-                    fontSize: this.state.fontSize,
-                    color: this.state.color,
-                    fontFamily: this.state.fontFamily,
-                    fontWeight: this.state.fontWeight,
-                  },
-                ]}
+                style={[styles.input]}
                 fontSize={searchBar.styles.placeholderText.fontSize}
                 placeholder={searchBar.placeholderText}
+                placeholderTextColor={searchBar.styles.placeholderText.color}
                 onChange={(e) => {
                   this.debounce(onFilterElement(e.target.value), 300)
                 }}
-                onChangeText={this._onChange.bind(this)}
               />
             </View>
           </View>
@@ -100,7 +74,7 @@ export default class SearchBarWrapper extends Component {
           ) : (
             children
           )}
-        </>
+        </View>
       )
     } else {
       return <>{children}</>
@@ -111,11 +85,16 @@ export default class SearchBarWrapper extends Component {
 const styles = StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
-    height: 50,
-    paddingTop: 3,
-    paddingBottom: 3,
-    paddingLeft: 30,
-    paddingRight: 30,
+    height: 42,
+    paddingTop: 0,
+    marginTop: 22,
+    paddingBottom: 0,
+    marginBottom: 12,
+    paddingLeft: 2,
+    paddingRight: 2,
+    marginLeft: 15,
+    marginRight: 15,
+    borderColor: 'gray',
     alignItems: 'center',
     justifyContent: 'center',
     margin: 30,
@@ -128,5 +107,17 @@ const styles = StyleSheet.create({
   icon: {
     justifyContent: 'center',
     flex: 0.05,
+    paddingLeft: 6,
+  },
+  totalWrapper: {
+    marginRight: 20,
+    marginLeft: 10,
+    marginTop: 10,
+    paddingTop: 0,
+    paddingBottom: 5,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
   },
 })

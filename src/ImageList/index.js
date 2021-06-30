@@ -138,17 +138,17 @@ export default class ImageList extends Component {
     if (layout === 'masonry') {
       return (
         <>
-          <SearchBarWrapper
-            searchBar={this.props.searchBar}
-            onFilterElement={this.filterElement}
-            notFound={notFound}
-            notFoundText={searchBar.notFoundText}
-          >
-            <View onLayout={this.handleLayout}>
-              {this.renderHeader()}
+          <View onLayout={this.handleLayout}>
+            {this.renderHeader()}
+            <SearchBarWrapper
+              searchBar={this.props.searchBar}
+              onFilterElement={this.filterElement}
+              notFound={notFound}
+              notFoundText={searchBar.notFoundText}
+            >
               {this.renderMasonry(this.getColumns(newItems))}
-            </View>
-          </SearchBarWrapper>
+            </SearchBarWrapper>
+          </View>
         </>
       )
     } else {

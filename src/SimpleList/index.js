@@ -119,13 +119,13 @@ export default class SimpleList extends Component {
 
     return (
       <>
+        <>{this.renderHeader()}</>
         <SearchBarWrapper
           searchBar={this.props.searchBar}
           onFilterElement={this.filterElement}
           notFound={notFound}
           notFoundText={searchBar.notFoundText}
         >
-          <>{this.renderHeader()}</>
           <View style={wrap} onLayout={this.handleLayout}>
             {newItems.map((itm, i) => (
               <Row
