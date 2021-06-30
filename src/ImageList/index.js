@@ -139,13 +139,13 @@ export default class ImageList extends Component {
       return (
         <>
           <View onLayout={this.handleLayout}>
-            {this.renderHeader()}
             <SearchBarWrapper
               searchBar={this.props.searchBar}
               onFilterElement={this.filterElement}
               notFound={notFound}
               notFoundText={searchBar.notFoundText}
             >
+              {this.renderHeader()}
               {this.renderMasonry(this.getColumns(newItems))}
             </SearchBarWrapper>
           </View>
@@ -159,8 +159,11 @@ export default class ImageList extends Component {
             onFilterElement={this.filterElement}
             notFound={notFound}
             notFoundText={searchBar.notFoundText}
-          ></SearchBarWrapper>
-          <View onLayout={this.handleLayout}>{this.renderGrid(newItems)}</View>
+          >
+            <View onLayout={this.handleLayout}>
+              {this.renderGrid(newItems)}
+            </View>
+          </SearchBarWrapper>
         </>
       )
     }

@@ -25,8 +25,6 @@ export default class SearchBarWrapper extends Component {
     let { searchBar, onFilterElement, notFound, notFoundText, children } =
       this.props
 
-    console.log(this.props)
-
     if (!searchBar) {
       return <>{children}</>
     }
@@ -113,8 +111,10 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginLeft: 10,
     marginTop: 10,
-    paddingTop: 0,
-    paddingBottom: 5,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 7,
+    paddingRight: 7,
     backgroundColor: '#fff',
     borderRadius: 10,
     borderWidth: 1,
