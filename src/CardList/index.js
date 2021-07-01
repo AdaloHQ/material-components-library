@@ -1,11 +1,5 @@
 import React, { Component } from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Platform,
-} from 'react-native'
+import { View, Text, StyleSheet, Image, Platform } from 'react-native'
 import placeholder from './holdplace.png'
 import { Card, Button, IconToggle } from '@protonapp/react-native-material-ui'
 import SearchBarWrapper from '../Shared/SearchWrapper'
@@ -164,34 +158,34 @@ export default class ImageList extends Component {
     if (cardLayout === 'grid') {
       return (
         <>
-          <SearchBarWrapper
-            searchBar={this.props.searchBar}
-            onFilterElement={this.filterElement}
-            notFound={notFound}
-            notFoundText={searchBar.notFoundText}
-          >
-            <View style={wrap}>
-              {this.renderHeader()}
-              {this.renderGrid(newItems)}
-            </View>
-          </SearchBarWrapper>
+          <View style={wrap}>
+            {this.renderHeader()}
+            <SearchBarWrapper
+              searchBar={this.props.searchBar}
+              onFilterElement={this.filterElement}
+              notFound={notFound}
+              notFoundText={searchBar.notFoundText}
+            >
+              {this.renderGrid(newItems)}{' '}
+            </SearchBarWrapper>
+          </View>
         </>
       )
     }
 
     return (
       <>
-        <SearchBarWrapper
-          searchBar={this.props.searchBar}
-          onFilterElement={this.filterElement}
-          notFound={notFound}
-          notFoundText={searchBar.notFoundText}
-        >
-          <View style={wrap}>
-            {this.renderHeader()}
+        <View style={wrap}>
+          {this.renderHeader()}
+          <SearchBarWrapper
+            searchBar={this.props.searchBar}
+            onFilterElement={this.filterElement}
+            notFound={notFound}
+            notFoundText={searchBar.notFoundText}
+          >
             {this.renderMasonry(newItems)}
-          </View>
-        </SearchBarWrapper>
+          </SearchBarWrapper>
+        </View>
       </>
     )
   }

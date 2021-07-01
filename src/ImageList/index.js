@@ -138,17 +138,17 @@ export default class ImageList extends Component {
     if (layout === 'masonry') {
       return (
         <>
-          <SearchBarWrapper
-            searchBar={this.props.searchBar}
-            onFilterElement={this.filterElement}
-            notFound={notFound}
-            notFoundText={searchBar.notFoundText}
-          >
-            <View onLayout={this.handleLayout}>
+          <View onLayout={this.handleLayout}>
+            <SearchBarWrapper
+              searchBar={this.props.searchBar}
+              onFilterElement={this.filterElement}
+              notFound={notFound}
+              notFoundText={searchBar.notFoundText}
+            >
               {this.renderHeader()}
               {this.renderMasonry(this.getColumns(newItems))}
-            </View>
-          </SearchBarWrapper>
+            </SearchBarWrapper>
+          </View>
         </>
       )
     } else {
@@ -159,8 +159,11 @@ export default class ImageList extends Component {
             onFilterElement={this.filterElement}
             notFound={notFound}
             notFoundText={searchBar.notFoundText}
-          ></SearchBarWrapper>
-          <View onLayout={this.handleLayout}>{this.renderGrid(newItems)}</View>
+          >
+            <View onLayout={this.handleLayout}>
+              {this.renderGrid(newItems)}
+            </View>
+          </SearchBarWrapper>
         </>
       )
     }

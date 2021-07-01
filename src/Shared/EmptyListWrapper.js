@@ -12,10 +12,11 @@ export default class EmptyListWrapper extends Component {
       return <View>Loading...</View>
     }
 
-    if (items.length == 0) {
+    if (items.length === 0) {
       return (
         <>
           <ImageHolder listEmptyState={listEmptyState} />
+          {listEmptyState.type !== 'noButton' && (
             <WrappedTextButton
               type={listEmptyState.type}
               text={listEmptyState.text}
@@ -26,8 +27,12 @@ export default class EmptyListWrapper extends Component {
               shadow={listEmptyState.shadow}
               upperCase={listEmptyState.upperCase}
               action={listEmptyState.action}
-              style={[styles.buttonContainer, {width: 150, alignSelf: 'center'}]}
+              container={{
+                width: listEmptyState.buttonWidth,
+                alignSelf: 'center',
+              }}
             />
+          )}
         </>
       )
     } else {
@@ -39,7 +44,9 @@ export default class EmptyListWrapper extends Component {
 class ImageHolder extends Component {
   render() {
     let { listEmptyState } = this.props
-    console.log(listEmptyState.imageSource)
+    let realImageSource = !listEmptyState.imageSource
+      ? require('./empty-state-image.png')
+      : listEmptyState.imageSource
     if (!listEmptyState) {
       return <View>Loading...</View>
     }
@@ -57,7 +64,7 @@ class ImageHolder extends Component {
             <Image
               resizeMode="cover"
               style={styles.image}
-              source={listEmptyState.imageSource}
+              source={realImageSource}
               pointerEvents="none"
             />
           </View>
@@ -67,11 +74,12 @@ class ImageHolder extends Component {
     } else {
       return (
         <>
+          <TitleHolder listEmptyState={listEmptyState}></TitleHolder>
           <View style={[styles.emptyList]}>
-            <TitleHolder listEmptyState={listEmptyState}></TitleHolder>
             <Image
+              resizeMode="cover"
               style={styles.image}
-              source={listEmptyState.source}
+              source={realImageSource}
               pointerEvents="none"
             />
           </View>
@@ -127,13 +135,15 @@ const styles = StyleSheet.create({
     flex: 0.05,
   },
   image: {
-    width: 300,
-    height: 300,
+    width: 500,
+    height: 500
   },
   textStyle: {
     justifyContent: 'center',
     textAlign: 'center',
     fontSize: 18,
+    padding: 8,
+    color: 'gray',
   },
   buttonContainer: {
     width: '100%',

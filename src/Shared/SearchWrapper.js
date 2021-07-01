@@ -25,9 +25,13 @@ export default class SearchBarWrapper extends Component {
     let { searchBar, onFilterElement, notFound, notFoundText, children } =
       this.props
 
+    if (!searchBar) {
+      return <>{children}</>
+    }
+
     if (searchBar.enabled) {
       return (
-        <>
+        <View style={styles.totalWrapper}>
           <View
             style={[
               styles.searchBar,
@@ -46,10 +50,15 @@ export default class SearchBarWrapper extends Component {
                 color={searchBar.iconColor}
               />
             </View>
-            <View style={styles.input}>
+            <View
+              style={styles.input}
+              fontSize={searchBar.styles.placeholderText.fontSize}
+            >
               <TextInput
-                style={styles.input}
+                style={[styles.input]}
+                fontSize={searchBar.styles.placeholderText.fontSize}
                 placeholder={searchBar.placeholderText}
+                placeholderTextColor={searchBar.styles.placeholderText.color}
                 onChange={(e) => {
                   this.debounce(onFilterElement(e.target.value), 300)
                 }}
@@ -58,12 +67,12 @@ export default class SearchBarWrapper extends Component {
           </View>
           {notFound ? (
             <View style={([styles.input], { alignItems: 'center' })}>
-              {notFoundText}
+              <Text style={searchBar.styles.notFoundText}>{notFoundText}</Text>
             </View>
           ) : (
             children
           )}
-        </>
+        </View>
       )
     } else {
       return <>{children}</>
@@ -74,11 +83,16 @@ export default class SearchBarWrapper extends Component {
 const styles = StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
-    height: 50,
-    paddingTop: 3,
-    paddingBottom: 3,
-    paddingLeft: 30,
-    paddingRight: 30,
+    height: 42,
+    paddingTop: 0,
+    marginTop: 22,
+    paddingBottom: 0,
+    marginBottom: 12,
+    paddingLeft: 2,
+    paddingRight: 2,
+    marginLeft: 15,
+    marginRight: 15,
+    borderColor: 'gray',
     alignItems: 'center',
     justifyContent: 'center',
     margin: 30,
@@ -91,5 +105,19 @@ const styles = StyleSheet.create({
   icon: {
     justifyContent: 'center',
     flex: 0.05,
+    paddingLeft: 6,
+  },
+  totalWrapper: {
+    marginRight: 20,
+    marginLeft: 10,
+    marginTop: 10,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 7,
+    paddingRight: 7,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
   },
 })

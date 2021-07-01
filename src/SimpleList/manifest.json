@@ -470,6 +470,20 @@
           }
         },
         {
+          "name": "imageWidth",
+          "displayName": "Image Width",
+          "type": "number",
+          "default": 100,
+          "control": {
+            "type": "slider",
+            "max": 600,
+            "min": 50
+          },
+          "enabled": {
+            "emptyStateImageStatus": ["above", "below"]
+          }
+        },
+        {
           "name": "textTitleDisplay",
           "displayName": "Text",
           "type": "text",
@@ -564,6 +578,20 @@
           "type": "color",
           "default": "@contrast:primaryColor",
           "enabled": { "type": "contained" }
+        },
+        {
+          "name": "buttonWidth",
+          "displayName": "Button Width",
+          "type": "number",
+          "control": {
+            "type": "slider",
+            "max": 600,
+            "min": 50
+          },
+          "default": 4,
+          "enabled": {
+            "type": ["text", "outlined", "contained"]
+          }
         },
         {
           "name": "borderRadius",

@@ -81,7 +81,6 @@ export default class SimpleList extends Component {
       searchBar,
       listEmptyState,
     } = this.props
-    console.log(this.props)
 
     let wrap = [styles.wrapper]
     if (background && background.enabled) {
@@ -123,13 +122,13 @@ export default class SimpleList extends Component {
     return (
       <>
         <EmptyListWrapper listEmptyState={listEmptyState} items={items}>
+          <>{this.renderHeader()}</>
           <SearchBarWrapper
             searchBar={this.props.searchBar}
             onFilterElement={this.filterElement}
             notFound={notFound}
             notFoundText={searchBar.notFoundText}
           >
-            <>{this.renderHeader()}</>
             <View style={wrap} onLayout={this.handleLayout}>
               {newItems.map((itm, i) => (
                 <Row
