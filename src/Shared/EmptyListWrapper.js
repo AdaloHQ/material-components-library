@@ -45,7 +45,7 @@ class ImageHolder extends Component {
   render() {
     let { listEmptyState } = this.props
     let realImageSource = !listEmptyState.imageSource
-      ? require('./empty-state-image.png')
+      ? require('./sqr-empty-state.png')
       : listEmptyState.imageSource
     if (!listEmptyState) {
       return <View>Loading...</View>
@@ -135,8 +135,9 @@ const styles = StyleSheet.create({
     flex: 0.05,
   },
   image: {
-    width: 500,
-    height: 500
+    width: null,
+    height: 300,
+    flex: 1,
   },
   textStyle: {
     justifyContent: 'center',

@@ -22,8 +22,22 @@ export default class SearchBarWrapper extends Component {
   }
 
   render() {
-    let { searchBar, onFilterElement, notFound, notFoundText, children } =
-      this.props
+    let { searchBar, onFilterElement, notFound, children } = this.props
+
+    let {
+      notFoundText,
+      backgroundColor,
+      borderSize,
+      rounding,
+      icon,
+      iconColor,
+      placeholderText,
+    } = searchBar
+
+    let searchBarStyles = searchBar.styles
+    if (!searchBar) {
+      return <>{children}</>
+    }
 
     if (!searchBar) {
       return <>{children}</>
@@ -36,29 +50,29 @@ export default class SearchBarWrapper extends Component {
             style={[
               styles.searchBar,
               {
-                backgroundColor: searchBar.backgroundColor,
-                borderWidth: searchBar.borderSize,
-                borderRadius: searchBar.rounding,
+                backgroundColor: backgroundColor,
+                borderWidth: borderSize,
+                borderRadius: rounding,
               },
             ]}
           >
-            <View style={([styles.icon], {})}>
+            <View style={styles.icon}>
               <Icon
                 size={24}
-                name={searchBar.icon}
+                name={icon}
                 styles={styles.icon}
-                color={searchBar.iconColor}
+                color={iconColor}
               />
             </View>
             <View
               style={styles.input}
-              fontSize={searchBar.styles.placeholderText.fontSize}
+              fontSize={searchBarStyles.placeholderText.fontSize}
             >
               <TextInput
-                style={[styles.input]}
-                fontSize={searchBar.styles.placeholderText.fontSize}
-                placeholder={searchBar.placeholderText}
-                placeholderTextColor={searchBar.styles.placeholderText.color}
+                style={styles.input}
+                fontSize={searchBarStyles.placeholderText.fontSize}
+                placeholder={placeholderText}
+                placeholderTextColor={searchBarStyles.placeholderText.color}
                 onChange={(e) => {
                   this.debounce(onFilterElement(e.target.value), 300)
                 }}
@@ -67,7 +81,7 @@ export default class SearchBarWrapper extends Component {
           </View>
           {notFound ? (
             <View style={([styles.input], { alignItems: 'center' })}>
-              <Text style={searchBar.styles.notFoundText}>{notFoundText}</Text>
+              <Text style={searchBarStyles.notFoundText}>{notFoundText}</Text>
             </View>
           ) : (
             children
@@ -106,6 +120,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 0.05,
     paddingLeft: 6,
+    paddingRight: 18
   },
   totalWrapper: {
     marginRight: 20,

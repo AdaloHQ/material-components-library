@@ -67,6 +67,8 @@ export default class ImageList extends Component {
     let { columnCount } = this.props
     let { fullWidth } = this.state
 
+    let columns = this.getColumns(items)
+
     let width = fullWidth / columnCount
 
     let wrap = [styles.wrapper]
@@ -117,17 +119,18 @@ export default class ImageList extends Component {
   }
 
   filterItems(items) {
+    let currentQuery = this.state.currentQuery
     return items.filter((itm) => {
-      if (itm.title.text.indexOf(this.state.currentQuery) >= 0) {
+      if (itm.title.text.indexOf(currentQuery) >= 0) {
         return true
-      } else if (itm.title.subtitle.indexOf(this.state.currentQuery) >= 0) {
+      } else if (itm.title.subtitle.indexOf(currentQuery) >= 0) {
         return true
       }
     })
   }
 
   render() {
-    let { items, searchBar } = this.props
+    let { items, searchBar, listEmptyState } = this.props
 
     let layout = 'grid' //items[0] ? items[0].imageStyles.layout : 'grid'
 
@@ -139,31 +142,33 @@ export default class ImageList extends Component {
       return (
         <>
           <View onLayout={this.handleLayout}>
-            <SearchBarWrapper
-              searchBar={this.props.searchBar}
-              onFilterElement={this.filterElement}
-              notFound={notFound}
-              notFoundText={searchBar.notFoundText}
-            >
-              {this.renderHeader()}
-              {this.renderMasonry(this.getColumns(newItems))}
-            </SearchBarWrapper>
+            <EmptyListWrapper listEmptyState={listEmptyState} items={items}>
+              <SearchBarWrapper
+                searchBar={this.props.searchBar}
+                onFilterElement={this.filterElement}
+                notFound={notFound}
+              >
+                {this.renderHeader()}
+                {this.renderMasonry(newItems)}
+              </SearchBarWrapper>
+            </EmptyListWrapper>
           </View>
         </>
       )
     } else {
       return (
         <>
-          <SearchBarWrapper
-            searchBar={this.props.searchBar}
-            onFilterElement={this.filterElement}
-            notFound={notFound}
-            notFoundText={searchBar.notFoundText}
-          >
-            <View onLayout={this.handleLayout}>
-              {this.renderGrid(newItems)}
-            </View>
-          </SearchBarWrapper>
+          <EmptyListWrapper listEmptyState={listEmptyState} items={items}>
+            <SearchBarWrapper
+              searchBar={this.props.searchBar}
+              onFilterElement={this.filterElement}
+              notFound={notFound}
+            >
+              <View onLayout={this.handleLayout}>
+                {this.renderGrid(newItems)}
+              </View>
+            </SearchBarWrapper>
+          </EmptyListWrapper>
         </>
       )
     }
