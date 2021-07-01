@@ -13,6 +13,7 @@ import BottomBar from './BottomBar.js'
 import placeholder from './holdplace.png'
 import ImageScrollViewMobile from './ImageScrollView.js'
 import ImageScrollViewWeb from './ImageScrollView.web.js'
+import EmptyListWrapper from '../Shared/EmptyListWrapper'
 
 class HorizontalImageList extends Component {
   isMobileDevice = () => {
@@ -67,6 +68,7 @@ class HorizontalImageList extends Component {
       bottomBarStyle,
       bottomBarButtons,
       _fonts,
+      listEmptyState,
     } = this.props
     if (
       !imageList ||
@@ -465,7 +467,9 @@ class HorizontalImageList extends Component {
           justifyContent: 'center',
         }}
       >
-        {imageScrollView}
+        <EmptyListWrapper listEmptyState={listEmptyState} items={imageList}>
+          {imageScrollView}
+        </EmptyListWrapper>
       </View>
     )
   }

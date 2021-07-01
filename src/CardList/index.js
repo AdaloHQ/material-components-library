@@ -5,6 +5,7 @@ import { Card, Button, IconToggle } from '@protonapp/react-native-material-ui'
 import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
 import IconToggleEditor from '../Shared/IconToggleEditor'
+import EmptyListWrapper from '../Shared/EmptyListWrapper'
 
 const SINGLE_COLUMN_LAYOUTS = {
   mediaRight: true,
@@ -142,7 +143,7 @@ export default class ImageList extends Component {
   }
 
   render() {
-    let { cardLayout, searchBar, items } = this.props
+    let { cardLayout, searchBar, items, listEmptyState } = this.props
     let wrap = [styles.wrap]
 
     const newItems = this.filterItems(items)
@@ -152,32 +153,36 @@ export default class ImageList extends Component {
     if (cardLayout === 'grid') {
       return (
         <>
-          <View style={wrap}>
-            {this.renderHeader()}
-            <SearchBarWrapper
-              searchBar={this.props.searchBar}
-              onFilterElement={this.filterElement}
-              notFound={notFound}
-            >
-              {this.renderGrid(newItems)}
-            </SearchBarWrapper>
-          </View>
+          <EmptyListWrapper listEmptyState={listEmptyState} items={items}>
+            <View style={wrap}>
+              {this.renderHeader()}
+              <SearchBarWrapper
+                searchBar={searchBar}
+                onFilterElement={this.filterElement}
+                notFound={notFound}
+              >
+                {this.renderGrid(newItems)}
+              </SearchBarWrapper>
+            </View>
+          </EmptyListWrapper>
         </>
       )
     }
 
     return (
       <>
-        <View style={wrap}>
-          {this.renderHeader()}
-          <SearchBarWrapper
-            searchBar={this.props.searchBar}
-            onFilterElement={this.filterElement}
-            notFound={notFound}
-          >
-            {this.renderMasonry(newItems)}
-          </SearchBarWrapper>
-        </View>
+        <EmptyListWrapper listEmptyState={listEmptyState} items={items}>
+          <View style={wrap}>
+            {this.renderHeader()}
+            <SearchBarWrapper
+              searchBar={searchBar}
+              onFilterElement={this.filterElement}
+              notFound={notFound}
+            >
+              {this.renderMasonry(newItems)}
+            </SearchBarWrapper>
+          </View>
+        </EmptyListWrapper>
       </>
     )
   }

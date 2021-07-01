@@ -12,6 +12,7 @@ import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import Gradient from './gradient'
 import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
+import EmptyListWrapper from '../Shared/EmptyListWrapper'
 
 export default class ImageList extends Component {
   static defaultProps = {
@@ -144,7 +145,7 @@ export default class ImageList extends Component {
           <View onLayout={this.handleLayout}>
             <EmptyListWrapper listEmptyState={listEmptyState} items={items}>
               <SearchBarWrapper
-                searchBar={this.props.searchBar}
+                searchBar={searchBar}
                 onFilterElement={this.filterElement}
                 notFound={notFound}
               >
@@ -160,7 +161,7 @@ export default class ImageList extends Component {
         <>
           <EmptyListWrapper listEmptyState={listEmptyState} items={items}>
             <SearchBarWrapper
-              searchBar={this.props.searchBar}
+              searchBar={searchBar}
               onFilterElement={this.filterElement}
               notFound={notFound}
             >

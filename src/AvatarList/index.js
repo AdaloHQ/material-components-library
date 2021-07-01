@@ -11,6 +11,7 @@ import ImageItem from './ImageItem.js'
 import placeholder from './holdplace.png'
 import ImageScrollViewWeb from './ImageScrollView.web.js'
 import ImageScrollViewMobile from './ImageScrollView.js'
+import EmptyListWrapper from '../Shared/EmptyListWrapper'
 
 class AvatarList extends Component {
   isMobileDevice = () => {
@@ -32,7 +33,8 @@ class AvatarList extends Component {
   }
 
   render() {
-    const { imageList, imageSpacing, imageChild, _fonts } = this.props
+    const { imageList, imageSpacing, imageChild, _fonts, listEmptyState } =
+      this.props
 
     if (
       !imageList ||
@@ -136,7 +138,9 @@ class AvatarList extends Component {
           justifyContent: 'center',
         }}
       >
-        {imageScrollView}
+        <EmptyListWrapper listEmptyState={listEmptyState} items={imageList}>
+          {imageScrollView}
+        </EmptyListWrapper>
       </View>
     )
   }

@@ -11,6 +11,7 @@ import {
 import placeholder from './holdplace.png'
 import ImageScrollViewWeb from './ImageScrollView.web.js'
 import ImageScrollViewMobile from './ImageScrollView.js'
+import EmptyListWrapper from '../Shared/EmptyListWrapper'
 
 class ChipList extends Component {
   isMobileDevice = () => {
@@ -32,7 +33,8 @@ class ChipList extends Component {
   }
 
   render() {
-    const { imageList, imageSpacing, editor, _fonts } = this.props
+    const { imageList, imageSpacing, editor, _fonts, listEmptyState } =
+      this.props
 
     if (
       !imageList ||
@@ -156,7 +158,9 @@ class ChipList extends Component {
           justifyContent: 'center',
         }}
       >
-        {imageScrollView}
+        <EmptyListWrapper listEmptyState={listEmptyState} items={imageList}>
+          {imageScrollView}
+        </EmptyListWrapper>
       </View>
     )
   }

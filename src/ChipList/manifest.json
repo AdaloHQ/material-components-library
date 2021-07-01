@@ -160,6 +160,196 @@
           "default": "true"
         }
       ]
+    },
+    {
+      "name": "listEmptyState",
+      "displayName": "List Empty State",
+      "props": [
+        {
+          "name": "emptyStateImageStatus",
+          "displayName": "Image",
+          "type": "text",
+          "default": "noImage",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Above Title", "value": "above" },
+              { "label": "Below Title", "value": "below" },
+              { "label": "No Image", "value": "noImage" }
+            ]
+          }
+        },
+        {
+          "name": "imageSource",
+          "displayName": "Image Source",
+          "role": "listItem",
+          "reference": "images",
+          "type": "image",
+          "enabled": {
+            "emptyStateImageStatus": ["above", "below"]
+          }
+        },
+        {
+          "name": "imageWidth",
+          "displayName": "Image Width",
+          "type": "number",
+          "default": 100,
+          "control": {
+            "type": "slider",
+            "max": 600,
+            "min": 50
+          },
+          "enabled": {
+            "emptyStateImageStatus": ["above", "below"]
+          }
+        },
+        {
+          "name": "textTitleDisplay",
+          "displayName": "Text",
+          "type": "text",
+          "default": "titleOnly",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Title Only", "value": "titleOnly" },
+              { "label": "Title and Subtitle", "value": "titleAndSubtitle" },
+              { "label": "No Text", "value": "noText" }
+            ]
+          }
+        },
+        {
+          "name": "title",
+          "displayName": "Title",
+          "type": "text",
+          "default": "No List Items",
+          "styles": {
+            "fontFamily": "@heading",
+            "fontWeight": "600",
+            "color": "@text",
+            "fontSize": "18"
+          },
+          "enabled": {
+            "textTitleDisplay": ["titleOnly", "titleAndSubtitle"]
+          }
+        },
+        {
+          "name": "subtitle",
+          "displayName": "Subtitle",
+          "type": "text",
+          "default": "Subtitle",
+          "styles": {
+            "fontFamily": "@body",
+            "color": "#212121",
+            "fontWeight": "normal"
+          },
+          "enabled": {
+            "textTitleDisplay": "titleAndSubtitle"
+          }
+        },
+        {
+          "name": "type",
+          "displayName": "Button Type",
+          "type": "text",
+          "default": "noButton",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Text Button", "value": "text" },
+              { "label": "Outlined Button", "value": "outlined" },
+              { "label": "Contained Button", "value": "contained" },
+              { "label": "No Button", "value": "noButton" }
+            ]
+          }
+        },
+        {
+          "name": "text",
+          "displayName": "Text",
+          "type": "text",
+          "default": "Button",
+          "styles": {
+            "fontFamily": "@body",
+            "fontWeight": "600"
+          },
+          "enabled": {
+            "type": ["text", "outlined", "contained"]
+          }
+        },
+        {
+          "name": "icon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "add",
+          "enabled": {
+            "type": ["text", "outlined", "contained"]
+          }
+        },
+        {
+          "name": "primaryColor",
+          "displayName": "Button Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "type": ["text", "outlined", "contained"]
+          }
+        },
+        {
+          "name": "contrastColor",
+          "displayName": "Icon & Text Color",
+          "type": "color",
+          "default": "@contrast:primaryColor",
+          "enabled": { "type": "contained" }
+        },
+        {
+          "name": "buttonWidth",
+          "displayName": "Button Width",
+          "type": "number",
+          "control": {
+            "type": "slider",
+            "max": 600,
+            "min": 50
+          },
+          "default": 4,
+          "enabled": {
+            "type": ["text", "outlined", "contained"]
+          }
+        },
+        {
+          "name": "borderRadius",
+          "displayName": "Rounding",
+          "type": "number",
+          "control": {
+            "type": "slider",
+            "max": 18,
+            "min": 0
+          },
+          "default": 4,
+          "enabled": { "type": ["contained", "outlined"] }
+        },
+        {
+          "name": "shadow",
+          "displayName": "Shadow",
+          "type": "boolean",
+          "default": true,
+          "enabled": { "type": "contained" }
+        },
+        {
+          "name": "upperCase",
+          "displayName": "Uppercase",
+          "type": "boolean",
+          "default": true,
+          "enabled": {
+            "type": ["text", "outlined", "contained"]
+          }
+        },
+        {
+          "name": "action",
+          "type": "action",
+          "displayName": "Click Actions",
+          "enabled": {
+            "type": ["text", "outlined", "contained"]
+          }
+        }
+      ]
     }
   ]
 }
