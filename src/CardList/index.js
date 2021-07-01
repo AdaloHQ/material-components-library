@@ -123,24 +123,19 @@ export default class ImageList extends Component {
   }
 
   filterItems(items) {
+    let currentQuery = this.state.currentQuery
     return items.filter((itm) => {
-      if (!this.state.currentQuery) {
+      if (!currentQuery) {
         return true
       }
-      if (
-        itm.title.text &&
-        itm.title.text.indexOf(this.state.currentQuery) >= 0
-      ) {
+      if (itm.title.text && itm.title.text.indexOf(currentQuery) >= 0) {
         return true
       } else if (
         itm.subtitle.text &&
-        itm.subtitle.text.indexOf(this.state.currentQuery) >= 0
+        itm.subtitle.text.indexOf(currentQuery) >= 0
       ) {
         return true
-      } else if (
-        itm.body.text &&
-        itm.body.text.indexOf(this.state.currentQuery) >= 0
-      ) {
+      } else if (itm.body.text && itm.body.text.indexOf(currentQuery) >= 0) {
         return true
       }
     })
@@ -148,7 +143,6 @@ export default class ImageList extends Component {
 
   render() {
     let { cardLayout, searchBar, items } = this.props
-    const { currentQuery } = this.state
     let wrap = [styles.wrap]
 
     const newItems = this.filterItems(items)
@@ -164,9 +158,8 @@ export default class ImageList extends Component {
               searchBar={this.props.searchBar}
               onFilterElement={this.filterElement}
               notFound={notFound}
-              notFoundText={searchBar.notFoundText}
             >
-              {this.renderGrid(newItems)}{' '}
+              {this.renderGrid(newItems)}
             </SearchBarWrapper>
           </View>
         </>
@@ -181,7 +174,6 @@ export default class ImageList extends Component {
             searchBar={this.props.searchBar}
             onFilterElement={this.filterElement}
             notFound={notFound}
-            notFoundText={searchBar.notFoundText}
           >
             {this.renderMasonry(newItems)}
           </SearchBarWrapper>
