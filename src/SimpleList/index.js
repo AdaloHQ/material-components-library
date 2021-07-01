@@ -121,7 +121,7 @@ export default class SimpleList extends Component {
       <>
         {this.renderHeader()}
         <SearchBarWrapper
-          searchBar={this.props.searchBar}
+          searchBar={searchBar}
           onFilterElement={this.filterElement}
           notFound={notFound}
           notFoundText={searchBar.notFoundText}

@@ -143,7 +143,7 @@ export default class ImageList extends Component {
         <>
           <View onLayout={this.handleLayout}>
             <SearchBarWrapper
-              searchBar={this.props.searchBar}
+              searchBar={searchBar}
               onFilterElement={this.filterElement}
               notFound={notFound}
             >
@@ -157,7 +157,7 @@ export default class ImageList extends Component {
       return (
         <>
           <SearchBarWrapper
-            searchBar={this.props.searchBar}
+            searchBar={searchBar}
             onFilterElement={this.filterElement}
             notFound={notFound}
           >

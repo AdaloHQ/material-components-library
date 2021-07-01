@@ -155,7 +155,7 @@ export default class ImageList extends Component {
           <View style={wrap}>
             {this.renderHeader()}
             <SearchBarWrapper
-              searchBar={this.props.searchBar}
+              searchBar={searchBar}
               onFilterElement={this.filterElement}
               notFound={notFound}
             >
@@ -171,7 +171,7 @@ export default class ImageList extends Component {
         <View style={wrap}>
           {this.renderHeader()}
           <SearchBarWrapper
-            searchBar={this.props.searchBar}
+            searchBar={searchBar}
             onFilterElement={this.filterElement}
             notFound={notFound}
           >
