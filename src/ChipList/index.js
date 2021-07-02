@@ -41,7 +41,13 @@ class ChipList extends Component {
       typeof navigator.userAgent === undefined ||
       !imageList[0]
     ) {
-      return <View style={{ height: 32 }}></View>
+      //return <View style={{ height: 32 }}></View>
+      return (
+        <EmptyListWrapper
+          listEmptyState={listEmptyState}
+          items={imageList}
+        ></EmptyListWrapper>
+      )
     }
 
     const dummy = {
@@ -158,9 +164,7 @@ class ChipList extends Component {
           justifyContent: 'center',
         }}
       >
-        <EmptyListWrapper listEmptyState={listEmptyState} items={imageList}>
-          {imageScrollView}
-        </EmptyListWrapper>
+        {imageScrollView}
       </View>
     )
   }

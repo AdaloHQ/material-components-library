@@ -41,7 +41,13 @@ class AvatarList extends Component {
       typeof navigator.userAgent === undefined ||
       !imageList[0]
     ) {
-      return <View style={{ height: imageSize }}></View>
+      //return <View style={{ height: imageSize }}></View>
+      return (
+        <EmptyListWrapper
+          listEmptyState={listEmptyState}
+          items={imageList}
+        ></EmptyListWrapper>
+      )
     }
     const {
       imageSize,
@@ -138,9 +144,7 @@ class AvatarList extends Component {
           justifyContent: 'center',
         }}
       >
-        <EmptyListWrapper listEmptyState={listEmptyState} items={imageList}>
-          {imageScrollView}
-        </EmptyListWrapper>
+        {imageScrollView}
       </View>
     )
   }

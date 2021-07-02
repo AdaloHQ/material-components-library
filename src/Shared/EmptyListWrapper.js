@@ -12,23 +12,36 @@ export default class EmptyListWrapper extends Component {
       return <View>Loading...</View>
     }
 
-    if (items.length === 0) {
+    let {
+      type,
+      text,
+      icon,
+      primaryColor,
+      contrastColor,
+      borderRadius,
+      shadow,
+      upperCase,
+      action,
+      buttonWidth,
+    } = listEmptyState
+
+    if (!items || items.length === 0) {
       return (
         <>
           <ImageHolder listEmptyState={listEmptyState} />
-          {listEmptyState.type !== 'noButton' && (
+          {type !== 'noButton' && (
             <WrappedTextButton
-              type={listEmptyState.type}
-              text={listEmptyState.text}
-              icon={listEmptyState.icon}
-              primaryColor={listEmptyState.primaryColor}
-              contrastColor={listEmptyState.contrastColor}
-              borderRadius={listEmptyState.borderRadius}
-              shadow={listEmptyState.shadow}
-              upperCase={listEmptyState.upperCase}
-              action={listEmptyState.action}
+              type={type}
+              text={text}
+              icon={icon}
+              primaryColor={primaryColor}
+              contrastColor={contrastColor}
+              borderRadius={borderRadius}
+              shadow={shadow}
+              upperCase={upperCase}
+              action={action}
               container={{
-                width: listEmptyState.buttonWidth,
+                width: buttonWidth,
                 alignSelf: 'center',
               }}
             />
@@ -50,7 +63,8 @@ class ImageHolder extends Component {
     if (!listEmptyState) {
       return <View>Loading...</View>
     }
-    let emptyStateImage = listEmptyState.emptyStateImageStatus
+    let { emptyStateImage } = listEmptyState
+
     if (emptyStateImage == 'noImage') {
       return (
         <>
@@ -60,7 +74,7 @@ class ImageHolder extends Component {
     } else if (emptyStateImage == 'above') {
       return (
         <>
-          <View style={[styles.emptyList]}>
+          <View style={styles.emptyList}>
             <Image
               resizeMode="cover"
               style={styles.image}
@@ -75,7 +89,7 @@ class ImageHolder extends Component {
       return (
         <>
           <TitleHolder listEmptyState={listEmptyState}></TitleHolder>
-          <View style={[styles.emptyList]}>
+          <View style={styles.emptyList}>
             <Image
               resizeMode="cover"
               style={styles.image}

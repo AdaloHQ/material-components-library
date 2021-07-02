@@ -75,7 +75,13 @@ class HorizontalImageList extends Component {
       typeof navigator.userAgent === undefined ||
       !imageList[0]
     ) {
-      return <View style={{ height: imageSize }}></View>
+      //<View style={{ height: imageSize }}></View>
+      return (
+        <EmptyListWrapper
+          listEmptyState={listEmptyState}
+          items={imageList}
+        ></EmptyListWrapper>
+      )
     }
     const { imageSize, imageRounding, shape, shadow } = imageChild
     const {
@@ -467,9 +473,7 @@ class HorizontalImageList extends Component {
           justifyContent: 'center',
         }}
       >
-        <EmptyListWrapper listEmptyState={listEmptyState} items={imageList}>
-          {imageScrollView}
-        </EmptyListWrapper>
+        {imageScrollView}
       </View>
     )
   }
