@@ -71,11 +71,6 @@ export default class WrappedActionButton extends Component {
       right: offset,
     }
 
-    if (Platform.OS === 'ios' || Platform.OS === 'android') {
-      delete containerStyles.justifyContent
-      delete wrapperStyles.justifyContent
-    }
-
     let labelStyles = {}
     if (this.props.styles && this.props.styles.text) {
       labelStyles = {
