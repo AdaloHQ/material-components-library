@@ -46,7 +46,6 @@ export default class WrappedActionButton extends Component {
       flexDirection: 'row',
       alignSelf: 'stretch',
       alignItems: 'center',
-      justifyContent: 'stretch',
     }
 
     let offset = 0
@@ -66,16 +65,10 @@ export default class WrappedActionButton extends Component {
 
     const wrapperStyles = {
       alignItems: 'center',
-      justifyContent: 'stretch',
       flexDirection: 'row',
       height: 56,
       minWidth: 56,
       right: offset,
-    }
-
-    if (Platform.OS === 'ios' || Platform.OS === 'android') {
-      delete containerStyles.justifyContent
-      delete wrapperStyles.justifyContent
     }
 
     let labelStyles = {}
