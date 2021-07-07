@@ -22,9 +22,9 @@ export default class SearchBarWrapper extends Component {
   }
 
   render() {
-    let { searchBar, onFilterElement, notFound, children } = this.props
+    const { searchBar, onFilterElement, notFound, children } = this.props
 
-    let {
+    const {
       notFoundText,
       backgroundColor,
       borderSize,
@@ -34,7 +34,7 @@ export default class SearchBarWrapper extends Component {
       placeholderText,
     } = searchBar
 
-    let searchBarStyles = searchBar.styles
+    const { styles: searchBarStyles } = searchBar
     if (!searchBar) {
       return <>{children}</>
     }
@@ -95,9 +95,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 42,
     paddingTop: 0,
-    marginTop: 22,
+    marginTop: 12,
     paddingBottom: 0,
-    marginBottom: 12,
+    marginBottom: 10,
     paddingLeft: 2,
     paddingRight: 2,
     marginLeft: 15,
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 0.05,
     paddingLeft: 6,
-    paddingRight: 18
+    paddingRight: 18,
   },
   totalWrapper: {
     marginRight: 20,

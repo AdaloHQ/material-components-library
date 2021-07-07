@@ -119,7 +119,7 @@ export default class ImageList extends Component {
   }
 
   filterItems(items) {
-    let currentQuery = this.state.currentQuery
+    let { currentQuery } = this.state
     return items.filter((itm) => {
       if (itm.title.text.indexOf(currentQuery) >= 0) {
         return true

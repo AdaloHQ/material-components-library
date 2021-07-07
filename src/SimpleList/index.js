@@ -1,11 +1,5 @@
 import React, { Component } from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Platform
-} from 'react-native'
+import { View, Text, StyleSheet, Image, Platform } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import SearchBarWrapper from '../Shared/SearchWrapper'
@@ -60,7 +54,7 @@ export default class SimpleList extends Component {
   }
 
   filterItems(items) {
-    let currentQuery = this.state.currentQuery
+    let { currentQuery } = this.state
     return items.filter((itm) => {
       if (itm.firstLine.text.indexOf(currentQuery) >= 0) {
         return true
@@ -124,7 +118,6 @@ export default class SimpleList extends Component {
           searchBar={searchBar}
           onFilterElement={this.filterElement}
           notFound={notFound}
-          notFoundText={searchBar.notFoundText}
         >
           <View style={wrap} onLayout={this.handleLayout}>
             {newItems.map((itm, i) => (
