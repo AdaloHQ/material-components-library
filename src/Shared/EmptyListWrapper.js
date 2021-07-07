@@ -64,8 +64,7 @@ class ImageHolder extends Component {
       return <View>Loading...</View>
     }
     let { emptyStateImage } = listEmptyState
-
-    if (emptyStateImage == 'noImage') {
+    if (!emptyStateImage || emptyStateImage == 'noImage') {
       return (
         <>
           <TitleHolder listEmptyState={listEmptyState}></TitleHolder>
@@ -109,23 +108,23 @@ class TitleHolder extends Component {
     if (!listEmptyState) {
       return <View>Loading...</View>
     }
-    let titleDisplay = listEmptyState.textTitleDisplay
-    if (titleDisplay == 'noText') {
+    let { title, subtitle, textTitleDisplay, emptyWrapperStyle: styles } = listEmptyState
+    if (textTitleDisplay == 'noText') {
       return <></>
-    } else if (titleDisplay == 'titleOnly') {
+    } else if (textTitleDisplay == 'titleOnly') {
       return (
-        <Text style={[styles.textStyle, listEmptyState.styles.title]}>
-          {listEmptyState.title}
+        <Text style={[styles.textStyle, emptyWrapperStyle.title]}>
+          {title}
         </Text>
       )
     } else {
       return (
         <View>
-          <Text style={[styles.textStyle, listEmptyState.styles.title]}>
-            {listEmptyState.title}
+          <Text style={[styles.textStyle, emptyWrapperStyle.title]}>
+            {title}
           </Text>
-          <Text style={[styles.textStyle, listEmptyState.styles.subtitle]}>
-            {listEmptyState.subtitle}
+          <Text style={[styles.textStyle, emptyWrapperStyle.subtitle]}>
+            {subtitle}
           </Text>
         </View>
       )
