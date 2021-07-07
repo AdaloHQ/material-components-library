@@ -108,7 +108,7 @@ class TitleHolder extends Component {
     if (!listEmptyState) {
       return <View>Loading...</View>
     }
-    let { title, subtitle, textTitleDisplay, emptyWrapperStyle: styles } = listEmptyState
+    let { title, subtitle, textTitleDisplay, styles: emptyWrapperStyle } = listEmptyState
     if (textTitleDisplay == 'noText') {
       return <></>
     } else if (textTitleDisplay == 'titleOnly') {
