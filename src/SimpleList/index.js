@@ -55,7 +55,7 @@ export default class SimpleList extends Component {
   }
 
   filterItems(items) {
-    let currentQuery = this.state.currentQuery
+    let { currentQuery } = this.state
     return items.filter((itm) => {
       if (itm.firstLine.text.indexOf(currentQuery) >= 0) {
         return true
@@ -121,7 +121,6 @@ export default class SimpleList extends Component {
             searchBar={searchBar}
             onFilterElement={this.filterElement}
             notFound={notFound}
-            notFoundText={searchBar.notFoundText}
           >
             <View style={wrap} onLayout={this.handleLayout}>
               {newItems.map((itm, i) => (
