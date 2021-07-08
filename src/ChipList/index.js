@@ -36,12 +36,11 @@ class ChipList extends Component {
     const { imageList, imageSpacing, editor, _fonts, listEmptyState } =
       this.props
 
-    if (
-      !imageList ||
-      typeof navigator.userAgent === undefined ||
-      !imageList[0]
-    ) {
-      //return <View style={{ height: 32 }}></View>
+    if (!imageList || typeof navigator.userAgent === undefined) {
+      return <View style={{ height: 32 }}></View>
+    }
+
+    if (!imageList[0]) {
       return (
         <EmptyListWrapper
           listEmptyState={listEmptyState}

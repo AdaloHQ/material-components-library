@@ -70,12 +70,12 @@ class HorizontalImageList extends Component {
       _fonts,
       listEmptyState,
     } = this.props
-    if (
-      !imageList ||
-      typeof navigator.userAgent === undefined ||
-      !imageList[0]
-    ) {
-      //<View style={{ height: imageSize }}></View>
+
+    if (!imageList || typeof navigator.userAgent === undefined) {
+      return <View style={{ height: imageSize }}></View>
+    }
+
+    if (!imageList[0]) {
       return (
         <EmptyListWrapper
           listEmptyState={listEmptyState}
@@ -83,6 +83,7 @@ class HorizontalImageList extends Component {
         ></EmptyListWrapper>
       )
     }
+
     const { imageSize, imageRounding, shape, shadow } = imageChild
     const {
       bbBackground,

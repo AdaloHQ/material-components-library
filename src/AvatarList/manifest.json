@@ -215,7 +215,7 @@
           }
         },
         {
-          "name": "type",
+          "name": "buttonType",
           "displayName": "Button Type",
           "type": "text",
           "default": "noButton",
@@ -230,7 +230,7 @@
           }
         },
         {
-          "name": "text",
+          "name": "buttonText",
           "displayName": "Text",
           "type": "text",
           "default": "Button",
@@ -243,7 +243,7 @@
           }
         },
         {
-          "name": "icon",
+          "name": "buttonIcon",
           "displayName": "Icon",
           "type": "icon",
           "default": "add",
@@ -252,7 +252,7 @@
           }
         },
         {
-          "name": "primaryColor",
+          "name": "buttonPrimaryColor",
           "displayName": "Button Color",
           "type": "color",
           "default": "@primary",
@@ -261,7 +261,7 @@
           }
         },
         {
-          "name": "contrastColor",
+          "name": "buttonContrastColor",
           "displayName": "Icon & Text Color",
           "type": "color",
           "default": "@contrast:primaryColor",
@@ -282,7 +282,7 @@
           }
         },
         {
-          "name": "borderRadius",
+          "name": "buttonBorderRadius",
           "displayName": "Rounding",
           "type": "number",
           "control": {
@@ -294,14 +294,14 @@
           "enabled": { "type": ["contained", "outlined"] }
         },
         {
-          "name": "shadow",
+          "name": "buttonShadow",
           "displayName": "Shadow",
           "type": "boolean",
           "default": true,
           "enabled": { "type": "contained" }
         },
         {
-          "name": "upperCase",
+          "name": "buttonUpperCase",
           "displayName": "Uppercase",
           "type": "boolean",
           "default": true,
@@ -310,7 +310,7 @@
           }
         },
         {
-          "name": "action",
+          "name": "buttonAction",
           "type": "action",
           "displayName": "Click Actions",
           "enabled": {

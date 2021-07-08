@@ -36,12 +36,11 @@ class AvatarList extends Component {
     const { imageList, imageSpacing, imageChild, _fonts, listEmptyState } =
       this.props
 
-    if (
-      !imageList ||
-      typeof navigator.userAgent === undefined ||
-      !imageList[0]
-    ) {
-      //return <View style={{ height: imageSize }}></View>
+    if (!imageList || typeof navigator.userAgent === undefined) {
+      return <View style={{ height: imageSize }}></View>
+    }
+
+    if (!imageList[0]) {
       return (
         <EmptyListWrapper
           listEmptyState={listEmptyState}
@@ -49,6 +48,7 @@ class AvatarList extends Component {
         ></EmptyListWrapper>
       )
     }
+
     const {
       imageSize,
       imageRounding,
