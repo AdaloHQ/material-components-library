@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
-import EmptyListWrapper from '../Shared/EmptyListWrapper'
+import EmptyState from '../Shared/EmptyState'
 
 export default class SimpleList extends Component {
   static defaultProps = {
@@ -118,10 +118,10 @@ export default class SimpleList extends Component {
       (items && !items[0]) || openAccordion === 'listEmptyState'
     if (renderEmptyState) {
       return (
-        <EmptyListWrapper
+        <EmptyState
           listEmptyState={listEmptyState}
           items={items}
-        ></EmptyListWrapper>
+        ></EmptyState>
       )
     }
 

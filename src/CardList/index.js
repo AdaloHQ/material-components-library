@@ -5,7 +5,7 @@ import { Card, Button, IconToggle } from '@protonapp/react-native-material-ui'
 import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
 import IconToggleEditor from '../Shared/IconToggleEditor'
-import EmptyListWrapper from '../Shared/EmptyListWrapper'
+import EmptyState from '../Shared/EmptyState'
 
 const SINGLE_COLUMN_LAYOUTS = {
   mediaRight: true,
@@ -155,10 +155,10 @@ export default class ImageList extends Component {
       (items && !items[0]) || openAccordion === 'listEmptyState'
     if (renderEmptyState) {
       return (
-        <EmptyListWrapper
+        <EmptyState
           listEmptyState={listEmptyState}
           items={items}
-        ></EmptyListWrapper>
+        ></EmptyState>
       )
     }
 

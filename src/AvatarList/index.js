@@ -11,7 +11,7 @@ import ImageItem from './ImageItem.js'
 import placeholder from './holdplace.png'
 import ImageScrollViewWeb from './ImageScrollView.web.js'
 import ImageScrollViewMobile from './ImageScrollView.js'
-import EmptyListWrapper from '../Shared/EmptyListWrapper'
+import EmptyState from '../Shared/EmptyState'
 
 class AvatarList extends Component {
   isMobileDevice = () => {
@@ -51,10 +51,10 @@ class AvatarList extends Component {
 
     if (renderEmptyState) {
       return (
-        <EmptyListWrapper
+        <EmptyState
           listEmptyState={listEmptyState}
           items={imageList}
-        ></EmptyListWrapper>
+        ></EmptyState>
       )
     }
 

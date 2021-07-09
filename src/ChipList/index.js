@@ -11,7 +11,7 @@ import {
 import placeholder from './holdplace.png'
 import ImageScrollViewWeb from './ImageScrollView.web.js'
 import ImageScrollViewMobile from './ImageScrollView.js'
-import EmptyListWrapper from '../Shared/EmptyListWrapper'
+import EmptyState from '../Shared/EmptyState'
 
 class ChipList extends Component {
   isMobileDevice = () => {
@@ -51,10 +51,10 @@ class ChipList extends Component {
 
     if (renderEmptyState) {
       return (
-        <EmptyListWrapper
+        <EmptyState
           listEmptyState={listEmptyState}
           items={imageList}
-        ></EmptyListWrapper>
+        ></EmptyState>
       )
     }
 
