@@ -143,35 +143,28 @@ export default class ImageList extends Component {
   }
 
   render() {
-    let { cardLayout, searchBar, items, listEmptyState } = this.props
+    let { cardLayout, searchBar, items, listEmptyState, openAccordion } =
+      this.props
     let wrap = [styles.wrap]
 
     const newItems = this.filterItems(items)
 
     const notFound = newItems.length === 0
 
-    if (cardLayout === 'grid') {
+    const renderEmptyState =
+      (items && !items[0]) || openAccordion === 'listEmptyState'
+    if (renderEmptyState) {
       return (
-        <>
-          <EmptyListWrapper listEmptyState={listEmptyState} items={items}>
-            <View style={wrap}>
-              {this.renderHeader()}
-              <SearchBarWrapper
-                searchBar={searchBar}
-                onFilterElement={this.filterElement}
-                notFound={notFound}
-              >
-                {this.renderGrid(newItems)}
-              </SearchBarWrapper>
-            </View>
-          </EmptyListWrapper>
-        </>
+        <EmptyListWrapper
+          listEmptyState={listEmptyState}
+          items={items}
+        ></EmptyListWrapper>
       )
     }
 
-    return (
-      <>
-        <EmptyListWrapper listEmptyState={listEmptyState} items={items}>
+    if (cardLayout === 'grid') {
+      return (
+        <>
           <View style={wrap}>
             {this.renderHeader()}
             <SearchBarWrapper
@@ -179,10 +172,25 @@ export default class ImageList extends Component {
               onFilterElement={this.filterElement}
               notFound={notFound}
             >
-              {this.renderMasonry(newItems)}
+              {this.renderGrid(newItems)}
             </SearchBarWrapper>
           </View>
-        </EmptyListWrapper>
+        </>
+      )
+    }
+
+    return (
+      <>
+        <View style={wrap}>
+          {this.renderHeader()}
+          <SearchBarWrapper
+            searchBar={searchBar}
+            onFilterElement={this.filterElement}
+            notFound={notFound}
+          >
+            {this.renderMasonry(newItems)}
+          </SearchBarWrapper>
+        </View>
       </>
     )
   }

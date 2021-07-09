@@ -25,7 +25,7 @@ export default class EmptyListWrapper extends Component {
       buttonWidth,
     } = listEmptyState
 
-    if (!items || items.length === 0) {
+    if (items && items.length === 0) {
       return (
         <>
           <ImageHolder listEmptyState={listEmptyState} />
@@ -62,14 +62,14 @@ function ImageHolder(props) {
   if (!listEmptyState) {
     return <View></View>
   }
-  let { emptyStateImage } = listEmptyState
-  if (!emptyStateImage || emptyStateImage === 'noImage') {
+  let { emptyStateImageStatus } = listEmptyState
+  if (!emptyStateImageStatus || emptyStateImageStatus === 'noImage') {
     return (
       <>
         <TitleHolder listEmptyState={listEmptyState}></TitleHolder>
       </>
     )
-  } else if (emptyStateImage === 'above') {
+  } else if (emptyStateImageStatus === 'above') {
     return (
       <>
         <View style={styles.emptyList}>

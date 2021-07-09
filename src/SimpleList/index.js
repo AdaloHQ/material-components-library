@@ -74,6 +74,7 @@ export default class SimpleList extends Component {
       listHeader,
       searchBar,
       listEmptyState,
+      openAccordion,
     } = this.props
 
     let wrap = [styles.wrapper]
@@ -113,31 +114,40 @@ export default class SimpleList extends Component {
 
     const notFound = newItems.length === 0
 
+    const renderEmptyState =
+      (items && !items[0]) || openAccordion === 'listEmptyState'
+    if (renderEmptyState) {
+      return (
+        <EmptyListWrapper
+          listEmptyState={listEmptyState}
+          items={items}
+        ></EmptyListWrapper>
+      )
+    }
+
     return (
       <>
-        <EmptyListWrapper listEmptyState={listEmptyState} items={items}>
-          {this.renderHeader()}
-          <SearchBarWrapper
-            searchBar={searchBar}
-            onFilterElement={this.filterElement}
-            notFound={notFound}
-          >
-            <View style={wrap} onLayout={this.handleLayout}>
-              {newItems.map((itm, i) => (
-                <Row
-                  {...itm}
-                  key={itm.id}
-                  dividerType={dividerType}
-                  dividerColor={dividerColor}
-                  lastRow={i === newItems.length - 1}
-                  fullWidth={this.state.fullWidth}
-                  editor={this.props.editor}
-                  _fonts={this.props._fonts}
-                />
-              ))}
-            </View>
-          </SearchBarWrapper>
-        </EmptyListWrapper>
+        {this.renderHeader()}
+        <SearchBarWrapper
+          searchBar={searchBar}
+          onFilterElement={this.filterElement}
+          notFound={notFound}
+        >
+          <View style={wrap} onLayout={this.handleLayout}>
+            {newItems.map((itm, i) => (
+              <Row
+                {...itm}
+                key={itm.id}
+                dividerType={dividerType}
+                dividerColor={dividerColor}
+                lastRow={i === newItems.length - 1}
+                fullWidth={this.state.fullWidth}
+                editor={this.props.editor}
+                _fonts={this.props._fonts}
+              />
+            ))}
+          </View>
+        </SearchBarWrapper>
       </>
     )
   }

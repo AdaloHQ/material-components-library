@@ -33,14 +33,23 @@ class AvatarList extends Component {
   }
 
   render() {
-    const { imageList, imageSpacing, imageChild, _fonts, listEmptyState } =
-      this.props
+    const {
+      imageList,
+      imageSpacing,
+      imageChild,
+      _fonts,
+      listEmptyState,
+      openAccordion,
+    } = this.props
 
     if (!imageList || typeof navigator.userAgent === undefined) {
       return <View style={{ height: imageSize }}></View>
     }
 
-    if (!imageList[0]) {
+    const renderEmptyState =
+      (imageList && !imageList[0]) || openAccordion === 'listEmptyState'
+
+    if (renderEmptyState) {
       return (
         <EmptyListWrapper
           listEmptyState={listEmptyState}
