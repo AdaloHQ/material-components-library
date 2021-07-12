@@ -6,12 +6,6 @@ import WrappedTextButton from '../TextButton/TextButton.js'
 
 export default class EmptyListWrapper extends Component {
   render() {
-    let { listEmptyState, items, children } = this.props
-
-    if (!listEmptyState) {
-      return <>{children}</>
-    }
-
     let {
       buttonType,
       buttonText,
@@ -23,50 +17,42 @@ export default class EmptyListWrapper extends Component {
       buttonUpperCase,
       buttonAction,
       buttonWidth,
-    } = listEmptyState
+    } = this.props
 
-    if (items && items.length === 0) {
-      return (
-        <>
-          <ImageHolder listEmptyState={listEmptyState} />
-          {buttonType !== 'noButton' && (
-            <WrappedTextButton
-              type={buttonType}
-              text={buttonText}
-              icon={buttonIcon}
-              primaryColor={buttonPrimaryColor}
-              contrastColor={buttonContrastColor}
-              borderRadius={buttonBorderRadius}
-              shadow={buttonShadow}
-              upperCase={buttonUpperCase}
-              action={buttonAction}
-              container={{
-                width: buttonWidth,
-                alignSelf: 'center',
-              }}
-            />
-          )}
-        </>
-      )
-    } else {
-      return <>{children}</>
-    }
+    return (
+      <>
+        <ImageHolder {...this.props} />
+        {buttonType !== 'noButton' && (
+          <WrappedTextButton
+            type={buttonType}
+            text={buttonText}
+            icon={buttonIcon}
+            primaryColor={buttonPrimaryColor}
+            contrastColor={buttonContrastColor}
+            borderRadius={buttonBorderRadius}
+            shadow={buttonShadow}
+            upperCase={buttonUpperCase}
+            action={buttonAction}
+            container={{
+              width: buttonWidth,
+              alignSelf: 'center',
+            }}
+          />
+        )}
+      </>
+    )
   }
 }
 
 function ImageHolder(props) {
-  let { listEmptyState } = props
-  let realImageSource = !listEmptyState.imageSource
+  let { imageSource, emptyStateImageStatus } = props
+  let realImageSource = !imageSource
     ? require('./sqr-empty-state.png')
-    : listEmptyState.imageSource
-  if (!listEmptyState) {
-    return <View></View>
-  }
-  let { emptyStateImageStatus } = listEmptyState
+    : imageSource
   if (!emptyStateImageStatus || emptyStateImageStatus === 'noImage') {
     return (
       <>
-        <TitleHolder listEmptyState={listEmptyState}></TitleHolder>
+        <TitleHolder {...props}></TitleHolder>
       </>
     )
   } else if (emptyStateImageStatus === 'above') {
@@ -80,13 +66,13 @@ function ImageHolder(props) {
             pointerEvents="none"
           />
         </View>
-        <TitleHolder listEmptyState={listEmptyState}></TitleHolder>
+        <TitleHolder {...props}></TitleHolder>
       </>
     )
   } else {
     return (
       <>
-        <TitleHolder listEmptyState={listEmptyState}></TitleHolder>
+        <TitleHolder {...props}></TitleHolder>
         <View style={styles.emptyList}>
           <Image
             resizeMode="cover"
@@ -101,16 +87,7 @@ function ImageHolder(props) {
 }
 
 function TitleHolder(props) {
-  let { listEmptyState } = props
-  if (!listEmptyState) {
-    return <View></View>
-  }
-  let {
-    title,
-    subtitle,
-    textTitleDisplay,
-    styles: emptyWrapperStyle,
-  } = listEmptyState
+  let { title, subtitle, textTitleDisplay, styles: emptyWrapperStyle } = props
   if (textTitleDisplay === 'noText') {
     return <></>
   } else if (textTitleDisplay === 'titleOnly') {

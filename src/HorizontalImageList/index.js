@@ -77,15 +77,11 @@ class HorizontalImageList extends Component {
     }
 
     const renderEmptyState =
-      (imageList && !imageList[0]) || openAccordion === 'listEmptyState'
+      ((imageList && !imageList[0]) || openAccordion === 'listEmptyState') &&
+      listEmptyState
 
     if (renderEmptyState) {
-      return (
-        <EmptyState
-          listEmptyState={listEmptyState}
-          items={imageList}
-        ></EmptyState>
-      )
+      return <EmptyState {...listEmptyState}></EmptyState>
     }
 
     const { imageSize, imageRounding, shape, shadow } = imageChild
