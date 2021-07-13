@@ -24,6 +24,10 @@ export default class SearchBarWrapper extends Component {
   render() {
     const { searchBar, onFilterElement, notFound, children } = this.props
 
+    if (!searchBar) {
+      return <>{children}</>
+    }
+
     const {
       notFoundText,
       backgroundColor,
@@ -35,9 +39,6 @@ export default class SearchBarWrapper extends Component {
     } = searchBar
 
     const { styles: searchBarStyles } = searchBar
-    if (!searchBar) {
-      return <>{children}</>
-    }
 
     if (!searchBar) {
       return <>{children}</>
