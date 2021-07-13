@@ -13,8 +13,8 @@ export default class SearchBarWrapper extends Component {
   static defaultProps = {
     searchBar: {
       enabled: true,
-      placeholderText: 'Placeholder Text',
-      notFoundText: 'No Search Results Message',
+      placeholderText: 'Search...',
+      notFoundText: 'No Results',
       icon: 'search',
       iconColor: '#FFFFFF',
       backgroundColor: '#FFFFFF',
