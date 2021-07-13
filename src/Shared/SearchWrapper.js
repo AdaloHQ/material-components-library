@@ -10,6 +10,31 @@ import {
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
 export default class SearchBarWrapper extends Component {
+  static defaultProps = {
+    searchBar: {
+      enabled: true,
+      placeholderText: 'Placeholder Text',
+      notFoundText: 'No Search Results Message',
+      icon: 'search',
+      iconColor: '#FFFFFF',
+      backgroundColor: '#FFFFFF',
+      borderColor: '#E0E0E0',
+      borderSize: 1,
+      rounding: 4,
+      styles: {
+        placeholderText: {
+          fontSize: '18px',
+          color: 'black',
+        },
+        notFoundText: {
+          fontWeight: '600',
+          color: 'black',
+          fontSize: '18px',
+        },
+      },
+    },
+  }
+
   debounce = (fn, time) => {
     let timeout
 
@@ -22,13 +47,18 @@ export default class SearchBarWrapper extends Component {
   }
 
   render() {
-    const { searchBar, onFilterElement, notFound, children } = this.props
+    let { searchBar, onFilterElement, notFound, children } = this.props
 
     if (!searchBar) {
       return <>{children}</>
     }
 
+    if (!searchBar.customStyles) {
+      searchBar = this.props.searchBar
+    }
+
     const {
+      enabled,
       notFoundText,
       backgroundColor,
       borderSize,
@@ -40,7 +70,7 @@ export default class SearchBarWrapper extends Component {
 
     const { styles: searchBarStyles } = searchBar
 
-    if (searchBar.enabled) {
+    if (enabled) {
       return (
         <View style={styles.totalWrapper}>
           <View

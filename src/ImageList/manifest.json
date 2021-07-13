@@ -334,7 +334,7 @@
           }
         },
         {
-          "name": "searchInputStyles",
+          "name": "customStyles",
           "displayName": "Search Input Styles",
           "type": "boolean",
           "default": false,
@@ -352,7 +352,7 @@
           "type": "icon",
           "default": "search",
           "enabled": {
-            "searchInputStyles": true
+            "customStyles": true
           }
         },
         {
@@ -361,7 +361,7 @@
           "type": "color",
           "default": "@secondary",
           "enabled": {
-            "searchInputStyles": true
+            "customStyles": true
           }
         },
         {
@@ -370,7 +370,7 @@
           "type": "color",
           "default": "#FFFFFF",
           "enabled": {
-            "searchInputStyles": true
+            "customStyles": true
           }
         },
         {
@@ -379,7 +379,7 @@
           "type": "color",
           "default": "#E0E0E0",
           "enabled": {
-            "searchInputStyles": true
+            "customStyles": true
           }
         },
         {
@@ -389,7 +389,7 @@
           "default": 1,
           "control": { "type": "slider", "max": 18, "min": 0 },
           "enabled": {
-            "searchInputStyles": true
+            "customStyles": true
           }
         },
         {
@@ -399,7 +399,7 @@
           "default": 4,
           "control": { "type": "slider", "max": 18, "min": 0 },
           "enabled": {
-            "searchInputStyles": true
+            "customStyles": true
           }
         }
       ]
