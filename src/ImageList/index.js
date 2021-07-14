@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Image, Platform } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Platform,
+  TextInput,
+} from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import Gradient from './gradient'
+import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
 
 export default class ImageList extends Component {
@@ -12,10 +20,11 @@ export default class ImageList extends Component {
   }
   state = {
     fullWidth: null,
+    currentQuery: '',
   }
 
-  renderGrid() {
-    let { items, columnCount } = this.props
+  renderGrid(items) {
+    let { columnCount } = this.props
     let { fullWidth } = this.state
     let width = fullWidth / columnCount
 
@@ -33,8 +42,8 @@ export default class ImageList extends Component {
     )
   }
 
-  getColumns() {
-    let { items, columnCount } = this.props
+  getColumns(items) {
+    let { columnCount } = this.props
     let columns = []
 
     for (let i = 0; i < items.length; i += columnCount) {
@@ -54,10 +63,11 @@ export default class ImageList extends Component {
     return columns
   }
 
-  renderMasonry() {
+  renderMasonry(items) {
     let { columnCount } = this.props
     let { fullWidth } = this.state
-    let columns = this.getColumns()
+
+    let columns = this.getColumns(items)
 
     let width = fullWidth / columnCount
 
@@ -91,6 +101,10 @@ export default class ImageList extends Component {
     }
   }
 
+  filterElement = (query) => {
+    this.setState({ currentQuery: query })
+  }
+
   renderHeader() {
     let { listHeader } = this.props
 
@@ -104,20 +118,55 @@ export default class ImageList extends Component {
     )
   }
 
+  filterItems(items) {
+    let { currentQuery } = this.state
+    return items.filter((itm) => {
+      if (itm.title.text.indexOf(currentQuery) >= 0) {
+        return true
+      } else if (itm.title.subtitle.indexOf(currentQuery) >= 0) {
+        return true
+      }
+    })
+  }
+
   render() {
-    let { items } = this.props
+    let { items, searchBar } = this.props
 
     let layout = 'grid' //items[0] ? items[0].imageStyles.layout : 'grid'
 
+    const newItems = this.filterItems(items)
+
+    const notFound = newItems.length === 0
+
     if (layout === 'masonry') {
       return (
-        <View onLayout={this.handleLayout}>
-          {this.renderHeader()}
-          {this.renderMasonry()}
-        </View>
+        <>
+          <View onLayout={this.handleLayout}>
+            <SearchBarWrapper
+              searchBar={searchBar}
+              onFilterElement={this.filterElement}
+              notFound={notFound}
+            >
+              {this.renderHeader()}
+              {this.renderMasonry(newItems)}
+            </SearchBarWrapper>
+          </View>
+        </>
       )
     } else {
-      return <View onLayout={this.handleLayout}>{this.renderGrid()}</View>
+      return (
+        <>
+          <SearchBarWrapper
+            searchBar={searchBar}
+            onFilterElement={this.filterElement}
+            notFound={notFound}
+          >
+            <View onLayout={this.handleLayout}>
+              {this.renderGrid(newItems)}
+            </View>
+          </SearchBarWrapper>
+        </>
+      )
     }
   }
 }

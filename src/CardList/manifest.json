@@ -626,6 +626,104 @@
           }
         }
       ]
+    },
+    {
+      "name": "searchBar",
+      "displayName": "List Search",
+      "props": [
+        { "name": "enabled", "type": "boolean", "default": false },
+        {
+          "name": "placeholderText",
+          "displayName": "Placeholder Text",
+          "type": "text",
+          "default": "Search...",
+          "styles": {
+            "fontWeight": "600",
+            "fontSize": "18",
+            "color": "#9E9E9E"
+          }
+        },
+        {
+          "name": "notFoundText",
+          "displayName": "No Search Results Message",
+          "type": "text",
+          "default": "No Results",
+          "styles": {
+            "fontWeight": "600",
+            "fontSize": "18",
+            "color": "#9E9E9E"
+          }
+        },
+        {
+          "name": "customStyles",
+          "displayName": "Search Input Styles",
+          "type": "boolean",
+          "default": false,
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Default", "value": false },
+              { "label": "Custom", "value": true }
+            ]
+          }
+        },
+        {
+          "name": "icon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "search",
+          "enabled": {
+            "customStyles": true
+          }
+        },
+        {
+          "name": "iconColor",
+          "displayName": "Icon Color",
+          "type": "color",
+          "default": "#9e9e9e",
+          "enabled": {
+            "customStyles": true
+          }
+        },
+        {
+          "name": "backgroundColor",
+          "displayName": "Background Color",
+          "type": "color",
+          "default": "#FFFFFF",
+          "enabled": {
+            "customStyles": true
+          }
+        },
+        {
+          "name": "borderColor",
+          "displayName": "Border Color",
+          "type": "color",
+          "default": "#E0E0E0",
+          "enabled": {
+            "customStyles": true
+          }
+        },
+        {
+          "name": "borderSize",
+          "displayName": "Border Size",
+          "type": "number",
+          "default": 1,
+          "control": { "type": "slider", "max": 3, "min": 0 },
+          "enabled": {
+            "customStyles": true
+          }
+        },
+        {
+          "name": "rounding",
+          "displayName": "Rounding",
+          "type": "number",
+          "default": 4,
+          "control": { "type": "slider", "max": 30, "min": 0 },
+          "enabled": {
+            "customStyles": true
+          }
+        }
+      ]
     }
   ]
 }
