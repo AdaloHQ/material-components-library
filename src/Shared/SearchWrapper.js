@@ -79,7 +79,7 @@ export default class SearchBarWrapper extends Component {
                 backgroundColor: backgroundColor,
                 borderWidth: borderSize,
                 borderRadius: rounding,
-                borderColor: borderColor
+                borderColor: borderColor,
               },
             ]}
           >
