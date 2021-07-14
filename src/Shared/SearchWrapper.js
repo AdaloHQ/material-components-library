@@ -10,31 +10,6 @@ import {
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
 export default class SearchBarWrapper extends Component {
-  static defaultProps = {
-    searchBar: {
-      enabled: true,
-      placeholderText: 'Search...',
-      notFoundText: 'No Results',
-      icon: 'search',
-      iconColor: '#FFFFFF',
-      backgroundColor: '#FFFFFF',
-      borderColor: '#E0E0E0',
-      borderSize: 1,
-      rounding: 4,
-      styles: {
-        placeholderText: {
-          fontSize: '18px',
-          color: 'black',
-        },
-        notFoundText: {
-          fontWeight: '600',
-          color: 'black',
-          fontSize: '18px',
-        },
-      },
-    },
-  }
-
   debounce = (fn, time) => {
     let timeout
 
@@ -54,13 +29,37 @@ export default class SearchBarWrapper extends Component {
     }
 
     if (!searchBar.customStyles) {
-      searchBar = this.props.searchBar
+      searchBar = {
+        enabled: searchBar.enabled,
+        placeholderText: 'Search...',
+        notFoundText: 'No Results',
+        icon: 'search',
+        iconColor: '#9e9e9e',
+        backgroundColor: '#FFFFFF',
+        borderColor: '#E0E0E0',
+        borderSize: 1,
+        rounding: 4,
+        styles: {
+          placeholderText: {
+            fontSize: '18px',
+            color: '#9e9e9e',
+          },
+          notFoundText: {
+            fontWeight: '600',
+            color: '#9e9e9e',
+            fontSize: '18px',
+          },
+        },
+      }
     }
+
+    console.log(searchBar)
 
     const {
       enabled,
       notFoundText,
       backgroundColor,
+      borderColor,
       borderSize,
       rounding,
       icon,
@@ -80,6 +79,7 @@ export default class SearchBarWrapper extends Component {
                 backgroundColor: backgroundColor,
                 borderWidth: borderSize,
                 borderRadius: rounding,
+                borderColor: borderColor
               },
             ]}
           >
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     paddingRight: 2,
     marginLeft: 12,
     marginRight: 12,
-    borderColor: 'gray',
+    borderColor: '#E0E0E0',
     alignItems: 'center',
     justifyContent: 'center',
     margin: 31,
@@ -160,6 +160,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: '#E0E0E0',
   },
 })
