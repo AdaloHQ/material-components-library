@@ -88,7 +88,7 @@ function ImageHolder(props) {
 
 function TitleHolder(props) {
   let { title, subtitle, textTitleDisplay, styles: emptyWrapperStyle } = props
-  if (textTitleDisplay === 'noText') {
+  if (!textTitleDisplay || textTitleDisplay === 'noText') {
     return <></>
   } else if (textTitleDisplay === 'titleOnly') {
     return (

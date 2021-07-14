@@ -101,7 +101,6 @@
         }
       ]
     },
-
     {
       "name": "chipStyles",
       "displayName": "Chip Styles",
@@ -257,7 +256,7 @@
             "fontWeight": "600"
           },
           "enabled": {
-            "type": ["text", "outlined", "contained"]
+            "buttonType": ["text", "outlined", "contained"]
           }
         },
         {
@@ -266,7 +265,7 @@
           "type": "icon",
           "default": "add",
           "enabled": {
-            "type": ["text", "outlined", "contained"]
+            "buttonType": ["text", "outlined", "contained"]
           }
         },
         {
@@ -275,7 +274,7 @@
           "type": "color",
           "default": "@primary",
           "enabled": {
-            "type": ["text", "outlined", "contained"]
+            "buttonType": ["text", "outlined", "contained"]
           }
         },
         {
@@ -283,7 +282,7 @@
           "displayName": "Icon & Text Color",
           "type": "color",
           "default": "@contrast:primaryColor",
-          "enabled": { "type": "contained" }
+          "enabled": { "buttonType": "contained" }
         },
         {
           "name": "buttonWidth",
@@ -296,7 +295,7 @@
           },
           "default": 4,
           "enabled": {
-            "type": ["text", "outlined", "contained"]
+            "buttonType": ["text", "outlined", "contained"]
           }
         },
         {
@@ -309,14 +308,14 @@
             "min": 0
           },
           "default": 4,
-          "enabled": { "type": ["contained", "outlined"] }
+          "enabled": { "buttonType": ["contained", "outlined"] }
         },
         {
           "name": "buttonShadow",
           "displayName": "Shadow",
           "type": "boolean",
           "default": true,
-          "enabled": { "type": "contained" }
+          "enabled": { "buttonType": "contained" }
         },
         {
           "name": "buttonUpperCase",
@@ -324,7 +323,7 @@
           "type": "boolean",
           "default": true,
           "enabled": {
-            "type": ["text", "outlined", "contained"]
+            "buttonType": ["text", "outlined", "contained"]
           }
         },
         {
@@ -332,7 +331,7 @@
           "type": "action",
           "displayName": "Click Actions",
           "enabled": {
-            "type": ["text", "outlined", "contained"]
+            "buttonType": ["text", "outlined", "contained"]
           }
         }
       ]

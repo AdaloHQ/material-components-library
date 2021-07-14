@@ -77,7 +77,9 @@ class HorizontalImageList extends Component {
     }
 
     const renderEmptyState =
-      ((imageList && !imageList[0]) || openAccordion === 'listEmptyState') &&
+      imageList &&
+      !imageList[0] &&
+      openAccordion === 'listEmptyState' &&
       listEmptyState
 
     if (renderEmptyState) {
