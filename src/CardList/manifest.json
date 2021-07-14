@@ -638,10 +638,9 @@
           "type": "text",
           "default": "Search...",
           "styles": {
-            "fontFamily": "@heading",
             "fontWeight": "600",
-            "color": "@text",
-            "fontSize": "18"
+            "fontSize": "18",
+            "color": "#9E9E9E"
           }
         },
         {
@@ -650,10 +649,9 @@
           "type": "text",
           "default": "No Results",
           "styles": {
-            "fontFamily": "@heading",
             "fontWeight": "600",
-            "color": "@text",
-            "fontSize": "18"
+            "fontSize": "18",
+            "color": "#9E9E9E"
           }
         },
         {
@@ -664,7 +662,7 @@
           "control": {
             "type": "menu",
             "options": [
-              { "label": "Preset", "value": false },
+              { "label": "Default", "value": false },
               { "label": "Custom", "value": true }
             ]
           }
@@ -682,7 +680,7 @@
           "name": "iconColor",
           "displayName": "Icon Color",
           "type": "color",
-          "default": "@secondary",
+          "default": "#9e9e9e",
           "enabled": {
             "customStyles": true
           }
@@ -710,7 +708,7 @@
           "displayName": "Border Size",
           "type": "number",
           "default": 1,
-          "control": { "type": "slider", "max": 18, "min": 0 },
+          "control": { "type": "slider", "max": 3, "min": 0 },
           "enabled": {
             "customStyles": true
           }
@@ -720,7 +718,7 @@
           "displayName": "Rounding",
           "type": "number",
           "default": 4,
-          "control": { "type": "slider", "max": 18, "min": 0 },
+          "control": { "type": "slider", "max": 30, "min": 0 },
           "enabled": {
             "customStyles": true
           }
