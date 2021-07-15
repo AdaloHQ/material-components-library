@@ -41,13 +41,13 @@ export default class SearchBarWrapper extends Component {
         rounding: 4,
         styles: {
           placeholderText: {
-            fontSize: '18px',
+            fontSize: 18,
             color: '#9e9e9e',
           },
           notFoundText: {
             fontWeight: '600',
             color: '#9e9e9e',
-            fontSize: '18px',
+            fontSize: 18,
           },
         },
       }

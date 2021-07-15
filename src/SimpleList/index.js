@@ -115,7 +115,8 @@ export default class SimpleList extends Component {
     const notFound = newItems.length === 0
 
     const renderEmptyState =
-      items && !items[0] && openAccordion === 'listEmptyState' && listEmptyState
+      (items && !items[0]) ||
+      (openAccordion === 'listEmptyState' && listEmptyState)
     if (renderEmptyState) {
       return <EmptyState {...listEmptyState}></EmptyState>
     }

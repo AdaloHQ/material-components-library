@@ -47,10 +47,8 @@ class ChipList extends Component {
     }
 
     const renderEmptyState =
-      imageList &&
-      !imageList[0] &&
-      openAccordion === 'listEmptyState' &&
-      listEmptyState
+      (imageList && !imageList[0]) ||
+      (openAccordion === 'listEmptyState' && listEmptyState)
 
     if (renderEmptyState) {
       return <EmptyState {...listEmptyState}></EmptyState>
