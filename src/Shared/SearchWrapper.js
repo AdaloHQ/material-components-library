@@ -53,8 +53,6 @@ export default class SearchBarWrapper extends Component {
       }
     }
 
-    console.log(searchBar)
-
     const {
       enabled,
       notFoundText,
@@ -100,6 +98,7 @@ export default class SearchBarWrapper extends Component {
                 fontSize={searchBarStyles.placeholderText.fontSize}
                 placeholder={placeholderText}
                 placeholderTextColor={searchBarStyles.placeholderText.color}
+                autoCapitalize='none'
                 onChange={(e) => {
                   this.debounce(onFilterElement(e.target.value), 300)
                 }}

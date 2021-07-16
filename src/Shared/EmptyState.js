@@ -19,10 +19,12 @@ export default class EmptyListWrapper extends Component {
       buttonWidth,
     } = this.props
 
+    console.log(this.props)
+
     return (
       <>
         <ImageHolder {...this.props} />
-        {buttonType !== 'noButton' && (
+        {(buttonType && buttonType !== 'noButton') && (
           <WrappedTextButton
             type={buttonType}
             text={buttonText}
