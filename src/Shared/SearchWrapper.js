@@ -99,8 +99,8 @@ export default class SearchBarWrapper extends Component {
                 placeholder={placeholderText}
                 placeholderTextColor={searchBarStyles.placeholderText.color}
                 autoCapitalize='none'
-                onChange={(e) => {
-                  this.debounce(onFilterElement(e.target.value), 300)
+                onChangeText={(text) => {
+                  this.debounce(onFilterElement(text), 300)
                 }}
               />
             </View>
