@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, Image, Platform } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
+import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
+import EmptyState from '../Shared/EmptyState'
 
 export default class SimpleList extends Component {
   static defaultProps = {
@@ -10,7 +12,9 @@ export default class SimpleList extends Component {
   }
   state = {
     fullWidth: 0,
+    currentQuery: '',
   }
+
   handleLayout = ({ nativeEvent }) => {
     const { width } = (nativeEvent && nativeEvent.layout) || {}
     const { fullWidth: prevWidth } = this.state
@@ -46,9 +50,32 @@ export default class SimpleList extends Component {
     )
   }
 
+  filterElement = (query) => {
+    this.setState({ currentQuery: query })
+  }
+
+  filterItems(items) {
+    let { currentQuery } = this.state
+    return items.filter((itm) => {
+      if (itm.firstLine.text.indexOf(currentQuery) >= 0) {
+        return true
+      } else if (itm.secondLine.text.indexOf(currentQuery) >= 0) {
+        return true
+      }
+    })
+  }
+
   render() {
-    let { items, dividerType, dividerColor, background, listHeader } =
-      this.props
+    let {
+      items,
+      dividerType,
+      dividerColor,
+      background,
+      listHeader,
+      searchBar,
+      listEmptyState,
+      openAccordion,
+    } = this.props
 
     let wrap = [styles.wrapper]
     if (background && background.enabled) {
@@ -83,23 +110,40 @@ export default class SimpleList extends Component {
       }
     }
 
+    const newItems = this.filterItems(items)
+
+    const notFound = newItems.length === 0
+
+    const renderEmptyState =
+      (items && !items[0]) ||
+      (openAccordion === 'listEmptyState' && listEmptyState)
+    if (renderEmptyState) {
+      return <EmptyState {...listEmptyState}></EmptyState>
+    }
+
     return (
       <>
         {this.renderHeader()}
-        <View style={wrap} onLayout={this.handleLayout}>
-          {items.map((itm, i) => (
-            <Row
-              {...itm}
-              key={itm.id}
-              dividerType={dividerType}
-              dividerColor={dividerColor}
-              lastRow={i === items.length - 1}
-              fullWidth={this.state.fullWidth}
-              editor={this.props.editor}
-              _fonts={this.props._fonts}
-            />
-          ))}
-        </View>
+        <SearchBarWrapper
+          searchBar={searchBar}
+          onFilterElement={this.filterElement}
+          notFound={notFound}
+        >
+          <View style={wrap} onLayout={this.handleLayout}>
+            {newItems.map((itm, i) => (
+              <Row
+                {...itm}
+                key={itm.id}
+                dividerType={dividerType}
+                dividerColor={dividerColor}
+                lastRow={i === newItems.length - 1}
+                fullWidth={this.state.fullWidth}
+                editor={this.props.editor}
+                _fonts={this.props._fonts}
+              />
+            ))}
+          </View>
+        </SearchBarWrapper>
       </>
     )
   }
