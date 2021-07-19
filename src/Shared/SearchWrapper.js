@@ -28,29 +28,56 @@ export default class SearchBarWrapper extends Component {
       return <>{children}</>
     }
 
-    if (!searchBar.customStyles) {
-      searchBar = {
-        enabled: searchBar.enabled,
-        placeholderText: 'Search...',
-        notFoundText: 'No Results',
-        icon: 'search',
-        iconColor: '#9e9e9e',
-        backgroundColor: '#FFFFFF',
-        borderColor: '#E0E0E0',
-        borderSize: 1,
-        rounding: 4,
-        styles: {
-          placeholderText: {
-            fontSize: 18,
-            color: '#9e9e9e',
-          },
-          notFoundText: {
-            fontWeight: '600',
-            color: '#9e9e9e',
-            fontSize: 18,
-          },
+    const simpleGray = {
+      enabled: searchBar.enabled,
+      placeholderText: 'Search...',
+      notFoundText: 'No Results',
+      icon: 'search',
+      iconColor: '#9e9e9e',
+      backgroundColor: '#F5F5F5',
+      borderColor: '#E0E0E0',
+      borderSize: 1,
+      rounding: 20,
+      styles: {
+        placeholderText: {
+          fontSize: 16,
+          color: '#757575',
         },
-      }
+        notFoundText: {
+          fontWeight: '600',
+          color: '#9e9e9e',
+          fontSize: 16,
+        },
+      },
+    }
+
+    const standardIcon = {
+      enabled: searchBar.enabled,
+      placeholderText: 'Search...',
+      notFoundText: 'No Results',
+      icon: 'search',
+      iconColor: '#9e9e9e',
+      backgroundColor: '#FFFFFF',
+      borderColor: '#BDBDBD',
+      borderSize: 1,
+      rounding: 4,
+      styles: {
+        placeholderText: {
+          fontSize: 16,
+          color: '#757575',
+        },
+        notFoundText: {
+          fontWeight: '600',
+          color: '#9e9e9e',
+          fontSize: 16,
+        },
+      },
+    }
+
+    if (!searchBar.customStyles || searchBar.customStyles === 'simple') {
+      searchBar = simpleGray
+    } else if (searchBar.customStyles === 'standard') {
+      searchBar = standardIcon
     }
 
     const {
@@ -83,7 +110,7 @@ export default class SearchBarWrapper extends Component {
           >
             <View style={styles.icon}>
               <Icon
-                size={24}
+                size={20}
                 name={icon}
                 styles={styles.icon}
                 color={iconColor}
@@ -98,7 +125,7 @@ export default class SearchBarWrapper extends Component {
                 fontSize={searchBarStyles.placeholderText.fontSize}
                 placeholder={placeholderText}
                 placeholderTextColor={searchBarStyles.placeholderText.color}
-                autoCapitalize='none'
+                autoCapitalize="none"
                 onChangeText={(text) => {
                   this.debounce(onFilterElement(text), 300)
                 }}
@@ -123,7 +150,7 @@ export default class SearchBarWrapper extends Component {
 const styles = StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
-    height: 42,
+    height: 40,
     paddingTop: 0,
     marginTop: 12,
     paddingBottom: 0,
@@ -140,7 +167,8 @@ const styles = StyleSheet.create({
   input: {
     flex: 0.95,
     height: 40,
-    fontSize: 18,
+    fontSize: 16,
+    fontWeight: 'normal',
   },
   icon: {
     justifyContent: 'center',
@@ -149,16 +177,6 @@ const styles = StyleSheet.create({
     paddingRight: 18,
   },
   totalWrapper: {
-    marginRight: 20,
-    marginLeft: 20,
-    marginTop: 10,
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 9,
-    paddingRight: 9,
     backgroundColor: '#fff',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
   },
 })

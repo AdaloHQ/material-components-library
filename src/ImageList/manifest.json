@@ -315,10 +315,10 @@
           "type": "text",
           "default": "Search...",
           "styles": {
-            "fontWeight": "600",
-            "fontSize": "18",
-            "color": "#9E9E9E"
-          }
+            "fontFamily": "@body",
+            "fontWeight": "normal"
+          },
+          "helpText": "Searches any of the Magic Text used in this list."
         },
         {
           "name": "notFoundText",
@@ -327,6 +327,7 @@
           "default": "No Results",
           "styles": {
             "fontWeight": "600",
+            "fontFamily": "@body",
             "fontSize": "18",
             "color": "#9E9E9E"
           }
@@ -335,12 +336,13 @@
           "name": "customStyles",
           "displayName": "Search Input Styles",
           "type": "boolean",
-          "default": false,
+          "default": "simple",
           "control": {
             "type": "menu",
             "options": [
-              { "label": "Default", "value": false },
-              { "label": "Custom", "value": true }
+              { "label": "Simple Gray & Rounded", "value": "simple" },
+              { "label": "Standard Icon & Input", "value": "standard" },
+              { "label": "Custom", "value": "custom" }
             ]
           }
         },
@@ -350,7 +352,7 @@
           "type": "icon",
           "default": "search",
           "enabled": {
-            "customStyles": true
+            "customStyles": "custom"
           }
         },
         {
@@ -359,7 +361,7 @@
           "type": "color",
           "default": "#9e9e9e",
           "enabled": {
-            "customStyles": true
+            "customStyles": "custom"
           }
         },
         {
@@ -368,16 +370,24 @@
           "type": "color",
           "default": "#FFFFFF",
           "enabled": {
-            "customStyles": true
+            "customStyles": "custom"
+          }
+        },
+        {
+          "name": "border",
+          "type": "boolean",
+          "default": false,
+          "enabled": {
+            "customStyles": "custom"
           }
         },
         {
           "name": "borderColor",
           "displayName": "Border Color",
           "type": "color",
-          "default": "#E0E0E0",
+          "default": "#BDBDBD",
           "enabled": {
-            "customStyles": true
+            "border": true
           }
         },
         {
@@ -385,19 +395,37 @@
           "displayName": "Border Size",
           "type": "number",
           "default": 1,
-          "control": { "type": "slider", "max": 3, "min": 0 },
+          "control": { "type": "slider", "max": 3, "min": 1 },
           "enabled": {
-            "customStyles": true
+            "border": true
           }
         },
         {
           "name": "rounding",
           "displayName": "Rounding",
           "type": "number",
-          "default": 4,
-          "control": { "type": "slider", "max": 30, "min": 0 },
+          "default": 6,
+          "control": { "type": "slider", "max": 20, "min": 0 },
           "enabled": {
-            "customStyles": true
+            "customStyles": "custom"
+          }
+        },
+        {
+          "name": "placeholderTextColor",
+          "displayName": "Placeholder Text Color",
+          "type": "color",
+          "default": "#757575",
+          "enabled": {
+            "customStyles": "custom"
+          }
+        },
+        {
+          "name": "inputTextColor",
+          "displayName": "Input Text Color",
+          "type": "color",
+          "default": "@text",
+          "enabled": {
+            "customStyles": "custom"
           }
         }
       ]
