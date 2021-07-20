@@ -285,20 +285,6 @@
           "enabled": { "buttonType": "contained" }
         },
         {
-          "name": "buttonWidth",
-          "displayName": "Button Width",
-          "type": "number",
-          "control": {
-            "type": "slider",
-            "max": 600,
-            "min": 50
-          },
-          "default": 4,
-          "enabled": {
-            "buttonType": ["text", "outlined", "contained"]
-          }
-        },
-        {
           "name": "buttonBorderRadius",
           "displayName": "Rounding",
           "type": "number",

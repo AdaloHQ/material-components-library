@@ -49,6 +49,8 @@ export default class SearchBarWrapper extends Component {
           fontSize: 16,
         },
       },
+      hasBorder: false,
+      hasIcon: false,
     }
 
     const standardIcon = {
@@ -72,6 +74,8 @@ export default class SearchBarWrapper extends Component {
           fontSize: 16,
         },
       },
+      hasBorder: false,
+      hasIcon: true,
     }
 
     if (!searchBar.customStyles || searchBar.customStyles === 'simple') {
@@ -90,31 +94,33 @@ export default class SearchBarWrapper extends Component {
       icon,
       iconColor,
       placeholderText,
+      hasIcon,
+      hasBorder,
     } = searchBar
 
     const { styles: searchBarStyles } = searchBar
 
+    const borderStyles =
+      searchBar.customStyles === 'custom' && hasBorder
+        ? { borderColor: borderColor, borderWidth: borderSize }
+        : {}
+
     if (enabled) {
       return (
-        <View style={styles.totalWrapper}>
+        <View style={[styles.totalWrapper, borderStyles]}>
           <View
             style={[
               styles.searchBar,
               {
                 backgroundColor: backgroundColor,
-                borderWidth: borderSize,
                 borderRadius: rounding,
                 borderColor: borderColor,
+                borderWidth: borderSize,
               },
             ]}
           >
             <View style={styles.icon}>
-              <Icon
-                size={20}
-                name={icon}
-                styles={styles.icon}
-                color={iconColor}
-              />
+              {hasIcon && <Icon size={20} name={icon} color={iconColor} />}
             </View>
             <View
               style={styles.input}
@@ -152,17 +158,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 40,
     paddingTop: 0,
-    marginTop: 12,
+    marginTop: 24,
     paddingBottom: 0,
-    marginBottom: 10,
-    paddingLeft: 2,
-    paddingRight: 2,
-    marginLeft: 12,
-    marginRight: 12,
+    marginBottom: 24,
     borderColor: '#E0E0E0',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 31,
   },
   input: {
     flex: 0.95,
@@ -173,10 +174,11 @@ const styles = StyleSheet.create({
   icon: {
     justifyContent: 'center',
     flex: 0.05,
-    paddingLeft: 6,
-    paddingRight: 18,
+    paddingLeft: 8,
+    paddingRight: 8,
   },
   totalWrapper: {
+    paddingTop: 14,
     backgroundColor: '#fff',
   },
 })

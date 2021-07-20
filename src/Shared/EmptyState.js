@@ -16,7 +16,6 @@ export default class EmptyListWrapper extends Component {
       buttonShadow,
       buttonUpperCase,
       buttonAction,
-      buttonWidth,
     } = this.props
 
     return (
@@ -34,7 +33,6 @@ export default class EmptyListWrapper extends Component {
             upperCase={buttonUpperCase}
             action={buttonAction}
             container={{
-              width: buttonWidth,
               alignSelf: 'center',
             }}
           />

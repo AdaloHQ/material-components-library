@@ -670,12 +670,21 @@
           }
         },
         {
+          "name": "hasIcon",
+          "displayName": "Icon",
+          "type": "boolean",
+          "default": false,
+          "enabled": {
+            "customStyles": "custom"
+          }
+        },
+        {
           "name": "icon",
           "displayName": "Icon",
           "type": "icon",
           "default": "search",
           "enabled": {
-            "customStyles": "custom"
+            "hasIcon": true
           }
         },
         {
@@ -684,7 +693,7 @@
           "type": "color",
           "default": "#9e9e9e",
           "enabled": {
-            "customStyles": "custom"
+            "hasIcon": true
           }
         },
         {
@@ -697,7 +706,8 @@
           }
         },
         {
-          "name": "border",
+          "name": "hasBorder",
+          "displayName": "Border",
           "type": "boolean",
           "default": false,
           "enabled": {
@@ -710,7 +720,7 @@
           "type": "color",
           "default": "#BDBDBD",
           "enabled": {
-            "border": true
+            "hasBorder": true
           }
         },
         {
@@ -720,7 +730,7 @@
           "default": 1,
           "control": { "type": "slider", "max": 3, "min": 1 },
           "enabled": {
-            "border": true
+            "hasBorder": true
           }
         },
         {
@@ -746,7 +756,7 @@
           "name": "inputTextColor",
           "displayName": "Input Text Color",
           "type": "color",
-          "default": "@text",
+          "default": "text",
           "enabled": {
             "customStyles": "custom"
           }
@@ -876,20 +886,6 @@
           "type": "color",
           "default": "@contrast:primaryColor",
           "enabled": { "buttonType": "contained" }
-        },
-        {
-          "name": "buttonWidth",
-          "displayName": "Button Width",
-          "type": "number",
-          "control": {
-            "type": "slider",
-            "max": 600,
-            "min": 50
-          },
-          "default": 4,
-          "enabled": {
-            "buttonType": ["text", "outlined", "contained"]
-          }
         },
         {
           "name": "buttonBorderRadius",
