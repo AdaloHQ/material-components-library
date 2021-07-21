@@ -107,7 +107,7 @@ export default class SearchBarWrapper extends Component {
 
     if (enabled) {
       return (
-        <View style={[styles.totalWrapper, borderStyles]}>
+        <View style={styles.totalWrapper}>
           <View
             style={[
               styles.searchBar,

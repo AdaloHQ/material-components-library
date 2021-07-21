@@ -124,12 +124,12 @@ export default class SimpleList extends Component {
     return (
       <>
         {this.renderHeader()}
-        <SearchBarWrapper
-          searchBar={searchBar}
-          onFilterElement={this.filterElement}
-          notFound={notFound}
-        >
-          <View style={wrap} onLayout={this.handleLayout}>
+        <View style={wrap} onLayout={this.handleLayout}>
+          <SearchBarWrapper
+            searchBar={searchBar}
+            onFilterElement={this.filterElement}
+            notFound={notFound}
+          >
             {newItems.map((itm, i) => (
               <Row
                 {...itm}
@@ -142,8 +142,8 @@ export default class SimpleList extends Component {
                 _fonts={this.props._fonts}
               />
             ))}
-          </View>
-        </SearchBarWrapper>
+          </SearchBarWrapper>
+        </View>
       </>
     )
   }
