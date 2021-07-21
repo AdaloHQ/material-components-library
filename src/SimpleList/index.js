@@ -7,9 +7,6 @@ import WrappedIconToggle from '../IconToggle/index.js'
 import EmptyState from '../Shared/EmptyState'
 
 export default class SimpleList extends Component {
-  static defaultProps = {
-    items: [],
-  }
   state = {
     fullWidth: 0,
     currentQuery: '',
@@ -76,6 +73,8 @@ export default class SimpleList extends Component {
       listEmptyState,
       openAccordion,
     } = this.props
+
+    if (!items) return <View></View>
 
     let wrap = [styles.wrapper]
     if (background && background.enabled) {
