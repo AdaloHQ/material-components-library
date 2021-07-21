@@ -147,6 +147,8 @@ export default class ImageList extends Component {
       this.props
     let wrap = [styles.wrap]
 
+    if (!items) return <View></View>
+
     const newItems = this.filterItems(items)
 
     const notFound = newItems.length === 0

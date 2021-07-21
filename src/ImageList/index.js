@@ -135,6 +135,8 @@ export default class ImageList extends Component {
 
     let layout = 'grid' //items[0] ? items[0].imageStyles.layout : 'grid'
 
+    if (!items) return <View></View>
+
     const newItems = this.filterItems(items)
 
     const notFound = newItems.length === 0
