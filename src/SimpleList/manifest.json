@@ -335,7 +335,7 @@
           "styles": {
             "fontFamily": "@heading",
             "fontWeight": "600",
-            "color": "#E0E0E0",
+            "color": "@text",
             "fontSize": "16"
           }
         }
@@ -470,7 +470,7 @@
           "name": "inputTextColor",
           "displayName": "Input Text Color",
           "type": "color",
-          "default": "text",
+          "default": "#424242",
           "enabled": {
             "customStyles": "custom"
           }

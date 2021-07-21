@@ -22,7 +22,7 @@ export default class SearchBarWrapper extends Component {
   }
 
   render() {
-    let { searchBar, onFilterElement, notFound, children } = this.props
+    let { searchBar, onFilterElement, notFound, border, children } = this.props
 
     if (!searchBar) {
       return <>{children}</>
@@ -95,14 +95,13 @@ export default class SearchBarWrapper extends Component {
       iconColor,
       placeholderText,
       hasIcon,
-      hasBorder,
     } = searchBar
 
     const { styles: searchBarStyles } = searchBar
 
     const borderStyles =
-      searchBar.customStyles === 'custom' && hasBorder
-        ? { borderColor: borderColor, borderWidth: borderSize }
+      border
+        ? { marginTop: 24 }
         : {}
 
     if (enabled) {
@@ -116,6 +115,9 @@ export default class SearchBarWrapper extends Component {
                 borderRadius: rounding,
                 borderColor: borderColor,
                 borderWidth: borderSize,
+              },
+              {
+                borderStyles
               },
             ]}
           >
@@ -158,7 +160,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 40,
     paddingTop: 0,
-    marginTop: 24,
+    marginTop: 0,
     paddingBottom: 0,
     marginBottom: 24,
     borderColor: '#E0E0E0',
@@ -170,6 +172,7 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
     fontWeight: 'normal',
+    color: '#424242',
   },
   icon: {
     justifyContent: 'center',
@@ -179,6 +182,5 @@ const styles = StyleSheet.create({
   },
   totalWrapper: {
     paddingTop: 14,
-    backgroundColor: '#fff',
   },
 })

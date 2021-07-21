@@ -164,15 +164,17 @@ export default class ImageList extends Component {
     } else {
       return (
         <>
-          <SearchBarWrapper
-            searchBar={searchBar}
-            onFilterElement={this.filterElement}
-            notFound={notFound}
-          >
-            <View onLayout={this.handleLayout}>
-              {this.renderGrid(newItems)}
-            </View>
-          </SearchBarWrapper>
+          <View>
+            <SearchBarWrapper
+              searchBar={searchBar}
+              onFilterElement={this.filterElement}
+              notFound={notFound}
+            >
+              <View onLayout={this.handleLayout}>
+                {this.renderGrid(newItems)}
+              </View>
+            </SearchBarWrapper>
+          </View>
         </>
       )
     }
@@ -436,6 +438,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
+    minHeight: 100,
   },
   textWrapper: {
     flexDirection: 'column',

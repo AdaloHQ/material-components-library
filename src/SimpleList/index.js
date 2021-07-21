@@ -121,6 +121,9 @@ export default class SimpleList extends Component {
       return <EmptyState {...listEmptyState}></EmptyState>
     }
 
+    let { backgroundColor, border, borderSize, borderColor, rounding, shadow } =
+      background
+
     return (
       <>
         {this.renderHeader()}
@@ -129,6 +132,7 @@ export default class SimpleList extends Component {
             searchBar={searchBar}
             onFilterElement={this.filterElement}
             notFound={notFound}
+            border={border}
           >
             {newItems.map((itm, i) => (
               <Row
