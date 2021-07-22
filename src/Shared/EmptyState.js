@@ -18,9 +18,6 @@ export default class EmptyListWrapper extends Component {
       buttonAction,
     } = this.props
 
-    console.log("Component")
-    console.log(this.props)
-
     return (
       <>
         <ImageHolder {...this.props} />

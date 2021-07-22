@@ -65,8 +65,8 @@ export default class SearchBarWrapper extends Component {
       rounding: 4,
       styles: {
         placeholderText: {
-          fontSize: 16,
           color: '#757575',
+          fontSize: 16,
         },
         notFoundText: {
           fontWeight: '600',
@@ -95,14 +95,13 @@ export default class SearchBarWrapper extends Component {
       iconColor,
       placeholderText,
       hasIcon,
+      placeholderTextColor,
+      inputTextColor,
     } = searchBar
 
     const { styles: searchBarStyles } = searchBar
 
-    const borderStyles =
-      border
-        ? { marginTop: 24 }
-        : {}
+    const borderStyles = border ? { marginTop: 24 } : {}
 
     if (enabled) {
       return (
@@ -117,7 +116,7 @@ export default class SearchBarWrapper extends Component {
                 borderWidth: borderSize,
               },
               {
-                borderStyles
+                borderStyles,
               },
             ]}
           >
@@ -129,10 +128,10 @@ export default class SearchBarWrapper extends Component {
               fontSize={searchBarStyles.placeholderText.fontSize}
             >
               <TextInput
-                style={styles.input}
+                style={[styles.input, { color: inputTextColor }]}
                 fontSize={searchBarStyles.placeholderText.fontSize}
                 placeholder={placeholderText}
-                placeholderTextColor={searchBarStyles.placeholderText.color}
+                placeholderTextColor={placeholderTextColor}
                 autoCapitalize="none"
                 onChangeText={(text) => {
                   this.debounce(onFilterElement(text), 300)
@@ -172,7 +171,6 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
     fontWeight: 'normal',
-    color: '#424242',
   },
   icon: {
     justifyContent: 'center',
