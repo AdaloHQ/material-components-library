@@ -16,7 +16,6 @@ import EmptyState from '../Shared/EmptyState'
 
 export default class ImageList extends Component {
   static defaultProps = {
-    items: [],
     columnCount: 1,
   }
   state = {

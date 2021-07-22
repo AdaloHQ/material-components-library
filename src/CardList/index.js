@@ -13,7 +13,6 @@ const SINGLE_COLUMN_LAYOUTS = {
 
 export default class ImageList extends Component {
   static defaultProps = {
-    items: [],
     columnCount: 1,
   }
   state = {
