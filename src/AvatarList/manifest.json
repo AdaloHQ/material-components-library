@@ -208,7 +208,8 @@
           "styles": {
             "fontFamily": "@body",
             "color": "#212121",
-            "fontWeight": "normal"
+            "fontWeight": "normal",
+            "fontSize": "18"
           },
           "enabled": {
             "textTitleDisplay": "titleAndSubtitle"
