@@ -140,6 +140,11 @@ export default class ImageList extends Component {
 
     const notFound = newItems.length === 0
 
+    const extraStyle = {
+      marginLeft: 2,
+      marginRight: 2,
+    }
+
     const renderEmptyState =
       (items && !items[0]) ||
       (openAccordion === 'listEmptyState' && listEmptyState)
@@ -155,6 +160,7 @@ export default class ImageList extends Component {
               searchBar={searchBar}
               onFilterElement={this.filterElement}
               notFound={notFound}
+              extraStyle={extraStyle}
             >
               {this.renderHeader()}
               {this.renderMasonry(newItems)}
@@ -170,6 +176,7 @@ export default class ImageList extends Component {
               searchBar={searchBar}
               onFilterElement={this.filterElement}
               notFound={notFound}
+              extraStyle={extraStyle}
             >
               <View onLayout={this.handleLayout}>
                 {this.renderGrid(newItems)}

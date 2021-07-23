@@ -159,6 +159,11 @@ export default class ImageList extends Component {
       return <EmptyState {...listEmptyState}></EmptyState>
     }
 
+    const extraStyle = {
+      marginLeft: 4,
+      marginRight: 4
+    }
+
     if (cardLayout === 'grid') {
       return (
         <>
@@ -168,6 +173,7 @@ export default class ImageList extends Component {
               searchBar={searchBar}
               onFilterElement={this.filterElement}
               notFound={notFound}
+              extraStyle={extraStyle}
             >
               {this.renderGrid(newItems)}
             </SearchBarWrapper>
@@ -184,6 +190,7 @@ export default class ImageList extends Component {
             searchBar={searchBar}
             onFilterElement={this.filterElement}
             notFound={notFound}
+            extraStyle={extraStyle}
           >
             {this.renderMasonry(newItems)}
           </SearchBarWrapper>

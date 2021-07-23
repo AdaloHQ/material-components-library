@@ -22,7 +22,8 @@ export default class SearchBarWrapper extends Component {
   }
 
   render() {
-    let { searchBar, onFilterElement, notFound, border, children } = this.props
+    let { searchBar, onFilterElement, notFound, border, children, extraStyle } =
+      this.props
 
     if (!searchBar) {
       return <>{children}</>
@@ -117,6 +118,9 @@ export default class SearchBarWrapper extends Component {
               },
               {
                 ...borderStyles,
+              },
+              {
+                ...extraStyle,
               },
             ]}
           >

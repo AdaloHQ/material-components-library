@@ -123,6 +123,8 @@ export default class SimpleList extends Component {
     let { backgroundColor, border, borderSize, borderColor, rounding, shadow } =
       background
 
+    const extraStyle = {}
+
     return (
       <>
         {this.renderHeader()}
@@ -132,6 +134,7 @@ export default class SimpleList extends Component {
             onFilterElement={this.filterElement}
             notFound={notFound}
             border={border}
+            extraStyle={extraStyle}
           >
             {newItems.map((itm, i) => (
               <Row
