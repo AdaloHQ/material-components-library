@@ -421,7 +421,8 @@
           "default": 6,
           "control": { "type": "slider", "max": 20, "min": 0 },
           "enabled": {
-            "customStyles": "custom"
+            "customStyles": "custom",
+            "hasBorder": true
           }
         },
         {

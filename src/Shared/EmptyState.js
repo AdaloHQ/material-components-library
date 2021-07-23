@@ -90,7 +90,9 @@ function TitleHolder(props) {
     return <></>
   } else if (textTitleDisplay === 'titleOnly') {
     return (
-      <Text style={[styles.textStyle, emptyWrapperStyle.title]}>{title}</Text>
+      <View>
+        <Text style={[styles.textStyle, emptyWrapperStyle.title]}>{title}</Text>
+      </View>
     )
   } else {
     return (
