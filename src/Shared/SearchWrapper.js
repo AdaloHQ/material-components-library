@@ -101,11 +101,11 @@ export default class SearchBarWrapper extends Component {
 
     const { styles: searchBarStyles } = searchBar
 
-    const borderStyles = border ? { marginTop: 24 } : {}
+    const borderStyles = border ? { marginLeft: 16, marginRight: 16 } : {}
 
     if (enabled) {
       return (
-        <View style={styles.totalWrapper}>
+        <View style={[styles.totalWrapper]}>
           <View
             style={[
               styles.searchBar,
@@ -116,7 +116,7 @@ export default class SearchBarWrapper extends Component {
                 borderWidth: borderSize,
               },
               {
-                borderStyles,
+                ...borderStyles,
               },
             ]}
           >
@@ -158,7 +158,6 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
     height: 40,
-    paddingTop: 0,
     marginTop: 0,
     paddingBottom: 0,
     marginBottom: 24,
@@ -167,16 +166,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input: {
-    flex: 0.95,
+    flex: 1,
     height: 40,
     fontSize: 16,
     fontWeight: 'normal',
   },
   icon: {
     justifyContent: 'center',
-    flex: 0.05,
-    paddingLeft: 8,
-    paddingRight: 8,
+    marginLeft: 8,
+    marginRight: 8,
   },
   totalWrapper: {
     paddingTop: 14,

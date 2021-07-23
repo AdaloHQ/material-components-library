@@ -398,6 +398,7 @@
           "type": "icon",
           "default": "search",
           "enabled": {
+            "customStyles": "custom",
             "hasIcon": true
           }
         },
@@ -407,6 +408,7 @@
           "type": "color",
           "default": "#9e9e9e",
           "enabled": {
+            "customStyles": "custom",
             "hasIcon": true
           }
         },
@@ -434,6 +436,7 @@
           "type": "color",
           "default": "#BDBDBD",
           "enabled": {
+            "customStyles": "custom",
             "hasBorder": true
           }
         },
@@ -444,6 +447,7 @@
           "default": 1,
           "control": { "type": "slider", "max": 3, "min": 1 },
           "enabled": {
+            "customStyles": "custom",
             "hasBorder": true
           }
         },
