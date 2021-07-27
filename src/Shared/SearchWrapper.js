@@ -39,10 +39,10 @@ export default class SearchBarWrapper extends Component {
       borderColor: '#E0E0E0',
       borderSize: 1,
       rounding: 20,
+      placeholderTextColor: '#757575',
       styles: {
         placeholderText: {
           fontSize: 16,
-          color: '#757575',
         },
         notFoundText: {
           fontWeight: '600',
@@ -64,9 +64,9 @@ export default class SearchBarWrapper extends Component {
       borderColor: '#BDBDBD',
       borderSize: 1,
       rounding: 4,
+      placeholderTextColor: '#757575',
       styles: {
         placeholderText: {
-          color: '#757575',
           fontSize: 16,
         },
         notFoundText: {

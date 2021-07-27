@@ -890,7 +890,7 @@
           "name": "buttonContrastColor",
           "displayName": "Icon & Text Color",
           "type": "color",
-          "default": "@contrast:primaryColor",
+          "default": "@contrast:buttonPrimaryColor",
           "enabled": { "buttonType": "contained" }
         },
         {
