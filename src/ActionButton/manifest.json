@@ -84,12 +84,6 @@
       "default": "@contrast:backgroundColor"
     },
     {
-      "name": "positioning",
-      "editable": false,
-      "type": "text",
-      "default": "fixedBottom"
-    },
-    {
       "name": "action",
       "type": "action",
       "displayName": "Click Actions"
