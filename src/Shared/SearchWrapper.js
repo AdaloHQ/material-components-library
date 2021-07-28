@@ -116,12 +116,8 @@ export default class SearchBarWrapper extends Component {
                 borderColor: borderColor,
                 borderWidth: borderSize,
               },
-              {
-                ...borderStyles,
-              },
-              {
-                ...extraStyle,
-              },
+              borderStyles,
+              extraStyle,
             ]}
           >
             <View style={styles.icon}>
