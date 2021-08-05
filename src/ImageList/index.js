@@ -24,9 +24,9 @@ export default class ImageList extends Component {
   }
 
   renderGrid(items) {
-    let { columnCount } = this.props
+    let { columnCount, _width } = this.props
     let { fullWidth } = this.state
-    let width = fullWidth / columnCount
+    let width = (fullWidth || _width) / columnCount
 
     return (
       <View style={styles.wrapper}>
@@ -64,12 +64,12 @@ export default class ImageList extends Component {
   }
 
   renderMasonry(items) {
-    let { columnCount } = this.props
+    let { columnCount, _width } = this.props
     let { fullWidth } = this.state
 
     let columns = this.getColumns(items)
 
-    let width = fullWidth / columnCount
+    let width = (fullWidth || _width) / columnCount
 
     let wrap = [styles.wrapper]
 
@@ -171,16 +171,14 @@ export default class ImageList extends Component {
     } else {
       return (
         <>
-          <View>
+          <View onLayout={this.handleLayout}>
             <SearchBarWrapper
               searchBar={searchBar}
               onFilterElement={this.filterElement}
               notFound={notFound}
               extraStyle={extraStyle}
             >
-              <View onLayout={this.handleLayout}>
-                {this.renderGrid(newItems)}
-              </View>
+              {this.renderGrid(newItems)}
             </SearchBarWrapper>
           </View>
         </>
