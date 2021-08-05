@@ -74,7 +74,7 @@ export default class SearchBarWrapper extends Component {
           fontSize: 16,
         },
       },
-      hasBorder: false,
+      hasBorder: true,
       hasIcon: false,
     }
 
@@ -99,7 +99,7 @@ export default class SearchBarWrapper extends Component {
           fontSize: 16,
         },
       },
-      hasBorder: false,
+      hasBorder: true,
       hasIcon: true,
     }
 
