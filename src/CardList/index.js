@@ -160,8 +160,8 @@ export default class ImageList extends Component {
     }
 
     const extraStyle = {
-      marginLeft: 4,
-      marginRight: 4
+      marginLeft: 8,
+      marginRight: 8
     }
 
     if (cardLayout === 'grid') {
