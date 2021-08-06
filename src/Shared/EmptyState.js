@@ -116,7 +116,15 @@ function TitleHolder(props) {
     title = 'No List Items',
     subtitle = 'Subtitle',
     textTitleDisplay = 'titleOnly',
-    styles: emptyWrapperStyle,
+    styles: emptyWrapperStyle = {
+      title: {
+        fontWeight: 600,
+        fontSize: 18,
+      },
+      subtitle: {
+        fontSize: 18,
+      }
+    },
   } = props
   if (!textTitleDisplay || textTitleDisplay === 'noText') {
     return <></>
