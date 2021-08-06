@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 export default class SearchBarWrapper extends Component {
   defaultProps = {
     placeholderText: 'Search...',
-    notFoundText: 'Not Found',
+    notFoundText: 'No Results',
     icon: 'search',
     iconColor: '#9e9e9e',
     backgroundColor: '#F5F5F5',
@@ -56,7 +56,7 @@ export default class SearchBarWrapper extends Component {
     const simpleGray = {
       enabled: searchBar.enabled,
       placeholderText: searchBar.placeholderText ? searchBar.placeholderText : 'Search...',
-      notFoundText: searchBar.notFoundText ? searchBar.notFoundText : 'Not Found',
+      notFoundText: searchBar.notFoundText ? searchBar.notFoundText : 'No Results',
       icon: 'search',
       iconColor: '#9e9e9e',
       backgroundColor: '#F5F5F5',
@@ -81,7 +81,7 @@ export default class SearchBarWrapper extends Component {
     const standardIcon = {
       enabled: searchBar.enabled,
       placeholderText: searchBar.placeholderText ? searchBar.placeholderText : 'Search...',
-      notFoundText: searchBar.notFoundText ? searchBar.notFoundText : 'Not Found',
+      notFoundText: searchBar.notFoundText ? searchBar.notFoundText : 'No Results',
       icon: 'search',
       iconColor: '#9e9e9e',
       backgroundColor: '#FFFFFF',
