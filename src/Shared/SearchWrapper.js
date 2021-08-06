@@ -111,14 +111,14 @@ export default class SearchBarWrapper extends Component {
 
     const {
       enabled,
-      notFoundText,
+      notFoundText = 'No Results',
       backgroundColor,
       borderColor,
       borderSize,
       rounding,
       icon,
       iconColor,
-      placeholderText,
+      placeholderText = 'Search...',
       hasIcon,
       placeholderTextColor,
       inputTextColor,
