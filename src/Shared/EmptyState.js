@@ -5,10 +5,22 @@ import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import WrappedTextButton from '../TextButton/TextButton.js'
 
 export default class EmptyListWrapper extends Component {
+  defaultProps = {
+    buttonType: 'noButton',
+    buttonText: 'Button',
+    buttonIcon: 'add',
+    buttonBorderRadius: 4,
+    buttonShadow: true,
+    buttonUpperCase: true,
+    textTitleDisplay: 'titleOnly',
+    title: 'No List Items',
+    subtitle: 'Subtitle',
+  }
+
   render() {
     let {
       buttonType,
-      buttonText,
+      buttonText = 'Button',
       buttonIcon,
       buttonPrimaryColor,
       buttonContrastColor,
@@ -18,24 +30,36 @@ export default class EmptyListWrapper extends Component {
       buttonAction,
     } = this.props
 
+    const buttonStyles = buttonShadow
+      ? {
+          flexDirection: 'row',
+          shadowRadius: 3,
+          shadowOpacity: 0.2,
+        }
+      : {}
+
     return (
       <>
         <ImageHolder {...this.props} />
         {buttonType && buttonType !== 'noButton' && (
-          <WrappedTextButton
-            type={buttonType}
-            text={buttonText}
-            icon={buttonIcon}
-            primaryColor={buttonPrimaryColor}
-            contrastColor={buttonContrastColor}
-            borderRadius={buttonBorderRadius}
-            shadow={buttonShadow}
-            upperCase={buttonUpperCase}
-            action={buttonAction}
-            container={{
-              alignSelf: 'center',
-            }}
-          />
+          <View style={{ alignItems: 'center' }}>
+            <View style={buttonStyles}>
+              <WrappedTextButton
+                type={buttonType}
+                text={buttonText}
+                icon={buttonIcon}
+                primaryColor={buttonPrimaryColor}
+                contrastColor={buttonContrastColor}
+                borderRadius={buttonBorderRadius}
+                shadow={buttonShadow}
+                upperCase={buttonUpperCase}
+                action={buttonAction}
+                container={{
+                  alignSelf: 'center',
+                }}
+              />
+            </View>
+          </View>
         )}
       </>
     )
@@ -85,7 +109,12 @@ function ImageHolder(props) {
 }
 
 function TitleHolder(props) {
-  let { title, subtitle, textTitleDisplay, styles: emptyWrapperStyle } = props
+  let {
+    title = 'No List Items',
+    subtitle = 'Subtitle',
+    textTitleDisplay = 'titleOnly',
+    styles: emptyWrapperStyle,
+  } = props
   if (!textTitleDisplay || textTitleDisplay === 'noText') {
     return <></>
   } else if (textTitleDisplay === 'titleOnly') {

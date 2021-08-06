@@ -55,8 +55,8 @@ export default class SearchBarWrapper extends Component {
 
     const simpleGray = {
       enabled: searchBar.enabled,
-      placeholderText: searchBar.placeholderText,
-      notFoundText: searchBar.notFoundText,
+      placeholderText: searchBar.placeholderText ? searchBar.placeholderText : 'Search...',
+      notFoundText: searchBar.notFoundText ? searchBar.notFoundText : 'Not Found',
       icon: 'search',
       iconColor: '#9e9e9e',
       backgroundColor: '#F5F5F5',
@@ -80,8 +80,8 @@ export default class SearchBarWrapper extends Component {
 
     const standardIcon = {
       enabled: searchBar.enabled,
-      placeholderText: searchBar.placeholderText,
-      notFoundText: searchBar.notFoundText,
+      placeholderText: searchBar.placeholderText ? searchBar.placeholderText : 'Search...',
+      notFoundText: searchBar.notFoundText ? searchBar.notFoundText : 'Not Found',
       icon: 'search',
       iconColor: '#9e9e9e',
       backgroundColor: '#FFFFFF',
