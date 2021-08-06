@@ -19,12 +19,12 @@ export default class EmptyListWrapper extends Component {
 
   render() {
     let {
-      buttonType,
+      buttonType = 'noButton',
       buttonText = 'Button',
-      buttonIcon,
+      buttonIcon = 'add',
       buttonPrimaryColor,
       buttonContrastColor,
-      buttonBorderRadius,
+      buttonBorderRadius = 3,
       buttonShadow,
       buttonUpperCase,
       buttonAction,
