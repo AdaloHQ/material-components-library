@@ -35,6 +35,7 @@ export default class EmptyListWrapper extends Component {
         ? {
             flexDirection: 'row',
             shadowRadius: 3,
+            elevation: 3,
             shadowOpacity: 0.2,
             borderRadius: buttonBorderRadius,
           }
