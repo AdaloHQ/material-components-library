@@ -416,7 +416,7 @@
           "name": "backgroundColor",
           "displayName": "Background Color",
           "type": "color",
-          "default": "#FFFFFF",
+          "default": "#F5F5F5",
           "enabled": {
             "customStyles": "custom"
           }
@@ -425,7 +425,7 @@
           "name": "hasBorder",
           "displayName": "Border",
           "type": "boolean",
-          "default": false,
+          "default": true,
           "enabled": {
             "customStyles": "custom"
           }
@@ -434,7 +434,7 @@
           "name": "borderColor",
           "displayName": "Border Color",
           "type": "color",
-          "default": "#BDBDBD",
+          "default": "#E0E0E0",
           "enabled": {
             "customStyles": "custom",
             "hasBorder": true
@@ -455,7 +455,7 @@
           "name": "rounding",
           "displayName": "Rounding",
           "type": "number",
-          "default": 6,
+          "default": 20,
           "control": { "type": "slider", "max": 20, "min": 0 },
           "enabled": {
             "customStyles": "custom",
