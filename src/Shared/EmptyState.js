@@ -30,11 +30,12 @@ export default class EmptyListWrapper extends Component {
       buttonAction,
     } = this.props
 
-    const buttonStyles = buttonShadow
+    const buttonStyles = buttonShadow && buttonType !== 'text'
       ? {
           flexDirection: 'row',
           shadowRadius: 3,
           shadowOpacity: 0.2,
+          borderRadius: buttonBorderRadius,
         }
       : {}
 
