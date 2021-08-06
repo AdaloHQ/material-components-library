@@ -113,9 +113,9 @@ function ImageHolder(props) {
 
 function TitleHolder(props) {
   let {
-    title = 'No List Items',
-    subtitle = 'Subtitle',
-    textTitleDisplay = 'titleOnly',
+    title = '',
+    subtitle = '',
+    textTitleDisplay = 'noText',
     styles: emptyWrapperStyle = {
       title: {
         fontWeight: 600,

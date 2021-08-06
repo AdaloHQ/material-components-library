@@ -514,7 +514,7 @@
           "name": "textTitleDisplay",
           "displayName": "Text",
           "type": "text",
-          "default": "titleOnly",
+          "default": "noText",
           "control": {
             "type": "menu",
             "options": [
