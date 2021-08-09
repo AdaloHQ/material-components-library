@@ -89,9 +89,9 @@
     "babel-loader": "^8.0.4",
     "babel-runtime": "^6.26.0",
     "css-loader": "^1.0.0",
-    "react": "^16.8",
-    "react-art": "^16.8",
-    "react-dom": "^16.8",
+    "react": "16.13.1",
+    "react-art": "16.13.1",
+    "react-dom": "16.13.1",
     "react-native-web": "^0.9.5",
     "regenerator-runtime": "^0.12.1",
     "style-loader": "^0.23.1"
