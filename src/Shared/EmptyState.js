@@ -38,6 +38,10 @@ export default class EmptyListWrapper extends Component {
             elevation: 3,
             shadowOpacity: 0.2,
             borderRadius: buttonBorderRadius,
+            shadowOffset: {
+              width: 1,
+              height: 1,
+            },
           }
         : {}
 
@@ -123,7 +127,7 @@ function TitleHolder(props) {
       },
       subtitle: {
         fontSize: 18,
-      }
+      },
     },
   } = props
   if (!textTitleDisplay || textTitleDisplay === 'noText') {
