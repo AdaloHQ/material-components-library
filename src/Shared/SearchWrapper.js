@@ -64,16 +64,7 @@ export default class SearchBarWrapper extends Component {
       borderSize: 1,
       rounding: 20,
       placeholderTextColor: '#757575',
-      styles: {
-        placeholderText: {
-          fontSize: 16,
-        },
-        notFoundText: {
-          fontWeight: '600',
-          color: '#9e9e9e',
-          fontSize: 16,
-        },
-      },
+      styles: searchBar.styles,
       hasBorder: true,
       hasIcon: false,
     }
@@ -89,16 +80,7 @@ export default class SearchBarWrapper extends Component {
       borderSize: 1,
       rounding: 4,
       placeholderTextColor: '#757575',
-      styles: {
-        placeholderText: {
-          fontSize: 16,
-        },
-        notFoundText: {
-          fontWeight: '600',
-          color: '#9e9e9e',
-          fontSize: 16,
-        },
-      },
+      styles: searchBar.styles,
       hasBorder: true,
       hasIcon: true,
     }
@@ -156,7 +138,7 @@ export default class SearchBarWrapper extends Component {
               fontSize={searchBarStyles.placeholderText.fontSize}
             >
               <TextInput
-                style={[styles.input, { color: inputTextColor }]}
+                style={[styles.input, { color: inputTextColor }, searchBarStyles.placeholderText]}
                 fontSize={searchBarStyles.placeholderText.fontSize}
                 placeholder={placeholderText}
                 placeholderTextColor={placeholderTextColor}
