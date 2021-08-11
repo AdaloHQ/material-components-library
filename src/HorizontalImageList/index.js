@@ -7,6 +7,7 @@ import {
   ScrollView,
   ImageBackground,
   Platform,
+  Dimensions,
 } from 'react-native'
 import ImageItem from './ImageItem.js'
 import BottomBar from './BottomBar.js'
@@ -21,7 +22,8 @@ class HorizontalImageList extends Component {
       Platform.OS === 'android' ||
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
-      )
+      ) ||
+      Dimensions.width < 800
     ) {
       return true
     } else {
