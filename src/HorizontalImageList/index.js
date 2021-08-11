@@ -419,7 +419,7 @@ class HorizontalImageList extends Component {
       bbStyles.subtitle.color = bbTextColor ? bbTextColor : '#424242'
     }
 
-    const imageScrollView = this.isMobileDevice() ? (
+    const ImageScrollView = this.isMobileDevice() ? (
       <ImageScrollViewMobile
         imageList={imageList}
         imageStyles={imageStyles}
@@ -461,15 +461,13 @@ class HorizontalImageList extends Component {
         iconSize={iconSize}
       ></ImageScrollViewWeb>
     )
-    return (
-      <View
-        style={{
-          justifyContent: 'center',
-        }}
-      >
-        {imageScrollView}
-      </View>
-    )
+    return <ImageScrollView />
+    // <View
+    //   style={{
+    //     justifyContent: 'center',
+    //   }}
+    // >
+    // </View>
   }
 }
 
