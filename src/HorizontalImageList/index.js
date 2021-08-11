@@ -7,6 +7,7 @@ import {
   ScrollView,
   ImageBackground,
   Platform,
+  Dimensions,
 } from 'react-native'
 import ImageItem from './ImageItem.js'
 import BottomBar from './BottomBar.js'
@@ -21,7 +22,8 @@ class HorizontalImageList extends Component {
       Platform.OS === 'android' ||
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
-      )
+      ) ||
+      Dimensions.width < 800
     ) {
       return true
     } else {
@@ -416,7 +418,6 @@ class HorizontalImageList extends Component {
         : '#FFFFFF00'
       bbStyles.subtitle.color = bbTextColor ? bbTextColor : '#424242'
     }
-
     const imageScrollView = this.isMobileDevice() ? (
       <ImageScrollViewMobile
         imageList={imageList}
