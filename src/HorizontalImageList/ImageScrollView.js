@@ -7,6 +7,7 @@ import {
   ScrollView,
   ImageBackground,
   TouchableWithoutFeedback,
+  FlatList,
 } from 'react-native'
 import ImageItem from './ImageItem.js'
 import BottomBar from './BottomBar.js'
@@ -37,6 +38,7 @@ class ImageScrollView extends Component {
     return (
       <FlatList
         data={imageList}
+        horizontal
         renderItem={({
           image,
           clickActions,
