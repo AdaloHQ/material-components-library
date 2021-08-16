@@ -10,11 +10,11 @@ export default class EmptyListWrapper extends Component {
     buttonText: 'Button',
     buttonIcon: 'add',
     buttonBorderRadius: 4,
-    buttonShadow: true,
-    buttonUpperCase: true,
+    buttonShadow: false,
+    buttonUpperCase: false,
     textTitleDisplay: 'titleOnly',
-    title: '',
-    subtitle: '',
+    title: 'No List Items',
+    subtitle: 'Subtitle',
   }
 
   render() {
@@ -121,8 +121,8 @@ function ImageHolder(props) {
 
 function TitleHolder(props) {
   let {
-    title = '',
-    subtitle = '',
+    title = 'No List Items',
+    subtitle = 'Subtitle',
     textTitleDisplay = 'noText',
     styles: emptyWrapperStyle = {
       title: {
