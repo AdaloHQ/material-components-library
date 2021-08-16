@@ -10,7 +10,6 @@ import {
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
 export default class SearchBarWrapper extends Component {
-
   debounce = (fn, time) => {
     let timeout
 

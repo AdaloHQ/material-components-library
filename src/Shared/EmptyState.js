@@ -28,7 +28,7 @@ export default class EmptyListWrapper extends Component {
       buttonShadow,
       buttonUpperCase,
       buttonAction,
-      styles: emptyListStyles
+      styles: emptyListStyles,
     } = this.props
 
     emptyListStyles.text = emptyListStyles.buttonText
