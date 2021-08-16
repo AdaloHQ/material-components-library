@@ -13,8 +13,8 @@ export default class EmptyListWrapper extends Component {
     buttonShadow: true,
     buttonUpperCase: true,
     textTitleDisplay: 'titleOnly',
-    title: 'No List Items',
-    subtitle: 'Subtitle',
+    title: '',
+    subtitle: '',
   }
 
   render() {

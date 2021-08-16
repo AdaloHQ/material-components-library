@@ -458,8 +458,7 @@
           "default": 20,
           "control": { "type": "slider", "max": 20, "min": 0 },
           "enabled": {
-            "customStyles": "custom",
-            "hasBorder": true
+            "customStyles": "custom"
           }
         },
         {
@@ -623,14 +622,14 @@
           "name": "buttonShadow",
           "displayName": "Shadow",
           "type": "boolean",
-          "default": true,
+          "default": false,
           "enabled": { "buttonType": "contained" }
         },
         {
           "name": "buttonUpperCase",
           "displayName": "Uppercase",
           "type": "boolean",
-          "default": true,
+          "default": false,
           "enabled": {
             "buttonType": ["text", "outlined", "contained"]
           }

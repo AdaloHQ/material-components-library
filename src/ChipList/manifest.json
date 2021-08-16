@@ -301,14 +301,14 @@
           "name": "buttonShadow",
           "displayName": "Shadow",
           "type": "boolean",
-          "default": true,
+          "default": false,
           "enabled": { "buttonType": "contained" }
         },
         {
           "name": "buttonUpperCase",
           "displayName": "Uppercase",
           "type": "boolean",
-          "default": true,
+          "default": false,
           "enabled": {
             "buttonType": ["text", "outlined", "contained"]
           }
