@@ -10,31 +10,6 @@ import {
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
 export default class SearchBarWrapper extends Component {
-  defaultProps = {
-    searchBar: {
-      placeholderText: 'Search...',
-      notFoundText: 'No Results',
-      icon: 'search',
-      iconColor: '#9e9e9e',
-      backgroundColor: '#F5F5F5',
-      borderColor: '#E0E0E0',
-      borderSize: 1,
-      rounding: 20,
-      placeholderTextColor: '#757575',
-      styles: {
-        placeholderText: {
-          fontSize: 16,
-        },
-        notFoundText: {
-          fontWeight: '600',
-          color: '#9e9e9e',
-          fontSize: 16,
-        },
-      },
-      hasBorder: false,
-      hasIcon: false,
-    },
-  }
 
   debounce = (fn, time) => {
     let timeout

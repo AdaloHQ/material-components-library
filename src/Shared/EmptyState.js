@@ -28,7 +28,10 @@ export default class EmptyListWrapper extends Component {
       buttonShadow,
       buttonUpperCase,
       buttonAction,
+      styles: emptyListStyles
     } = this.props
+
+    emptyListStyles.text = emptyListStyles.buttonText
 
     const buttonStyles =
       buttonShadow && buttonType !== 'text' && buttonType !== 'outlined'
@@ -61,6 +64,7 @@ export default class EmptyListWrapper extends Component {
                 shadow={buttonShadow}
                 upperCase={buttonUpperCase}
                 action={buttonAction}
+                styles={emptyListStyles}
                 container={{
                   alignSelf: 'center',
                 }}
