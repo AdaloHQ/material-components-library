@@ -1058,14 +1058,14 @@
           "name": "buttonShadow",
           "displayName": "Shadow",
           "type": "boolean",
-          "default": false,
+          "default": true,
           "enabled": { "buttonType": "contained" }
         },
         {
           "name": "buttonUpperCase",
           "displayName": "Uppercase",
           "type": "boolean",
-          "default": false,
+          "default": true,
           "enabled": {
             "buttonType": ["text", "outlined", "contained"]
           }
