@@ -72,7 +72,11 @@ class HorizontalImageList extends Component {
       openAccordion,
     } = this.props
 
-    if (!imageList || typeof navigator.userAgent === undefined) {
+    if (
+      !imageList ||
+      typeof navigator.userAgent === undefined ||
+      (!imageList[0] && !listEmptyState)
+    ) {
       return <View style={{ height: imageSize }}></View>
     }
 

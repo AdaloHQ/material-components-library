@@ -42,7 +42,11 @@ class ChipList extends Component {
       openAccordion,
     } = this.props
 
-    if (!imageList || typeof navigator.userAgent === undefined) {
+    if (
+      !imageList ||
+      typeof navigator.userAgent === undefined ||
+      (!imageList[0] && !listEmptyState)
+    ) {
       return <View style={{ height: 32 }}></View>
     }
 

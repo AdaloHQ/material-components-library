@@ -146,8 +146,8 @@ export default class ImageList extends Component {
     }
 
     const renderEmptyState =
-      (items && !items[0]) ||
-      (openAccordion === 'listEmptyState' && listEmptyState)
+      listEmptyState &&
+      ((items && !items[0]) || openAccordion === 'listEmptyState')
     if (renderEmptyState) {
       return <EmptyState {...listEmptyState}></EmptyState>
     }

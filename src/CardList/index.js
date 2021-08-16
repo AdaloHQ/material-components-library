@@ -153,15 +153,15 @@ export default class ImageList extends Component {
     const notFound = newItems.length === 0
 
     const renderEmptyState =
-      (items && !items[0]) ||
-      (openAccordion === 'listEmptyState' && listEmptyState)
+      listEmptyState &&
+      ((items && !items[0]) || openAccordion === 'listEmptyState')
     if (renderEmptyState) {
       return <EmptyState {...listEmptyState}></EmptyState>
     }
 
     const extraStyle = {
       marginLeft: 8,
-      marginRight: 8
+      marginRight: 8,
     }
 
     if (cardLayout === 'grid') {
