@@ -11,6 +11,7 @@ import ImageItem from './ImageItem.js'
 import placeholder from './holdplace.png'
 import ImageScrollViewWeb from './ImageScrollView.web.js'
 import ImageScrollViewMobile from './ImageScrollView.js'
+import EmptyState from '../Shared/EmptyState'
 
 class AvatarList extends Component {
   isMobileDevice = () => {
@@ -32,15 +33,31 @@ class AvatarList extends Component {
   }
 
   render() {
-    const { imageList, imageSpacing, imageChild, _fonts } = this.props
+    const {
+      imageList,
+      imageSpacing,
+      imageChild,
+      _fonts,
+      listEmptyState,
+      openAccordion,
+    } = this.props
 
     if (
       !imageList ||
       typeof navigator.userAgent === undefined ||
-      !imageList[0]
+      (!imageList[0] && !listEmptyState)
     ) {
       return <View style={{ height: imageSize }}></View>
     }
+
+    const renderEmptyState =
+      (imageList && !imageList[0]) ||
+      (openAccordion === 'listEmptyState' && listEmptyState)
+
+    if (renderEmptyState) {
+      return <EmptyState {...listEmptyState}></EmptyState>
+    }
+
     const {
       imageSize,
       imageRounding,

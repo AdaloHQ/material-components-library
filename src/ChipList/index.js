@@ -11,6 +11,7 @@ import {
 import placeholder from './holdplace.png'
 import ImageScrollViewWeb from './ImageScrollView.web.js'
 import ImageScrollViewMobile from './ImageScrollView.js'
+import EmptyState from '../Shared/EmptyState'
 
 class ChipList extends Component {
   isMobileDevice = () => {
@@ -32,14 +33,29 @@ class ChipList extends Component {
   }
 
   render() {
-    const { imageList, imageSpacing, editor, _fonts } = this.props
+    const {
+      imageList,
+      imageSpacing,
+      editor,
+      _fonts,
+      listEmptyState,
+      openAccordion,
+    } = this.props
 
     if (
       !imageList ||
       typeof navigator.userAgent === undefined ||
-      !imageList[0]
+      (!imageList[0] && !listEmptyState)
     ) {
       return <View style={{ height: 32 }}></View>
+    }
+
+    const renderEmptyState =
+      (imageList && !imageList[0]) ||
+      (openAccordion === 'listEmptyState' && listEmptyState)
+
+    if (renderEmptyState) {
+      return <EmptyState {...listEmptyState}></EmptyState>
     }
 
     const dummy = {

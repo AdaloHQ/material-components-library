@@ -1,23 +1,32 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Image, Platform } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Platform,
+  TextInput,
+} from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import Gradient from './gradient'
+import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
+import EmptyState from '../Shared/EmptyState'
 
 export default class ImageList extends Component {
   static defaultProps = {
-    items: [],
     columnCount: 1,
   }
   state = {
     fullWidth: null,
+    currentQuery: '',
   }
 
-  renderGrid() {
-    let { items, columnCount } = this.props
+  renderGrid(items) {
+    let { columnCount, _width } = this.props
     let { fullWidth } = this.state
-    let width = fullWidth / columnCount
+    let width = (fullWidth || _width) / columnCount
 
     return (
       <View style={styles.wrapper}>
@@ -33,8 +42,8 @@ export default class ImageList extends Component {
     )
   }
 
-  getColumns() {
-    let { items, columnCount } = this.props
+  getColumns(items) {
+    let { columnCount } = this.props
     let columns = []
 
     for (let i = 0; i < items.length; i += columnCount) {
@@ -54,12 +63,13 @@ export default class ImageList extends Component {
     return columns
   }
 
-  renderMasonry() {
-    let { columnCount } = this.props
+  renderMasonry(items) {
+    let { columnCount, _width } = this.props
     let { fullWidth } = this.state
-    let columns = this.getColumns()
 
-    let width = fullWidth / columnCount
+    let columns = this.getColumns(items)
+
+    let width = (fullWidth || _width) / columnCount
 
     let wrap = [styles.wrapper]
 
@@ -91,6 +101,10 @@ export default class ImageList extends Component {
     }
   }
 
+  filterElement = (query) => {
+    this.setState({ currentQuery: query })
+  }
+
   renderHeader() {
     let { listHeader } = this.props
 
@@ -104,20 +118,71 @@ export default class ImageList extends Component {
     )
   }
 
+  filterItems(items) {
+    let { currentQuery } = this.state
+    return items.filter((itm) => {
+      if (itm.title.text.indexOf(currentQuery) >= 0) {
+        return true
+      } else if (itm.title.subtitle.indexOf(currentQuery) >= 0) {
+        return true
+      }
+    })
+  }
+
   render() {
-    let { items } = this.props
+    let { items, searchBar, listEmptyState, openAccordion } = this.props
 
     let layout = 'grid' //items[0] ? items[0].imageStyles.layout : 'grid'
 
+    if (!items) return <View></View>
+
+    const newItems = this.filterItems(items)
+
+    const notFound = newItems.length === 0
+
+    const extraStyle = {
+      marginLeft: 2,
+      marginRight: 2,
+    }
+
+    const renderEmptyState =
+      listEmptyState &&
+      ((items && !items[0]) || openAccordion === 'listEmptyState')
+    if (renderEmptyState) {
+      return <EmptyState {...listEmptyState}></EmptyState>
+    }
+
     if (layout === 'masonry') {
       return (
-        <View onLayout={this.handleLayout}>
-          {this.renderHeader()}
-          {this.renderMasonry()}
-        </View>
+        <>
+          <View onLayout={this.handleLayout}>
+            <SearchBarWrapper
+              searchBar={searchBar}
+              onFilterElement={this.filterElement}
+              notFound={notFound}
+              extraStyle={extraStyle}
+            >
+              {this.renderHeader()}
+              {this.renderMasonry(newItems)}
+            </SearchBarWrapper>
+          </View>
+        </>
       )
     } else {
-      return <View onLayout={this.handleLayout}>{this.renderGrid()}</View>
+      return (
+        <>
+          <View onLayout={this.handleLayout}>
+            <SearchBarWrapper
+              searchBar={searchBar}
+              onFilterElement={this.filterElement}
+              notFound={notFound}
+              extraStyle={extraStyle}
+            >
+              {this.renderGrid(newItems)}
+            </SearchBarWrapper>
+          </View>
+        </>
+      )
     }
   }
 }
@@ -379,6 +444,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
+    minHeight: 100,
   },
   textWrapper: {
     flexDirection: 'column',

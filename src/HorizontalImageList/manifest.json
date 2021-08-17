@@ -916,6 +916,169 @@
           "default": true
         }
       ]
+    },
+    {
+      "name": "listEmptyState",
+      "displayName": "List Empty State",
+      "props": [
+        {
+          "name": "emptyStateImageStatus",
+          "displayName": "Image",
+          "type": "text",
+          "default": "noImage",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Above Title", "value": "above" },
+              { "label": "Below Title", "value": "below" },
+              { "label": "No Image", "value": "noImage" }
+            ]
+          }
+        },
+        {
+          "name": "imageSource",
+          "displayName": "Image Source",
+          "role": "listItem",
+          "reference": "images",
+          "type": "image",
+          "enabled": {
+            "emptyStateImageStatus": ["above", "below"]
+          }
+        },
+        {
+          "name": "textTitleDisplay",
+          "displayName": "Text",
+          "type": "text",
+          "default": "noText",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Title Only", "value": "titleOnly" },
+              { "label": "Title and Subtitle", "value": "titleAndSubtitle" },
+              { "label": "No Text", "value": "noText" }
+            ]
+          }
+        },
+        {
+          "name": "title",
+          "displayName": "Title",
+          "type": "text",
+          "default": "No List Items",
+          "styles": {
+            "fontFamily": "@heading",
+            "fontWeight": "600",
+            "color": "@text",
+            "fontSize": "18"
+          },
+          "enabled": {
+            "textTitleDisplay": ["titleOnly", "titleAndSubtitle"]
+          }
+        },
+        {
+          "name": "subtitle",
+          "displayName": "Subtitle",
+          "type": "text",
+          "default": "Subtitle",
+          "styles": {
+            "fontFamily": "@body",
+            "color": "#212121",
+            "fontWeight": "normal",
+            "fontSize": "18"
+          },
+          "enabled": {
+            "textTitleDisplay": "titleAndSubtitle"
+          }
+        },
+        {
+          "name": "buttonType",
+          "displayName": "Button Type",
+          "type": "text",
+          "default": "noButton",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Text Button", "value": "text" },
+              { "label": "Outlined Button", "value": "outlined" },
+              { "label": "Contained Button", "value": "contained" },
+              { "label": "No Button", "value": "noButton" }
+            ]
+          }
+        },
+        {
+          "name": "buttonText",
+          "displayName": "Text",
+          "type": "text",
+          "default": "Button",
+          "styles": {
+            "fontFamily": "@body",
+            "fontWeight": "600"
+          },
+          "enabled": {
+            "buttonType": ["text", "outlined", "contained"]
+          }
+        },
+        {
+          "name": "buttonIcon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "add",
+          "enabled": {
+            "buttonType": ["text", "outlined", "contained"]
+          }
+        },
+        {
+          "name": "buttonPrimaryColor",
+          "displayName": "Button Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "buttonType": ["text", "outlined", "contained"]
+          }
+        },
+        {
+          "name": "buttonContrastColor",
+          "displayName": "Icon & Text Color",
+          "type": "color",
+          "default": "@contrast:buttonPrimaryColor",
+          "enabled": { "buttonType": "contained" }
+        },
+        {
+          "name": "buttonBorderRadius",
+          "displayName": "Rounding",
+          "type": "number",
+          "control": {
+            "type": "slider",
+            "max": 18,
+            "min": 0
+          },
+          "default": 4,
+          "enabled": { "buttonType": ["contained", "outlined"] }
+        },
+        {
+          "name": "buttonShadow",
+          "displayName": "Shadow",
+          "type": "boolean",
+          "default": true,
+          "enabled": { "buttonType": "contained" }
+        },
+        {
+          "name": "buttonUpperCase",
+          "displayName": "Uppercase",
+          "type": "boolean",
+          "default": true,
+          "enabled": {
+            "buttonType": ["text", "outlined", "contained"]
+          }
+        },
+        {
+          "name": "buttonAction",
+          "type": "action",
+          "displayName": "Click Actions",
+          "enabled": {
+            "buttonType": ["text", "outlined", "contained"]
+          }
+        }
+      ]
     }
   ]
 }
