@@ -13,6 +13,7 @@ import BottomBar from './BottomBar.js'
 import placeholder from './holdplace.png'
 import ImageScrollViewMobile from './ImageScrollView.js'
 import ImageScrollViewWeb from './ImageScrollView.web.js'
+import EmptyState from '../Shared/EmptyState'
 
 class HorizontalImageList extends Component {
   isMobileDevice = () => {
@@ -67,14 +68,26 @@ class HorizontalImageList extends Component {
       bottomBarStyle,
       bottomBarButtons,
       _fonts,
+      listEmptyState,
+      openAccordion,
     } = this.props
+
     if (
       !imageList ||
       typeof navigator.userAgent === undefined ||
-      !imageList[0]
+      (!imageList[0] && !listEmptyState)
     ) {
       return <View style={{ height: imageSize }}></View>
     }
+
+    const renderEmptyState =
+      (imageList && !imageList[0]) ||
+      (openAccordion === 'listEmptyState' && listEmptyState)
+
+    if (renderEmptyState) {
+      return <EmptyState {...listEmptyState}></EmptyState>
+    }
+
     const { imageSize, imageRounding, shape, shadow } = imageChild
     const {
       bbBackground,

@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, Image, Platform } from 'react-native'
 import placeholder from './holdplace.png'
 import { Card, Button, IconToggle } from '@protonapp/react-native-material-ui'
+import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
 import IconToggleEditor from '../Shared/IconToggleEditor'
+import EmptyState from '../Shared/EmptyState'
 
 const SINGLE_COLUMN_LAYOUTS = {
   mediaRight: true,
@@ -11,11 +13,11 @@ const SINGLE_COLUMN_LAYOUTS = {
 
 export default class ImageList extends Component {
   static defaultProps = {
-    items: [],
     columnCount: 1,
   }
   state = {
     fullWidth: null,
+    currentQuery: '',
   }
 
   getColumnCount() {
@@ -35,9 +37,8 @@ export default class ImageList extends Component {
       this.setState({ fullWidth: width })
     }
   }
-  getColumns() {
+  getColumns(items) {
     let count = this.getColumnCount()
-    let { items } = this.props
     let columns = []
 
     for (let i = 0; i < items.length; i += count) {
@@ -68,10 +69,10 @@ export default class ImageList extends Component {
     />
   )
 
-  renderMasonry() {
-    let { items, layout, editor, _fonts } = this.props
+  renderMasonry(items) {
+    let { layout, editor, _fonts } = this.props
 
-    let columns = this.getColumns()
+    const columns = this.getColumns(items)
 
     let wrap = [styles.wrapper]
 
@@ -85,8 +86,8 @@ export default class ImageList extends Component {
       </View>
     )
   }
-  renderGrid() {
-    let { items, layout, columnCount, editor, _fonts } = this.props
+  renderGrid(items) {
+    let { layout, columnCount, editor, _fonts } = this.props
 
     let { fullWidth } = this.state
     let width = fullWidth / columnCount - 8
@@ -98,6 +99,10 @@ export default class ImageList extends Component {
         )}
       </View>
     )
+  }
+
+  filterElement = (query) => {
+    this.setState({ currentQuery: query })
   }
 
   renderHeader() {
@@ -117,23 +122,80 @@ export default class ImageList extends Component {
     return <Text style={headerStyles}>{listHeader.header}</Text>
   }
 
+  filterItems(items) {
+    let { currentQuery } = this.state
+    return items.filter((itm) => {
+      if (!currentQuery) {
+        return true
+      }
+      if (itm.title.text && itm.title.text.indexOf(currentQuery) >= 0) {
+        return true
+      } else if (
+        itm.subtitle.text &&
+        itm.subtitle.text.indexOf(currentQuery) >= 0
+      ) {
+        return true
+      } else if (itm.body.text && itm.body.text.indexOf(currentQuery) >= 0) {
+        return true
+      }
+    })
+  }
+
   render() {
-    let { cardLayout } = this.props
+    let { cardLayout, searchBar, items, listEmptyState, openAccordion } =
+      this.props
     let wrap = [styles.wrap]
+
+    if (!items) return <View></View>
+
+    const newItems = this.filterItems(items)
+
+    const notFound = newItems.length === 0
+
+    const renderEmptyState =
+      listEmptyState &&
+      ((items && !items[0]) || openAccordion === 'listEmptyState')
+    if (renderEmptyState) {
+      return <EmptyState {...listEmptyState}></EmptyState>
+    }
+
+    const extraStyle = {
+      marginLeft: 8,
+      marginRight: 8,
+    }
 
     if (cardLayout === 'grid') {
       return (
-        <View style={wrap}>
-          {this.renderHeader()}
-          {this.renderGrid()}
-        </View>
+        <>
+          <View style={wrap}>
+            {this.renderHeader()}
+            <SearchBarWrapper
+              searchBar={searchBar}
+              onFilterElement={this.filterElement}
+              notFound={notFound}
+              extraStyle={extraStyle}
+            >
+              {this.renderGrid(newItems)}
+            </SearchBarWrapper>
+          </View>
+        </>
       )
     }
+
     return (
-      <View style={wrap}>
-        {this.renderHeader()}
-        {this.renderMasonry()}
-      </View>
+      <>
+        <View style={wrap}>
+          {this.renderHeader()}
+          <SearchBarWrapper
+            searchBar={searchBar}
+            onFilterElement={this.filterElement}
+            notFound={notFound}
+            extraStyle={extraStyle}
+          >
+            {this.renderMasonry(newItems)}
+          </SearchBarWrapper>
+        </View>
+      </>
     )
   }
 }
