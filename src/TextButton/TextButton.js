@@ -94,7 +94,7 @@ export default class WrappedTextButton extends Component {
   }
 
   renderSub() {
-    let { icon, action, text, upperCase } = this.props
+    let { icon, action, text, upperCase, container } = this.props
 
     let containerStyles = this.getContainerStyles()
     let iconStyles = this.getTextStyles()
@@ -118,7 +118,7 @@ export default class WrappedTextButton extends Component {
             onPress={action && this.submitAction}
             text={this.state.loading ? '' : text}
             style={{
-              container: containerStyles,
+              container: [containerStyles, container],
               icon: iconStyles,
               text: [textStyles, styles.text],
             }}
