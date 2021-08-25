@@ -102,7 +102,7 @@ export default class ImageList extends Component {
   }
 
   filterElement = (query) => {
-    this.setState({ currentQuery: query })
+    this.setState({ currentQuery: query.toLowerCase() })
   }
 
   renderHeader() {
@@ -128,14 +128,14 @@ export default class ImageList extends Component {
       if (!currentQuery) {
         return true
       }
-      if (itm.title.text && itm.title.text.indexOf(currentQuery) >= 0) {
+      if (itm.title.text && itm.title.text.toLowerCase().indexOf(currentQuery) >= 0) {
         return true
       } else if (
         itm.subtitle.text &&
-        itm.subtitle.text.indexOf(currentQuery) >= 0
+        itm.subtitle.text.toLowerCase().indexOf(currentQuery) >= 0
       ) {
         return true
-      } else if (itm.body.text && itm.body.text.indexOf(currentQuery) >= 0) {
+      } else if (itm.body.text && itm.body.text.toLowerCase().indexOf(currentQuery) >= 0) {
         return true
       }
     })
