@@ -48,15 +48,15 @@ export default class SimpleList extends Component {
   }
 
   filterElement = (query) => {
-    this.setState({ currentQuery: query })
+    this.setState({ currentQuery: query.toLowerCase() })
   }
 
   filterItems(items) {
     let { currentQuery } = this.state
     return items.filter((itm) => {
-      if (itm.firstLine.text.indexOf(currentQuery) >= 0) {
+      if (itm.firstLine.text.toLowerCase().indexOf(currentQuery) >= 0) {
         return true
-      } else if (itm.secondLine.text.indexOf(currentQuery) >= 0) {
+      } else if (itm.secondLine.text.toLowerCase().indexOf(currentQuery) >= 0) {
         return true
       }
     })
