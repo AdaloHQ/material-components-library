@@ -102,7 +102,7 @@ export default class ImageList extends Component {
   }
 
   filterElement = (query) => {
-    this.setState({ currentQuery: query })
+    this.setState({ currentQuery: query.toLowerCase() })
   }
 
   renderHeader() {
@@ -121,9 +121,9 @@ export default class ImageList extends Component {
   filterItems(items) {
     let { currentQuery } = this.state
     return items.filter((itm) => {
-      if (itm.title.text.indexOf(currentQuery) >= 0) {
+      if (itm.title.text.toLowerCase().indexOf(currentQuery) >= 0) {
         return true
-      } else if (itm.title.subtitle.indexOf(currentQuery) >= 0) {
+      } else if (itm.title.subtitle.toLowerCase().indexOf(currentQuery) >= 0) {
         return true
       }
     })
