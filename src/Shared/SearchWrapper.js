@@ -10,6 +10,20 @@ import {
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
 export default class SearchBarWrapper extends Component {
+  constructor(props) {
+    super(props)
+
+    const {
+      searchBar: { borderColor: blurBorderColor, borderSize: blurBorderSize },
+    } = props
+
+    this.state = {
+      currentBorderColor: blurBorderColor,
+      blurBorderColor,
+      currentBorderSize: blurBorderSize,
+      blurBorderSize,
+    }
+  }
   debounce = (fn, time) => {
     let timeout
 
@@ -22,6 +36,7 @@ export default class SearchBarWrapper extends Component {
   }
 
   render() {
+    console.log('render', this.state)
     let { searchBar, onFilterElement, notFound, border, children, extraStyle } =
       this.props
 
@@ -106,8 +121,8 @@ export default class SearchBarWrapper extends Component {
               {
                 backgroundColor: backgroundColor,
                 borderRadius: rounding,
-                borderColor: borderColor,
-                borderWidth: borderSize,
+                borderColor: this.state.currentBorderColor,
+                borderWidth: this.state.currentBorderSize,
               },
               borderStyles,
               borderExistsStyles,
@@ -131,6 +146,20 @@ export default class SearchBarWrapper extends Component {
                 placeholder={placeholderText}
                 placeholderTextColor={placeholderTextColor}
                 autoCapitalize="none"
+                onBlur={() =>
+                  this.setState({
+                    ...this.state,
+                    currentBorderColor: this.state.blurBorderColor,
+                    currentBorderSize: this.state.blurBorderSize,
+                  })
+                }
+                onFocus={() =>
+                  this.setState({
+                    ...this.state,
+                    currentBorderColor: '#0c54bf',
+                    currentBorderSize: '2px',
+                  })
+                }
                 onChangeText={(text) => {
                   this.debounce(onFilterElement(text), 300)
                 }}
@@ -168,6 +197,7 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
     fontWeight: 'normal',
+    outlineWidth: 0,
   },
   icon: {
     justifyContent: 'center',
