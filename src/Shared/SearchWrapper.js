@@ -8,6 +8,7 @@ import {
   Platform,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+import chroma from 'chroma-js'
 
 export default class SearchBarWrapper extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ export default class SearchBarWrapper extends Component {
       blurBorderColor,
       currentBorderSize: blurBorderSize,
       blurBorderSize,
+      darken: chroma(blurBorderColor).get('hsl.l') > 0.5,
     }
   }
   debounce = (fn, time) => {
@@ -36,7 +38,6 @@ export default class SearchBarWrapper extends Component {
   }
 
   render() {
-    console.log('render', this.state)
     let { searchBar, onFilterElement, notFound, border, children, extraStyle } =
       this.props
 
@@ -156,8 +157,13 @@ export default class SearchBarWrapper extends Component {
                 onFocus={() =>
                   this.setState({
                     ...this.state,
-                    currentBorderColor: '#0c54bf',
-                    currentBorderSize: '2px',
+                    currentBorderColor: this.state.darken
+                      ? chroma(this.state.blurBorderColor).darken()
+                      : chroma(this.state.blurBorderColor).brighten(),
+                    currentBorderSize:
+                      this.state.blurBorderSize > 0
+                        ? this.state.blurBorderSize + 1
+                        : 0,
                   })
                 }
                 onChangeText={(text) => {
