@@ -120,8 +120,7 @@ export default class SimpleList extends Component {
       return <EmptyState {...listEmptyState}></EmptyState>
     }
 
-    let { backgroundColor, border, borderSize, borderColor, rounding, shadow } =
-      background
+    let { border } = background || {}
 
     const extraStyle = {}
 
