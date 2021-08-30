@@ -74,8 +74,6 @@ export default class SimpleList extends Component {
       openAccordion,
     } = this.props
 
-    console.log('this.props:', this.props)
-
     if (!items) return <View></View>
 
     let wrap = [styles.wrapper]
