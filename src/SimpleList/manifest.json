@@ -530,8 +530,8 @@
           "default": "No List Items",
           "styles": {
             "fontFamily": "@heading",
-            "fontWeight": "600",
-            "color": "@text",
+            "fontWeight": "medium",
+            "color": "#757575",
             "fontSize": "18"
           },
           "enabled": {
@@ -545,9 +545,9 @@
           "default": "Subtitle",
           "styles": {
             "fontFamily": "@body",
-            "color": "#212121",
+            "color": "#9E9E9E",
             "fontWeight": "normal",
-            "fontSize": "18"
+            "fontSize": "16"
           },
           "enabled": {
             "textTitleDisplay": "titleAndSubtitle"
@@ -594,7 +594,7 @@
           "name": "buttonPrimaryColor",
           "displayName": "Button Color",
           "type": "color",
-          "default": "@primary",
+          "default": "#9E9E9E",
           "enabled": {
             "buttonType": ["text", "outlined", "contained"]
           }
