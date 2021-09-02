@@ -105,12 +105,6 @@ function ImageHolder(props) {
     : imageSource
 
   const imageWrapperSize = { width: imageWidth, height: imageHeight }
-  const imageBorderRadius = {
-    borderRadius:
-      imageHeight < imageWidth
-        ? (imageHeight / 2) * (imageRounding / 100)
-        : (imageWidth / 2) * (imageRounding / 100),
-  }
 
   if (!emptyStateImageStatus || emptyStateImageStatus === 'noImage') {
     return (
@@ -126,7 +120,7 @@ function ImageHolder(props) {
           <View style={[imageWrapperSize, imageMargin]}>
             <Image
               resizeMode="cover"
-              style={[styles.image, imageBorderRadius]}
+              style={styles.image}
               source={realImageSource}
               pointerEvents="none"
             />
@@ -144,8 +138,7 @@ function ImageHolder(props) {
         <View style={styles.emptyList}>
           <View style={[imageWrapperSize, imageMargin]}>
             <Image
-              resizeMode="cover"
-              style={[styles.image, imageBorderRadius]}
+              style={styles.image}
               source={realImageSource}
               pointerEvents="none"
             />
