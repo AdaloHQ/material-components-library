@@ -8,8 +8,24 @@ import {
   Platform,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+import chroma from 'chroma-js'
 
 export default class SearchBarWrapper extends Component {
+  constructor(props) {
+    super(props)
+
+    const {
+      searchBar: { borderColor: blurBorderColor, borderSize: blurBorderSize },
+    } = props
+
+    this.state = {
+      currentBorderColor: blurBorderColor,
+      blurBorderColor,
+      currentBorderSize: blurBorderSize,
+      blurBorderSize,
+      darken: chroma(blurBorderColor).get('hsl.l') > 0.5,
+    }
+  }
   debounce = (fn, time) => {
     let timeout
 
@@ -106,8 +122,8 @@ export default class SearchBarWrapper extends Component {
               {
                 backgroundColor: backgroundColor,
                 borderRadius: rounding,
-                borderColor: borderColor,
-                borderWidth: borderSize,
+                borderColor: this.state.currentBorderColor,
+                borderWidth: this.state.currentBorderSize,
               },
               borderStyles,
               borderExistsStyles,
@@ -131,6 +147,25 @@ export default class SearchBarWrapper extends Component {
                 placeholder={placeholderText}
                 placeholderTextColor={placeholderTextColor}
                 autoCapitalize="none"
+                onBlur={() =>
+                  this.setState({
+                    ...this.state,
+                    currentBorderColor: this.state.blurBorderColor,
+                    currentBorderSize: this.state.blurBorderSize,
+                  })
+                }
+                onFocus={() =>
+                  this.setState({
+                    ...this.state,
+                    currentBorderColor: this.state.darken
+                      ? chroma(this.state.blurBorderColor).darken()
+                      : chroma(this.state.blurBorderColor).brighten(),
+                    currentBorderSize:
+                      this.state.blurBorderSize > 0
+                        ? this.state.blurBorderSize + 1
+                        : 0,
+                  })
+                }
                 onChangeText={(text) => {
                   this.debounce(onFilterElement(text), 300)
                 }}
@@ -168,6 +203,7 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
     fontWeight: 'normal',
+    outlineWidth: 0,
   },
   icon: {
     justifyContent: 'center',
