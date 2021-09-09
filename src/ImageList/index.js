@@ -121,9 +121,18 @@ export default class ImageList extends Component {
   filterItems(items) {
     let { currentQuery } = this.state
     return items.filter((itm) => {
-      if (itm.title.text.toLowerCase().indexOf(currentQuery) >= 0) {
+      if (!currentQuery) {
         return true
-      } else if (itm.title.subtitle.toLowerCase().indexOf(currentQuery) >= 0) {
+      }
+      if (
+        itm.title.text &&
+        itm.title.text.toLowerCase().indexOf(currentQuery) >= 0
+      ) {
+        return true
+      } else if (
+        itm.subtitle.text &&
+        itm.subtitle.text.toLowerCase().indexOf(currentQuery) >= 0
+      ) {
         return true
       }
     })
