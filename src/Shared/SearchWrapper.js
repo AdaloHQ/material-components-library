@@ -15,8 +15,22 @@ export default class SearchBarWrapper extends Component {
     super(props)
 
     const {
-      searchBar: { borderColor: blurBorderColor, borderSize: blurBorderSize },
+      searchBar: { borderColor, borderSize: blurBorderSize = 1, customStyles },
     } = props
+
+    let blurBorderColor
+
+    switch (customStyles) {
+      case 'simple':
+        blurBorderColor = '#E0E0E0'
+        break
+      case 'standard':
+        blurBorderColor = '#BDBDBD'
+        break
+      default:
+        blurBorderColor = borderColor || '#E0E0E0'
+        break
+    }
 
     this.state = {
       currentBorderColor: blurBorderColor,
