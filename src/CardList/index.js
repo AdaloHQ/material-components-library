@@ -286,7 +286,11 @@ class Cell extends Component {
     } else if (media.position === 'right') {
       wrapperStyles = [styles.rightMedia]
       imageStyles = [{ height: percent, borderRadius: 2 }]
-    } else {
+    } else if (media.position === 'left') {
+      wrapperStyles = [styles.leftMedia]
+      imageStyles = [{ height: percent, borderRadius: 4 }]
+    }
+    else {
       wrapperStyles.push(styles.middleMedia)
     }
     if (cardStyles) {
@@ -363,6 +367,21 @@ class Cell extends Component {
     )
   }
 
+
+  renderMediaLeft() {
+    return (
+      <View style={[styles.cellInner, styles.cellLeftMedia]}>
+        <View style={{ justifyContent: 'center' }}>
+         {this.renderMedia()}
+        </View>
+        <View style={[styles.contentWrapper]}>
+          {this.renderTitle()}
+          {this.renderBody()}
+        </View>
+      </View>
+    )
+  }
+
   renderContent() {
     let { media } = this.props
 
@@ -370,6 +389,8 @@ class Cell extends Component {
       return this.renderMediaMiddle()
     } else if (media && media.position === 'right') {
       return this.renderMediaRight()
+    } else if (media && media.position === 'left') {
+      return this.renderMediaLeft()
     }
 
     return this.renderMediaTop()
@@ -736,12 +757,22 @@ const styles = StyleSheet.create({
   cellRightMedia: {
     flexDirection: 'row',
   },
+  cellLeftMedia: {
+    flexDirection: 'row'
+  },
   rightMedia: {
     height: 80,
     width: 80,
     marginTop: 4,
     marginBottom: 8,
     marginLeft: 16,
+  },
+  leftMedia: {
+    height: 80,
+    width: 80,
+    marginTop: 0,
+    marginBottom: 8,
+    marginRight: 16,
   },
   contentWrapper: {
     flex: 1,
