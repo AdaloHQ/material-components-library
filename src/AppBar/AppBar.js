@@ -67,7 +67,10 @@ export default class AppBar extends Component {
     let { shadow } = this.props
     if (shadow) {
       if (Platform.OS === 'android') {
-        return {}
+        return {
+          elevation: 10,
+          margin: -10,
+        }
       }
       if (Platform.OS === 'ios') {
         return {
@@ -229,6 +232,7 @@ export default class AppBar extends Component {
       styles.imageBackground,
       this.getBorderStyle(180, false),
       this.getShadowStyle(),
+      {margin: 0}
     ]
 
     return (
