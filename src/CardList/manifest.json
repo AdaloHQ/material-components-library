@@ -144,7 +144,8 @@
             "options": [
               { "label": "Image Top", "value": "top" },
               { "label": "Image Middle", "value": "middle" },
-              { "label": "Image Right", "value": "right" }
+              { "label": "Image Right", "value": "right" },
+              { "label": "Image Left", "value": "left" }
             ]
           }
         },
