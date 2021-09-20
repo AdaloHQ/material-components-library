@@ -15,7 +15,7 @@ import { IconToggle } from '@protonapp/react-native-material-ui'
 class ImageItem extends Component {
   renderTitle() {
     const { style, title, titleLimit } = this.props
-    if (title.length > titleLimit) {
+    if (title && title.length > titleLimit) {
       const firstLine = title.substring(0, titleLimit + 1)
       const i = firstLine.lastIndexOf(' ')
       return (
