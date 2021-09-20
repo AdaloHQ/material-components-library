@@ -6,6 +6,8 @@ import { Button } from '@protonapp/react-native-material-ui'
 import '../Shared/icons'
 
 export default class WrappedTextButton extends Component {
+  _isMounted = false
+
   static defaultProps = {
     primaryColor: '#6200ee',
     contrastColor: '#fff',
@@ -80,7 +82,17 @@ export default class WrappedTextButton extends Component {
 
     await action()
 
-    this.setState({ loading: false })
+    if (this._isMounted) {
+      this.setState({ loading: false })
+    }
+  }
+
+  componentDidMount() {
+    this._isMounted = true
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 
   renderSub() {

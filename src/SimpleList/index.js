@@ -54,9 +54,15 @@ export default class SimpleList extends Component {
   filterItems(items) {
     let { currentQuery } = this.state
     return items.filter((itm) => {
-      if (itm.firstLine.text.indexOf(currentQuery) >= 0) {
+      if (!currentQuery) {
         return true
-      } else if (itm.secondLine.text.indexOf(currentQuery) >= 0) {
+      }
+      if (itm.firstLine.text && itm.firstLine.text.indexOf(currentQuery) >= 0) {
+        return true
+      } else if (
+        itm.secondLine.text &&
+        itm.secondLine.text.indexOf(currentQuery) >= 0
+      ) {
         return true
       }
     })
@@ -120,8 +126,7 @@ export default class SimpleList extends Component {
       return <EmptyState {...listEmptyState}></EmptyState>
     }
 
-    let { backgroundColor, border, borderSize, borderColor, rounding, shadow } =
-      background
+    let { border } = background || {}
 
     const extraStyle = {}
 
