@@ -125,11 +125,13 @@ export default class ImageList extends Component {
         return true
       }
       if (
+        itm.title &&
         itm.title.text &&
         itm.title.text.toLowerCase().indexOf(currentQuery) >= 0
       ) {
         return true
       } else if (
+        itm.subtitle &&
         itm.subtitle.text &&
         itm.subtitle.text.toLowerCase().indexOf(currentQuery) >= 0
       ) {
