@@ -124,9 +124,14 @@ export default class ImageList extends Component {
       if (!currentQuery) {
         return true
       }
-      if (itm.title.text && itm.title.text.indexOf(currentQuery) >= 0) {
+      if (
+        itm.title &&
+        itm.title.text &&
+        itm.title.text.indexOf(currentQuery) >= 0
+      ) {
         return true
       } else if (
+        itm.subtitle &&
         itm.subtitle.text &&
         itm.subtitle.text.indexOf(currentQuery) >= 0
       ) {
