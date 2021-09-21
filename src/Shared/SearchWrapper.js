@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
     fontWeight: 'normal',
-    outlineWidth: 0,
+    outlineStyle: 'none',
   },
   icon: {
     justifyContent: 'center',
