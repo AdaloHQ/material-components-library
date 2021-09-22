@@ -217,7 +217,12 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
     fontWeight: 'normal',
-    outlineStyle: 'none',
+    ...Platform.select({
+      web: {
+        outlineStyle: 'none',
+      },
+      default: {},
+    }),
   },
   icon: {
     justifyContent: 'center',
