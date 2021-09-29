@@ -102,7 +102,7 @@ export default class ImageList extends Component {
   }
 
   filterElement = (query) => {
-    this.setState({ currentQuery: query })
+    this.setState({ currentQuery: query.toLowerCase() })
   }
 
   renderHeader() {
@@ -127,13 +127,13 @@ export default class ImageList extends Component {
       if (
         itm.title &&
         itm.title.text &&
-        itm.title.text.indexOf(currentQuery) >= 0
+        itm.title.text.toLowerCase().indexOf(currentQuery) >= 0
       ) {
         return true
       } else if (
         itm.subtitle &&
         itm.subtitle.text &&
-        itm.subtitle.text.indexOf(currentQuery) >= 0
+        itm.subtitle.text.toLowerCase().indexOf(currentQuery) >= 0
       ) {
         return true
       }

@@ -48,7 +48,7 @@ export default class SimpleList extends Component {
   }
 
   filterElement = (query) => {
-    this.setState({ currentQuery: query })
+    this.setState({ currentQuery: query.toLowerCase() })
   }
 
   filterItems(items) {
@@ -57,11 +57,14 @@ export default class SimpleList extends Component {
       if (!currentQuery) {
         return true
       }
-      if (itm.firstLine.text && itm.firstLine.text.indexOf(currentQuery) >= 0) {
+      if (
+        itm.firstLine.text &&
+        itm.firstLine.text.toLowerCase().indexOf(currentQuery) >= 0
+      ) {
         return true
       } else if (
         itm.secondLine.text &&
-        itm.secondLine.text.indexOf(currentQuery) >= 0
+        itm.secondLine.text.toLowerCase().indexOf(currentQuery) >= 0
       ) {
         return true
       }

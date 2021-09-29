@@ -816,7 +816,7 @@
           "default": "No List Items",
           "styles": {
             "fontFamily": "@heading",
-            "fontWeight": "600",
+            "fontWeight": "500",
             "color": "@text",
             "fontSize": "18"
           },
@@ -832,8 +832,8 @@
           "styles": {
             "fontFamily": "@body",
             "color": "#212121",
-            "fontWeight": "normal",
-            "fontSize": "18"
+            "fontWeight": "400",
+            "fontSize": "16"
           },
           "enabled": {
             "textTitleDisplay": "titleAndSubtitle"
