@@ -62,8 +62,11 @@ export default class EmptyListWrapper extends Component {
           : 0,
     }
 
+    const wrapperStyles =
+      emptyStateImageStatus === 'noImage' ? {} : styles.wrapper
+
     return (
-      <View style={styles.wrapper}>
+      <View style={[wrapperStyles]}>
         <ImageHolder {...this.props} />
         {buttonType && buttonType !== 'noButton' && (
           <View style={{ alignItems: 'center' }}>
