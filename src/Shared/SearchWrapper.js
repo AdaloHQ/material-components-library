@@ -14,9 +14,13 @@ export default class SearchBarWrapper extends Component {
   constructor(props) {
     super(props)
 
+    const { searchBar } = props
+
     const {
-      searchBar: { borderColor, borderSize: blurBorderSize = 1, customStyles },
-    } = props
+      borderColor,
+      borderSize: blurBorderSize = 1,
+      customStyles,
+    } = searchBar || {}
 
     let blurBorderColor
 
