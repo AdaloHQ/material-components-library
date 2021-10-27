@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Platform } from 'react-native'
+import { View, Platform, TouchableWithoutFeedback } from 'react-native'
 import ImageItem from './ImageItem.js'
 import BottomBar from './BottomBar.js'
 import placeholder from './holdplace.png'

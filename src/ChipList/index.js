@@ -5,6 +5,7 @@ import placeholder from './holdplace.png'
 import ImageScrollViewWeb from './ImageScrollView.web.js'
 import ImageScrollViewMobile from './ImageScrollView.js'
 import ImageScrollViewPWA from './ImageScrollView.pwa.js'
+import ImageItem from './ImageItem'
 import EmptyState from '../Shared/EmptyState'
 
 class ChipList extends Component {
@@ -178,23 +179,28 @@ class ChipList extends Component {
           justifyContent: 'center',
         }}
       >
-        <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
-          {imageList &&
-            imageList.map(
-              ({ clickActions, text, image, rightIcon, chipStyles }, index) => (
-                <View style={style.container} key={index}>
-                  <ImageItem
-                    style={style}
-                    image={editor ? placeholder : image.image}
-                    imageProps={image}
-                    title={text.title}
-                    clickActions={clickActions}
-                    rightIcon={rightIcon}
-                  />
-                </View>
-              )
-            )}
-        </View>
+        <ImageScrollView>
+          <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+            {imageList &&
+              imageList.map(
+                (
+                  { clickActions, text, image, rightIcon, chipStyles },
+                  index
+                ) => (
+                  <View style={style.container} key={index}>
+                    <ImageItem
+                      style={style}
+                      image={editor ? placeholder : image.image}
+                      imageProps={image}
+                      title={text.title}
+                      clickActions={clickActions}
+                      rightIcon={rightIcon}
+                    />
+                  </View>
+                )
+              )}
+          </View>
+        </ImageScrollView>
       </View>
     )
   }
