@@ -6,10 +6,13 @@ class ImageScrollView extends Component {
     const { children } = this.props
 
     return (
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        {children}
+      <ScrollView showsHorizontalScrollIndicator={false}>
+        <View style={{ flexDirection: 'row', overflow: 'auto' }}>
+          {children}
+        </View>
       </ScrollView>
     )
   }
 }
+
 export default ImageScrollView

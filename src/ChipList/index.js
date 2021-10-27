@@ -1,30 +1,34 @@
 import React, { Component } from 'react'
-import {
-  Text,
-  View,
-  StyleSheet,
-  Image,
-  ScrollView,
-  Platform,
-} from 'react-native'
+import { View, Platform } from 'react-native'
 
 import placeholder from './holdplace.png'
 import ImageScrollViewWeb from './ImageScrollView.web.js'
 import ImageScrollViewMobile from './ImageScrollView.js'
+import ImageScrollViewPWA from './ImageScrollView.pwa.js'
 import EmptyState from '../Shared/EmptyState'
 
 class ChipList extends Component {
   isMobileDevice = () => {
-    if (
-      Platform.OS === 'ios' ||
-      Platform.OS === 'android' ||
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      )
-    ) {
+    if (Platform.OS === 'ios' || Platform.OS === 'android') {
       return true
     } else {
       return false
+    }
+  }
+
+  isPWA = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  }
+
+  getScrollView = () => {
+    if (this.isMobileDevice()) {
+      return ImageScrollViewMobile
+    } else if (this.isPWA()) {
+      return ImageScrollViewPWA
+    } else {
+      return ImageScrollViewWeb
     }
   }
 
@@ -160,11 +164,13 @@ class ChipList extends Component {
     if (shadow) {
       style.background = { ...style.background, ...shadowStyle }
     }
-    const imageScrollView = this.isMobileDevice() ? (
+    /*const imageScrollView = this.isMobileDevice() ? (
       <ImageScrollViewMobile imageList={imageList} style={style} />
     ) : (
       <ImageScrollViewWeb imageList={imageList} editor={editor} style={style} />
-    )
+    )*/
+
+    const ImageScrollView = this.getScrollView()
 
     return (
       <View
@@ -172,7 +178,23 @@ class ChipList extends Component {
           justifyContent: 'center',
         }}
       >
-        {imageScrollView}
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+          {imageList &&
+            imageList.map(
+              ({ clickActions, text, image, rightIcon, chipStyles }, index) => (
+                <View style={style.container} key={index}>
+                  <ImageItem
+                    style={style}
+                    image={editor ? placeholder : image.image}
+                    imageProps={image}
+                    title={text.title}
+                    clickActions={clickActions}
+                    rightIcon={rightIcon}
+                  />
+                </View>
+              )
+            )}
+        </View>
       </View>
     )
   }

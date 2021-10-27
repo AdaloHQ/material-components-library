@@ -1,34 +1,38 @@
 import React, { Component } from 'react'
-import {
-  Text,
-  View,
-  StyleSheet,
-  Image,
-  ScrollView,
-  ImageBackground,
-  Platform,
-} from 'react-native'
+import { View, Platform } from 'react-native'
 import ImageItem from './ImageItem.js'
 import BottomBar from './BottomBar.js'
 import placeholder from './holdplace.png'
 import ImageScrollViewMobile from './ImageScrollView.js'
 import ImageScrollViewWeb from './ImageScrollView.web.js'
+import ImageScrollViewPWA from './ImageScrollView.pwa.js'
 import EmptyState from '../Shared/EmptyState'
 
 class HorizontalImageList extends Component {
   isMobileDevice = () => {
-    if (
-      Platform.OS === 'ios' ||
-      Platform.OS === 'android' ||
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      )
-    ) {
+    if (Platform.OS === 'ios' || Platform.OS === 'android') {
       return true
     } else {
       return false
     }
   }
+
+  isPWA = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  }
+
+  getScrollView = () => {
+    if (this.isMobileDevice()) {
+      return ImageScrollViewMobile
+    } else if (this.isPWA()) {
+      return ImageScrollViewPWA
+    } else {
+      return ImageScrollViewWeb
+    }
+  }
+
   getRGB = (str) => {
     var match = str.match(
       /rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/
@@ -430,66 +434,92 @@ class HorizontalImageList extends Component {
       bbStyles.subtitle.color = bbTextColor ? bbTextColor : '#424242'
     }
 
-    const imageScrollView = this.isMobileDevice() ? (
-      <ImageScrollViewMobile
-        imageList={imageList}
-        imageStyles={imageStyles}
-        bbShadow={bbShadow}
-        bottomBarStyle={bottomBarStyle}
-        titleLimit={titleLimit}
-        bbTitleLimit={bbTitleLimit}
-        imageRounding={imageRounding}
-        shadow={shadow}
-        textSwitch={textSwitch}
-        icons={icons}
-        iconSwitches={iconSwitches}
-        textPos={textPos}
-        iconColors={iconColors}
-        imageSize={imageSize}
-        bbStyles={bbStyles}
-        gradientProps={gradientProps}
-        iconSize={iconSize}
-      ></ImageScrollViewMobile>
-    ) : (
-      <ImageScrollViewWeb
-        imageList={imageList}
-        imageStyles={imageStyles}
-        bbShadow={bbShadow}
-        bottomBarStyle={bottomBarStyle}
-        titleLimit={titleLimit}
-        bbTitleLimit={bbTitleLimit}
-        imageRounding={imageRounding}
-        shadow={shadow}
-        textSwitch={textSwitch}
-        icons={icons}
-        iconSwitches={iconSwitches}
-        textPos={textPos}
-        iconColors={iconColors}
-        imageSize={imageSize}
-        bbStyles={bbStyles}
-        gradientProps={gradientProps}
-        editor={editor}
-        iconSize={iconSize}
-      ></ImageScrollViewWeb>
-    )
+    const ScrollView = this.getScrollView()
+
     return (
       <View
         style={{
           justifyContent: 'center',
         }}
       >
-        {imageScrollView}
+        <ScrollView>
+          {imageList &&
+            imageList.map(
+              (
+                {
+                  image,
+                  clickActions,
+                  imageOverlay,
+                  bottomBarText,
+                  bottomBarButtons,
+                },
+                index
+              ) => (
+                <View style={imageStyles.view} key={index}>
+                  <View
+                    style={
+                      bbShadow && bottomBarStyle.enabled
+                        ? imageStyles.shadow
+                        : null
+                    }
+                  >
+                    <TouchableWithoutFeedback onPress={clickActions}>
+                      <View>
+                        <View>
+                          <ImageItem
+                            image={editor ? placeholder : image}
+                            style={imageStyles}
+                            onPress={clickActions}
+                            title={imageOverlay.title}
+                            subtitle={imageOverlay.subtitle}
+                            titleLimit={titleLimit}
+                            imageRounding={imageRounding}
+                            shadow={
+                              shadow && (!bbShadow || !bottomBarStyle.enabled)
+                            }
+                            textSwitch={textSwitch}
+                            iconSwitches={iconSwitches}
+                            icons={icons}
+                            textPosition={textPos}
+                            iconColors={iconColors}
+                            iconActions={[
+                              imageOverlay.tlIconActions,
+                              imageOverlay.trIconActions,
+                              imageOverlay.brIconActions,
+                              imageOverlay.blIconActions,
+                              imageOverlay.tlIconActions2,
+                              imageOverlay.blIconActions2,
+                            ]}
+                            iconSize={iconSize}
+                            gradientProps={gradientProps}
+                          />
+                        </View>
+                        <BottomBar
+                          style={bbStyles}
+                          title={
+                            bottomBarText.enabled ? bottomBarText.bbTitle : ''
+                          }
+                          subtitle={
+                            bottomBarText.enabled
+                              ? bottomBarText.bbSubtitle
+                              : ''
+                          }
+                          titleLimit={bbTitleLimit}
+                          styleSwitch={bottomBarStyle.enabled}
+                          buttonProps={bottomBarButtons}
+                          buttonSize={((imageSize - 150) / 175) * 20 + 12}
+                          editor={editor}
+                        ></BottomBar>
+                      </View>
+                    </TouchableWithoutFeedback>
+                  </View>
+                </View>
+              )
+            )}
+        </ScrollView>
       </View>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
 
 export default HorizontalImageList
