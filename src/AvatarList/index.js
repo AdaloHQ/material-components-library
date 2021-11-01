@@ -1,30 +1,32 @@
 import React, { Component } from 'react'
-import {
-  Text,
-  View,
-  StyleSheet,
-  Image,
-  ScrollView,
-  Platform,
-} from 'react-native'
-import ImageItem from './ImageItem.js'
-import placeholder from './holdplace.png'
+import { View, StyleSheet, Platform } from 'react-native'
 import ImageScrollViewWeb from './ImageScrollView.web.js'
 import ImageScrollViewMobile from './ImageScrollView.js'
+import ImageScrollViewPWA from './ImageScrollView.pwa.js'
 import EmptyState from '../Shared/EmptyState'
 
 class AvatarList extends Component {
   isMobileDevice = () => {
-    if (
-      Platform.OS === 'ios' ||
-      Platform.OS === 'android' ||
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      )
-    ) {
+    if (Platform.OS === 'ios' || Platform.OS === 'android') {
       return true
     } else {
       return false
+    }
+  }
+
+  isPWA = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  }
+
+  getScrollView = () => {
+    if (this.isMobileDevice()) {
+      return ImageScrollViewMobile
+    } else if (this.isPWA()) {
+      return ImageScrollViewPWA
+    } else {
+      return ImageScrollViewWeb
     }
   }
 
@@ -125,27 +127,7 @@ class AvatarList extends Component {
       imageItemStyle.text.fontFamily = _fonts ? _fonts.body : 'inherit'
     }
 
-    const imageScrollView = this.isMobileDevice() ? (
-      <ImageScrollViewMobile
-        imageList={imageList}
-        textPos={textPos}
-        cropMenu={cropMenu}
-        imageSize={imageSize}
-        imageItemStyle={imageItemStyle}
-        borderBool={borderBool}
-        edit={edit}
-      />
-    ) : (
-      <ImageScrollViewWeb
-        imageList={imageList}
-        textPos={textPos}
-        cropMenu={cropMenu}
-        imageSize={imageSize}
-        imageItemStyle={imageItemStyle}
-        borderBool={borderBool}
-        edit={edit}
-      />
-    )
+    const ScrollViewComponent = this.getScrollView()
 
     return (
       <View
@@ -153,7 +135,15 @@ class AvatarList extends Component {
           justifyContent: 'center',
         }}
       >
-        {imageScrollView}
+        <ScrollViewComponent
+          imageList={imageList}
+          textPos={textPos}
+          cropMenu={cropMenu}
+          imageSize={imageSize}
+          imageItemStyle={imageItemStyle}
+          borderBool={borderBool}
+          edit={edit}
+        />
       </View>
     )
   }

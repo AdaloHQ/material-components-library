@@ -6,27 +6,11 @@ import ScrollContainer from 'react-indiana-drag-scroll'
 
 class ImageScrollView extends Component {
   render() {
-    const { imageList, style, editor, rightIcon } = this.props
+    const { children } = this.props
 
     return (
       <ScrollContainer horizontal={true} vertical={false}>
-        <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
-          {imageList &&
-            imageList.map(
-              ({ clickActions, text, image, rightIcon, chipStyles }, index) => (
-                <View style={style.container} key={index}>
-                  <ImageItem
-                    style={style}
-                    image={editor ? placeholder : image.image}
-                    imageProps={image}
-                    title={text.title}
-                    clickActions={clickActions}
-                    rightIcon={rightIcon}
-                  />
-                </View>
-              )
-            )}
-        </View>
+        {children}
       </ScrollContainer>
     )
   }
