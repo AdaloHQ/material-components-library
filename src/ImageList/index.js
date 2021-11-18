@@ -107,12 +107,30 @@ export default class ImageList extends Component {
 
   renderHeader() {
     let { listHeader } = this.props
-
+    const {
+      styles: { header },
+    } = listHeader
+    console.log('list header', listHeader)
+    console.log('header styles', header)
     if (!listHeader || !listHeader.enabled || !listHeader.header) {
       return null
     }
+
+    const headerStyles = [
+      {
+        color: header.color ? header.color : '#fff',
+        fontSize: header.fontSize ? header.fontSize : 24,
+        fontWeight: header.fontWeight ? header.fontWeight : 600,
+        textAlign: header.textAlign ? header.textAlign : 'left',
+      },
+    ]
+
+    if (header.fontFamily) {
+      headerStyles.push({ fontFamily: header.fontFamily })
+    }
+
     return (
-      <Text style={styles.header} numberOfLines={1}>
+      <Text style={headerStyles} numberOfLines={1}>
         {listHeader.header}
       </Text>
     )
@@ -430,10 +448,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingLeft: 2,
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: '600',
   },
   cell: {
     padding: 2,
