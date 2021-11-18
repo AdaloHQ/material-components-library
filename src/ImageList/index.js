@@ -189,6 +189,7 @@ export default class ImageList extends Component {
               notFound={notFound}
               extraStyle={extraStyle}
             >
+              {this.renderHeader()}
               {this.renderGrid(newItems)}
             </SearchBarWrapper>
           </View>
