@@ -110,8 +110,6 @@ export default class ImageList extends Component {
     const {
       styles: { header },
     } = listHeader
-    console.log('list header', listHeader)
-    console.log('header styles', header)
     if (!listHeader || !listHeader.enabled || !listHeader.header) {
       return null
     }
