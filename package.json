@@ -1,6 +1,6 @@
 {
   "name": "@protonapp/material-components",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "Material UI Components for Proton",
   "main": "index.js",
   "scripts": {
@@ -76,7 +76,7 @@
     "react-dom": ">=16"
   },
   "devDependencies": {
-    "@adalo/cli": "^0.0.31",
+    "@adalo/cli": "0.0.31",
     "@babel/core": "^7.1.2",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
