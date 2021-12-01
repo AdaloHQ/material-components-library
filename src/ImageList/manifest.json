@@ -53,7 +53,8 @@
             "fontFamily": "@heading",
             "fontWeight": "600",
             "color": "@text",
-            "fontSize": "18"
+            "fontSize": "24",
+            "textAlignment": "left"
           }
         }
       ]
