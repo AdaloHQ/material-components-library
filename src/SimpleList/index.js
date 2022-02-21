@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Image, Platform } from 'react-native'
+import { View, Text, StyleSheet, Image, Platform, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import SearchBarWrapper from '../Shared/SearchWrapper'
@@ -23,6 +23,8 @@ export default class SimpleList extends Component {
 
   renderHeader() {
     let { listHeader, background, _fonts } = this.props
+
+    console.log(this.props)
 
     if (!listHeader || !listHeader.header || !listHeader.enabled) {
       return null
@@ -238,16 +240,29 @@ class Row extends Component {
     let source = leftSection.image
 
     if (leftSection.type === 'icon') {
-      //56
-      return (
-        <View style={styles.iconWrapper} pointerEvents="none">
-          <Icon
-            size={24}
-            name={leftSection.icon}
-            color={leftSection.iconColor}
-          />
-        </View>
-      )
+      if (leftSection.onPress) {
+        return (
+          <View style={styles.iconWrapper}>
+            <TouchableOpacity onPress={leftSection.onPress}>
+              <Icon
+                size={24}
+                name={leftSection.icon}
+                color={leftSection.iconColor}
+              />
+            </TouchableOpacity>
+          </View>
+        )
+      } else {
+          return (
+            <View style={styles.iconWrapper} pointerEvents="none">
+              <Icon
+                size={24}
+                name={leftSection.icon}
+                color={leftSection.iconColor}
+              />
+            </View>
+          )
+      }
     }
 
     if (leftSection.type === 'avatar') {
@@ -258,16 +273,32 @@ class Row extends Component {
       } else if (!editor) {
         avatarStyle.push({ marginTop: 16 })
       }
-      return (
-        <View style={styles.imageWrapper}>
-          <Image
-            resizeMode="cover"
-            source={source}
-            style={avatarStyle}
-            pointerEvents="none"
-          />
-        </View>
-      )
+
+      if (leftSection.onPress) {
+        return (
+          <View style={styles.imageWrapper}>
+            <TouchableOpacity onPress={leftSection.onPress}>
+              <Image
+                resizeMode="cover"
+                source={source}
+                style={avatarStyle}
+              />
+            </TouchableOpacity>
+          </View>
+        )
+      }
+      else {
+        return (
+          <View style={styles.imageWrapper}>
+            <Image
+              resizeMode="cover"
+              source={source}
+              style={avatarStyle}
+              pointerEvents="none"
+            />
+          </View>
+        )
+      }
     }
 
     if (leftSection.type === 'image') {
@@ -276,16 +307,33 @@ class Row extends Component {
       if (firstLine.titleLineNum > 2 || secondLine.subtitleLineNum > 2) {
         imageStyle.push({ marginTop: 18 })
       }
-      return (
-        <View style={styles.imageWrapper}>
-          <Image
-            resizeMode="cover"
-            source={source}
-            style={imageStyle}
-            pointerEvents="none"
-          />
-        </View>
-      )
+
+      if (leftSection.onPress) {
+        return (
+          <View style={styles.imageWrapper}>
+            <TouchableOpacity onPress={leftSection.onPress}>
+              <Image
+                resizeMode="cover"
+                source={source}
+                style={imageStyle}
+                pointerEvents="none"
+              />
+            </TouchableOpacity>
+          </View>
+        )
+      }
+      else {
+        return (
+          <View style={styles.imageWrapper}>
+            <Image
+              resizeMode="cover"
+              source={source}
+              style={imageStyle}
+              pointerEvents="none"
+            />
+          </View>
+        )
+      }
     }
   }
 
