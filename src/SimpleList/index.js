@@ -24,8 +24,6 @@ export default class SimpleList extends Component {
   renderHeader() {
     let { listHeader, background, _fonts } = this.props
 
-    console.log(this.props)
-
     if (!listHeader || !listHeader.header || !listHeader.enabled) {
       return null
     }
@@ -253,15 +251,15 @@ class Row extends Component {
           </View>
         )
       } else {
-          return (
-            <View style={styles.iconWrapper} pointerEvents="none">
-              <Icon
-                size={24}
-                name={leftSection.icon}
-                color={leftSection.iconColor}
-              />
-            </View>
-          )
+        return (
+          <View style={styles.iconWrapper} pointerEvents="none">
+            <Icon
+              size={24}
+              name={leftSection.icon}
+              color={leftSection.iconColor}
+            />
+          </View>
+        )
       }
     }
 
