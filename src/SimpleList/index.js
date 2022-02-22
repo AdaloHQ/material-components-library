@@ -245,7 +245,11 @@ class Row extends Component {
     );
 
     if(leftSection.onPress) {
-      return <TouchableOpacity onPress={leftSection.onPress}>{ImageRender}</TouchableOpacity>
+      return (
+      <TouchableOpacity onPress={leftSection.onPress}>
+          {ImageRender}
+      </TouchableOpacity>
+      )
     }
     else {
       return ImageRender
