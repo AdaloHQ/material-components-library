@@ -240,14 +240,15 @@ class Row extends Component {
     if (leftSection.type === 'icon') {
       if (leftSection.onPress) {
         return (
-          <View style={styles.iconWrapper}>
-            <TouchableOpacity onPress={leftSection.onPress}>
-              <Icon
-                size={24}
+          <View style={styles.linkIconWrapper}>
+              <IconToggle
                 name={leftSection.icon}
                 color={leftSection.iconColor}
+                underlayColor={leftSection.iconColor}
+                maxOpacity={0.3}
+                size={24}
+                onPress={leftSection.onPress}
               />
-            </TouchableOpacity>
           </View>
         )
       } else {
@@ -603,11 +604,20 @@ const styles = StyleSheet.create({
     marginTop: 16,
     marginBottom: 16,
   },
+  linkIconWrapper: { 
+    flexDirection: 'column',
+    justifyContent: 'flex-center',
+    marginRight: 20,
+    marginLeft: -12
+  },
   icon: {
     width: 24,
     height: 24,
   },
-  iconWrap: { justifyContent: 'center', height: 72 },
+  iconWrap: { 
+    justifyContent: 'center', 
+    height: 72 
+  },
   avatar: {
     marginRight: 16,
     borderRadius: 20,
