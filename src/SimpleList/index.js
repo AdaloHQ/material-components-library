@@ -232,7 +232,7 @@ class Row extends Component {
   renderImageLink(styleType) {
     let { leftSection } = this.props
     
-    let source = leftSection.image
+    const source = leftSection.image
     const pointerEvents = leftSection.onPress ? "unset" : "none"
 
     const ImageRender = (
