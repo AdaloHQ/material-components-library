@@ -230,7 +230,7 @@ class Row extends Component {
   }
 
   renderImageLink(styleType) {
-    let { leftSection } = this.props
+    const { leftSection } = this.props
     
     const source = leftSection.image
     const pointerEvents = leftSection.onPress ? "unset" : "none"
@@ -246,9 +246,9 @@ class Row extends Component {
 
     if(leftSection.onPress) {
       return (
-      <TouchableOpacity onPress={leftSection.onPress}>
-          {ImageRender}
-      </TouchableOpacity>
+        <TouchableOpacity onPress={leftSection.onPress}>
+            {ImageRender}
+        </TouchableOpacity>
       )
     }
     else {
