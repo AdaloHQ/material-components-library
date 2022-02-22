@@ -229,39 +229,62 @@ class Row extends Component {
     return false
   }
 
+  renderImageLink(styleType) {
+    let { leftSection } = this.props
+    
+    let source = leftSection.image
+    const pointerEvents = leftSection.onPress ? "unset" : "none"
+
+    const ImageRender = (
+      <Image
+        resizeMode="cover"
+        source={source}
+        style={styleType}
+        pointerEvents={pointerEvents}
+      />
+    );
+
+    if(leftSection.onPress) {
+      return <TouchableOpacity onPress={leftSection.onPress}>{ImageRender}</TouchableOpacity>
+    }
+    else {
+      return ImageRender
+    }
+  }
+
   renderLeftSection() {
     let { leftSection, firstLine, secondLine, editor } = this.props
     if (!leftSection || !leftSection.enabled) {
       return null
     }
 
-    let source = leftSection.image
-
     if (leftSection.type === 'icon') {
-      if (leftSection.onPress) {
-        return (
-          <View style={styles.linkIconWrapper}>
-              <IconToggle
-                name={leftSection.icon}
-                color={leftSection.iconColor}
-                underlayColor={leftSection.iconColor}
-                maxOpacity={0.3}
-                size={24}
-                onPress={leftSection.onPress}
-              />
-          </View>
-        )
-      } else {
-        return (
-          <View style={styles.iconWrapper} pointerEvents="none">
-            <Icon
-              size={24}
-              name={leftSection.icon}
-              color={leftSection.iconColor}
-            />
-          </View>
-        )
-      }
+      const iconStyle = leftSection.onPress ? styles.linkIconWrapper : styles.iconWrapper
+      const pointerEvents = leftSection.onPress ? "unset" : "none"
+
+      const IconRender = (
+        leftSection.onPress ? 
+          <IconToggle
+            name={leftSection.icon}
+            color={leftSection.iconColor}
+            underlayColor={leftSection.iconColor}
+            maxOpacity={0.3}
+            size={24}
+            onPress={leftSection.onPress}
+          />
+        : 
+          <Icon
+            size={24}
+            name={leftSection.icon}
+            color={leftSection.iconColor}
+          />
+      )
+      
+      return (
+        <View style={iconStyle} pointerEvents={pointerEvents}>
+          {IconRender}
+        </View>
+      )
     }
 
     if (leftSection.type === 'avatar') {
@@ -273,31 +296,11 @@ class Row extends Component {
         avatarStyle.push({ marginTop: 16 })
       }
 
-      if (leftSection.onPress) {
-        return (
-          <View style={styles.imageWrapper}>
-            <TouchableOpacity onPress={leftSection.onPress}>
-              <Image
-                resizeMode="cover"
-                source={source}
-                style={avatarStyle}
-              />
-            </TouchableOpacity>
-          </View>
-        )
-      }
-      else {
-        return (
-          <View style={styles.imageWrapper}>
-            <Image
-              resizeMode="cover"
-              source={source}
-              style={avatarStyle}
-              pointerEvents="none"
-            />
-          </View>
-        )
-      }
+      return (
+        <View style={styles.imageWrapper}>
+          {this.renderImageLink(avatarStyle)}
+        </View>
+      )
     }
 
     if (leftSection.type === 'image') {
@@ -307,32 +310,11 @@ class Row extends Component {
         imageStyle.push({ marginTop: 18 })
       }
 
-      if (leftSection.onPress) {
-        return (
-          <View style={styles.imageWrapper}>
-            <TouchableOpacity onPress={leftSection.onPress}>
-              <Image
-                resizeMode="cover"
-                source={source}
-                style={imageStyle}
-                pointerEvents="none"
-              />
-            </TouchableOpacity>
-          </View>
-        )
-      }
-      else {
-        return (
-          <View style={styles.imageWrapper}>
-            <Image
-              resizeMode="cover"
-              source={source}
-              style={imageStyle}
-              pointerEvents="none"
-            />
-          </View>
-        )
-      }
+      return (
+        <View style={styles.imageWrapper}>
+          {this.renderImageLink(imageStyle)}
+        </View>
+      )
     }
   }
 
@@ -377,6 +359,7 @@ class Row extends Component {
 
     return null
   }
+
   renderSubtitle() {
     let { secondLine } = this.props
     return secondLine && secondLine.enabled
