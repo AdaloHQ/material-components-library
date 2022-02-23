@@ -229,38 +229,57 @@ class Row extends Component {
     return false
   }
 
+  renderImageLink(styleType) {
+    const { leftSection } = this.props
+    
+    const source = leftSection.image
+    const pointerEvents = leftSection.onPress ? "unset" : "none"
+
+    const ImageRender = (
+      <Image
+        resizeMode="cover"
+        source={source}
+        style={styleType}
+        pointerEvents={pointerEvents}
+      />
+    );
+
+    const IconRender = (
+      <Icon
+        size={24}
+        name={leftSection.icon}
+        color={leftSection.iconColor}
+      />
+    );
+
+    const renderType = leftSection.type === 'icon' ? IconRender : ImageRender
+
+    if(leftSection.onPress) {
+      return (
+        <TouchableOpacity onPress={leftSection.onPress}>
+            {renderType}
+        </TouchableOpacity>
+      )
+    }
+    else {
+      return renderType
+    }
+  }
+
   renderLeftSection() {
     let { leftSection, firstLine, secondLine, editor } = this.props
     if (!leftSection || !leftSection.enabled) {
       return null
     }
 
-    let source = leftSection.image
-
     if (leftSection.type === 'icon') {
-      if (leftSection.onPress) {
-        return (
-          <View style={styles.iconWrapper}>
-            <TouchableOpacity onPress={leftSection.onPress}>
-              <Icon
-                size={24}
-                name={leftSection.icon}
-                color={leftSection.iconColor}
-              />
-            </TouchableOpacity>
-          </View>
-        )
-      } else {
-        return (
-          <View style={styles.iconWrapper} pointerEvents="none">
-            <Icon
-              size={24}
-              name={leftSection.icon}
-              color={leftSection.iconColor}
-            />
-          </View>
-        )
-      }
+      const pointerEvents = leftSection.onPress ? "unset" : "none"
+
+      return (
+        <View style={styles.iconWrapper} pointerEvents={pointerEvents}>
+          {this.renderImageLink()}
+        </View>
+      )
     }
 
     if (leftSection.type === 'avatar') {
@@ -272,31 +291,11 @@ class Row extends Component {
         avatarStyle.push({ marginTop: 16 })
       }
 
-      if (leftSection.onPress) {
-        return (
-          <View style={styles.imageWrapper}>
-            <TouchableOpacity onPress={leftSection.onPress}>
-              <Image
-                resizeMode="cover"
-                source={source}
-                style={avatarStyle}
-              />
-            </TouchableOpacity>
-          </View>
-        )
-      }
-      else {
-        return (
-          <View style={styles.imageWrapper}>
-            <Image
-              resizeMode="cover"
-              source={source}
-              style={avatarStyle}
-              pointerEvents="none"
-            />
-          </View>
-        )
-      }
+      return (
+        <View style={styles.imageWrapper}>
+          {this.renderImageLink(avatarStyle)}
+        </View>
+      )
     }
 
     if (leftSection.type === 'image') {
@@ -306,32 +305,11 @@ class Row extends Component {
         imageStyle.push({ marginTop: 18 })
       }
 
-      if (leftSection.onPress) {
-        return (
-          <View style={styles.imageWrapper}>
-            <TouchableOpacity onPress={leftSection.onPress}>
-              <Image
-                resizeMode="cover"
-                source={source}
-                style={imageStyle}
-                pointerEvents="none"
-              />
-            </TouchableOpacity>
-          </View>
-        )
-      }
-      else {
-        return (
-          <View style={styles.imageWrapper}>
-            <Image
-              resizeMode="cover"
-              source={source}
-              style={imageStyle}
-              pointerEvents="none"
-            />
-          </View>
-        )
-      }
+      return (
+        <View style={styles.imageWrapper}>
+          {this.renderImageLink(imageStyle)}
+        </View>
+      )
     }
   }
 
@@ -376,6 +354,7 @@ class Row extends Component {
 
     return null
   }
+
   renderSubtitle() {
     let { secondLine } = this.props
     return secondLine && secondLine.enabled
@@ -623,12 +602,11 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     height: 56,
     width: 56,
-    backgroundColor: '#ccc',
-    //paddingTop: '10%',
+    backgroundColor: '#ccc'
   },
   imageWrapper: {
     height: '100%',
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-start'
   },
   main: {
     flex: 1,
