@@ -229,7 +229,7 @@ class Row extends Component {
     return false
   }
 
-  renderImageLink(styleType) {
+  renderLink(styleType) {
     const { leftSection } = this.props
     
     const source = leftSection.image
@@ -277,7 +277,7 @@ class Row extends Component {
 
       return (
         <View style={styles.iconWrapper} pointerEvents={pointerEvents}>
-          {this.renderImageLink()}
+          {this.renderLink()}
         </View>
       )
     }
@@ -293,7 +293,7 @@ class Row extends Component {
 
       return (
         <View style={styles.imageWrapper}>
-          {this.renderImageLink(avatarStyle)}
+          {this.renderLink(avatarStyle)}
         </View>
       )
     }
@@ -307,7 +307,7 @@ class Row extends Component {
 
       return (
         <View style={styles.imageWrapper}>
-          {this.renderImageLink(imageStyle)}
+          {this.renderLink(imageStyle)}
         </View>
       )
     }
