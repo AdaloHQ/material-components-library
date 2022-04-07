@@ -153,6 +153,14 @@
           "displayName": "Image",
           "type": "image",
           "enabled": { "type": ["image", "avatar"] }
+        },
+        {
+          "name": "onPress",
+          "displayName": "Click Actions",
+          "type": "action",
+          "role": "listItem",
+          "reference": "items",
+          "enabled": { "type": ["icon", "image", "avatar"] }
         }
       ]
     },

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Image, Platform } from 'react-native'
+import { View, Text, StyleSheet, Image, Platform, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import SearchBarWrapper from '../Shared/SearchWrapper'
@@ -229,23 +229,64 @@ class Row extends Component {
     return false
   }
 
+  renderImageLink(styleType) {
+    const { leftSection } = this.props
+    
+    const source = leftSection.image
+    const pointerEvents = leftSection.onPress ? "unset" : "none"
+
+    const ImageRender = (
+      <Image
+        resizeMode="cover"
+        source={source}
+        style={styleType}
+        pointerEvents={pointerEvents}
+      />
+    );
+
+    if(leftSection.onPress) {
+      return (
+        <TouchableOpacity onPress={leftSection.onPress}>
+            {ImageRender}
+        </TouchableOpacity>
+      )
+    }
+    else {
+      return ImageRender
+    }
+  }
+
   renderLeftSection() {
     let { leftSection, firstLine, secondLine, editor } = this.props
     if (!leftSection || !leftSection.enabled) {
       return null
     }
 
-    let source = leftSection.image
-
     if (leftSection.type === 'icon') {
-      //56
-      return (
-        <View style={styles.iconWrapper} pointerEvents="none">
+      const iconStyle = leftSection.onPress ? styles.linkIconWrapper : styles.iconWrapper
+      const pointerEvents = leftSection.onPress ? "unset" : "none"
+
+      const IconRender = (
+        leftSection.onPress ? 
+          <IconToggle
+            name={leftSection.icon}
+            color={leftSection.iconColor}
+            underlayColor={leftSection.iconColor}
+            maxOpacity={0.3}
+            size={24}
+            onPress={leftSection.onPress}
+          />
+        : 
           <Icon
             size={24}
             name={leftSection.icon}
             color={leftSection.iconColor}
           />
+      )
+      
+      return (
+        <View style={iconStyle} pointerEvents={pointerEvents}>
+          {IconRender}
         </View>
       )
     }
@@ -258,14 +299,10 @@ class Row extends Component {
       } else if (!editor) {
         avatarStyle.push({ marginTop: 16 })
       }
+
       return (
         <View style={styles.imageWrapper}>
-          <Image
-            resizeMode="cover"
-            source={source}
-            style={avatarStyle}
-            pointerEvents="none"
-          />
+          {this.renderImageLink(avatarStyle)}
         </View>
       )
     }
@@ -276,14 +313,10 @@ class Row extends Component {
       if (firstLine.titleLineNum > 2 || secondLine.subtitleLineNum > 2) {
         imageStyle.push({ marginTop: 18 })
       }
+
       return (
         <View style={styles.imageWrapper}>
-          <Image
-            resizeMode="cover"
-            source={source}
-            style={imageStyle}
-            pointerEvents="none"
-          />
+          {this.renderImageLink(imageStyle)}
         </View>
       )
     }
@@ -330,6 +363,7 @@ class Row extends Component {
 
     return null
   }
+
   renderSubtitle() {
     let { secondLine } = this.props
     return secondLine && secondLine.enabled
@@ -557,11 +591,20 @@ const styles = StyleSheet.create({
     marginTop: 16,
     marginBottom: 16,
   },
+  linkIconWrapper: { 
+    flexDirection: 'column',
+    justifyContent: 'flex-center',
+    marginRight: 20,
+    marginLeft: -12
+  },
   icon: {
     width: 24,
     height: 24,
   },
-  iconWrap: { justifyContent: 'center', height: 72 },
+  iconWrap: { 
+    justifyContent: 'center', 
+    height: 72 
+  },
   avatar: {
     marginRight: 16,
     borderRadius: 20,
