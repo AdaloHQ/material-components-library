@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Icon, IconToggle } from '@protonapp/react-native-material-ui'
 
+import './iconLoader'
+
 export default class WrappedIconToggle extends Component {
   render() {
     let { iconName, iconColor, onPress, iconSize } = this.props
