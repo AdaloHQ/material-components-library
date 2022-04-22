@@ -52,7 +52,7 @@
       "manifest": "./src/ChipList/manifest.json"
     }
   ],
-  "iosInstallScript": "./scripts/install.sh",
-  "androidInstallScript": "./scripts/install.sh",
+  "iosInstallScript": "./scripts/install_ios.sh",
+  "androidInstallScript": "./scripts/install_android.sh",
   "webpackConfig": "./webpack.config.js"
 }
