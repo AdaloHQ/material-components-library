@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Image, Platform, TouchableOpacity } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Platform,
+  TouchableOpacity,
+} from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import SearchBarWrapper from '../Shared/SearchWrapper'
@@ -231,9 +238,9 @@ class Row extends Component {
 
   renderImageLink(styleType) {
     const { leftSection } = this.props
-    
+
     const source = leftSection.image
-    const pointerEvents = leftSection.onPress ? "unset" : "none"
+    const pointerEvents = leftSection.onPress ? 'unset' : 'none'
 
     const ImageRender = (
       <Image
@@ -242,16 +249,15 @@ class Row extends Component {
         style={styleType}
         pointerEvents={pointerEvents}
       />
-    );
+    )
 
-    if(leftSection.onPress) {
+    if (leftSection.onPress) {
       return (
         <TouchableOpacity onPress={leftSection.onPress}>
-            {ImageRender}
+          {ImageRender}
         </TouchableOpacity>
       )
-    }
-    else {
+    } else {
       return ImageRender
     }
   }
@@ -263,27 +269,24 @@ class Row extends Component {
     }
 
     if (leftSection.type === 'icon') {
-      const iconStyle = leftSection.onPress ? styles.linkIconWrapper : styles.iconWrapper
-      const pointerEvents = leftSection.onPress ? "unset" : "none"
+      const iconStyle = leftSection.onPress
+        ? styles.linkIconWrapper
+        : styles.iconWrapper
+      const pointerEvents = leftSection.onPress ? 'unset' : 'none'
 
-      const IconRender = (
-        leftSection.onPress ? 
-          <IconToggle
-            name={leftSection.icon}
-            color={leftSection.iconColor}
-            underlayColor={leftSection.iconColor}
-            maxOpacity={0.3}
-            size={24}
-            onPress={leftSection.onPress}
-          />
-        : 
-          <Icon
-            size={24}
-            name={leftSection.icon}
-            color={leftSection.iconColor}
-          />
+      const IconRender = leftSection.onPress ? (
+        <IconToggle
+          name={leftSection.icon}
+          color={leftSection.iconColor}
+          underlayColor={leftSection.iconColor}
+          maxOpacity={0.3}
+          size={24}
+          onPress={leftSection.onPress}
+        />
+      ) : (
+        <Icon size={24} name={leftSection.icon} color={leftSection.iconColor} />
       )
-      
+
       return (
         <View style={iconStyle} pointerEvents={pointerEvents}>
           {IconRender}
@@ -591,19 +594,19 @@ const styles = StyleSheet.create({
     marginTop: 16,
     marginBottom: 16,
   },
-  linkIconWrapper: { 
+  linkIconWrapper: {
     flexDirection: 'column',
-    justifyContent: 'flex-center',
+    justifyContent: 'center',
     marginRight: 20,
-    marginLeft: -12
+    marginLeft: -12,
   },
   icon: {
     width: 24,
     height: 24,
   },
-  iconWrap: { 
-    justifyContent: 'center', 
-    height: 72 
+  iconWrap: {
+    justifyContent: 'center',
+    height: 72,
   },
   avatar: {
     marginRight: 16,
