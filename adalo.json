@@ -1,0 +1,57 @@
+{
+  "author": "Jeremy Blalock",
+  "description": "Material UI Components for Proton",
+  "displayName": "Material Design",
+  "components": [
+    {
+      "name": "AppBar",
+      "manifest": "./src/AppBar/manifest.json"
+    },
+    {
+      "name": "TabNavigator",
+      "manifest": "./src/TabNavigator/manifest.json"
+    },
+    {
+      "name": "ActionButton",
+      "manifest": "./src/ActionButton/manifest.json"
+    },
+    {
+      "name": "Button",
+      "manifest": "./src/TextButton/textButtonManifest.json"
+    },
+    {
+      "name": "Icon",
+      "manifest": "./src/Icon/manifest.json"
+    },
+    {
+      "name": "IconToggle",
+      "manifest": "./src/IconToggle/manifest.json"
+    },
+    {
+      "name": "SimpleList",
+      "manifest": "./src/SimpleList/manifest.json"
+    },
+    {
+      "name": "ImageList",
+      "manifest": "./src/ImageList/manifest.json"
+    },
+    {
+      "name": "CardList",
+      "manifest": "./src/CardList/manifest.json"
+    },
+    {
+      "name": "AvatarList",
+      "manifest": "./src/AvatarList/manifest.json"
+    },
+    {
+      "name": "HorizontalImageList",
+      "manifest": "./src/HorizontalImageList/manifest.json"
+    },
+    {
+      "name": "ChipList",
+      "manifest": "./src/ChipList/manifest.json"
+    }
+  ],
+  "iosInstallScript": "./scripts/install.sh",
+  "androidInstallScript": "./scripts/install.sh"
+}
