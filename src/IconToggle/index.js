@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { IconToggle as ProtonIconToggle } from '@protonapp/react-native-material-ui'
+import '../Shared/iconLoader'
 
 class IconToggle extends React.Component {
   state = {

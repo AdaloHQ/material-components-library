@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { IconToggle } from '@protonapp/react-native-material-ui'
+import '../Shared/iconLoader'
 
 export default (props) => {
   const { activeColor, toggleSize = 24 } = props
