@@ -6,6 +6,7 @@ import {
   Image,
   Platform,
   TextInput,
+  ActivityIndicator,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
@@ -157,11 +158,18 @@ export default class ImageList extends Component {
   }
 
   render() {
-    let { items, searchBar, listEmptyState, openAccordion } = this.props
+    let { items, searchBar, listEmptyState, openAccordion, getFlags } = this.props
+    const { loadingStates } = getFlags && getFlags() || {}
 
     let layout = 'grid' //items[0] ? items[0].imageStyles.layout : 'grid'
 
-    if (!items) return <View></View>
+    if (!items) {
+      if (loadingStates) {
+        return <View><ActivityIndicator /></View>
+      } else {
+        return <View></View>
+      }
+    }
 
     const newItems = this.filterItems(items)
 

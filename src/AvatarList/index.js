@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Platform } from 'react-native'
+import { View, StyleSheet, Platform, ActivityIndicator } from 'react-native'
 import ImageScrollViewWeb from './ImageScrollView.web.js'
 import ImageScrollViewMobile from './ImageScrollView.js'
 import ImageScrollViewPWA from './ImageScrollView.pwa.js'
@@ -42,14 +42,24 @@ class AvatarList extends Component {
       _fonts,
       listEmptyState,
       openAccordion,
+      getFlags,
     } = this.props
+    const { loadingStates } = getFlags && getFlags() || {}
 
     if (
       !imageList ||
       typeof navigator.userAgent === undefined ||
       (!imageList[0] && !listEmptyState)
     ) {
-      return <View style={{ height: imageSize }}></View>
+      if (loadingStates) {
+        return (
+          <View style={{ height: imageSize }}>
+            <ActivityIndicator />
+          </View>
+        )
+      } else {
+        return <View style={{ height: imageSize }}></View>
+      }
     }
 
     const renderEmptyState =

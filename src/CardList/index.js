@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Image, Platform } from 'react-native'
+import { View, Text, StyleSheet, Image, Platform, ActivityIndicator } from 'react-native'
 import placeholder from './holdplace.png'
 import { Card, Button, IconToggle } from '@protonapp/react-native-material-ui'
 import SearchBarWrapper from '../Shared/SearchWrapper'
@@ -128,25 +128,44 @@ export default class ImageList extends Component {
       if (!currentQuery) {
         return true
       }
-      if (itm.title.text && itm.title.text.toLowerCase().indexOf(currentQuery) >= 0) {
+      if (
+        itm.title.text &&
+        itm.title.text.toLowerCase().indexOf(currentQuery) >= 0
+      ) {
         return true
       } else if (
         itm.subtitle.text &&
         itm.subtitle.text.toLowerCase().indexOf(currentQuery) >= 0
       ) {
         return true
-      } else if (itm.body.text && itm.body.text.toLowerCase().indexOf(currentQuery) >= 0) {
+      } else if (
+        itm.body.text &&
+        itm.body.text.toLowerCase().indexOf(currentQuery) >= 0
+      ) {
         return true
       }
     })
   }
 
   render() {
-    let { cardLayout, searchBar, items, listEmptyState, openAccordion } =
-      this.props
+    let {
+      cardLayout,
+      searchBar,
+      items,
+      listEmptyState,
+      openAccordion,
+      getFlags,
+    } = this.props
     let wrap = [styles.wrap]
+    const { loadingStates } = getFlags && getFlags() || {}
 
-    if (!items) return <View></View>
+    if (!items) {
+      if (loadingStates) {
+        return <View><ActivityIndicator /></View>
+      } else {
+        return <View></View>
+      }
+    }
 
     const newItems = this.filterItems(items)
 

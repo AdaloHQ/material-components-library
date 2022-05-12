@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Platform } from 'react-native'
+import { View, Platform, ActivityIndicator } from 'react-native'
 
 import placeholder from './holdplace.png'
 import ImageScrollViewWeb from './ImageScrollView.web.js'
@@ -45,14 +45,18 @@ class ChipList extends Component {
       _fonts,
       listEmptyState,
       openAccordion,
+      getFlags,
     } = this.props
+    const { loadingStates } = getFlags && getFlags() || {}
 
     if (
       !imageList ||
       typeof navigator.userAgent === undefined ||
       (!imageList[0] && !listEmptyState)
     ) {
-      return <View style={{ height: 32 }}></View>
+      if (loadingStates) {
+        return <View style={{ height: 32 }}><ActivityIndicator /></View>
+      } else return <View style={{ height: 32 }}></View>
     }
 
     const renderEmptyState =

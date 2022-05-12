@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
-import { View, Platform, TouchableWithoutFeedback } from 'react-native'
+import {
+  View,
+  Platform,
+  TouchableWithoutFeedback,
+  ActivityIndicator,
+} from 'react-native'
 import ImageItem from './ImageItem.js'
 import BottomBar from './BottomBar.js'
 import placeholder from './holdplace.png'
@@ -74,14 +79,22 @@ class HorizontalImageList extends Component {
       _fonts,
       listEmptyState,
       openAccordion,
+      getFlags,
     } = this.props
+    const { loadingStates } = getFlags && getFlags() || {}
 
     if (
       !imageList ||
       typeof navigator.userAgent === undefined ||
       (!imageList[0] && !listEmptyState)
     ) {
-      return <View style={{ height: imageSize }}></View>
+      if (loadingStates) {
+        return (
+          <View style={{ height: imageSize }}>
+            <ActivityIndicator />
+          </View>
+        )
+      } else return <View style={{ height: imageSize }}></View>
     }
 
     const renderEmptyState =

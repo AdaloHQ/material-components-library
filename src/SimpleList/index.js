@@ -6,6 +6,7 @@ import {
   Image,
   Platform,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
@@ -88,9 +89,22 @@ export default class SimpleList extends Component {
       searchBar,
       listEmptyState,
       openAccordion,
+      getFlags,
     } = this.props
 
-    if (!items) return <View></View>
+    const { loadingStates } = getFlags && getFlags() || {}
+
+    if (!items) {
+      if (loadingStates) {
+        return (
+          <View>
+            <ActivityIndicator />
+          </View>
+        )
+      } else {
+        return <View></View>
+      }
+    }
 
     let wrap = [styles.wrapper]
     if (background && background.enabled) {
