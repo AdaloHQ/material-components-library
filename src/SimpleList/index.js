@@ -240,7 +240,7 @@ class Row extends Component {
     const { leftSection } = this.props
 
     const source = leftSection.image
-    const pointerEvents = leftSection.onPress ? 'unset' : 'none'
+    const pointerEvents = leftSection.onPress ? 'auto' : 'none'
 
     const ImageRender = (
       <Image
@@ -272,7 +272,7 @@ class Row extends Component {
       const iconStyle = leftSection.onPress
         ? styles.linkIconWrapper
         : styles.iconWrapper
-      const pointerEvents = leftSection.onPress ? 'unset' : 'none'
+      const pointerEvents = leftSection.onPress ? 'auto' : 'none'
 
       const IconRender = leftSection.onPress ? (
         <IconToggle
