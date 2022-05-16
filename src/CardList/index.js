@@ -157,11 +157,11 @@ export default class ImageList extends Component {
       getFlags,
     } = this.props
     let wrap = [styles.wrap]
-    const { loadingStates } = getFlags && getFlags() || {}
+    const { hasUpdatedLoadingStates } = getFlags && getFlags() || {}
 
     if (!items) {
-      if (loadingStates) {
-        return <View><ActivityIndicator /></View>
+      if (hasUpdatedLoadingStates) {
+        return <View style={{ height: 260, justifyContent: 'center' }}><ActivityIndicator /></View>
       } else {
         return <View></View>
       }
@@ -248,7 +248,7 @@ class Cell extends Component {
   renderTitle() {
     let { title, subtitle, _fonts } = this.props
 
-    let titleText = title && title.text
+    let titleText = title && title.enabled && title.text
     let subtitleText = subtitle && subtitle.enabled && subtitle.text
 
     let titleStyles = [styles.title]

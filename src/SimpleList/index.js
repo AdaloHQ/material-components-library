@@ -92,12 +92,12 @@ export default class SimpleList extends Component {
       getFlags,
     } = this.props
 
-    const { loadingStates } = getFlags && getFlags() || {}
+    const { hasUpdatedLoadingStates } = getFlags && getFlags() || {}
 
     if (!items) {
-      if (loadingStates) {
+      if (hasUpdatedLoadingStates) {
         return (
-          <View>
+          <View style={styles.iconWrap}>
             <ActivityIndicator />
           </View>
         )

@@ -81,21 +81,7 @@ class HorizontalImageList extends Component {
       openAccordion,
       getFlags,
     } = this.props
-    const { loadingStates } = getFlags && getFlags() || {}
-
-    if (
-      !imageList ||
-      typeof navigator.userAgent === undefined ||
-      (!imageList[0] && !listEmptyState)
-    ) {
-      if (loadingStates) {
-        return (
-          <View style={{ height: imageSize }}>
-            <ActivityIndicator />
-          </View>
-        )
-      } else return <View style={{ height: imageSize }}></View>
-    }
+    const { hasUpdatedLoadingStates } = getFlags && getFlags() || {}
 
     const renderEmptyState =
       (imageList && !imageList[0]) ||
@@ -106,6 +92,21 @@ class HorizontalImageList extends Component {
     }
 
     const { imageSize, imageRounding, shape, shadow } = imageChild
+
+    if (
+      !imageList ||
+      typeof navigator.userAgent === undefined ||
+      (!imageList[0] && !listEmptyState)
+    ) {
+      if (hasUpdatedLoadingStates) {
+        return (
+          <View style={{ height: imageSize, justifyContent: 'center' }}>
+            <ActivityIndicator />
+          </View>
+        )
+      } else return <View style={{ height: imageSize }}></View>
+    }
+
     const {
       bbBackground,
       bbBackgroundColor,

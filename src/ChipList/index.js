@@ -47,15 +47,15 @@ class ChipList extends Component {
       openAccordion,
       getFlags,
     } = this.props
-    const { loadingStates } = getFlags && getFlags() || {}
+    const { hasUpdatedLoadingStates } = getFlags && getFlags() || {}
 
     if (
       !imageList ||
       typeof navigator.userAgent === undefined ||
       (!imageList[0] && !listEmptyState)
     ) {
-      if (loadingStates) {
-        return <View style={{ height: 32 }}><ActivityIndicator /></View>
+      if (hasUpdatedLoadingStates) {
+        return <View style={{ height: 32, justifyContent: 'center' }}><ActivityIndicator /></View>
       } else return <View style={{ height: 32 }}></View>
     }
 

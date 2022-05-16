@@ -44,23 +44,7 @@ class AvatarList extends Component {
       openAccordion,
       getFlags,
     } = this.props
-    const { loadingStates } = getFlags && getFlags() || {}
-
-    if (
-      !imageList ||
-      typeof navigator.userAgent === undefined ||
-      (!imageList[0] && !listEmptyState)
-    ) {
-      if (loadingStates) {
-        return (
-          <View style={{ height: imageSize }}>
-            <ActivityIndicator />
-          </View>
-        )
-      } else {
-        return <View style={{ height: imageSize }}></View>
-      }
-    }
+    const { hasUpdatedLoadingStates } = getFlags && getFlags() || {}
 
     const renderEmptyState =
       (imageList && !imageList[0]) ||
@@ -80,6 +64,22 @@ class AvatarList extends Component {
       cropMenu,
       background,
     } = imageChild
+
+    if (
+      !imageList ||
+      typeof navigator.userAgent === undefined ||
+      (!imageList[0] && !listEmptyState)
+    ) {
+      if (hasUpdatedLoadingStates) {
+        return (
+          <View style={{ height: imageSize, justifyContent: 'center' }}>
+            <ActivityIndicator />
+          </View>
+        )
+      } else {
+        return <View style={{ height: imageSize }}></View>
+      }
+    }
 
     const edit = this.props.editor
     const dummy = { textPos: null, textAlign: null, textColor: null }

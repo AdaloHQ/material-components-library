@@ -158,14 +158,15 @@ export default class ImageList extends Component {
   }
 
   render() {
-    let { items, searchBar, listEmptyState, openAccordion, getFlags } = this.props
-    const { loadingStates } = getFlags && getFlags() || {}
+    let { items, searchBar, listEmptyState, openAccordion, getFlags, columnCount, _height } = this.props
+    const { hasUpdatedLoadingStates } = getFlags && getFlags() || {}
 
     let layout = 'grid' //items[0] ? items[0].imageStyles.layout : 'grid'
 
     if (!items) {
-      if (loadingStates) {
-        return <View><ActivityIndicator /></View>
+      if (hasUpdatedLoadingStates) {
+        let height = columnCount === 2 ? _height / 2 : _height
+        return <View style = {{ height, justifyContent: 'center' }}><ActivityIndicator /></View>
       } else {
         return <View></View>
       }
@@ -297,7 +298,8 @@ class Cell extends Component {
   renderBar() {
     let { title, imageStyles, iconButton, _fonts } = this.props
 
-    if (!title || !title.enabled || !title.text) {
+    // TODO: test this looks ok on native
+    if (!title || !title.enabled || (!title.text && !title.subtitle)) {
       return null
     }
 
