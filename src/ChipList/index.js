@@ -7,8 +7,13 @@ import ImageScrollViewMobile from './ImageScrollView.js'
 import ImageScrollViewPWA from './ImageScrollView.pwa.js'
 import ImageItem from './ImageItem'
 import EmptyState from '../Shared/EmptyState'
+import PropTypes from 'prop-types'
 
 class ChipList extends Component {
+  static contextTypes = {
+    getFlags: PropTypes.func,
+  }
+
   isMobileDevice = () => {
     if (Platform.OS === 'ios' || Platform.OS === 'android') {
       return true
@@ -45,8 +50,8 @@ class ChipList extends Component {
       _fonts,
       listEmptyState,
       openAccordion,
-      getFlags,
     } = this.props
+    const { getFlags } = this.context
     const { hasUpdatedLoadingStates } = getFlags && getFlags() || {}
 
     if (

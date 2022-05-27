@@ -14,6 +14,7 @@ import Gradient from './gradient'
 import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
 import EmptyState from '../Shared/EmptyState'
+import PropTypes from 'prop-types'
 
 export default class ImageList extends Component {
   static defaultProps = {
@@ -22,6 +23,10 @@ export default class ImageList extends Component {
   state = {
     fullWidth: null,
     currentQuery: '',
+  }
+
+  static contextTypes = {
+    getFlags: PropTypes.func,
   }
 
   renderGrid(items) {
@@ -158,15 +163,27 @@ export default class ImageList extends Component {
   }
 
   render() {
-    let { items, searchBar, listEmptyState, openAccordion, getFlags, columnCount, _height } = this.props
-    const { hasUpdatedLoadingStates } = getFlags && getFlags() || {}
+    let {
+      items,
+      searchBar,
+      listEmptyState,
+      openAccordion,
+      columnCount,
+      _height,
+    } = this.props
+    const { getFlags } = this.context
+    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
     let layout = 'grid' //items[0] ? items[0].imageStyles.layout : 'grid'
 
     if (!items) {
       if (hasUpdatedLoadingStates) {
         let height = columnCount === 2 ? _height / 2 : _height
-        return <View style = {{ height, justifyContent: 'center' }}><ActivityIndicator /></View>
+        return (
+          <View style={{ height, justifyContent: 'center' }}>
+            <ActivityIndicator />
+          </View>
+        )
       } else {
         return <View></View>
       }

@@ -13,11 +13,16 @@ import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
 import EmptyState from '../Shared/EmptyState'
+import PropTypes from 'prop-types'
 
 export default class SimpleList extends Component {
   state = {
     fullWidth: 0,
     currentQuery: '',
+  }
+
+  static contextTypes = {
+    getFlags: PropTypes.func,
   }
 
   handleLayout = ({ nativeEvent }) => {
@@ -89,10 +94,10 @@ export default class SimpleList extends Component {
       searchBar,
       listEmptyState,
       openAccordion,
-      getFlags,
     } = this.props
+    const { getFlags } = this.context
 
-    const { hasUpdatedLoadingStates } = getFlags && getFlags() || {}
+    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
     if (!items) {
       if (hasUpdatedLoadingStates) {

@@ -1,11 +1,19 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Image, Platform, ActivityIndicator } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Platform,
+  ActivityIndicator,
+} from 'react-native'
 import placeholder from './holdplace.png'
 import { Card, Button, IconToggle } from '@protonapp/react-native-material-ui'
 import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
 import IconToggleEditor from '../Shared/IconToggleEditor'
 import EmptyState from '../Shared/EmptyState'
+import PropTypes from 'prop-types'
 
 const SINGLE_COLUMN_LAYOUTS = {
   mediaRight: true,
@@ -18,6 +26,10 @@ export default class ImageList extends Component {
   state = {
     fullWidth: null,
     currentQuery: '',
+  }
+
+  static contextTypes = {
+    getFlags: PropTypes.func,
   }
 
   getColumnCount() {
@@ -148,20 +160,20 @@ export default class ImageList extends Component {
   }
 
   render() {
-    let {
-      cardLayout,
-      searchBar,
-      items,
-      listEmptyState,
-      openAccordion,
-      getFlags,
-    } = this.props
+    let { cardLayout, searchBar, items, listEmptyState, openAccordion } =
+      this.props
     let wrap = [styles.wrap]
-    const { hasUpdatedLoadingStates } = getFlags && getFlags() || {}
+
+    const { getFlags } = this.context
+    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
     if (!items) {
       if (hasUpdatedLoadingStates) {
-        return <View style={{ height: 260, justifyContent: 'center' }}><ActivityIndicator /></View>
+        return (
+          <View style={{ height: 260, justifyContent: 'center' }}>
+            <ActivityIndicator />
+          </View>
+        )
       } else {
         return <View></View>
       }
