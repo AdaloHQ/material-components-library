@@ -315,7 +315,6 @@ class Cell extends Component {
   renderBar() {
     let { title, imageStyles, iconButton, _fonts } = this.props
 
-    // TODO: test this looks ok on native
     if (!title || !title.enabled || (!title.text && !title.subtitle)) {
       return null
     }
