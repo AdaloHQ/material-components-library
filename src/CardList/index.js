@@ -28,10 +28,6 @@ export default class ImageList extends Component {
     currentQuery: '',
   }
 
-  static contextTypes = {
-    getFlags: PropTypes.func,
-  }
-
   getColumnCount() {
     let { layout, columnCount } = this.props
 
@@ -160,11 +156,16 @@ export default class ImageList extends Component {
   }
 
   render() {
-    let { cardLayout, searchBar, items, listEmptyState, openAccordion } =
-      this.props
+    let {
+      cardLayout,
+      searchBar,
+      items,
+      listEmptyState,
+      openAccordion,
+      getFlags,
+    } = this.props
     let wrap = [styles.wrap]
 
-    const { getFlags } = this.context
     const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
     if (!items) {

@@ -21,10 +21,6 @@ export default class SimpleList extends Component {
     currentQuery: '',
   }
 
-  static contextTypes = {
-    getFlags: PropTypes.func,
-  }
-
   handleLayout = ({ nativeEvent }) => {
     const { width } = (nativeEvent && nativeEvent.layout) || {}
     const { fullWidth: prevWidth } = this.state
@@ -94,8 +90,8 @@ export default class SimpleList extends Component {
       searchBar,
       listEmptyState,
       openAccordion,
+      getFlags,
     } = this.props
-    const { getFlags } = this.context
 
     const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 

@@ -15,10 +15,6 @@ import EmptyState from '../Shared/EmptyState'
 import PropTypes from 'prop-types'
 
 class HorizontalImageList extends Component {
-  static contextTypes = {
-    getFlags: PropTypes.func,
-  }
-
   isMobileDevice = () => {
     if (Platform.OS === 'ios' || Platform.OS === 'android') {
       return true
@@ -84,9 +80,10 @@ class HorizontalImageList extends Component {
       _fonts,
       listEmptyState,
       openAccordion,
+      getFlags,
     } = this.props
-    const { getFlags } = this.context
-    const { hasUpdatedLoadingStates } = getFlags && getFlags() || {}
+
+    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
     const renderEmptyState =
       (imageList && !imageList[0]) ||
@@ -109,7 +106,9 @@ class HorizontalImageList extends Component {
             <ActivityIndicator />
           </View>
         )
-      } else return <View style={{ height: imageSize }}></View>
+      } else {
+        return <View style={{ height: imageSize }}></View>
+      }
     }
 
     const {

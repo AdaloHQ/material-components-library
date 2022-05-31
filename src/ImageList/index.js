@@ -25,10 +25,6 @@ export default class ImageList extends Component {
     currentQuery: '',
   }
 
-  static contextTypes = {
-    getFlags: PropTypes.func,
-  }
-
   renderGrid(items) {
     let { columnCount, _width } = this.props
     let { fullWidth } = this.state
@@ -170,8 +166,9 @@ export default class ImageList extends Component {
       openAccordion,
       columnCount,
       _height,
+      getFlags,
     } = this.props
-    const { getFlags } = this.context
+
     const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
     let layout = 'grid' //items[0] ? items[0].imageStyles.layout : 'grid'

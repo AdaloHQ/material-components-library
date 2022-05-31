@@ -7,10 +7,6 @@ import EmptyState from '../Shared/EmptyState'
 import PropTypes from 'prop-types'
 
 class AvatarList extends Component {
-  static contextTypes = {
-    getFlags: PropTypes.func,
-  }
-
   isMobileDevice = () => {
     if (Platform.OS === 'ios' || Platform.OS === 'android') {
       return true
@@ -47,8 +43,9 @@ class AvatarList extends Component {
       _fonts,
       listEmptyState,
       openAccordion,
+      getFlags,
     } = this.props
-    const { getFlags } = this.context
+
     const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
     const renderEmptyState =
