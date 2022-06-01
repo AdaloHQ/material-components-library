@@ -178,7 +178,7 @@ export default class ImageList extends Component {
         let height = columnCount === 2 ? _height / 2 : _height
         return (
           <View style={{ height, justifyContent: 'center' }}>
-            <ActivityIndicator />
+            <ActivityIndicator color="#999999" />
           </View>
         )
       } else {

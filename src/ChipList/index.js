@@ -59,7 +59,7 @@ class ChipList extends Component {
       if (hasUpdatedLoadingStates) {
         return (
           <View style={{ height: 32, justifyContent: 'center' }}>
-            <ActivityIndicator />
+            <ActivityIndicator color="#999999" />
           </View>
         )
       } else {

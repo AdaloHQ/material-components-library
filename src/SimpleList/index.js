@@ -99,7 +99,7 @@ export default class SimpleList extends Component {
       if (hasUpdatedLoadingStates) {
         return (
           <View style={styles.iconWrap}>
-            <ActivityIndicator />
+            <ActivityIndicator color="#999999" />
           </View>
         )
       } else {

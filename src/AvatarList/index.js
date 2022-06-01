@@ -75,7 +75,7 @@ class AvatarList extends Component {
       if (hasUpdatedLoadingStates) {
         return (
           <View style={{ height: imageSize, justifyContent: 'center' }}>
-            <ActivityIndicator />
+            <ActivityIndicator color="#999999" />
           </View>
         )
       } else {

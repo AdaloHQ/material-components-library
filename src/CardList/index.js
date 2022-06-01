@@ -172,7 +172,7 @@ export default class ImageList extends Component {
       if (hasUpdatedLoadingStates) {
         return (
           <View style={{ height: 260, justifyContent: 'center' }}>
-            <ActivityIndicator />
+            <ActivityIndicator color="#999999" />
           </View>
         )
       } else {
