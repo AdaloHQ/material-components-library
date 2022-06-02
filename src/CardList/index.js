@@ -1,11 +1,19 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Image, Platform } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Platform,
+  ActivityIndicator,
+} from 'react-native'
 import placeholder from './holdplace.png'
 import { Card, Button, IconToggle } from '@protonapp/react-native-material-ui'
 import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
 import IconToggleEditor from '../Shared/IconToggleEditor'
 import EmptyState from '../Shared/EmptyState'
+import PropTypes from 'prop-types'
 
 const SINGLE_COLUMN_LAYOUTS = {
   mediaRight: true,
@@ -128,25 +136,49 @@ export default class ImageList extends Component {
       if (!currentQuery) {
         return true
       }
-      if (itm.title.text && itm.title.text.toLowerCase().indexOf(currentQuery) >= 0) {
+      if (
+        itm.title.text &&
+        itm.title.text.toLowerCase().indexOf(currentQuery) >= 0
+      ) {
         return true
       } else if (
         itm.subtitle.text &&
         itm.subtitle.text.toLowerCase().indexOf(currentQuery) >= 0
       ) {
         return true
-      } else if (itm.body.text && itm.body.text.toLowerCase().indexOf(currentQuery) >= 0) {
+      } else if (
+        itm.body.text &&
+        itm.body.text.toLowerCase().indexOf(currentQuery) >= 0
+      ) {
         return true
       }
     })
   }
 
   render() {
-    let { cardLayout, searchBar, items, listEmptyState, openAccordion } =
-      this.props
+    let {
+      cardLayout,
+      searchBar,
+      items,
+      listEmptyState,
+      openAccordion,
+      getFlags,
+    } = this.props
     let wrap = [styles.wrap]
 
-    if (!items) return <View></View>
+    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
+
+    if (!items) {
+      if (hasUpdatedLoadingStates) {
+        return (
+          <View style={{ height: 260, justifyContent: 'center' }}>
+            <ActivityIndicator color="#999999" />
+          </View>
+        )
+      } else {
+        return <View></View>
+      }
+    }
 
     const newItems = this.filterItems(items)
 
@@ -229,7 +261,7 @@ class Cell extends Component {
   renderTitle() {
     let { title, subtitle, _fonts } = this.props
 
-    let titleText = title && title.text
+    let titleText = title && title.enabled && title.text
     let subtitleText = subtitle && subtitle.enabled && subtitle.text
 
     let titleStyles = [styles.title]

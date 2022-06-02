@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Platform } from 'react-native'
+import { View, Platform, ActivityIndicator } from 'react-native'
 
 import placeholder from './holdplace.png'
 import ImageScrollViewWeb from './ImageScrollView.web.js'
@@ -7,6 +7,7 @@ import ImageScrollViewMobile from './ImageScrollView.js'
 import ImageScrollViewPWA from './ImageScrollView.pwa.js'
 import ImageItem from './ImageItem'
 import EmptyState from '../Shared/EmptyState'
+import PropTypes from 'prop-types'
 
 class ChipList extends Component {
   isMobileDevice = () => {
@@ -45,14 +46,25 @@ class ChipList extends Component {
       _fonts,
       listEmptyState,
       openAccordion,
+      getFlags,
     } = this.props
+
+    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
     if (
       !imageList ||
       typeof navigator.userAgent === undefined ||
       (!imageList[0] && !listEmptyState)
     ) {
-      return <View style={{ height: 32 }}></View>
+      if (hasUpdatedLoadingStates) {
+        return (
+          <View style={{ height: 32, justifyContent: 'center' }}>
+            <ActivityIndicator color="#999999" />
+          </View>
+        )
+      } else {
+        return <View style={{ height: 32 }}></View>
+      }
     }
 
     const renderEmptyState =

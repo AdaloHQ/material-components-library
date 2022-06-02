@@ -6,12 +6,14 @@ import {
   Image,
   Platform,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
 import EmptyState from '../Shared/EmptyState'
+import PropTypes from 'prop-types'
 
 export default class SimpleList extends Component {
   state = {
@@ -88,9 +90,22 @@ export default class SimpleList extends Component {
       searchBar,
       listEmptyState,
       openAccordion,
+      getFlags,
     } = this.props
 
-    if (!items) return <View></View>
+    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
+
+    if (!items) {
+      if (hasUpdatedLoadingStates) {
+        return (
+          <View style={styles.iconWrap}>
+            <ActivityIndicator color="#999999" />
+          </View>
+        )
+      } else {
+        return <View></View>
+      }
+    }
 
     let wrap = [styles.wrapper]
     if (background && background.enabled) {

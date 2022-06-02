@@ -6,6 +6,7 @@ import {
   Image,
   Platform,
   TextInput,
+  ActivityIndicator,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
@@ -13,6 +14,7 @@ import Gradient from './gradient'
 import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
 import EmptyState from '../Shared/EmptyState'
+import PropTypes from 'prop-types'
 
 export default class ImageList extends Component {
   static defaultProps = {
@@ -157,11 +159,32 @@ export default class ImageList extends Component {
   }
 
   render() {
-    let { items, searchBar, listEmptyState, openAccordion } = this.props
+    let {
+      items,
+      searchBar,
+      listEmptyState,
+      openAccordion,
+      columnCount,
+      _height,
+      getFlags,
+    } = this.props
+
+    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
     let layout = 'grid' //items[0] ? items[0].imageStyles.layout : 'grid'
 
-    if (!items) return <View></View>
+    if (!items) {
+      if (hasUpdatedLoadingStates) {
+        let height = columnCount === 2 ? _height / 2 : _height
+        return (
+          <View style={{ height, justifyContent: 'center' }}>
+            <ActivityIndicator color="#999999" />
+          </View>
+        )
+      } else {
+        return <View></View>
+      }
+    }
 
     const newItems = this.filterItems(items)
 
@@ -289,7 +312,7 @@ class Cell extends Component {
   renderBar() {
     let { title, imageStyles, iconButton, _fonts } = this.props
 
-    if (!title || !title.enabled || !title.text) {
+    if (!title || !title.enabled || (!title.text && !title.subtitle)) {
       return null
     }
 

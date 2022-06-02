@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
-import { View, Platform, TouchableWithoutFeedback } from 'react-native'
+import {
+  View,
+  Platform,
+  TouchableWithoutFeedback,
+  ActivityIndicator,
+} from 'react-native'
 import ImageItem from './ImageItem.js'
 import BottomBar from './BottomBar.js'
 import placeholder from './holdplace.png'
@@ -7,6 +12,7 @@ import ImageScrollViewMobile from './ImageScrollView.js'
 import ImageScrollViewWeb from './ImageScrollView.web.js'
 import ImageScrollViewPWA from './ImageScrollView.pwa.js'
 import EmptyState from '../Shared/EmptyState'
+import PropTypes from 'prop-types'
 
 class HorizontalImageList extends Component {
   isMobileDevice = () => {
@@ -74,15 +80,10 @@ class HorizontalImageList extends Component {
       _fonts,
       listEmptyState,
       openAccordion,
+      getFlags,
     } = this.props
 
-    if (
-      !imageList ||
-      typeof navigator.userAgent === undefined ||
-      (!imageList[0] && !listEmptyState)
-    ) {
-      return <View style={{ height: imageSize }}></View>
-    }
+    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
     const renderEmptyState =
       (imageList && !imageList[0]) ||
@@ -93,6 +94,23 @@ class HorizontalImageList extends Component {
     }
 
     const { imageSize, imageRounding, shape, shadow } = imageChild
+
+    if (
+      !imageList ||
+      typeof navigator.userAgent === undefined ||
+      (!imageList[0] && !listEmptyState)
+    ) {
+      if (hasUpdatedLoadingStates) {
+        return (
+          <View style={{ height: imageSize, justifyContent: 'center' }}>
+            <ActivityIndicator color="#999999" />
+          </View>
+        )
+      } else {
+        return <View style={{ height: imageSize }}></View>
+      }
+    }
+
     const {
       bbBackground,
       bbBackgroundColor,
