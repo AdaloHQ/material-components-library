@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Platform, View, StyleSheet, Text, Animated } from 'react-native'
+import { Platform, View } from 'react-native'
 import { Icon } from '@protonapp/react-native-material-ui'
 import { FAB } from 'react-native-paper'
 
@@ -13,6 +13,7 @@ export default class WrappedActionButton extends Component {
 
   state = {
     width: null,
+    isLoading: false,
   }
 
   handleLayout = ({
@@ -23,6 +24,24 @@ export default class WrappedActionButton extends Component {
     if (this.state.width !== width) {
       this.setState({ width })
     }
+  }
+
+  clickAction = async () => {
+    const { action } = this.props
+
+    if (!action) {
+      return
+    }
+
+    this.setState({
+      isLoading: true,
+    })
+
+    await action()
+
+    this.setState({
+      isLoading: false,
+    })
   }
 
   renderSub() {
@@ -37,8 +56,11 @@ export default class WrappedActionButton extends Component {
       _width,
       buttonType,
       resizeMethod,
+      getFlags,
     } = this.props
-    const { width } = this.state
+    const { width, isLoading } = this.state
+    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
+    const onPressAction = hasUpdatedLoadingStates ? this.clickAction : action
 
     const containerStyles = {
       backgroundColor,
@@ -103,11 +125,12 @@ export default class WrappedActionButton extends Component {
           icon={({ size, color }) => (
             <Icon name={icon} style={{ color }} size={size}></Icon>
           )}
-          onPress={action}
+          onPress={onPressAction}
           label={breakless}
           small={false}
           animated={false}
           onLayout={this.handleLayout}
+          loading={isLoading}
         ></FAB>
       </View>
     )
