@@ -20,7 +20,7 @@ import '../Shared/icons'
 
 export default class AppBar extends Component {
   state = {
-    loadingComponents: new Set(),
+    loadingComponents: new Set(), // allows for multiple icons to have independent loading states
   }
 
   static defaultProps = {
