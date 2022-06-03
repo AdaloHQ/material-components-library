@@ -97,11 +97,11 @@ export default class SimpleList extends Component {
 
     if (!items) {
       if (hasUpdatedLoadingStates) {
-        return (
-          <View style={styles.iconWrap}>
-            <ActivityIndicator color="#999999" />
-          </View>
-        )
+        // return (
+        //   <View style={styles.iconWrap}>
+        //     <ActivityIndicator color="#999999" />
+        //   </View>
+        // )
       } else {
         return <View></View>
       }
@@ -138,6 +138,24 @@ export default class SimpleList extends Component {
       } else {
         wrap.push({ paddingTop: 8 })
       }
+    }
+    //TODO: remove
+    if (hasUpdatedLoadingStates && !items) {
+      return (
+        <View style={wrap}>
+          {/* <ActivityIndicator color="#999999" /> */}
+          <Row
+            // key={itm.id}
+            dividerType={dividerType}
+            dividerColor={dividerColor}
+            // lastRow={i === newItems.length - 1}
+            fullWidth={this.state.fullWidth}
+            editor={this.props.editor}
+            _fonts={this.props._fonts}
+            loadingState={true}
+          />
+        </View>
+      )
     }
 
     const newItems = this.filterItems(items)
@@ -176,6 +194,7 @@ export default class SimpleList extends Component {
                 fullWidth={this.state.fullWidth}
                 editor={this.props.editor}
                 _fonts={this.props._fonts}
+                loadingState={false}
               />
             ))}
           </SearchBarWrapper>
@@ -242,9 +261,9 @@ class Row extends Component {
   }
 
   hasDivider() {
-    let { dividerType, lastRow } = this.props
+    let { dividerType, lastRow, loadingState = true } = this.props
 
-    if (!lastRow && dividerType && dividerType !== 'none') {
+    if (!lastRow && dividerType && dividerType !== 'none' && !loadingState) {
       return true
     }
 
@@ -278,7 +297,25 @@ class Row extends Component {
   }
 
   renderLeftSection() {
-    let { leftSection, firstLine, secondLine, editor } = this.props
+    let {
+      leftSection,
+      firstLine,
+      secondLine,
+      editor,
+      loadingState = true,
+    } = this.props
+
+    if (loadingState) {
+      return (
+        <View
+          style={[
+            styles.iconWrap,
+            { backgroundColor: '#e0e0e0', opacity: 0.5, width: 75 },
+          ]}
+        ></View>
+      )
+    }
+
     if (!leftSection || !leftSection.enabled) {
       return null
     }
@@ -383,16 +420,23 @@ class Row extends Component {
   }
 
   renderSubtitle() {
-    let { secondLine } = this.props
-    return secondLine && secondLine.enabled
+    let { secondLine, loadingState = true } = this.props
+    return loadingState || (secondLine && secondLine.enabled)
   }
 
   renderContent() {
-    let { leftSection, firstLine, secondLine, _fonts } = this.props
+    let {
+      leftSection,
+      firstLine,
+      secondLine,
+      _fonts,
+      loadingState = true,
+    } = this.props
     let hasDivider = this.hasDivider()
 
     let row = [styles.row]
     if (
+      loadingState ||
       (firstLine.titleLineNum <= 2 && secondLine.subtitleLineNum <= 2) ||
       !firstLine.titleLineNum ||
       !secondLine.subtitleLineNum
@@ -408,12 +452,14 @@ class Row extends Component {
             {...firstLine}
             widthLimit={this.getWidthLimit()}
             _fonts={_fonts}
+            loadingState={loadingState}
           />
           {this.renderSubtitle() ? (
             <SecondLine
               {...secondLine}
               widthLimit={this.getWidthLimit()}
               _fonts={_fonts}
+              loadingState={loadingState}
             />
           ) : null}
         </View>
@@ -448,13 +494,26 @@ class FirstLine extends Component {
     color: '#212121',
   }
   render() {
-    let { text, color, titleLineNum, widthLimit, _fonts } = this.props
+    let {
+      text,
+      color,
+      titleLineNum,
+      widthLimit,
+      _fonts,
+      loadingState = true,
+    } = this.props
+
+    if (loadingState) {
+      return <View style={styles.loadingText}></View>
+    }
+
     let breakless = text.replace(/(\r\n|\n|\r)/gm, '')
     //custom fonts
     let customFontStyles = this.props.styles ? this.props.styles.text : null
     let propStyles = [
       { color: customFontStyles ? customFontStyles.color : color },
     ]
+
     if (this.props.styles) {
       propStyles.push({
         fontFamily: customFontStyles.fontFamily,
@@ -518,11 +577,17 @@ class SecondLine extends Component {
   }
 
   render() {
-    let { text, color, subtitleLineNum, widthLimit, _fonts } = this.props
+    let { text, color, subtitleLineNum, widthLimit, _fonts, loadingState } =
+      this.props
     let customFontStyles = this.props.styles ? this.props.styles.text : null
     let propStyles = [
       { color: customFontStyles ? customFontStyles.color : color },
     ]
+
+    if (loadingState) {
+      return <View style={styles.loadingText}></View>
+    }
+
     if (this.props.styles) {
       propStyles.push({
         fontFamily: customFontStyles.fontFamily,
@@ -661,4 +726,11 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
   },
   titleContainer: {},
+  loadingText: {
+    width: '100%',
+    height: '20px',
+    backgroundColor: '#e0e0e0',
+    opacity: 0.5,
+    margin: '10px',
+  },
 })
