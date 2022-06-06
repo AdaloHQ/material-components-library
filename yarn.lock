@@ -1788,10 +1788,10 @@
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.2.tgz#54c5a964462be3d4d78af631363c18d6fa91ac26"
 
-"@protonapp/react-native-material-ui@^2.0.6":
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/@protonapp/react-native-material-ui/-/react-native-material-ui-2.0.6.tgz#280cad33f41cb6265e9d95c2e0914129c57a66cf"
-  integrity sha512-rpJ012lcazFvD+5++r3a6vNqritHHnR601CQJ2EQ6roor75Zx9bPVODgQ6eObzIMINEjGtsXYktaxg+6Oiz1RA==
+"@protonapp/react-native-material-ui@^2.0.7":
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/@protonapp/react-native-material-ui/-/react-native-material-ui-2.0.7.tgz#2edf2b4792d2d119773381a07931716ac7fa674b"
+  integrity sha512-9ifSLFvmUb6EM5ph+/MsTQmq239S87szVoKpFfQ7O8MKdkRRzaxEY1T0sVStgWWPWc9VuCBBepgNWBNcfnaThg==
   dependencies:
     color "3.1.0"
     hoist-non-react-statics "^2.5.5"
