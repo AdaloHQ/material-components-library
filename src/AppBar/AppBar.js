@@ -6,6 +6,7 @@ import {
   Image,
   ImageBackground,
   Text,
+  ActivityIndicator,
 } from 'react-native'
 import { Toolbar } from '@protonapp/react-native-material-ui'
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -18,6 +19,10 @@ import IconToggleEditor from '../Shared/IconToggleEditor'
 import '../Shared/icons'
 
 export default class AppBar extends Component {
+  state = {
+    loadingComponents: new Set(), // allows for multiple icons to have independent loading states
+  }
+
   static defaultProps = {
     title: {},
     leftIcon: {},
@@ -93,25 +98,66 @@ export default class AppBar extends Component {
     return {}
   }
 
+  iconClickAction = (action, propName) => async () => {
+    if (!action) {
+      return
+    }
+
+    this.setState(state => {
+      const updatedLoadingComponents = new Set(state.loadingComponents)
+      updatedLoadingComponents.add(propName)
+
+      return { loadingComponents: updatedLoadingComponents }
+    })
+
+    await action()
+
+    this.setState(state => {
+      const updatedLoadingComponents = new Set(state.loadingComponents)
+      updatedLoadingComponents.delete(propName)
+
+      return { loadingComponents: updatedLoadingComponents }
+    })
+  }
+
   renderIcon(propName) {
-    let {
+    const {
       [propName]: { icon, enabled, action, iconType },
       color,
       editor,
+      getFlags,
     } = this.props
-    if (!enabled) return null
+
+    const { loadingComponents } = this.state
+    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
+
+    const onPressAction = hasUpdatedLoadingStates ? this.iconClickAction(action, propName) : action
+
+    if (!enabled) {
+      return null
+    }
 
     let iconComponent
 
-    if (iconType !== 'toggle') {
-      iconComponent = (
-        <Icon name={icon} color={color} size={24} onPress={action} />
-      )
-    } else if (editor) {
-      iconComponent = <IconToggleEditor {...this.props[propName]} />
+    if (iconType === 'toggle') {
+      if (editor) {
+        iconComponent = <IconToggleEditor {...this.props[propName]} />
+      } else {
+        iconComponent = <WrappedIconToggle {...this.props[propName]} />
+      }
+    } else if (loadingComponents.has(propName)) {
+      iconComponent = <ActivityIndicator size="small" color={color} />
     } else {
-      iconComponent = <WrappedIconToggle {...this.props[propName]} />
+      iconComponent = (
+        <Icon
+          name={icon}
+          color={color}
+          size={24}
+          onPress={onPressAction}
+        />
+      )
     }
+
     return <View style={styles.icon}>{iconComponent}</View>
   }
   renderLogo() {
