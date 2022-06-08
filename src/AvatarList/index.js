@@ -37,7 +37,6 @@ class AvatarList extends Component {
 
   render() {
     const {
-      imageList,
       imageSpacing,
       imageChild,
       _fonts,
@@ -45,6 +44,7 @@ class AvatarList extends Component {
       openAccordion,
       getFlags,
     } = this.props
+    let { imageList } = this.props
 
     const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
@@ -73,11 +73,14 @@ class AvatarList extends Component {
       (!imageList[0] && !listEmptyState)
     ) {
       if (hasUpdatedLoadingStates) {
-        return (
-          <View style={{ height: imageSize, justifyContent: 'center' }}>
-            <ActivityIndicator color="#999999" />
-          </View>
-        )
+        imageList = _.range(5).map((id) => {
+          return {
+            image: null,
+            textChild: { enabled: false },
+            avatarClickActions: undefined,
+            id,
+          }
+        })
       } else {
         return <View style={{ height: imageSize }}></View>
       }
