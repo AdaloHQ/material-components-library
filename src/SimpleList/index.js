@@ -30,10 +30,14 @@ export default class SimpleList extends Component {
     }
   }
 
-  renderHeader() {
+  renderHeader(loadingState = false) {
     let { listHeader, background, _fonts } = this.props
 
-    if (!listHeader || !listHeader.header || !listHeader.enabled) {
+    if (
+      !listHeader ||
+      (!listHeader.header && !loadingState) ||
+      !listHeader.enabled
+    ) {
       return null
     }
     let space = 0
@@ -46,6 +50,20 @@ export default class SimpleList extends Component {
       headerStyles.push(listHeader.styles.header)
     } else if (_fonts) {
       headerStyles.push({ fontFamily: _fonts.heading })
+    }
+
+    if (loadingState) {
+      let backgroundColor =
+        (headerStyles[1] && headerStyles[1].color) || '#e0e0e0'
+      let height = (headerStyles[1] && headerStyles[1].fontSize) || 16
+      return (
+        <>
+          <View
+            style={{ height, width: '40%', backgroundColor, opacity: 0.5 }}
+          />
+          <View style={{ height: space }} />
+        </>
+      )
     }
 
     return (
@@ -95,18 +113,6 @@ export default class SimpleList extends Component {
 
     const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
-    if (!items) {
-      if (hasUpdatedLoadingStates) {
-        // return (
-        //   <View style={styles.iconWrap}>
-        //     <ActivityIndicator color="#999999" />
-        //   </View>
-        // )
-      } else {
-        return <View></View>
-      }
-    }
-
     let wrap = [styles.wrapper]
     if (background && background.enabled) {
       let {
@@ -139,25 +145,37 @@ export default class SimpleList extends Component {
         wrap.push({ paddingTop: 8 })
       }
     }
-    //TODO: remove
-    if (hasUpdatedLoadingStates && !items) {
-      return (
-        <View style={wrap}>
-          {/* <ActivityIndicator color="#999999" /> */}
-          <Row
-            // key={itm.id}
-            dividerType={dividerType}
-            dividerColor={dividerColor}
-            // lastRow={i === newItems.length - 1}
-            fullWidth={this.state.fullWidth}
-            editor={this.props.editor}
-            _fonts={this.props._fonts}
-            loadingState={true}
-          />
-        </View>
-      )
-    }
 
+    if (!items) {
+      if (hasUpdatedLoadingStates) {
+        return (
+          <>
+            {this.renderHeader(true)}
+            <View style={wrap}>
+              <SearchBarWrapper
+                searchBar={searchBar}
+                onFilterElement={() => {}}
+                notFound={false}
+                border={border}
+                extraStyle={extraStyle}
+              >
+                <Row
+                  dividerType={dividerType}
+                  dividerColor={dividerColor}
+                  lastRow={true}
+                  fullWidth={this.state.fullWidth}
+                  editor={this.props.editor}
+                  _fonts={this.props._fonts}
+                  loadingState={true}
+                />
+              </SearchBarWrapper>
+            </View>
+          </>
+        )
+      } else {
+        return <View></View>
+      }
+    }
     const newItems = this.filterItems(items)
 
     const notFound = newItems.length === 0
@@ -261,9 +279,9 @@ class Row extends Component {
   }
 
   hasDivider() {
-    let { dividerType, lastRow, loadingState = true } = this.props
+    let { dividerType, lastRow } = this.props
 
-    if (!lastRow && dividerType && dividerType !== 'none' && !loadingState) {
+    if (!lastRow && dividerType && dividerType !== 'none') {
       return true
     }
 
@@ -728,9 +746,12 @@ const styles = StyleSheet.create({
   titleContainer: {},
   loadingText: {
     width: '100%',
-    height: '20px',
+    height: '16px',
     backgroundColor: '#e0e0e0',
     opacity: 0.5,
-    margin: '10px',
+    marginLeft: '10px',
+    marginRight: '10px',
+    marginTop: '5px',
+    marginBottom: '5px',
   },
 })
