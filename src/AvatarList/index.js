@@ -72,22 +72,22 @@ class AvatarList extends Component {
       typeof navigator.userAgent === undefined ||
       (!imageList[0] && !listEmptyState)
     ) {
-    if (hasUpdatedLoadingStates) {
-      return (
-        <View
-          style={{
-            height: imageSize,
-            width: imageSize,
-            backgroundColor: background ? backgroundColor : '#e0e0e080',
-            borderColor,
-            borderRadius: imageRounding,
-            borderWidth: borderBool ? borderSize : 0,
-          }}
-        ></View>
-      )
-    } else {
-      return <View style={{ height: imageSize }}></View>
-    }
+      if (hasUpdatedLoadingStates) {
+        return (
+          <View
+            style={{
+              height: imageSize,
+              width: imageSize,
+              backgroundColor: background ? backgroundColor : '#e0e0e080',
+              borderColor,
+              borderRadius: imageRounding,
+              borderWidth: borderBool ? borderSize : 0,
+            }}
+          ></View>
+        )
+      } else {
+        return <View style={{ height: imageSize }}></View>
+      }
     }
 
     const edit = this.props.editor
