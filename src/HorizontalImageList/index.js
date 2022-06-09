@@ -103,7 +103,16 @@ class HorizontalImageList extends Component {
       if (hasUpdatedLoadingStates) {
         return (
           <View style={{ height: imageSize, justifyContent: 'center' }}>
-            <ActivityIndicator color="#999999" />
+            <View
+              style={{
+                height: imageSize,
+                width: imageSize,
+                borderRadius: imageRounding,
+                marginLeft: imageSpacing,
+                backgroundColor: '#e0e0e0',
+                opacity: 0.5,
+              }}
+            ></View>
           </View>
         )
       } else {
