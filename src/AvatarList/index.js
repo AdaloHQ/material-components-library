@@ -37,6 +37,7 @@ class AvatarList extends Component {
 
   render() {
     const {
+      imageList,
       imageSpacing,
       imageChild,
       _fonts,
@@ -44,7 +45,6 @@ class AvatarList extends Component {
       openAccordion,
       getFlags,
     } = this.props
-    let { imageList } = this.props
 
     const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
@@ -72,18 +72,22 @@ class AvatarList extends Component {
       typeof navigator.userAgent === undefined ||
       (!imageList[0] && !listEmptyState)
     ) {
-      if (hasUpdatedLoadingStates) {
-        imageList = _.range(5).map((id) => {
-          return {
-            image: null,
-            textChild: { enabled: false },
-            avatarClickActions: undefined,
-            id,
-          }
-        })
-      } else {
-        return <View style={{ height: imageSize }}></View>
-      }
+    if (hasUpdatedLoadingStates) {
+      return (
+        <View
+          style={{
+            height: imageSize,
+            width: imageSize,
+            backgroundColor: background ? backgroundColor : '#e0e0e080',
+            borderColor,
+            borderRadius: imageRounding,
+            borderWidth: borderBool ? borderSize : 0,
+          }}
+        ></View>
+      )
+    } else {
+      return <View style={{ height: imageSize }}></View>
+    }
     }
 
     const edit = this.props.editor
