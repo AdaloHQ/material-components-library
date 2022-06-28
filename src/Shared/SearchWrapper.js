@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     ...Platform.select({
       web: {
-        outlineStyle: 'none',
+        outline: 'none',
       },
       default: {},
     }),
