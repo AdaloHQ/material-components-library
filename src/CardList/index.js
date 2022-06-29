@@ -166,18 +166,12 @@ export default class ImageList extends Component {
     } = this.props
     let wrap = [styles.wrap]
 
-    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
-
     if (!items) {
-      if (hasUpdatedLoadingStates) {
-        return (
-          <View style={{ height: 260, justifyContent: 'center' }}>
-            <ActivityIndicator color="#999999" />
-          </View>
-        )
-      } else {
-        return <View></View>
-      }
+      return (
+        <View style={{ height: 260, justifyContent: 'center' }}>
+          <ActivityIndicator color="#999999" />
+        </View>
+      )
     }
 
     const newItems = this.filterItems(items)

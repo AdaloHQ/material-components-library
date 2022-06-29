@@ -169,21 +169,15 @@ export default class ImageList extends Component {
       getFlags,
     } = this.props
 
-    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
-
     let layout = 'grid' //items[0] ? items[0].imageStyles.layout : 'grid'
 
     if (!items) {
-      if (hasUpdatedLoadingStates) {
-        let height = columnCount === 2 ? _height / 2 : _height
-        return (
-          <View style={{ height, justifyContent: 'center' }}>
-            <ActivityIndicator color="#999999" />
-          </View>
-        )
-      } else {
-        return <View></View>
-      }
+      let height = columnCount === 2 ? _height / 2 : _height
+      return (
+        <View style={{ height, justifyContent: 'center' }}>
+          <ActivityIndicator color="#999999" />
+        </View>
+      )
     }
 
     const newItems = this.filterItems(items)

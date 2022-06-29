@@ -16,7 +16,7 @@ export default class TabNavigator extends Component {
     },
   }
 
-  handleChangeTab = tabName => async () => {
+  handleChangeTab = (tabName) => async () => {
     const prop = this.props[tabName]
     const action = prop && prop.action
 
@@ -39,7 +39,6 @@ export default class TabNavigator extends Component {
 
   render() {
     let { backgroundColor, editor, activeTab, _fonts, getFlags } = this.props
-    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
     let enabledTabs = tabNames.filter((tabName) => {
       let tab = this.props[tabName]
@@ -68,7 +67,7 @@ export default class TabNavigator extends Component {
         >
           {enabledTabs.map((tabName) => (
             <BottomNavigation.Action
-              showLoadingState={hasUpdatedLoadingStates}
+              showLoadingState={true}
               key={tabName}
               icon={tabs[tabName].icon}
               label={tabs[tabName].label}

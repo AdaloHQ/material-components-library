@@ -129,9 +129,8 @@ export default class AppBar extends Component {
     } = this.props
 
     const { loadingComponents } = this.state
-    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
-    const onPressAction = hasUpdatedLoadingStates ? this.iconClickAction(action, propName) : action
+    const onPressAction = this.iconClickAction(action, propName)
 
     if (!enabled) {
       return null

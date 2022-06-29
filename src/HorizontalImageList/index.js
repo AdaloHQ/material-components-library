@@ -83,8 +83,6 @@ class HorizontalImageList extends Component {
       getFlags,
     } = this.props
 
-    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
-
     const renderEmptyState =
       (imageList && !imageList[0]) ||
       (openAccordion === 'listEmptyState' && listEmptyState)
@@ -100,15 +98,11 @@ class HorizontalImageList extends Component {
       typeof navigator.userAgent === undefined ||
       (!imageList[0] && !listEmptyState)
     ) {
-      if (hasUpdatedLoadingStates) {
-        return (
-          <View style={{ height: imageSize, justifyContent: 'center' }}>
-            <ActivityIndicator color="#999999" />
-          </View>
-        )
-      } else {
-        return <View style={{ height: imageSize }}></View>
-      }
+      return (
+        <View style={{ height: imageSize, justifyContent: 'center' }}>
+          <ActivityIndicator color="#999999" />
+        </View>
+      )
     }
 
     const {
