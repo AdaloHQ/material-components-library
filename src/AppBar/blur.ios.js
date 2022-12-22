@@ -1,6 +1,5 @@
 import React from 'react'
 import { View } from 'react-native'
-import { BlurView } from '@react-native-community/blur'
 
 const Blur = (props) => {
   const { translucentColor, borderStyle } = props
@@ -14,14 +13,6 @@ const Blur = (props) => {
 
   return (
     <View style={borderStyle[1]}>
-      <BlurView
-        blurType="light"
-        blurAmount={10}
-        reducedTransparencyFallbackColor="white"
-        style={style}
-      >
-        {props.children}
-      </BlurView>
       <View style={borderStyle[0]}></View>
     </View>
   )
