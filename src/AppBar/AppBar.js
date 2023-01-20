@@ -8,6 +8,7 @@ import {
   Text,
   ActivityIndicator,
 } from 'react-native'
+import DeviceInfo from 'react-native-device-info';
 import { Toolbar } from '@protonapp/react-native-material-ui'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Blur from './blur'
@@ -307,11 +308,14 @@ export default class AppBar extends Component {
       ...this.getShadowStyle(),
     }
     if (!editor) {
+      let marginTop = -20;
+      if(DeviceInfo.hasDynamicIsland() || DeviceInfo.hasNotch()){
+        marginTop = -40;
+      }
       containerStyles = {
         ...containerStyles,
         height: 106,
         paddingTop: 50,
-        marginTop: -30,
         ...this.getBorderStyle(106, false),
       }
     }
