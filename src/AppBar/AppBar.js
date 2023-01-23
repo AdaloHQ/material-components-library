@@ -307,15 +307,9 @@ export default class AppBar extends Component {
       ...this.getBorderStyle(76, false),
       ...this.getShadowStyle(),
     }
-    console.log(`renderToolbar`,{
-      editor,
-      barType,
-      hasDynamicIsland:DeviceInfo.hasDynamicIsland(),
-      hasNotch:DeviceInfo.hasNotch(),
-    })
 
     if (!editor) {
-      let marginTop = -20;
+      let marginTop = -30;
       if(DeviceInfo.hasDynamicIsland() || DeviceInfo.hasNotch()){
         marginTop = -40;
       }
@@ -323,15 +317,9 @@ export default class AppBar extends Component {
         ...containerStyles,
         height: 106,
         paddingTop: 50,
+        marginTop,
         ...this.getBorderStyle(106, false),
       }
-      console.log(`renderToolbar applying patch`,{
-        containerStyle, 
-        barType,
-        editor,
-        hasDynamicIsland:DeviceInfo.hasDynamicIsland(),
-        hasNotch:DeviceInfo.hasNotch(),
-      })
     }
     if (barType === 'translucent') {
       return this.renderBlur(containerStyles)
