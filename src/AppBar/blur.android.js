@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { BlurView } from '@react-native-community/blur'
 
 const BlurAndroid = (props) => {
-  const { translucentColor, containerStyles } = props
+  const { translucentColor, containerStyles, blurViewStyle = {} } = props
 
   const style = {
     backgroundColor: translucentColor,
@@ -14,6 +14,7 @@ const BlurAndroid = (props) => {
     right: 0,
     left: 0,
     top: 0,
+    ...blurViewStyle
   }
 
   const viewStyles = {
