@@ -1,0 +1,713 @@
+{
+  "displayName": "Navigation Bar",
+  "icon": "./icon.png",
+  "defaultWidth": 375,
+  "defaultHeight": 64,
+  "snappingRules": {
+    "snap": true,
+    "snapType": "screenEdge",
+    "lock": {
+      "left": 0,
+      "right": 0,
+      "top": 20
+    }
+  },
+  "props": [
+    {
+      "name": "backgroundColor",
+      "type": "color",
+      "displayName": "Background Color",
+      "default": "@background"
+    },
+    {
+      "name": "shadow",
+      "type": "boolean",
+      "displayName": "Shadow",
+      "default": false
+    },
+    {
+      "name": "offset",
+      "type": "boolean",
+      "displayName": "Offset",
+      "default": false
+    },
+    {
+      "name": "offsetSize",
+      "type": "number",
+      "displayName": "Offset Size",
+      "default": 10,
+      "control": {
+        "type": "slider",
+        "max": 20,
+        "min": 0
+      },
+      "enabled": {
+        "offset": true
+      }
+    },
+    {
+      "name": "rounding",
+      "type": "number",
+      "displayName": "Rounding",
+      "default": 100,
+      "control": {
+        "type": "slider",
+        "max": 100,
+        "min": 0
+      },
+      "enabled": {
+        "offset": true
+      }
+    },
+    {
+      "name": "border",
+      "type": "boolean",
+      "displayName": "Bottom Border",
+      "default": true
+    },
+    {
+      "name": "borderColor",
+      "type": "color",
+      "displayName": "Bottom Border Color",
+      "default": "#757575",
+      "enabled": {
+        "border": true
+      }
+    },
+    {
+      "name": "borderWidth",
+      "type": "number",
+      "displayName": "Bottom Border Width",
+      "default": 1,
+      "control": {
+        "type": "slider",
+        "max": 10,
+        "min": 0
+      },
+      "enabled": {
+        "border": true
+      }
+    }
+  ],
+  "childComponents": [
+    {
+      "name": "title",
+      "displayName": "Title",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "universalLayout",
+          "type": "boolean",
+          "displayName": "Title Appearance",
+          "default": true,
+          "control": {
+            "type": "menu",
+            "options": [
+              {
+                "label": "Same On All Screen Sizes",
+                "value": true
+              },
+              {
+                "label": "Changes By Screen Size",
+                "value": false
+              }
+            ]
+          }
+        },
+        {
+          "name": "universalUseLogo",
+          "type": "boolean",
+          "displayName": "Title Type",
+          "default": true,
+          "control": {
+            "type": "menu",
+            "options": [
+              {
+                "label": "Text",
+                "value": false
+              },
+              {
+                "label": "Logo",
+                "value": true
+              }
+            ]
+          },
+          "enabled": {
+            "universalLayout": true
+          }
+        },
+        {
+          "name": "universalLogoImage",
+          "type": "image",
+          "displayName": "Logo Image",
+          "enabled": {
+            "universalUseLogo": true,
+            "universalLayout": true
+          }
+        },
+        {
+          "name": "universalTitleText",
+          "type": "text",
+          "displayName": "Text",
+          "default": "TITLE TEXT",
+          "enabled": {
+            "universalUseLogo": false,
+            "universalLayout": true
+          }
+        },
+        {
+          "name": "mobileUseLogo",
+          "type": "boolean",
+          "displayName": "Mobile & Tablet Type",
+          "default": false,
+          "control": {
+            "type": "menu",
+            "options": [
+              {
+                "label": "Text",
+                "value": false
+              },
+              {
+                "label": "Logo",
+                "value": true
+              }
+            ]
+          },
+          "enabled": {
+            "universalLayout": false
+          }
+        },
+        {
+          "name": "mobileTitleText",
+          "type": "text",
+          "displayName": "Text",
+          "default": "TITLE TEXT",
+          "enabled": {
+            "mobileUseLogo": false,
+            "universalLayout": false
+          },
+          "styles": {
+            "fontFamily": "@heading",
+            "fontSize": 20,
+            "fontWeight": "600",
+            "textAlignment": "left",
+            "color": "@text"
+          }
+        },
+        {
+          "name": "mobileLogo",
+          "type": "image",
+          "displayName": "Logo Image",
+          "enabled": {
+            "mobileUseLogo": true,
+            "universalLayout": false
+          }
+        },
+        {
+          "name": "desktopUseLogo",
+          "type": "boolean",
+          "displayName": "Desktop Type",
+          "default": true,
+          "control": {
+            "type": "menu",
+            "options": [
+              {
+                "label": "Text",
+                "value": false
+              },
+              {
+                "label": "Logo",
+                "value": true
+              }
+            ]
+          },
+          "enabled": {
+            "universalLayout": false
+          }
+        },
+        {
+          "name": "desktopLogo",
+          "type": "image",
+          "displayName": "Logo Image",
+          "enabled": {
+            "desktopUseLogo": true,
+            "universalLayout": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "menuItems",
+      "displayName": "Menu Items",
+      "props": [
+        {
+          "name": "menuItemsAlignment",
+          "displayName": "Menu Items Alignment",
+          "type": "string",
+          "default": "left",
+          "control": {
+            "type": "menu",
+            "options": [
+              {
+                "label": "Left Aligned",
+                "value": "left"
+              },
+              {
+                "label": "Center Aligned",
+                "value": "center"
+              },
+              {
+                "label": "Right Aligned",
+                "value": "right"
+              }
+            ]
+          }
+        },
+        {
+          "name": "menuItemsIconLeft",
+          "displayName": "Menu Item Style",
+          "type": "boolean",
+          "default": true,
+          "control": {
+            "type": "menu",
+            "options": [
+              {
+                "label": "Icons on the Left",
+                "value": true
+              },
+              {
+                "label": "Icons on Top",
+                "value": false
+              }
+            ]
+          }
+        },
+        {
+          "name": "menuItemsActiveIndicatorLine",
+          "displayName": "Active Indicator Style",
+          "type": "boolean",
+          "default": false,
+          "control": {
+            "type": "menu",
+            "options": [
+              {
+                "label": "Line",
+                "value": true
+              },
+              {
+                "label": "Background Fill",
+                "value": false
+              }
+            ]
+          }
+        },
+        {
+          "name": "lineSize",
+          "displayName": "Line Size",
+          "type": "number",
+          "default": 2,
+          "control": {
+            "type": "slider",
+            "max": 4,
+            "min": 0
+          },
+          "enabled": {
+            "menuItemsActiveIndicatorLine": true
+          }
+        },
+        {
+          "name": "activeBackgroundFillColor",
+          "displayName": "Active Background Fill Color",
+          "type": "color",
+          "default": "@primaryLight",
+          "enabled": {
+            "menuItemsActiveIndicatorLine": false
+          }
+        },
+        {
+          "name": "activeBackgroundFillRounding",
+          "displayName": "Background Fill Rounding",
+          "type": "number",
+          "default": 100,
+          "control": {
+            "type": "slider",
+            "max": 100,
+            "min": 0
+          },
+          "enabled": {
+            "menuItemsActiveIndicatorLine": false
+          }
+        },
+        {
+          "name": "menuItemsActiveColor",
+          "displayName": "Active Menu Item Color",
+          "type": "color",
+          "default": "@primary"
+        },
+        {
+          "name": "menuItemsInactiveColor",
+          "displayName": "Inactive Menu Item Color",
+          "type": "color",
+          "default": "#757575"
+        },
+        {
+          "name": "menuItemsHoverColor",
+          "displayName": "Menu Item Hover Color",
+          "type": "color",
+          "default": "@primaryLight"
+        },
+        {
+          "name": "defaultActiveMenuItem",
+          "displayName": "Active Menu Item",
+          "type": "text",
+          "default": "firstMenuItem",
+          "control": {
+            "type": "menu",
+            "options": [
+              {
+                "label": "First Menu Item",
+                "value": "firstMenuItem"
+              },
+              {
+                "label": "Second Menu Item",
+                "value": "secondMenuItem"
+              },
+              {
+                "label": "Third Menu Item",
+                "value": "thirdMenuItem"
+              },
+              {
+                "label": "Fourth Menu Item",
+                "value": "fourthMenuItem"
+              },
+              {
+                "label": "Fifth Menu Item",
+                "value": "fifthMenuItem"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mobileMenuIconColor",
+          "displayName": "Mobile & Tablet Menu Icon Color",
+          "type": "color",
+          "default": "#000000"
+        }
+      ]
+    },
+    {
+      "name": "firstMenuItem",
+      "displayName": "First Menu Item",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "firstMenuItemIcon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "home"
+        },
+        {
+          "name": "firstMenuItemText",
+          "displayName": "Text",
+          "type": "text",
+          "default": "MENU 1"
+        },
+        {
+          "name": "firstMenuItemActions",
+          "displayName": "Click Actions",
+          "type": "action"
+        }
+      ]
+    },
+    {
+      "name": "secondMenuItem",
+      "displayName": "Second Menu Item",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "secondMenuItemIcon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "forum"
+        },
+        {
+          "name": "secondMenuItemText",
+          "displayName": "Text",
+          "type": "text",
+          "default": "MENU 2"
+        },
+        {
+          "name": "secondMenuItemActions",
+          "displayName": "Click Actions",
+          "type": "action"
+        }
+      ]
+    },
+    {
+      "name": "thirdMenuItem",
+      "displayName": "Third Menu Item",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "thirdMenuItemIcon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "groups"
+        },
+        {
+          "name": "thirdMenuItemText",
+          "displayName": "Text",
+          "type": "text",
+          "default": "MENU 3"
+        },
+        {
+          "name": "thirdMenuItemActions",
+          "displayName": "Click Actions",
+          "type": "action"
+        }
+      ]
+    },
+    {
+      "name": "fourthMenuItem",
+      "displayName": "Fourth Menu Item",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "fourthMenuItemIcon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "star"
+        },
+        {
+          "name": "fourthMenuItemText",
+          "displayName": "Text",
+          "type": "text",
+          "default": "MENU 4"
+        },
+        {
+          "name": "fourthMenuItemActions",
+          "displayName": "Click Actions",
+          "type": "action"
+        }
+      ]
+    },
+    {
+      "name": "fifthMenuItem",
+      "displayName": "Fifth Menu Item",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "fifthMenuItemIcon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "calendar-month"
+        },
+        {
+          "name": "fifthMenuItemText",
+          "displayName": "Text",
+          "type": "text",
+          "default": "MENU 5"
+        },
+        {
+          "name": "fifthMenuItemActions",
+          "displayName": "Click Actions",
+          "type": "action"
+        }
+      ]
+    },
+    {
+      "name": "additionalNavigation",
+      "displayName": "Additional Navigation",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "additionalNavigationType",
+          "displayName": "Additional Navigation Type",
+          "type": "text",
+          "default": "iconButton",
+          "control": {
+            "type": "menu",
+            "options": [
+              {
+                "label": "1 Icon & 1 Button",
+                "value": "iconButton"
+              },
+              {
+                "label": "1 Icon",
+                "value": "icon"
+              },
+              {
+                "label": "1 Button",
+                "value": "button"
+              }
+            ]
+          }
+        },
+        {
+          "name": "iconColor",
+          "displayName": "Icon Color",
+          "type": "color",
+          "default": "#757575",
+          "enabled": {
+            "additionalNavigationType": ["iconButton", "icon"]
+          }
+        },
+        {
+          "name": "iconBackgroundColor",
+          "displayName": "Icon Background Color",
+          "type": "color",
+          "default": "@background",
+          "enabled": {
+            "additionalNavigationType": ["iconButton", "icon"]
+          }
+        },
+        {
+          "name": "icon",
+          "displayName": "Icon",
+          "type": "icon",
+          "default": "notifications",
+          "enabled": {
+            "additionalNavigationType": ["iconButton", "icon"]
+          }
+        },
+        {
+          "name": "iconHoverText",
+          "displayName": "Hover Text",
+          "type": "text",
+          "default": "notifications",
+          "enabled": {
+            "additionalNavigationType": ["iconButton", "icon"]
+          }
+        },
+        {
+          "name": "iconActions",
+          "displayName": "Click Actions",
+          "type": "action",
+          "enabled": {
+            "additionalNavigationType": ["iconButton", "icon"]
+          }
+        },
+        {
+          "name": "buttonBorderColor",
+          "displayName": "Button Border Color",
+          "type": "color",
+          "default": "#757575",
+          "enabled": {
+            "additionalNavigationType": ["iconButton", "button"]
+          }
+        },
+        {
+          "name": "buttonBackgroundColor",
+          "displayName": "Button Background Color",
+          "type": "color",
+          "default": "@background",
+          "enabled": {
+            "additionalNavigationType": ["iconButton", "button"]
+          }
+        },
+        {
+          "name": "buttonText",
+          "displayName": "Text",
+          "type": "text",
+          "default": "BUTTON",
+          "enabled": {
+            "additionalNavigationType": ["iconButton", "button"]
+          },
+          "styles": {
+            "color": "@text",
+            "fontFamily": "@body"
+          }
+        },
+        {
+          "name": "buttonActions",
+          "displayName": "Click Actions",
+          "type": "action",
+          "enabled": {
+            "additionalNavigationType": ["iconButton", "button"]
+          }
+        },
+        {
+          "name": "rounding",
+          "displayName": "Icon and/or Button Rounding",
+          "type": "number",
+          "default": 100,
+          "control": {
+            "type": "slider",
+            "min": 0,
+            "max": 100
+          }
+        }
+      ]
+    },
+    {
+      "name": "profileImage",
+      "displayName": "Profile Image",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "profileImage",
+          "displayName": "Image",
+          "type": "image"
+        },
+        {
+          "name": "profileImageRounding",
+          "displayName": "Rounding",
+          "type": "number",
+          "default": 100,
+          "control": {
+            "type": "slider",
+            "min": 0,
+            "max": 100
+          }
+        },
+        {
+          "name": "mobileText",
+          "displayName": "Mobile & Tablet Text",
+          "type": "text",
+          "default": "Hello there!",
+          "styles": {
+            "color": "@text",
+            "fontFamily": "@body"
+          }
+        },
+        {
+          "name": "profileImageActions",
+          "displayName": "Click Actions",
+          "type": "action"
+        }
+      ]
+    }
+  ]
+}
