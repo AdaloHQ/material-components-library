@@ -157,6 +157,11 @@
           "enabled": {
             "universalUseLogo": false,
             "universalLayout": true
+          },
+          "styles": {
+            "fontFamily": "@heading",
+            "fontWeight": "600",
+            "color": "@text"
           }
         },
         {
@@ -192,9 +197,7 @@
           },
           "styles": {
             "fontFamily": "@heading",
-            "fontSize": 20,
             "fontWeight": "600",
-            "textAlignment": "left",
             "color": "@text"
           }
         },
@@ -204,6 +207,32 @@
           "displayName": "Logo Image",
           "enabled": {
             "mobileUseLogo": true,
+            "universalLayout": false
+          }
+        },
+        {
+          "name": "mobileAlignment",
+          "type": "text",
+          "displayName": "Mobile & Tablet Alignment",
+          "default": "left",
+          "control": {
+            "type": "menu",
+            "options": [
+              {
+                "label": "Left Aligned",
+                "value": "left"
+              },
+              {
+                "label": "Center Aligned",
+                "value": "center"
+              },
+              {
+                "label": "Right Aligned",
+                "value": "right"
+              }
+            ]
+          },
+          "enabled": {
             "universalLayout": false
           }
         },
@@ -237,6 +266,21 @@
             "desktopUseLogo": true,
             "universalLayout": false
           }
+        },
+        {
+          "name": "desktopText",
+          "type": "text",
+          "displayName": "Text",
+          "default": "TITLE TEXT",
+          "enabled": {
+            "desktopUseLogo": false,
+            "universalLayout": false
+          },
+          "styles": {
+            "fontFamily": "@heading",
+            "fontWeight": "600",
+            "color": "@text"
+          }
         }
       ]
     },
@@ -245,7 +289,7 @@
       "displayName": "Menu Items",
       "props": [
         {
-          "name": "menuItemsAlignment",
+          "name": "alignment",
           "displayName": "Menu Items Alignment",
           "type": "string",
           "default": "left",
@@ -268,7 +312,7 @@
           }
         },
         {
-          "name": "menuItemsIconLeft",
+          "name": "iconOnLeft",
           "displayName": "Menu Item Style",
           "type": "boolean",
           "default": true,
@@ -287,7 +331,7 @@
           }
         },
         {
-          "name": "menuItemsActiveIndicatorLine",
+          "name": "activeIndicatorLine",
           "displayName": "Active Indicator Style",
           "type": "boolean",
           "default": false,
@@ -316,7 +360,7 @@
             "min": 0
           },
           "enabled": {
-            "menuItemsActiveIndicatorLine": true
+            "activeIndicatorLine": true
           }
         },
         {
@@ -325,21 +369,21 @@
           "type": "color",
           "default": "@primaryLight",
           "enabled": {
-            "menuItemsActiveIndicatorLine": false
+            "activeIndicatorLine": false
           }
         },
         {
           "name": "activeBackgroundFillRounding",
           "displayName": "Background Fill Rounding",
           "type": "number",
-          "default": 100,
+          "default": 20,
           "control": {
             "type": "slider",
-            "max": 100,
+            "max": 20,
             "min": 0
           },
           "enabled": {
-            "menuItemsActiveIndicatorLine": false
+            "activeIndicatorLine": false
           }
         },
         {
@@ -363,30 +407,30 @@
         {
           "name": "defaultActiveMenuItem",
           "displayName": "Active Menu Item",
-          "type": "text",
-          "default": "firstMenuItem",
+          "type": "number",
+          "default": 0,
           "control": {
             "type": "menu",
             "options": [
               {
                 "label": "First Menu Item",
-                "value": "firstMenuItem"
+                "value": 0
               },
               {
                 "label": "Second Menu Item",
-                "value": "secondMenuItem"
+                "value": 1
               },
               {
                 "label": "Third Menu Item",
-                "value": "thirdMenuItem"
+                "value": 2
               },
               {
                 "label": "Fourth Menu Item",
-                "value": "fourthMenuItem"
+                "value": 3
               },
               {
                 "label": "Fifth Menu Item",
-                "value": "fifthMenuItem"
+                "value": 4
               }
             ]
           }
@@ -409,19 +453,19 @@
           "default": true
         },
         {
-          "name": "firstMenuItemIcon",
+          "name": "icon",
           "displayName": "Icon",
           "type": "icon",
           "default": "home"
         },
         {
-          "name": "firstMenuItemText",
+          "name": "text",
           "displayName": "Text",
           "type": "text",
           "default": "MENU 1"
         },
         {
-          "name": "firstMenuItemActions",
+          "name": "actions",
           "displayName": "Click Actions",
           "type": "action"
         }
@@ -437,19 +481,19 @@
           "default": true
         },
         {
-          "name": "secondMenuItemIcon",
+          "name": "icon",
           "displayName": "Icon",
           "type": "icon",
           "default": "forum"
         },
         {
-          "name": "secondMenuItemText",
+          "name": "text",
           "displayName": "Text",
           "type": "text",
           "default": "MENU 2"
         },
         {
-          "name": "secondMenuItemActions",
+          "name": "actions",
           "displayName": "Click Actions",
           "type": "action"
         }
@@ -465,19 +509,19 @@
           "default": true
         },
         {
-          "name": "thirdMenuItemIcon",
+          "name": "icon",
           "displayName": "Icon",
           "type": "icon",
           "default": "groups"
         },
         {
-          "name": "thirdMenuItemText",
+          "name": "text",
           "displayName": "Text",
           "type": "text",
           "default": "MENU 3"
         },
         {
-          "name": "thirdMenuItemActions",
+          "name": "actions",
           "displayName": "Click Actions",
           "type": "action"
         }
@@ -493,19 +537,19 @@
           "default": true
         },
         {
-          "name": "fourthMenuItemIcon",
+          "name": "icon",
           "displayName": "Icon",
           "type": "icon",
           "default": "star"
         },
         {
-          "name": "fourthMenuItemText",
+          "name": "text",
           "displayName": "Text",
           "type": "text",
           "default": "MENU 4"
         },
         {
-          "name": "fourthMenuItemActions",
+          "name": "actions",
           "displayName": "Click Actions",
           "type": "action"
         }
@@ -521,19 +565,19 @@
           "default": true
         },
         {
-          "name": "fifthMenuItemIcon",
+          "name": "icon",
           "displayName": "Icon",
           "type": "icon",
-          "default": "calendar-month"
+          "default": "perm-contact-calendar"
         },
         {
-          "name": "fifthMenuItemText",
+          "name": "text",
           "displayName": "Text",
           "type": "text",
           "default": "MENU 5"
         },
         {
-          "name": "fifthMenuItemActions",
+          "name": "actions",
           "displayName": "Click Actions",
           "type": "action"
         }
@@ -561,10 +605,6 @@
                 "value": "iconButton"
               },
               {
-                "label": "1 Icon",
-                "value": "icon"
-              },
-              {
                 "label": "1 Button",
                 "value": "button"
               }
@@ -577,7 +617,7 @@
           "type": "color",
           "default": "#757575",
           "enabled": {
-            "additionalNavigationType": ["iconButton", "icon"]
+            "additionalNavigationType": ["iconButton"]
           }
         },
         {
@@ -586,7 +626,7 @@
           "type": "color",
           "default": "@background",
           "enabled": {
-            "additionalNavigationType": ["iconButton", "icon"]
+            "additionalNavigationType": ["iconButton"]
           }
         },
         {
@@ -595,7 +635,7 @@
           "type": "icon",
           "default": "notifications",
           "enabled": {
-            "additionalNavigationType": ["iconButton", "icon"]
+            "additionalNavigationType": ["iconButton"]
           }
         },
         {
@@ -604,7 +644,7 @@
           "type": "text",
           "default": "notifications",
           "enabled": {
-            "additionalNavigationType": ["iconButton", "icon"]
+            "additionalNavigationType": ["iconButton"]
           }
         },
         {
@@ -612,7 +652,7 @@
           "displayName": "Click Actions",
           "type": "action",
           "enabled": {
-            "additionalNavigationType": ["iconButton", "icon"]
+            "additionalNavigationType": ["iconButton"]
           }
         },
         {
