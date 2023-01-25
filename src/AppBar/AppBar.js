@@ -8,6 +8,7 @@ import {
   Text,
   ActivityIndicator,
 } from 'react-native'
+import DeviceInfo from 'react-native-device-info';
 import { Toolbar } from '@protonapp/react-native-material-ui'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Blur from './blur'
@@ -38,6 +39,8 @@ export default class AppBar extends Component {
     backgroundImage: {},
     translucentColor: '#fff',
     titleType: 'text',
+    hasDynamicIslandOrNotch: DeviceInfo.hasDynamicIsland() || DeviceInfo.hasNotch()
+
   }
   hexToRGBA(hex, transparency) {
     if (hex.length > 9) {
@@ -254,7 +257,12 @@ export default class AppBar extends Component {
   }
 
   renderBlur(containerStyles) {
-    let { translucentColor } = this.props
+    let { translucentColor, hasDynamicIslandOrNotch } = this.props
+    
+    const blurViewStyle = {};
+    if (hasDynamicIslandOrNotch) {
+      blurViewStyle.marginTop = -40
+    }
 
     return (
       <Blur
@@ -262,6 +270,7 @@ export default class AppBar extends Component {
         borderStyle={[this.getBorderStyle(0, false), this.getShadowStyle()]}
         borderStyleWeb={[this.getBorderStyle(0, true), this.getShadowStyle()]}
         containerStyles={containerStyles}
+        blurViewStyle={blurViewStyle}
       >
         {this.renderContent()}
       </Blur>
@@ -269,10 +278,15 @@ export default class AppBar extends Component {
   }
 
   renderImageBackgroundToolbar() {
-    let { backgroundImage } = this.props
+    let { backgroundImage, hasDynamicIslandOrNotch } = this.props
 
-    let imageStyles = [
-      styles.imageBackground,
+    let imageBackgroundStyles = styles.imageBackground;
+    if (hasDynamicIslandOrNotch) {
+      imageBackgroundStyles = { ...imageBackgroundStyles, marginTop: -40 }
+    }
+
+    const imageStyles = [
+      imageBackgroundStyles,
       this.getBorderStyle(180, false),
       this.getShadowStyle(),
     ]
@@ -297,7 +311,7 @@ export default class AppBar extends Component {
   }
 
   renderToolbar() {
-    let { barType, translucentColor, backgroundColor, editor } = this.props
+    let { barType, translucentColor, backgroundColor, editor, hasDynamicIslandOrNotch } = this.props
     let containerStyles = {
       backgroundColor,
       height: 76,
@@ -306,12 +320,17 @@ export default class AppBar extends Component {
       ...this.getBorderStyle(76, false),
       ...this.getShadowStyle(),
     }
+
     if (!editor) {
+      let marginTop = -30;
+      if (hasDynamicIslandOrNotch) {
+        marginTop = -40;
+      }
       containerStyles = {
         ...containerStyles,
         height: 106,
         paddingTop: 50,
-        marginTop: -30,
+        marginTop,
         ...this.getBorderStyle(106, false),
       }
     }
