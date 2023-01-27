@@ -150,7 +150,7 @@
           }
         },
         {
-          "name": "universalTitleText",
+          "name": "universalText",
           "type": "text",
           "displayName": "Text",
           "default": "TITLE TEXT",
@@ -187,7 +187,7 @@
           }
         },
         {
-          "name": "mobileTitleText",
+          "name": "mobileText",
           "type": "text",
           "displayName": "Text",
           "default": "TITLE TEXT",
@@ -717,19 +717,19 @@
           "default": true
         },
         {
-          "name": "profileImage",
+          "name": "image",
           "displayName": "Image",
           "type": "image"
         },
         {
-          "name": "profileImageRounding",
+          "name": "rounding",
           "displayName": "Rounding",
           "type": "number",
-          "default": 100,
+          "default": 20,
           "control": {
             "type": "slider",
             "min": 0,
-            "max": 100
+            "max": 20
           }
         },
         {
@@ -743,7 +743,7 @@
           }
         },
         {
-          "name": "profileImageActions",
+          "name": "actions",
           "displayName": "Click Actions",
           "type": "action"
         }

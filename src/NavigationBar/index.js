@@ -1,19 +1,11 @@
 import React, { useState } from 'react'
-import {
-  Platform,
-  View,
-  StyleSheet,
-  Image,
-  ImageBackground,
-  Text,
-  ActivityIndicator,
-  Dimensions,
-} from 'react-native'
+import { Platform, View, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import { Button } from '@protonapp/react-native-material-ui'
 import { DeviceBreakpoint } from '@adalo/constants'
 
-import placeholder from './holdplace.png'
+import { Title } from './Title'
+import { MenuItems } from './MenuItems'
+import titlePlaceholder from './nav-title-image-placeholder.png'
 
 const NavigationBar = ({
   backgroundColor,
@@ -22,49 +14,28 @@ const NavigationBar = ({
   borderColor,
   borderWidth,
   title,
-  editor,
   menuItems,
   firstMenuItem,
   secondMenuItem,
   thirdMenuItem,
   fourthMenuItem,
   fifthMenuItem,
+  profileImage,
   _fonts,
+  editor,
+  _width,
 }) => {
   const [activeMenuItem, setActiveMenuItem] = useState(
     menuItems.defaultActiveMenuItem
   )
 
-  const getShadowStyle = () => {
-    if (shadow) {
-      if (Platform.OS === 'android') {
-        return {
-          elevation: 4,
-        }
-      }
-      if (Platform.OS === 'ios') {
-        return {
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.5,
-          shadowRadius: 3,
-        }
-      }
-      return {
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.3,
-        shadowRadius: 4,
-      }
-    }
-    return {}
-  }
+  const items = [
+    firstMenuItem,
+    secondMenuItem,
+    thirdMenuItem,
+    fourthMenuItem,
+    fifthMenuItem,
+  ]
 
   const getBorderStyle = () => {
     if (border) {
@@ -75,160 +46,46 @@ const NavigationBar = ({
     }
   }
 
-  const renderTitle = (variant) => {
-    const {
-      enabled,
-      universalLayout,
-      universalUseLogo,
-      universalLogoImage,
-      universalTitleText,
-      mobileUseLogo,
-      mobileTitleText,
-      mobileLogo,
-      mobileAlignment,
-      desktopUseLogo,
-      desktopLogo,
-      desktopText,
-      styles,
-    } = title
+  const renderProfileImage = () => {
+    const { enabled, image, rounding, mobileText, actions } = profileImage
     if (!enabled) {
       return <View />
     }
 
-    if (variant === 'desktop') {
-      const useLogo = universalLayout ? universalUseLogo : desktopUseLogo
-      const logo = universalLayout ? universalLogoImage : desktopLogo
-      const text = universalLayout ? universalTitleText : desktopText
-
-      if (useLogo) {
-        return (
-          <Image
-            source={logo || placeholder}
-            style={{
-              width: 210,
-              height: 40,
-              resizeMode: 'cover',
-              borderRadius: '6px',
-            }}
-          />
-        )
-      }
-      return (
-        <Text
-          style={{
-            fontSize: 16,
-            ...styles[universalLayout ? 'universalTitleText' : 'desktopText'],
-          }}
-        >
-          {text}
-        </Text>
-      )
-    } else {
-      const useLogo = universalLayout ? universalUseLogo : mobileUseLogo
-      const logo = universalLayout ? universalLogoImage : mobileLogo
-      const text = universalLayout ? universalTitleText : mobileTitleText
-
-      if (useLogo) {
-        return (
-          <Image
-            source={logo || placeholder}
-            style={{
-              width: 210,
-              height: 40,
-              resizeMode: 'cover',
-              justifyContent: mobileAlignment,
-              borderRadius: '6px',
-            }}
-          />
-        )
-      }
-      return (
-        <Text
-          style={{
-            fontSize: 16,
-            ...styles[universalLayout ? 'universalTitleText' : 'mobileText'],
-          }}
-        >
-          {text}
-        </Text>
-      )
-    }
+    return (
+      <Image
+        source={image || titlePlaceholder}
+        style={{
+          width: 40,
+          height: 40,
+          borderRadius: rounding,
+          resizeMode: 'cover',
+          justifyContent: 'flex-end',
+        }}
+        onPress={actions}
+      />
+    )
   }
 
-  const renderMenuItems = () => {
-    const items = [
-      firstMenuItem,
-      secondMenuItem,
-      thirdMenuItem,
-      fourthMenuItem,
-      fifthMenuItem,
-    ]
-    const {
-      alignment,
-      iconOnLeft,
-      activeIndicatorLine,
-      lineSize,
-      activeBackgroundFillColor,
-      activeBackgroundFillRounding,
-      menuItemsActiveColor,
-      menuItemsInactiveColor,
-      menuItemsHoverColor,
-    } = menuItems
-
-    return items.map((item, index) => {
-      const { enabled, icon, text, actions } = item
-      if (!enabled) {
-        return <View key={index} />
-      }
-
-      const active = activeMenuItem === index
-      const styles = {
-        container: {
-          backgroundColor: active ? activeBackgroundFillColor : '#ffffff00',
-          borderRadius: activeBackgroundFillRounding,
-        },
-        text: {
-          color: active ? menuItemsActiveColor : menuItemsInactiveColor,
-          fontFamily: _fonts.body,
-          fontSize: 14,
-          fontWeight: '600',
-        },
-        icon: {
-          color: active ? menuItemsActiveColor : menuItemsInactiveColor,
-          size: 20,
-        },
-      }
-
-      return (
-        <Button
-          key={index}
-          icon={icon}
-          text={text || ''}
-          onPress={() => {
-            setActiveMenuItem(index)
-            actions()
-          }}
-          style={styles}
-        />
-      )
-    })
+  const renderAdditionalItems = () => {
+    return <View />
   }
 
   const renderNavBar = () => {
-    const windowWidth = Dimensions.get('window').width
+    let variant =
+      _width > DeviceBreakpoint.TABLET_BREAKPOINT ? 'desktop' : 'mobile'
 
     let containerStyles = {
       backgroundColor,
       height: 76,
       paddingTop: 32,
       paddingRight: 20,
-      paddingLeft: 20,
+      paddingLeft: variant === 'desktop' ? 20 : 12,
       paddingBottom: 12,
-      justifyContent: 'flex-start',
       flexDirection: 'row',
       alignItems: 'center',
       ...getBorderStyle(),
-      ...getShadowStyle(),
+      ...getShadowStyle(shadow),
     }
     if (!editor) {
       containerStyles = {
@@ -240,33 +97,118 @@ const NavigationBar = ({
       }
     }
 
-    if (windowWidth > DeviceBreakpoint.TABLET_BREAKPOINT || editor) {
+    // Logic for centering the title and menu items on mobile and desktop respectively
+    const centerStyles = {
+      position: 'absolute',
+      display: 'inline-flex',
+      justifyContent: 'center',
+      left: 0,
+      right: 0,
+      margin: '0 auto',
+    }
+
+    let menuItemsStyles = {
+      flexDirection: 'row',
+      marginLeft: menuItems.alignment === 'right' ? 'auto' : '',
+    }
+
+    if (menuItems.alignment === 'center') {
+      menuItemsStyles = {
+        ...menuItemsStyles,
+        ...centerStyles,
+      }
+    }
+
+    let mobileAlignment = title.universalLayout ? 'left' : title.mobileAlignment
+    let mobileTitleStyles = {
+      marginLeft: mobileAlignment === 'right' ? 'auto' : '',
+      paddingRight: '12px',
+      flexDirection: 'row',
+    }
+
+    if (mobileAlignment === 'center') {
+      mobileTitleStyles = {
+        ...mobileTitleStyles,
+        ...centerStyles,
+      }
+    }
+
+    if (variant === 'desktop') {
+      // render the title on the left, the menu items in the middle, and the profile image on the right
       return (
         <View style={containerStyles}>
-          {renderTitle('desktop')}
-          <View style={styles.menuItemsDesktop}>{renderMenuItems()}</View>
+          <View style={{ paddingRight: '26px', justifyContent: 'flex-start' }}>
+            <Title variant={variant} titleOptions={title} />
+          </View>
+          <View style={menuItemsStyles}>
+            <MenuItems
+              menuItems={menuItems}
+              variant={variant}
+              activeMenuItem={activeMenuItem}
+              setActiveMenuItem={setActiveMenuItem}
+              items={items}
+              _fonts={_fonts}
+            ></MenuItems>
+          </View>
+          <View
+            style={{
+              marginLeft: menuItems.alignment !== 'right' ? 'auto' : '',
+            }}
+          >
+            {renderProfileImage()}
+            {renderAdditionalItems()}
+          </View>
         </View>
       )
-    } else {
+    } else if (variant === 'mobile') {
       return (
-        <View sytle={containerStyles}>
-          <Text>Mobile</Text>
+        <View style={containerStyles}>
+          <View style={mobileTitleStyles}>
+            <Title variant={variant} titleOptions={title} />
+          </View>
+          <View
+            style={{ marginLeft: mobileAlignment !== 'right' ? 'auto' : '' }}
+          >
+            <Icon name="menu" color={menuItems.mobileMenuIconColor} size={20} />
+          </View>
         </View>
       )
     }
+    return <View />
   }
 
-  return <View style={styles.wrapper}>{renderNavBar()}</View>
+  return <View style={{ marginTop: -20 }}>{renderNavBar()}</View>
 }
 
-const styles = StyleSheet.create({
-  wrapper: {
-    marginTop: -20,
-  },
-  menuItemsDesktop: {
-    flexDirection: 'row',
-    paddingLeft: '26px',
-  },
-})
-
 export default NavigationBar
+
+const getShadowStyle = (shadow) => {
+  if (shadow) {
+    if (Platform.OS === 'android') {
+      return {
+        elevation: 4,
+      }
+    }
+    if (Platform.OS === 'ios') {
+      return {
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 3,
+      }
+    }
+    return {
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.3,
+      shadowRadius: 4,
+    }
+  }
+  return {}
+}
