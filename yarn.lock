@@ -37,6 +37,11 @@
     webpack "^4.43.0"
     webpack-dev-server "^3.11.0"
 
+"@adalo/constants@^0.5.6":
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/@adalo/constants/-/constants-0.5.6.tgz#2f10749918cbd73c1da17c62720a15bf7d3cdc48"
+  integrity sha512-XBEh8dOuFmOeuTO1z8Rb+jlKrm9T3KsJt9VeRuNpIR+xdaWUBOte90r+bNRd0hXwT/tbHjE1jTx/He/27tt+UA==
+
 "@babel/code-frame@7.0.0", "@babel/code-frame@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0.tgz#06e2ab19bdb535385559aabb5ba59729482800f8"

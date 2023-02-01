@@ -50,6 +50,10 @@
     {
       "name": "ChipList",
       "manifest": "./src/ChipList/manifest.json"
+    },
+    {
+      "name": "NavigationBar",
+      "manifest": "./src/NavigationBar/manifest.json"
     }
   ],
   "iosInstallScript": "./scripts/install.sh",
