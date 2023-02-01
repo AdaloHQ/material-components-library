@@ -45,11 +45,13 @@ export const MenuItems = ({
       },
     }
 
+    const buttonText = truncateString(text, 15)
+
     return (
       <Button
         key={index}
         icon={icon}
-        text={text || ''}
+        text={buttonText || ''}
         onPress={() => {
           setActiveMenuItem(index)
           actions()
@@ -59,4 +61,12 @@ export const MenuItems = ({
       />
     )
   })
+}
+
+// https://medium.com/@DylanAttal/truncate-a-string-in-javascript-41f33171d5a8
+function truncateString(str, num) {
+  if (str.length <= num) {
+    return str
+  }
+  return str.slice(0, num) + '...'
 }

@@ -133,10 +133,6 @@ const NavigationBar = ({
       }
     }
 
-    useEffect(() => {
-      setActiveMenuItem(menuItems.defaultActiveMenuItem)
-    }, [menuItems.defaultActiveMenuItem])
-
     if (variant === 'desktop') {
       // render the title on the left, the menu items in the middle, and the profile image on the right
       return (
@@ -148,8 +144,10 @@ const NavigationBar = ({
             <MenuItems
               menuItems={menuItems}
               variant={variant}
-              activeMenuItem={activeMenuItem}
-              setActiveMenuItem={setActiveMenuItem}
+              activeMenuItem={
+                editor ? menuItems.defaultActiveMenuItem : activeMenuItem
+              }
+              setActiveMenuItem={editor ? () => {} : setActiveMenuItem}
               items={items}
               _fonts={_fonts}
             ></MenuItems>
