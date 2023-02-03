@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform } from 'react-native'
 import {
   BottomNavigation,
   ThemeContext,
@@ -58,13 +58,12 @@ export default class TabNavigator extends Component {
       ? { fontFamily: _fonts.body, fontSize: 11 }
       : { fontSize: 11 }
 
+
     return (
       <ThemeContext.Provider value={this.getTheme()}>
         <BottomNavigation
           active={activeTab}
-          style={{
-            container: [wrapperStyles, { backgroundColor }],
-          }}
+          style={{ container: [wrapperStyles, { backgroundColor }] }}
         >
           {enabledTabs.map((tabName) => (
             <BottomNavigation.Action
@@ -88,11 +87,20 @@ export default class TabNavigator extends Component {
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    marginBottom: -100,
-    paddingBottom: 100,
-    height: 156,
-  },
+  // Patch for TabNavigation rendering outside of viewport in iOS
+  wrapper: Platform.OS !== 'ios' ?
+    {
+      marginBottom: -100,
+      paddingBottom: 100,
+      height: 156,
+    } :
+    {
+      position: "absolute",
+      bottom: 0,
+      left: 0,
+      right: 0,
+      height: 106,
+    },
   editorWrapper: {
     height: 56,
   },

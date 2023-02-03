@@ -119,7 +119,7 @@ class BottomBar extends Component {
         },
       },
       off: {
-        container: { backgroundColor: '#FFFFFF00', padding: 4, height: 32 },
+        container: { backgroundColor: '#ee0011', padding: 4, height: 32 },
       },
       rightIcon: {
         color: iconColorR,

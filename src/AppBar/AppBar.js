@@ -261,7 +261,7 @@ export default class AppBar extends Component {
     
     const blurViewStyle = {};
     if (hasDynamicIslandOrNotch) {
-      blurViewStyle.marginTop = -40
+      blurViewStyle.marginTop = -50
     }
 
     return (
@@ -282,7 +282,7 @@ export default class AppBar extends Component {
 
     let imageBackgroundStyles = styles.imageBackground;
     if (hasDynamicIslandOrNotch) {
-      imageBackgroundStyles = { ...imageBackgroundStyles, marginTop: -40 }
+      imageBackgroundStyles = { ...imageBackgroundStyles, marginTop: -50 }
     }
 
     const imageStyles = [
@@ -324,7 +324,7 @@ export default class AppBar extends Component {
     if (!editor) {
       let marginTop = -30;
       if (hasDynamicIslandOrNotch) {
-        marginTop = -40;
+        marginTop = -50;
       }
       containerStyles = {
         ...containerStyles,
