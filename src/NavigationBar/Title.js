@@ -9,13 +9,16 @@ export const Title = ({ titleOptions, variant }) => {
     universalLayout,
     universalUseLogo,
     universalLogoImage,
+    universalLogoSize,
     universalText,
     mobileUseLogo,
     mobileText,
     mobileLogo,
+    mobileLogoSize,
     mobileAlignment,
     desktopUseLogo,
     desktopLogo,
+    desktopLogoSize,
     desktopText,
     styles,
   } = titleOptions
@@ -27,14 +30,15 @@ export const Title = ({ titleOptions, variant }) => {
     const useLogo = universalLayout ? universalUseLogo : desktopUseLogo
     const logo = universalLayout ? universalLogoImage : desktopLogo
     const text = universalLayout ? universalText : desktopText
+    const logoSize = universalLayout ? universalLogoSize : desktopLogoSize
 
     if (useLogo) {
       return (
         <Image
           source={logo || titlePlaceholder}
           style={{
-            width: 100,
-            height: 40,
+            width: '100px',
+            height: '40px',
             resizeMode: 'cover',
             borderRadius: '6px',
           }}
@@ -55,14 +59,15 @@ export const Title = ({ titleOptions, variant }) => {
     const useLogo = universalLayout ? universalUseLogo : mobileUseLogo
     const logo = universalLayout ? universalLogoImage : mobileLogo
     const text = universalLayout ? universalText : mobileText
+    const logoSize = universalLayout ? universalLogoSize : mobileLogoSize
 
     if (useLogo) {
       return (
         <Image
           source={logo || titlePlaceholder}
           style={{
-            width: 100,
-            height: 40,
+            width: '100px',
+            height: '40px',
             resizeMode: 'cover',
             justifyContent: mobileAlignment,
             borderRadius: '6px',

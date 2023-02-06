@@ -1,4 +1,5 @@
 import React from 'react'
+import { View } from 'react-native'
 
 import { Button } from '@protonapp/react-native-material-ui'
 
@@ -9,6 +10,7 @@ export const MenuItems = ({
   variant,
   setActiveMenuItem,
   _fonts,
+  centerStyles,
 }) => {
   const {
     iconOnLeft,
@@ -21,7 +23,29 @@ export const MenuItems = ({
     menuItemsHoverColor,
   } = menuItems
 
-  return items.map((item, index) => {
+  let menuItemsStyles = {
+    flexDirection: 'row',
+    marginLeft: menuItems.alignment === 'right' ? 'auto' : '',
+  }
+
+  if (menuItems.alignment === 'center') {
+    menuItemsStyles = {
+      ...menuItemsStyles,
+      ...centerStyles,
+    }
+  }
+
+  if (variant === 'mobile') {
+    menuItemsStyles = {
+      flexDirection: 'column',
+      width: '100%',
+      marginTop: 18,
+      justifyContent: 'flex-start',
+      height: '100%',
+    }
+  }
+
+  const renderItem = (item, index) => {
     const { enabled, icon, text, actions } = item
     if (!enabled) {
       return <View key={index} />
@@ -32,12 +56,17 @@ export const MenuItems = ({
       container: {
         backgroundColor: active ? activeBackgroundFillColor : '#ffffff00',
         borderRadius: activeBackgroundFillRounding,
+        justifyContent: variant === 'desktop' ? 'center' : 'flex-start',
+        height: 'fit-content',
+        borderRadius: 40,
       },
       text: {
         color: active ? menuItemsActiveColor : menuItemsInactiveColor,
         fontFamily: _fonts.body,
         fontSize: 14,
         fontWeight: '600',
+        paddingTop: variant === 'desktop' ? '' : 16,
+        paddingBottom: variant === 'desktop' ? '' : 16,
       },
       icon: {
         color: active ? menuItemsActiveColor : menuItemsInactiveColor,
@@ -54,13 +83,15 @@ export const MenuItems = ({
         text={buttonText || ''}
         onPress={() => {
           setActiveMenuItem(index)
-          actions()
+          actions && actions()
         }}
         style={styles}
         upperCase={false}
       />
     )
-  })
+  }
+
+  return <View style={menuItemsStyles}>{items.map(renderItem)}</View>
 }
 
 // https://medium.com/@DylanAttal/truncate-a-string-in-javascript-41f33171d5a8

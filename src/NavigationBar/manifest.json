@@ -150,6 +150,17 @@
           }
         },
         {
+          "name": "universalLogoSize",
+          "type": "number",
+          "displayName": "Logo Size",
+          "default": 50,
+          "control": { "type": "slider", "max": 100, "min": 30 },
+          "enabled": {
+            "universalUseLogo": true,
+            "universalLayout": true
+          }
+        },
+        {
           "name": "universalText",
           "type": "text",
           "displayName": "Text",
@@ -211,6 +222,17 @@
           }
         },
         {
+          "name": "mobileLogoSize",
+          "type": "number",
+          "displayName": "Logo Size",
+          "default": 50,
+          "control": { "type": "slider", "max": 100, "min": 30 },
+          "enabled": {
+            "mobileUseLogo": true,
+            "universalLayout": false
+          }
+        },
+        {
           "name": "mobileAlignment",
           "type": "text",
           "displayName": "Mobile & Tablet Alignment",
@@ -262,6 +284,17 @@
           "name": "desktopLogo",
           "type": "image",
           "displayName": "Logo Image",
+          "enabled": {
+            "desktopUseLogo": true,
+            "universalLayout": false
+          }
+        },
+        {
+          "name": "desktopLogoSize",
+          "type": "number",
+          "displayName": "Logo Size",
+          "default": 50,
+          "control": { "type": "slider", "max": 100, "min": 30 },
           "enabled": {
             "desktopUseLogo": true,
             "universalLayout": false

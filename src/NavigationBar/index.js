@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Platform, View, Image } from 'react-native'
+import React, { useState, useRef } from 'react'
+import { Platform, View, Image, Text, Dimensions, Animated } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { DeviceBreakpoint } from '@adalo/constants'
 
@@ -28,6 +28,28 @@ const NavigationBar = ({
   const [activeMenuItem, setActiveMenuItem] = useState(
     menuItems.defaultActiveMenuItem
   )
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const { height } = Dimensions.get('window')
+  const variant =
+    _width > DeviceBreakpoint.TABLET_BREAKPOINT ? 'desktop' : 'mobile'
+  const overlayOpacity = useRef(new Animated.Value(0)).current
+
+  const openMobileMenu = () => {
+    setMobileOpen(true)
+    Animated.timing(overlayOpacity, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: true,
+    }).start()
+  }
+
+  const closeMobileMenu = () => {
+    Animated.timing(overlayOpacity, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start(() => setMobileOpen(false))
+  }
 
   const items = [
     firstMenuItem,
@@ -47,23 +69,59 @@ const NavigationBar = ({
   }
 
   const renderProfileImage = () => {
-    const { enabled, image, rounding, mobileText, actions } = profileImage
+    const { enabled, image, rounding, mobileText, actions, styles } =
+      profileImage
     if (!enabled) {
       return <View />
     }
 
+    if (variant === 'desktop') {
+      return (
+        <Image
+          source={image || titlePlaceholder}
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: rounding,
+            resizeMode: 'cover',
+            justifyContent: 'flex-end',
+          }}
+          onPress={actions}
+        />
+      )
+    }
+
+    const mobileProfileImageStyles = {
+      flexDirection: 'row',
+      marginTop: 14,
+      alignItems: 'center',
+      marginBottom: 18,
+    }
+
+    const imageStyles = {
+      width: 80,
+      height: 80,
+      borderRadius: rounding * 2,
+      resizeMode: 'cover',
+    }
+
+    const textStyles = {
+      fontSize: 24,
+      fontWeight: 500,
+      fontFamily: styles.mobileText.fontFamily,
+      color: styles.mobileText.color,
+      marginLeft: 18,
+    }
+
     return (
-      <Image
-        source={image || titlePlaceholder}
-        style={{
-          width: 40,
-          height: 40,
-          borderRadius: rounding,
-          resizeMode: 'cover',
-          justifyContent: 'flex-end',
-        }}
-        onPress={actions}
-      />
+      <View style={mobileProfileImageStyles}>
+        <Image
+          source={image || titlePlaceholder}
+          style={imageStyles}
+          onPress={actions}
+        />
+        <Text style={textStyles}>{mobileText}</Text>
+      </View>
     )
   }
 
@@ -72,9 +130,6 @@ const NavigationBar = ({
   }
 
   const renderNavBar = () => {
-    let variant =
-      _width > DeviceBreakpoint.TABLET_BREAKPOINT ? 'desktop' : 'mobile'
-
     let containerStyles = {
       backgroundColor,
       height: 76,
@@ -87,7 +142,7 @@ const NavigationBar = ({
       ...getBorderStyle(),
       ...getShadowStyle(shadow),
     }
-    if (!editor) {
+    if (variant !== 'desktop' && !editor) {
       containerStyles = {
         ...containerStyles,
         height: 106,
@@ -107,18 +162,6 @@ const NavigationBar = ({
       margin: '0 auto',
     }
 
-    let menuItemsStyles = {
-      flexDirection: 'row',
-      marginLeft: menuItems.alignment === 'right' ? 'auto' : '',
-    }
-
-    if (menuItems.alignment === 'center') {
-      menuItemsStyles = {
-        ...menuItemsStyles,
-        ...centerStyles,
-      }
-    }
-
     let mobileAlignment = title.universalLayout ? 'left' : title.mobileAlignment
     let mobileTitleStyles = {
       marginLeft: mobileAlignment === 'right' ? 'auto' : '',
@@ -131,6 +174,26 @@ const NavigationBar = ({
         ...mobileTitleStyles,
         ...centerStyles,
       }
+    }
+
+    const fullPageStyles = {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      zIndex: 100,
+      height: height + 20,
+      backgroundColor,
+      opacity: overlayOpacity,
+    }
+
+    const overlayContainerStyles = {
+      paddingTop: 48,
+      paddingLeft: 24,
+      paddingRight: 20,
+      display: 'flex',
+      flexDirection: 'column',
     }
 
     if (variant === 'desktop') {
@@ -150,7 +213,8 @@ const NavigationBar = ({
               setActiveMenuItem={editor ? () => {} : setActiveMenuItem}
               items={items}
               _fonts={_fonts}
-            ></MenuItems>
+              centerStyles={centerStyles}
+            />
           </View>
           <View
             style={{
@@ -171,8 +235,53 @@ const NavigationBar = ({
           <View
             style={{ marginLeft: mobileAlignment !== 'right' ? 'auto' : '' }}
           >
-            <Icon name="menu" color={menuItems.mobileMenuIconColor} size={20} />
+            <Icon
+              name="menu"
+              color={menuItems.mobileMenuIconColor}
+              size={20}
+              onPress={() => openMobileMenu()}
+            />
           </View>
+          {mobileOpen ? (
+            <Animated.View style={fullPageStyles}>
+              <View style={overlayContainerStyles}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'flex-end',
+                  }}
+                >
+                  <Icon
+                    name="close"
+                    color={menuItems.mobileMenuIconColor}
+                    size={20}
+                    onPress={() => closeMobileMenu()}
+                  />
+                </View>
+                {renderProfileImage()}
+                <View
+                  style={{
+                    height: 1,
+                    borderBottom: '1px solid #EAEAEA',
+                    marginLeft: -24,
+                    marginRight: -20,
+                  }}
+                />
+                <MenuItems
+                  menuItems={menuItems}
+                  variant={variant}
+                  activeMenuItem={
+                    editor ? menuItems.defaultActiveMenuItem : activeMenuItem
+                  }
+                  setActiveMenuItem={editor ? () => {} : setActiveMenuItem}
+                  items={items}
+                  _fonts={_fonts}
+                />
+              </View>
+            </Animated.View>
+          ) : (
+            <View />
+          )}
         </View>
       )
     }
