@@ -37,10 +37,10 @@ export const Title = ({ titleOptions, variant }) => {
         <Image
           source={logo || titlePlaceholder}
           style={{
-            width: '100px',
-            height: '40px',
+            width: 100,
+            height: 40,
             resizeMode: 'cover',
-            borderRadius: '6px',
+            borderRadius: 6,
           }}
         />
       )
@@ -66,11 +66,11 @@ export const Title = ({ titleOptions, variant }) => {
         <Image
           source={logo || titlePlaceholder}
           style={{
-            width: '100px',
-            height: '40px',
+            width: 100,
+            height: 40,
             resizeMode: 'cover',
             justifyContent: mobileAlignment,
-            borderRadius: '6px',
+            borderRadius: 6,
           }}
         />
       )

@@ -39,7 +39,7 @@ export const MenuItems = ({
     menuItemsStyles = {
       flexDirection: 'column',
       width: '100%',
-      marginTop: 18,
+      marginTop: 20,
       justifyContent: 'flex-start',
       height: '100%',
     }
@@ -57,16 +57,17 @@ export const MenuItems = ({
         backgroundColor: active ? activeBackgroundFillColor : '#ffffff00',
         borderRadius: activeBackgroundFillRounding,
         justifyContent: variant === 'desktop' ? 'center' : 'flex-start',
-        height: 'fit-content',
         borderRadius: 40,
+        height: '',
+        paddingLeft: 32,
       },
       text: {
         color: active ? menuItemsActiveColor : menuItemsInactiveColor,
         fontFamily: _fonts.body,
         fontSize: 14,
         fontWeight: '600',
-        paddingTop: variant === 'desktop' ? '' : 16,
-        paddingBottom: variant === 'desktop' ? '' : 16,
+        paddingTop: variant === 'desktop' ? 12 : 20,
+        paddingBottom: variant === 'desktop' ? 12 : 20,
       },
       icon: {
         color: active ? menuItemsActiveColor : menuItemsInactiveColor,

@@ -32,11 +32,11 @@ const NavigationBar = ({
   const { height } = Dimensions.get('window')
   const variant =
     _width > DeviceBreakpoint.TABLET_BREAKPOINT ? 'desktop' : 'mobile'
-  const overlayOpacity = useRef(new Animated.Value(0)).current
+  const overlayPosition = useRef(new Animated.Value(0)).current
 
   const openMobileMenu = () => {
     setMobileOpen(true)
-    Animated.timing(overlayOpacity, {
+    Animated.timing(overlayPosition, {
       toValue: 1,
       duration: 200,
       useNativeDriver: true,
@@ -44,7 +44,7 @@ const NavigationBar = ({
   }
 
   const closeMobileMenu = () => {
-    Animated.timing(overlayOpacity, {
+    Animated.timing(overlayPosition, {
       toValue: 0,
       duration: 200,
       useNativeDriver: true,
@@ -69,8 +69,15 @@ const NavigationBar = ({
   }
 
   const renderProfileImage = () => {
-    const { enabled, image, rounding, mobileText, actions, styles } =
-      profileImage
+    const {
+      enabled,
+      image,
+      rounding,
+      mobileText,
+      actions,
+      styles,
+      dividerColor,
+    } = profileImage
     if (!enabled) {
       return <View />
     }
@@ -107,20 +114,30 @@ const NavigationBar = ({
 
     const textStyles = {
       fontSize: 24,
-      fontWeight: 500,
+      fontWeight: '500',
       fontFamily: styles.mobileText.fontFamily,
       color: styles.mobileText.color,
       marginLeft: 18,
     }
 
     return (
-      <View style={mobileProfileImageStyles}>
-        <Image
-          source={image || titlePlaceholder}
-          style={imageStyles}
-          onPress={actions}
+      <View>
+        <View style={mobileProfileImageStyles}>
+          <Image
+            source={image || titlePlaceholder}
+            style={imageStyles}
+            onPress={actions}
+          />
+          <Text style={textStyles}>{mobileText}</Text>
+        </View>
+        <View
+          style={{
+            height: 1,
+            borderBottom: '1px solid ' + dividerColor,
+            marginLeft: -24,
+            marginRight: -20,
+          }}
         />
-        <Text style={textStyles}>{mobileText}</Text>
       </View>
     )
   }
@@ -165,7 +182,7 @@ const NavigationBar = ({
     let mobileAlignment = title.universalLayout ? 'left' : title.mobileAlignment
     let mobileTitleStyles = {
       marginLeft: mobileAlignment === 'right' ? 'auto' : '',
-      paddingRight: '12px',
+      paddingRight: 12,
       flexDirection: 'row',
     }
 
@@ -185,7 +202,14 @@ const NavigationBar = ({
       zIndex: 100,
       height: height + 20,
       backgroundColor,
-      opacity: overlayOpacity,
+      transform: [
+        {
+          translateY: overlayPosition.interpolate({
+            inputRange: [0, 1],
+            outputRange: [height * -1, 0],
+          }),
+        },
+      ],
     }
 
     const overlayContainerStyles = {
@@ -200,22 +224,20 @@ const NavigationBar = ({
       // render the title on the left, the menu items in the middle, and the profile image on the right
       return (
         <View style={containerStyles}>
-          <View style={{ paddingRight: '26px', justifyContent: 'flex-start' }}>
+          <View style={{ paddingRight: 26, justifyContent: 'flex-start' }}>
             <Title variant={variant} titleOptions={title} />
           </View>
-          <View style={menuItemsStyles}>
-            <MenuItems
-              menuItems={menuItems}
-              variant={variant}
-              activeMenuItem={
-                editor ? menuItems.defaultActiveMenuItem : activeMenuItem
-              }
-              setActiveMenuItem={editor ? () => {} : setActiveMenuItem}
-              items={items}
-              _fonts={_fonts}
-              centerStyles={centerStyles}
-            />
-          </View>
+          <MenuItems
+            menuItems={menuItems}
+            variant={variant}
+            activeMenuItem={
+              editor ? menuItems.defaultActiveMenuItem : activeMenuItem
+            }
+            setActiveMenuItem={editor ? () => {} : setActiveMenuItem}
+            items={items}
+            _fonts={_fonts}
+            centerStyles={centerStyles}
+          />
           <View
             style={{
               marginLeft: menuItems.alignment !== 'right' ? 'auto' : '',
@@ -259,14 +281,6 @@ const NavigationBar = ({
                   />
                 </View>
                 {renderProfileImage()}
-                <View
-                  style={{
-                    height: 1,
-                    borderBottom: '1px solid #EAEAEA',
-                    marginLeft: -24,
-                    marginRight: -20,
-                  }}
-                />
                 <MenuItems
                   menuItems={menuItems}
                   variant={variant}
@@ -277,6 +291,7 @@ const NavigationBar = ({
                   items={items}
                   _fonts={_fonts}
                 />
+                <View style={{ flex: 1, justifyContent: 'flex-end' }} />
               </View>
             </Animated.View>
           ) : (

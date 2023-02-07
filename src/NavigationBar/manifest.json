@@ -776,6 +776,12 @@
           }
         },
         {
+          "name": "dividerColor",
+          "displayName": "Mobile & Tablet Divider Color",
+          "type": "color",
+          "default": "#EAEAEA"
+        },
+        {
           "name": "actions",
           "displayName": "Click Actions",
           "type": "action"

@@ -23,9 +23,7 @@ export default class WrappedTextButton extends Component {
   getContainerStyles() {
     let { type, primaryColor, borderRadius } = this.props
 
-
     if (type === 'contained') {
-
       return { backgroundColor: primaryColor, borderRadius }
     }
 
@@ -125,7 +123,6 @@ export default class WrappedTextButton extends Component {
               text: [textStyles, styles.text],
             }}
             disabled={this.state.loading}
-
           />
         </View>
         {this.state.loading && (
