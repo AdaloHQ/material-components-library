@@ -24,6 +24,7 @@ const NavigationBar = ({
   _fonts,
   editor,
   _width,
+  openAccordion,
 }) => {
   const [activeMenuItem, setActiveMenuItem] = useState(
     menuItems.defaultActiveMenuItem
@@ -49,6 +50,21 @@ const NavigationBar = ({
       duration: 200,
       useNativeDriver: true,
     }).start(() => setMobileOpen(false))
+  }
+
+  const mobileOpenEditor =
+    editor &&
+    variant === 'mobile' &&
+    openAccordion &&
+    openAccordion !== 'root' &&
+    openAccordion !== 'title'
+
+  if (!mobileOpen && mobileOpenEditor) {
+    setMobileOpen(true)
+  }
+
+  if (mobileOpen && !mobileOpenEditor) {
+    setMobileOpen(false)
   }
 
   const items = [
@@ -169,6 +185,13 @@ const NavigationBar = ({
       }
     }
 
+    if (mobileOpen && mobileOpenEditor) {
+      containerStyles = {
+        ...containerStyles,
+        height: 670,
+      }
+    }
+
     // Logic for centering the title and menu items on mobile and desktop respectively
     const centerStyles = {
       position: 'absolute',
@@ -204,10 +227,12 @@ const NavigationBar = ({
       backgroundColor,
       transform: [
         {
-          translateY: overlayPosition.interpolate({
-            inputRange: [0, 1],
-            outputRange: [height * -1, 0],
-          }),
+          translateY: editor
+            ? 0
+            : overlayPosition.interpolate({
+                inputRange: [0, 1],
+                outputRange: [height * -1, 0],
+              }),
         },
       ],
     }
@@ -250,19 +275,21 @@ const NavigationBar = ({
       )
     } else if (variant === 'mobile') {
       return (
-        <View style={containerStyles}>
-          <View style={mobileTitleStyles}>
-            <Title variant={variant} titleOptions={title} />
-          </View>
-          <View
-            style={{ marginLeft: mobileAlignment !== 'right' ? 'auto' : '' }}
-          >
-            <Icon
-              name="menu"
-              color={menuItems.mobileMenuIconColor}
-              size={20}
-              onPress={() => openMobileMenu()}
-            />
+        <View>
+          <View style={containerStyles}>
+            <View style={mobileTitleStyles}>
+              <Title variant={variant} titleOptions={title} />
+            </View>
+            <View
+              style={{ marginLeft: mobileAlignment !== 'right' ? 'auto' : '' }}
+            >
+              <Icon
+                name="menu"
+                color={menuItems.mobileMenuIconColor}
+                size={20}
+                onPress={() => openMobileMenu()}
+              />
+            </View>
           </View>
           {mobileOpen ? (
             <Animated.View style={fullPageStyles}>
@@ -291,7 +318,6 @@ const NavigationBar = ({
                   items={items}
                   _fonts={_fonts}
                 />
-                <View style={{ flex: 1, justifyContent: 'flex-end' }} />
               </View>
             </Animated.View>
           ) : (
