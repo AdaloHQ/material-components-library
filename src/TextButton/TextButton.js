@@ -23,9 +23,7 @@ export default class WrappedTextButton extends Component {
   getContainerStyles() {
     let { type, primaryColor, borderRadius } = this.props
 
-
     if (type === 'contained') {
-
       return { backgroundColor: primaryColor, borderRadius }
     }
 
@@ -42,7 +40,7 @@ export default class WrappedTextButton extends Component {
   }
 
   getTextStyles() {
-    let { primaryColor, contrastColor, type, icon, styles, _fonts } = this.props
+    let { primaryColor, contrastColor, type, icon, styles, upperCase, _fonts } = this.props
 
     const textStyles = { fontWeight: '600' }
 
@@ -61,8 +59,29 @@ export default class WrappedTextButton extends Component {
 
     if (icon) {
       textStyles.marginLeft = 8
+      textStyles.marginRight = 5
     }
+
+    if (upperCase) {
+      textStyles.letterSpacing = 1
+    }
+
     return textStyles
+  }
+
+  getIconStyles() {
+    const { icon } = this.props;
+    // Base icon styles are same as text styles
+    const iconStyles = this.getTextStyles()
+    // marginRight needs to be removed from base text styles for icons
+    delete iconStyles.marginRight;
+
+    if (!iconStyles.width && !iconStyles.minWidth) {
+      // Set default icon size as min width
+      iconStyles.minWidth = 24;
+    }
+
+    return iconStyles
   }
 
   getAdditionalProps() {
@@ -96,19 +115,11 @@ export default class WrappedTextButton extends Component {
   }
 
   renderSub() {
-    let { icon, action, text, upperCase, container } = this.props
+    let { icon, action, text, upperCase } = this.props
 
     let containerStyles = this.getContainerStyles()
-    let iconStyles = this.getTextStyles()
-    let textStyles = { ...this.getTextStyles() }
-
-    if (icon) {
-      textStyles.marginRight = 5
-    }
-
-    if (upperCase) {
-      textStyles.letterSpacing = 1
-    }
+    let textStyles = this.getTextStyles()
+    let iconStyles = this.getIconStyles()
 
     return (
       <View>
@@ -120,12 +131,11 @@ export default class WrappedTextButton extends Component {
             onPress={action && this.submitAction}
             text={this.state.loading ? '' : text}
             style={{
-              container: [containerStyles, container],
+              container: containerStyles,
               icon: iconStyles,
               text: [textStyles, styles.text],
             }}
-            disabled={this.state.loading}
-
+            disabled={action ? this.state.loading : true}
           />
         </View>
         {this.state.loading && (
