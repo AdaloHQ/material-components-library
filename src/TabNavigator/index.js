@@ -38,7 +38,7 @@ export default class TabNavigator extends Component {
   }
 
   render() {
-    let { backgroundColor, editor, activeTab, _fonts, getFlags } = this.props
+    let { backgroundColor, editor, activeTab, _fonts, getFlags, isResponsiveComponent } = this.props
     const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
     let enabledTabs = tabNames.filter((tabName) => {
@@ -53,6 +53,10 @@ export default class TabNavigator extends Component {
     })
 
     let wrapperStyles = editor ? styles.editorWrapper : styles.wrapper
+    if (!editor) {
+      // Patch for TabNavigation rendering outside of viewport in iOS for responsive web apps
+      wrapperStyles = isResponsiveComponent && Platform.OS === "ios" ? styles.responsiveComponentWrapper : styles.wrapper;
+    }
 
     let defaultFontStyle = _fonts
       ? { fontFamily: _fonts.body, fontSize: 11 }
@@ -87,20 +91,18 @@ export default class TabNavigator extends Component {
 }
 
 const styles = StyleSheet.create({
-  // Patch for TabNavigation rendering outside of viewport in iOS
-  wrapper: Platform.OS !== 'ios' ?
-    {
-      marginBottom: -100,
-      paddingBottom: 100,
-      height: 156,
-    } :
-    {
-      position: "absolute",
-      bottom: 0,
-      left: 0,
-      right: 0,
-      height: 106,
-    },
+  defaultWrapper: {
+    marginBottom: -100,
+    paddingBottom: 100,
+    height: 156,
+  },
+  responsiveComponentWrapper: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 106,
+  },
   editorWrapper: {
     height: 56,
   },
