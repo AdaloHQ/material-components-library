@@ -71,6 +71,18 @@ export default class AppBar extends Component {
     return {}
   }
 
+  getContainerMarginTop() {
+    const { hasDynamicIslandOrNotch, isResponsiveComponent } = this.props;
+    let marginTop = -30;
+    if (hasDynamicIslandOrNotch) {
+      marginTop += -10
+    }
+    if (isResponsiveComponent) {
+      marginTop += -10
+    }
+    return marginTop;
+  }
+
   getShadowStyle() {
     let { shadow } = this.props
     if (shadow) {
@@ -257,12 +269,10 @@ export default class AppBar extends Component {
   }
 
   renderBlur(containerStyles) {
-    let { translucentColor, hasDynamicIslandOrNotch } = this.props
-    
-    const blurViewStyle = {};
-    if (hasDynamicIslandOrNotch) {
-      blurViewStyle.marginTop = -50
-    }
+    let { translucentColor } = this.props
+
+    const marginTop = this.getContainerMarginTop();
+    const blurViewStyle = { marginTop };
 
     return (
       <Blur
@@ -278,12 +288,11 @@ export default class AppBar extends Component {
   }
 
   renderImageBackgroundToolbar() {
-    let { backgroundImage, hasDynamicIslandOrNotch } = this.props
+    let { backgroundImage } = this.props
 
+    const marginTop = this.getContainerMarginTop();
     let imageBackgroundStyles = styles.imageBackground;
-    if (hasDynamicIslandOrNotch) {
-      imageBackgroundStyles = { ...imageBackgroundStyles, marginTop: -50 }
-    }
+    imageBackgroundStyles = { ...imageBackgroundStyles, marginTop }
 
     const imageStyles = [
       imageBackgroundStyles,
@@ -311,7 +320,7 @@ export default class AppBar extends Component {
   }
 
   renderToolbar() {
-    let { barType, translucentColor, backgroundColor, editor, hasDynamicIslandOrNotch } = this.props
+    let { barType, translucentColor, backgroundColor, editor } = this.props
     let containerStyles = {
       backgroundColor,
       height: 76,
@@ -322,10 +331,7 @@ export default class AppBar extends Component {
     }
 
     if (!editor) {
-      let marginTop = -30;
-      if (hasDynamicIslandOrNotch) {
-        marginTop = -50;
-      }
+      const marginTop = this.getContainerMarginTop();
       containerStyles = {
         ...containerStyles,
         height: 106,
