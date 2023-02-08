@@ -61,6 +61,13 @@ export const Title = ({ titleOptions, variant }) => {
     const text = universalLayout ? universalText : mobileText
     const logoSize = universalLayout ? universalLogoSize : mobileLogoSize
 
+    let alignment = 'flex-start'
+    if (mobileAlignment === 'center') {
+      alignment = 'center'
+    } else if (mobileAlignment === 'right') {
+      alignment = 'flex-end'
+    }
+
     if (useLogo) {
       return (
         <Image
@@ -69,7 +76,7 @@ export const Title = ({ titleOptions, variant }) => {
             width: 100,
             height: 40,
             resizeMode: 'cover',
-            justifyContent: mobileAlignment,
+            justifyContent: alignment,
             borderRadius: 6,
           }}
         />
@@ -80,7 +87,7 @@ export const Title = ({ titleOptions, variant }) => {
         style={{
           fontSize: 16,
           ...styles[universalLayout ? 'universalText' : 'mobileText'],
-          justifyContent: mobileAlignment,
+          justifyContent: alignment,
         }}
       >
         {text}

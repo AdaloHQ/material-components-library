@@ -30,9 +30,11 @@ const NavigationBar = ({
     menuItems.defaultActiveMenuItem
   )
   const [mobileOpen, setMobileOpen] = useState(false)
-  const { height } = Dimensions.get('window')
+  const { height, width: dimWidth } = Dimensions.get('window')
+  const width = editor ? _width : dimWidth
   const variant =
-    _width > DeviceBreakpoint.TABLET_BREAKPOINT ? 'desktop' : 'mobile'
+    width > DeviceBreakpoint.TABLET_BREAKPOINT ? 'desktop' : 'mobile'
+
   const overlayPosition = useRef(new Animated.Value(0)).current
 
   const openMobileMenu = () => {
@@ -53,17 +55,16 @@ const NavigationBar = ({
   }
 
   const mobileOpenEditor =
-    editor &&
     variant === 'mobile' &&
     openAccordion &&
     openAccordion !== 'root' &&
     openAccordion !== 'title'
 
-  if (!mobileOpen && mobileOpenEditor) {
+  if (!mobileOpen && editor && mobileOpenEditor) {
     setMobileOpen(true)
   }
 
-  if (mobileOpen && !mobileOpenEditor) {
+  if (mobileOpen && editor && !mobileOpenEditor) {
     setMobileOpen(false)
   }
 
@@ -175,7 +176,7 @@ const NavigationBar = ({
       ...getBorderStyle(),
       ...getShadowStyle(shadow),
     }
-    if (variant !== 'desktop' && !editor) {
+    /*if (variant !== 'desktop' && !editor) {
       containerStyles = {
         ...containerStyles,
         height: 106,
@@ -183,9 +184,9 @@ const NavigationBar = ({
         marginTop: -30,
         ...getBorderStyle(),
       }
-    }
+    }*/
 
-    if (mobileOpen && mobileOpenEditor) {
+    if (mobileOpen && editor && mobileOpenEditor) {
       containerStyles = {
         ...containerStyles,
         height: 670,
@@ -265,7 +266,7 @@ const NavigationBar = ({
           />
           <View
             style={{
-              marginLeft: menuItems.alignment !== 'right' ? 'auto' : '',
+              marginLeft: menuItems.alignment !== 'right' ? 'auto' : 0,
             }}
           >
             {renderProfileImage()}
@@ -281,7 +282,7 @@ const NavigationBar = ({
               <Title variant={variant} titleOptions={title} />
             </View>
             <View
-              style={{ marginLeft: mobileAlignment !== 'right' ? 'auto' : '' }}
+              style={{ marginLeft: mobileAlignment !== 'right' ? 'auto' : 0 }}
             >
               <Icon
                 name="menu"
