@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform } from 'react-native'
 import {
   BottomNavigation,
   ThemeContext,
@@ -38,7 +38,7 @@ export default class TabNavigator extends Component {
   }
 
   render() {
-    let { backgroundColor, editor, activeTab, _fonts, getFlags } = this.props
+    let { backgroundColor, editor, activeTab, _fonts, getFlags, isResponsiveComponent } = this.props
     const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
     let enabledTabs = tabNames.filter((tabName) => {
@@ -53,18 +53,21 @@ export default class TabNavigator extends Component {
     })
 
     let wrapperStyles = editor ? styles.editorWrapper : styles.wrapper
+    if (!editor) {
+      // Patch for TabNavigation rendering outside of viewport in iOS for responsive web apps
+      wrapperStyles = isResponsiveComponent && Platform.OS === "ios" ? styles.responsiveComponentWrapper : styles.wrapper;
+    }
 
     let defaultFontStyle = _fonts
       ? { fontFamily: _fonts.body, fontSize: 11 }
       : { fontSize: 11 }
 
+
     return (
       <ThemeContext.Provider value={this.getTheme()}>
         <BottomNavigation
           active={activeTab}
-          style={{
-            container: [wrapperStyles, { backgroundColor }],
-          }}
+          style={{ container: [wrapperStyles, { backgroundColor }] }}
         >
           {enabledTabs.map((tabName) => (
             <BottomNavigation.Action
@@ -88,9 +91,16 @@ export default class TabNavigator extends Component {
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
+  defaultWrapper: {
     marginBottom: -100,
     paddingBottom: 100,
+    height: 156,
+  },
+  responsiveComponentWrapper: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
     height: 156,
   },
   editorWrapper: {
