@@ -59,7 +59,7 @@ export const MenuItems = ({
         justifyContent: variant === 'desktop' ? 'center' : 'flex-start',
         borderRadius: 40,
         height: '',
-        paddingLeft: 32,
+        paddingLeft: variant === 'mobile' ? 32 : 12,
       },
       text: {
         color: active ? menuItemsActiveColor : menuItemsInactiveColor,

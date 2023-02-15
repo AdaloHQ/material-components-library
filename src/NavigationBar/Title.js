@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Image, Text } from 'react-native'
 
 import titlePlaceholder from './nav-title-image-placeholder.png'
@@ -22,6 +22,10 @@ export const Title = ({ titleOptions, variant }) => {
     desktopText,
     styles,
   } = titleOptions
+
+  const [imgWidth, setImgWidth] = useState(0)
+  const [imgHeight, setImgHeight] = useState(0)
+
   if (!enabled) {
     return <View />
   }
@@ -32,15 +36,21 @@ export const Title = ({ titleOptions, variant }) => {
     const text = universalLayout ? universalText : desktopText
     const logoSize = universalLayout ? universalLogoSize : desktopLogoSize
 
+    Image.getSize((logo && logo.uri) || titlePlaceholder, (width, height) => {
+      setImgWidth(width * (logoSize / 100))
+      setImgHeight(height * (logoSize / 100))
+    })
+
     if (useLogo) {
       return (
         <Image
           source={logo || titlePlaceholder}
           style={{
-            width: 100,
-            height: 40,
+            width: imgWidth,
+            height: imgHeight,
             resizeMode: 'cover',
             borderRadius: 6,
+            maxWidth: 200,
           }}
         />
       )
@@ -68,13 +78,18 @@ export const Title = ({ titleOptions, variant }) => {
       alignment = 'flex-end'
     }
 
+    Image.getSize((logo && logo.uri) || titlePlaceholder, (width, height) => {
+      setImgWidth(width * (logoSize / 100))
+      setImgHeight(height * (logoSize / 100))
+    })
+
     if (useLogo) {
       return (
         <Image
           source={logo || titlePlaceholder}
           style={{
-            width: 100,
-            height: 40,
+            width: imgWidth,
+            height: imgHeight,
             resizeMode: 'cover',
             justifyContent: alignment,
             borderRadius: 6,

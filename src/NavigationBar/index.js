@@ -1,5 +1,13 @@
 import React, { useState, useRef } from 'react'
-import { Platform, View, Image, Text, Dimensions, Animated } from 'react-native'
+import {
+  Platform,
+  View,
+  Image,
+  Text,
+  Dimensions,
+  Animated,
+  TouchableOpacity,
+} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { DeviceBreakpoint } from '@adalo/constants'
 
@@ -101,17 +109,18 @@ const NavigationBar = ({
 
     if (variant === 'desktop') {
       return (
-        <Image
-          source={image || titlePlaceholder}
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: rounding,
-            resizeMode: 'cover',
-            justifyContent: 'flex-end',
-          }}
-          onPress={actions}
-        />
+        <TouchableOpacity onPress={actions}>
+          <Image
+            source={image || titlePlaceholder}
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: rounding,
+              resizeMode: 'cover',
+              justifyContent: 'flex-end',
+            }}
+          />
+        </TouchableOpacity>
       )
     }
 
@@ -140,11 +149,9 @@ const NavigationBar = ({
     return (
       <View>
         <View style={mobileProfileImageStyles}>
-          <Image
-            source={image || titlePlaceholder}
-            style={imageStyles}
-            onPress={actions}
-          />
+          <TouchableOpacity onPress={actions}>
+            <Image source={image || titlePlaceholder} style={imageStyles} />
+          </TouchableOpacity>
           <Text style={textStyles}>{mobileText}</Text>
         </View>
         <View
