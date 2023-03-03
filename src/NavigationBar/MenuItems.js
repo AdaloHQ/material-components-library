@@ -43,6 +43,10 @@ export const MenuItems = ({
       justifyContent: 'flex-start',
       height: '100%',
     }
+
+    if (activeIndicatorLine) {
+      menuItemsStyles.marginLeft = -23
+    }
   }
 
   const renderItem = (item, index) => {
@@ -52,12 +56,15 @@ export const MenuItems = ({
     }
 
     const active = activeMenuItem === index
+
+    const textPadding = variant === 'desktop' ? 12 : 20
+    const activeIndicatorBorderStyles = `${lineSize}px solid ${menuItemsActiveColor}`
+
     const styles = {
       container: {
-        backgroundColor: active ? activeBackgroundFillColor : '#ffffff00',
+        backgroundColor: '#ffffff00',
         borderRadius: activeBackgroundFillRounding,
         justifyContent: variant === 'desktop' ? 'center' : 'flex-start',
-        borderRadius: 40,
         height: '',
         paddingLeft: variant === 'mobile' ? 32 : 12,
       },
@@ -66,13 +73,59 @@ export const MenuItems = ({
         fontFamily: _fonts.body,
         fontSize: 14,
         fontWeight: '600',
-        paddingTop: variant === 'desktop' ? 12 : 20,
-        paddingBottom: variant === 'desktop' ? 12 : 20,
+        paddingTop: textPadding,
+        paddingBottom: textPadding,
       },
       icon: {
         color: active ? menuItemsActiveColor : menuItemsInactiveColor,
         size: 20,
       },
+    }
+
+    if (active && !activeIndicatorLine && iconOnLeft) {
+      styles.container.backgroundColor = activeBackgroundFillColor
+    }
+    if (activeIndicatorLine) {
+      styles.container.borderRadius = 0
+      if (active && variant === 'desktop') {
+        styles.container.borderBottom = activeIndicatorBorderStyles
+      } else if (active && variant !== 'desktop') {
+        styles.container.borderLeft = activeIndicatorBorderStyles
+      }
+
+      if (variant === 'desktop') {
+        styles.text.paddingTop = 20
+        styles.text.paddingBottom = 20 - (active ? lineSize : 0)
+      } else {
+        styles.container.paddingLeft = 56 - -(active ? lineSize : 0)
+      }
+    }
+
+    if (!iconOnLeft && variant === 'desktop') {
+      styles.container.flexDirection = 'column'
+      styles.container.alignItems = 'center'
+      styles.container.paddingRight = 18
+      styles.container.paddingLeft = 18
+      styles.text.paddingTop = 2
+      styles.text.paddingBottom =
+        8 - (active && activeIndicatorLine ? lineSize : 0)
+      styles.icon.marginTop = 8
+      styles.icon.marginRight = 0
+      styles.text.fontSize = 12
+
+      if (!activeIndicatorLine && active) {
+        styles.icon = {
+          ...styles.icon,
+          backgroundColor: activeBackgroundFillColor,
+          borderRadius: activeBackgroundFillRounding,
+          paddingLeft: 12,
+          paddingRight: 12,
+          paddingTop: 2,
+          paddingBottom: 2,
+          marginTop: 6,
+        }
+        styles.text.paddingTop = 0
+      }
     }
 
     const buttonText = truncateString(text, 15)

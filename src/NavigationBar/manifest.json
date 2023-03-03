@@ -154,7 +154,7 @@
           "type": "number",
           "displayName": "Logo Size",
           "default": 50,
-          "control": { "type": "slider", "max": 100, "min": 30 },
+          "control": { "type": "slider", "max": 100, "min": 1 },
           "enabled": {
             "universalUseLogo": true,
             "universalLayout": true
@@ -226,7 +226,7 @@
           "type": "number",
           "displayName": "Logo Size",
           "default": 50,
-          "control": { "type": "slider", "max": 100, "min": 30 },
+          "control": { "type": "slider", "max": 100, "min": 1 },
           "enabled": {
             "mobileUseLogo": true,
             "universalLayout": false
@@ -294,7 +294,7 @@
           "type": "number",
           "displayName": "Logo Size",
           "default": 50,
-          "control": { "type": "slider", "max": 100, "min": 30 },
+          "control": { "type": "slider", "max": 100, "min": 1 },
           "enabled": {
             "desktopUseLogo": true,
             "universalLayout": false
@@ -654,6 +654,15 @@
           }
         },
         {
+          "name": "iconBorderColor",
+          "displayName": "Icon Border Color",
+          "type": "color",
+          "default": "#757575",
+          "enabled": {
+            "additionalNavigationType": ["iconButton"]
+          }
+        },
+        {
           "name": "iconBackgroundColor",
           "displayName": "Icon Background Color",
           "type": "color",
@@ -737,6 +746,12 @@
             "min": 0,
             "max": 100
           }
+        },
+        {
+          "name": "dividerColor",
+          "displayName": "Mobile & Tablet Divider Color",
+          "type": "color",
+          "default": "#EAEAEA"
         }
       ]
     },

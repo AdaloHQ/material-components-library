@@ -36,10 +36,13 @@ export const Title = ({ titleOptions, variant }) => {
     const text = universalLayout ? universalText : desktopText
     const logoSize = universalLayout ? universalLogoSize : desktopLogoSize
 
-    Image.getSize((logo && logo.uri) || titlePlaceholder, (width, height) => {
-      setImgWidth(width * (logoSize / 100))
-      setImgHeight(height * (logoSize / 100))
-    })
+    Image.getSize(
+      (logo && logo.uri) || logo || titlePlaceholder,
+      (width, height) => {
+        setImgWidth(width * (logoSize / 100))
+        setImgHeight(height * (logoSize / 100))
+      }
+    )
 
     if (useLogo) {
       return (
@@ -48,8 +51,9 @@ export const Title = ({ titleOptions, variant }) => {
           style={{
             width: imgWidth,
             height: imgHeight,
-            resizeMode: 'cover',
+            resizeMode: 'contain',
             borderRadius: 6,
+            maxHeight: 56,
             maxWidth: 200,
           }}
         />
@@ -78,10 +82,13 @@ export const Title = ({ titleOptions, variant }) => {
       alignment = 'flex-end'
     }
 
-    Image.getSize((logo && logo.uri) || titlePlaceholder, (width, height) => {
-      setImgWidth(width * (logoSize / 100))
-      setImgHeight(height * (logoSize / 100))
-    })
+    Image.getSize(
+      (logo && logo.uri) || logo || titlePlaceholder,
+      (width, height) => {
+        setImgWidth(width * (logoSize / 100))
+        setImgHeight(height * (logoSize / 100))
+      }
+    )
 
     if (useLogo) {
       return (
@@ -90,9 +97,11 @@ export const Title = ({ titleOptions, variant }) => {
           style={{
             width: imgWidth,
             height: imgHeight,
-            resizeMode: 'cover',
+            resizeMode: 'contain',
             justifyContent: alignment,
             borderRadius: 6,
+            maxHeight: 56,
+            maxWidth: 200,
           }}
         />
       )

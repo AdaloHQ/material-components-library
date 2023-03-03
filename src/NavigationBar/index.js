@@ -13,6 +13,7 @@ import { DeviceBreakpoint } from '@adalo/constants'
 
 import { Title } from './Title'
 import { MenuItems } from './MenuItems'
+import { AdditionalNavigation } from './AdditionalNavigation'
 import titlePlaceholder from './nav-title-image-placeholder.png'
 
 const NavigationBar = ({
@@ -29,10 +30,14 @@ const NavigationBar = ({
   fourthMenuItem,
   fifthMenuItem,
   profileImage,
+  additionalNavigation,
   _fonts,
   editor,
   _width,
   openAccordion,
+  _screenHeight,
+  _screenWidth,
+  ...props
 }) => {
   const [activeMenuItem, setActiveMenuItem] = useState(
     menuItems.defaultActiveMenuItem
@@ -166,10 +171,6 @@ const NavigationBar = ({
     )
   }
 
-  const renderAdditionalItems = () => {
-    return <View />
-  }
-
   const renderNavBar = () => {
     let containerStyles = {
       backgroundColor,
@@ -196,7 +197,7 @@ const NavigationBar = ({
     if (mobileOpen && editor && mobileOpenEditor) {
       containerStyles = {
         ...containerStyles,
-        height: 670,
+        height: 680,
       }
     }
 
@@ -231,7 +232,7 @@ const NavigationBar = ({
       right: 0,
       bottom: 0,
       zIndex: 100,
-      height: height + 20,
+      height: height - 76,
       backgroundColor,
       transform: [
         {
@@ -247,10 +248,11 @@ const NavigationBar = ({
 
     const overlayContainerStyles = {
       paddingTop: 48,
-      paddingLeft: 24,
-      paddingRight: 20,
+      marginLeft: 24,
+      marginRight: 20,
       display: 'flex',
       flexDirection: 'column',
+      height: height - 76,
     }
 
     if (variant === 'desktop') {
@@ -274,10 +276,12 @@ const NavigationBar = ({
           <View
             style={{
               marginLeft: menuItems.alignment !== 'right' ? 'auto' : 0,
+              flexDirection: 'row',
+              alignItems: 'center',
             }}
           >
+            {<AdditionalNavigation {...additionalNavigation} />}
             {renderProfileImage()}
-            {renderAdditionalItems()}
           </View>
         </View>
       )
@@ -302,30 +306,45 @@ const NavigationBar = ({
           {mobileOpen ? (
             <Animated.View style={fullPageStyles}>
               <View style={overlayContainerStyles}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'flex-end',
-                  }}
-                >
-                  <Icon
-                    name="close"
-                    color={menuItems.mobileMenuIconColor}
-                    size={20}
-                    onPress={() => closeMobileMenu()}
+                <View style={{ justifyContent: 'flex-start' }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'flex-end',
+                    }}
+                  >
+                    <Icon
+                      name="close"
+                      color={menuItems.mobileMenuIconColor}
+                      size={20}
+                      onPress={() => closeMobileMenu()}
+                    />
+                  </View>
+                  {renderProfileImage()}
+                  <MenuItems
+                    menuItems={menuItems}
+                    variant={variant}
+                    activeMenuItem={
+                      editor ? menuItems.defaultActiveMenuItem : activeMenuItem
+                    }
+                    setActiveMenuItem={editor ? () => {} : setActiveMenuItem}
+                    items={items}
+                    _fonts={_fonts}
                   />
                 </View>
-                {renderProfileImage()}
-                <MenuItems
-                  menuItems={menuItems}
-                  variant={variant}
-                  activeMenuItem={
-                    editor ? menuItems.defaultActiveMenuItem : activeMenuItem
-                  }
-                  setActiveMenuItem={editor ? () => {} : setActiveMenuItem}
-                  items={items}
-                  _fonts={_fonts}
-                />
+                <View
+                  style={{
+                    marginTop: 'auto',
+                    alignItems: 'center',
+                    marginLeft: -24,
+                    marginRight: -20,
+                  }}
+                >
+                  <AdditionalNavigation
+                    {...additionalNavigation}
+                    variant={variant}
+                  />
+                </View>
               </View>
             </Animated.View>
           ) : (
