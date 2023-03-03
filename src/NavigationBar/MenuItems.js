@@ -63,7 +63,7 @@ export const MenuItems = ({
     const styles = {
       container: {
         backgroundColor: '#ffffff00',
-        borderRadius: activeBackgroundFillRounding,
+        borderRadius: activeBackgroundFillRounding * 2,
         justifyContent: variant === 'desktop' ? 'center' : 'flex-start',
         height: '',
         paddingLeft: variant === 'mobile' ? 32 : 12,
@@ -82,7 +82,11 @@ export const MenuItems = ({
       },
     }
 
-    if (active && !activeIndicatorLine && iconOnLeft) {
+    if (
+      active &&
+      !activeIndicatorLine &&
+      (iconOnLeft || variant !== 'desktop')
+    ) {
       styles.container.backgroundColor = activeBackgroundFillColor
     }
     if (activeIndicatorLine) {
@@ -97,7 +101,7 @@ export const MenuItems = ({
         styles.text.paddingTop = 20
         styles.text.paddingBottom = 20 - (active ? lineSize : 0)
       } else {
-        styles.container.paddingLeft = 56 - -(active ? lineSize : 0)
+        styles.container.paddingLeft = 56 - (active ? lineSize : 0)
       }
     }
 

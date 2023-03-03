@@ -26,6 +26,26 @@ export const AdditionalNavigation = ({
     return <View />
   }
 
+  const containerStyles =
+    variant === 'desktop'
+      ? {
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginRight: 16,
+        }
+      : {
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingTop: 18,
+          borderTopColor: dividerColor,
+          borderTopWidth: 1,
+          width: '100%',
+          paddingLeft: 50,
+          paddingRight: 50,
+        }
+
   const renderIcon = () => {
     return (
       <TouchableOpacity
@@ -55,7 +75,7 @@ export const AdditionalNavigation = ({
             borderRadius: rounding,
             borderWidth: 1,
             padding: 10,
-            flex: 1,
+            flex: variant !== 'desktop' && 1,
           },
           text: {
             color: styles.buttonText.color,
@@ -68,19 +88,7 @@ export const AdditionalNavigation = ({
   }
 
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingTop: 18,
-        borderTopColor: dividerColor,
-        borderTopWidth: 1,
-        width: '100%',
-        paddingLeft: 50,
-        paddingRight: 50,
-      }}
-    >
+    <View style={containerStyles}>
       {additionalNavigationType === 'iconButton' && renderIcon()}
       {renderButton()}
     </View>

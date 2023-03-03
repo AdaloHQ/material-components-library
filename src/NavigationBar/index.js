@@ -280,7 +280,12 @@ const NavigationBar = ({
               alignItems: 'center',
             }}
           >
-            {<AdditionalNavigation {...additionalNavigation} />}
+            {
+              <AdditionalNavigation
+                {...additionalNavigation}
+                variant={variant}
+              />
+            }
             {renderProfileImage()}
           </View>
         </View>
