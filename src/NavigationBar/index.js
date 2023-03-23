@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import {
   Platform,
   View,
@@ -42,12 +42,22 @@ const NavigationBar = ({
     menuItems.defaultActiveMenuItem
   )
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(true)
   const variant = _deviceType
 
   const overlayPosition = useRef(new Animated.Value(0)).current
 
+  overlayPosition.addListener(({ value }) => {
+    if (value < 0.1) {
+      setMobileMenuOpen(true)
+    } else if (value > 0.1 && mobileOpen && mobileMenuOpen) {
+      setMobileMenuOpen(false)
+    }
+  })
+
   const openMobileMenu = () => {
     setMobileOpen(true)
+    setMobileMenuOpen(false)
     Animated.timing(overlayPosition, {
       toValue: 1,
       duration: 200,
@@ -269,7 +279,11 @@ const NavigationBar = ({
       return (
         <View style={containerStyles}>
           <View style={{ paddingRight: 26, justifyContent: 'flex-start' }}>
-            <Title variant={variant} titleOptions={title} />
+            <Title
+              variant={variant}
+              titleOptions={title}
+              menuHeight={menuHeight}
+            />
           </View>
           <MenuItems
             menuItems={menuItems}
@@ -359,9 +373,16 @@ const NavigationBar = ({
               </View>
             </Animated.View>
           ) : (
+            <View />
+          )}
+          {mobileMenuOpen ? (
             <View style={containerStyles}>
               <View style={mobileTitleStyles}>
-                <Title variant={variant} titleOptions={title} />
+                <Title
+                  variant={variant}
+                  titleOptions={title}
+                  menuHeight={menuHeight}
+                />
               </View>
               <View
                 style={{ marginLeft: mobileAlignment !== 'right' ? 'auto' : 0 }}
@@ -374,6 +395,8 @@ const NavigationBar = ({
                 />
               </View>
             </View>
+          ) : (
+            <View />
           )}
         </View>
       )

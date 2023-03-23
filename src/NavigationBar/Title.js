@@ -3,7 +3,7 @@ import { View, Image, Text } from 'react-native'
 
 import titlePlaceholder from './nav-title-image-placeholder.png'
 
-export const Title = ({ titleOptions, variant }) => {
+export const Title = ({ titleOptions, variant, menuHeight }) => {
   const {
     enabled,
     universalLayout,
@@ -23,9 +23,6 @@ export const Title = ({ titleOptions, variant }) => {
     styles,
   } = titleOptions
 
-  const [imgWidth, setImgWidth] = useState(0)
-  const [imgHeight, setImgHeight] = useState(0)
-
   if (!enabled) {
     return <View />
   }
@@ -36,27 +33,24 @@ export const Title = ({ titleOptions, variant }) => {
     const text = universalLayout ? universalText : desktopText
     const logoSize = universalLayout ? universalLogoSize : desktopLogoSize
 
-    Image.getSize(
-      (logo && logo.uri) || logo || titlePlaceholder,
-      (width, height) => {
-        setImgWidth(width * (logoSize / 100))
-        setImgHeight(height * (logoSize / 100))
-      }
-    )
-
     if (useLogo) {
       return (
-        <Image
-          source={logo || titlePlaceholder}
+        <View
           style={{
-            width: imgWidth,
-            height: imgHeight,
-            resizeMode: 'contain',
-            borderRadius: 6,
-            maxHeight: 54,
-            maxWidth: 200,
+            width: (200 * logoSize) / 100,
+            height: (menuHeight * logoSize) / 100,
+            justifyContent: 'center',
           }}
-        />
+        >
+          <Image
+            source={logo || titlePlaceholder}
+            style={{
+              width: `100%`,
+              height: `100%`,
+              resizeMode: 'contain',
+            }}
+          />
+        </View>
       )
     }
     return (
@@ -82,28 +76,25 @@ export const Title = ({ titleOptions, variant }) => {
       alignment = 'flex-end'
     }
 
-    Image.getSize(
-      (logo && logo.uri) || logo || titlePlaceholder,
-      (width, height) => {
-        setImgWidth(width * (logoSize / 100))
-        setImgHeight(height * (logoSize / 100))
-      }
-    )
-
     if (useLogo) {
       return (
-        <Image
-          source={logo || titlePlaceholder}
+        <View
           style={{
-            width: imgWidth,
-            height: imgHeight,
-            resizeMode: 'contain',
-            justifyContent: alignment,
-            borderRadius: 6,
-            maxHeight: 56,
-            maxWidth: 200,
+            width: (200 * logoSize) / 100,
+            height: (menuHeight * logoSize) / 100,
+            justifyContent: 'center',
           }}
-        />
+        >
+          <Image
+            source={logo || titlePlaceholder}
+            style={{
+              width: `100%`,
+              height: `100%`,
+              resizeMode: 'contain',
+              justifyContent: alignment,
+            }}
+          />
+        </View>
       )
     }
     return (
