@@ -42,16 +42,12 @@ const NavigationBar = ({
     menuItems.defaultActiveMenuItem
   )
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(true)
   const variant = _deviceType
 
   const overlayPosition = useRef(new Animated.Value(0)).current
-  const menuPosition = useRef(new Animated.Value(1)).current
 
   const openMobileMenu = () => {
     setMobileOpen(true)
-    setMobileMenuOpen(false)
-    menuPosition.setValue(0)
     Animated.timing(overlayPosition, {
       toValue: 1,
       duration: 200,
@@ -65,12 +61,7 @@ const NavigationBar = ({
       duration: 200,
       useNativeDriver: true,
     }).start(() => {
-      setMobileMenuOpen(true)
-      Animated.timing(menuPosition, {
-        toValue: 1,
-        duration: 1000,
-        useNativeDriver: true,
-      }).start(setMobileOpen(false))
+      setMobileOpen(false)
     })
   }
 
@@ -264,17 +255,6 @@ const NavigationBar = ({
       ],
     }
 
-    if (!editor && variant !== 'desktop') {
-      containerStyles.transform = [
-        {
-          translateY: menuPosition.interpolate({
-            inputRange: [0, 1],
-            outputRange: [menuHeight * -1, 0],
-          }),
-        },
-      ]
-    }
-
     const overlayContainerStyles = {
       paddingTop: 38,
       marginLeft: 24,
@@ -283,9 +263,6 @@ const NavigationBar = ({
       flexDirection: 'column',
       height: _screenHeight - mobileWebDesktopOffset,
     }
-
-    console.log('renderNavBar, mobileMenuOpen:', mobileMenuOpen)
-    console.log('renderNavBar, menuPosition', menuPosition)
 
     if (variant === 'desktop') {
       // render the title on the left, the menu items in the middle, and the profile image on the right
@@ -382,9 +359,6 @@ const NavigationBar = ({
               </View>
             </Animated.View>
           ) : (
-            <View />
-          )}
-          {mobileMenuOpen ? (
             <View style={containerStyles}>
               <View style={mobileTitleStyles}>
                 <Title variant={variant} titleOptions={title} />
@@ -400,8 +374,6 @@ const NavigationBar = ({
                 />
               </View>
             </View>
-          ) : (
-            <View />
           )}
         </View>
       )
