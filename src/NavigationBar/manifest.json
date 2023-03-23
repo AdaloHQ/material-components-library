@@ -225,8 +225,8 @@
           "name": "mobileLogoSize",
           "type": "number",
           "displayName": "Logo Size",
-          "default": 50,
-          "control": { "type": "slider", "max": 100, "min": 1 },
+          "default": 100,
+          "control": { "type": "slider", "max": 100, "min": 20 },
           "enabled": {
             "mobileUseLogo": true,
             "universalLayout": false
@@ -319,7 +319,7 @@
     },
     {
       "name": "menuItems",
-      "displayName": "Menu Items",
+      "displayName": "Menu Style",
       "props": [
         {
           "name": "alignment",
@@ -507,7 +507,12 @@
           "name": "text",
           "displayName": "Text",
           "type": "text",
-          "default": "MENU 1"
+          "default": "MENU 1",
+          "styles": {
+            "fontFamily": "@body",
+            "fontWeight": 600,
+            "fontSize": 14
+          }
         },
         {
           "name": "actions",
@@ -535,7 +540,12 @@
           "name": "text",
           "displayName": "Text",
           "type": "text",
-          "default": "MENU 2"
+          "default": "MENU 2",
+          "styles": {
+            "fontFamily": "@body",
+            "fontWeight": 600,
+            "fontSize": 14
+          }
         },
         {
           "name": "actions",
@@ -563,7 +573,12 @@
           "name": "text",
           "displayName": "Text",
           "type": "text",
-          "default": "MENU 3"
+          "default": "MENU 3",
+          "styles": {
+            "fontFamily": "@body",
+            "fontWeight": 600,
+            "fontSize": 14
+          }
         },
         {
           "name": "actions",
@@ -591,7 +606,12 @@
           "name": "text",
           "displayName": "Text",
           "type": "text",
-          "default": "MENU 4"
+          "default": "MENU 4",
+          "styles": {
+            "fontFamily": "@body",
+            "fontWeight": 600,
+            "fontSize": 14
+          }
         },
         {
           "name": "actions",
@@ -619,7 +639,12 @@
           "name": "text",
           "displayName": "Text",
           "type": "text",
-          "default": "MENU 5"
+          "default": "MENU 5",
+          "styles": {
+            "fontFamily": "@body",
+            "fontWeight": 600,
+            "fontSize": 14
+          }
         },
         {
           "name": "actions",

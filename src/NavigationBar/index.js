@@ -295,6 +295,7 @@ const NavigationBar = ({
             items={items}
             _fonts={_fonts}
             centerStyles={centerStyles}
+            menuHeight={menuHeight}
           />
           {menuItems.alignment === 'right' ? (
             <View
@@ -355,6 +356,7 @@ const NavigationBar = ({
                     setActiveMenuItem={editor ? () => {} : setActiveMenuItem}
                     items={items}
                     _fonts={_fonts}
+                    menuHeight={menuHeight}
                   />
                 </View>
                 <View

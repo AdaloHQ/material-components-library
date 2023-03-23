@@ -9,8 +9,8 @@ export const MenuItems = ({
   items,
   variant,
   setActiveMenuItem,
-  _fonts,
   centerStyles,
+  menuHeight,
 }) => {
   const {
     iconOnLeft,
@@ -32,6 +32,8 @@ export const MenuItems = ({
     marginLeft: menuItems.alignment === 'right' ? 'auto' : '',
   }
 
+  const buttonHeight = menuHeight - 20
+
   if (menuItems.alignment === 'center') {
     menuItemsStyles = {
       ...menuItemsStyles,
@@ -45,7 +47,6 @@ export const MenuItems = ({
       width: '100%',
       marginTop: 20,
       justifyContent: 'flex-start',
-      height: '100%',
     }
 
     if (activeIndicatorLine) {
@@ -54,7 +55,13 @@ export const MenuItems = ({
   }
 
   const renderItem = (item, index) => {
-    const { enabled, icon, text, actions } = item
+    const {
+      enabled,
+      icon,
+      text,
+      actions,
+      styles: { text: makerStyles },
+    } = item
     if (!enabled) {
       return <View key={index} />
     }
@@ -76,11 +83,13 @@ export const MenuItems = ({
       },
       text: {
         color: active ? menuItemsActiveColor : menuItemsInactiveColor,
-        fontFamily: _fonts.body,
-        fontSize: 14,
-        fontWeight: '600',
         paddingTop: textPadding,
         paddingBottom: textPadding,
+        fontSize: 14,
+        fontWeight: '600',
+        fontSize: makerStyles.fontSize,
+        fontWeight: makerStyles.fontWeight,
+        fontFamily: makerStyles.fontFamily,
       },
       icon: {
         color: active ? menuItemsActiveColor : menuItemsInactiveColor,
@@ -97,6 +106,9 @@ export const MenuItems = ({
     }
     if (activeIndicatorLine) {
       styles.container.borderRadius = 0
+      styles.container.height = buttonHeight
+      styles.text.paddingTop = 0
+      styles.text.paddingBottom = 0
       if (active && variant === 'desktop') {
         styles.container.borderBottom = activeIndicatorBorderStyles
       } else if (active && variant !== 'desktop') {
@@ -121,7 +133,6 @@ export const MenuItems = ({
         8 - (active && activeIndicatorLine ? lineSize : 0)
       styles.icon.marginTop = 8
       styles.icon.marginRight = 0
-      styles.text.fontSize = 12
 
       if (!activeIndicatorLine && active) {
         styles.icon = {
