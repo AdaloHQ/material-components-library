@@ -4,12 +4,10 @@ import {
   View,
   Image,
   Text,
-  Dimensions,
   Animated,
   TouchableOpacity,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import { DeviceBreakpoint } from '@adalo/constants'
 
 import { Title } from './Title'
 import { MenuItems } from './MenuItems'
@@ -37,21 +35,23 @@ const NavigationBar = ({
   openAccordion,
   _screenHeight,
   _screenWidth,
+  _deviceType,
   ...props
 }) => {
   const [activeMenuItem, setActiveMenuItem] = useState(
     menuItems.defaultActiveMenuItem
   )
   const [mobileOpen, setMobileOpen] = useState(false)
-  const { height, width: dimWidth } = Dimensions.get('window')
-  const width = editor ? _width : dimWidth
-  const variant =
-    width > DeviceBreakpoint.TABLET_BREAKPOINT ? 'desktop' : 'mobile'
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(true)
+  const variant = _deviceType
 
   const overlayPosition = useRef(new Animated.Value(0)).current
+  const menuPosition = useRef(new Animated.Value(1)).current
 
   const openMobileMenu = () => {
     setMobileOpen(true)
+    setMobileMenuOpen(false)
+    menuPosition.setValue(0)
     Animated.timing(overlayPosition, {
       toValue: 1,
       duration: 200,
@@ -64,11 +64,18 @@ const NavigationBar = ({
       toValue: 0,
       duration: 200,
       useNativeDriver: true,
-    }).start(() => setMobileOpen(false))
+    }).start(() => {
+      setMobileMenuOpen(true)
+      Animated.timing(menuPosition, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true,
+      }).start(setMobileOpen(false))
+    })
   }
 
   const mobileOpenEditor =
-    variant === 'mobile' &&
+    variant !== 'desktop' &&
     openAccordion &&
     openAccordion !== 'root' &&
     openAccordion !== 'title'
@@ -157,7 +164,9 @@ const NavigationBar = ({
           <TouchableOpacity onPress={actions}>
             <Image source={image || titlePlaceholder} style={imageStyles} />
           </TouchableOpacity>
-          <Text style={textStyles}>{mobileText}</Text>
+          <Text style={textStyles} onPress={actions}>
+            {mobileText}
+          </Text>
         </View>
         <View
           style={{
@@ -184,20 +193,29 @@ const NavigationBar = ({
       ...getBorderStyle(),
       ...getShadowStyle(shadow),
     }
-    /*if (variant !== 'desktop' && !editor) {
+
+    let menuHeight = 76
+
+    if (variant === 'desktop') menuHeight = 92
+    else if (variant === 'tablet') menuHeight = 84
+    containerStyles.height = menuHeight
+
+    if (variant !== 'desktop' && !editor) {
       containerStyles = {
         ...containerStyles,
-        height: 106,
-        paddingTop: 50,
+        height: menuHeight + 30,
+        paddingTop: 62,
         marginTop: -30,
         ...getBorderStyle(),
       }
-    }*/
+    }
+
+    const mobileWebDesktopOffset = Platform.OS === 'web' ? 38 : 0
 
     if (mobileOpen && editor && mobileOpenEditor) {
       containerStyles = {
         ...containerStyles,
-        height: 680,
+        height: _screenHeight,
       }
     }
 
@@ -232,7 +250,7 @@ const NavigationBar = ({
       right: 0,
       bottom: 0,
       zIndex: 100,
-      height: height - 76,
+      height: _screenHeight,
       backgroundColor,
       transform: [
         {
@@ -240,20 +258,34 @@ const NavigationBar = ({
             ? 0
             : overlayPosition.interpolate({
                 inputRange: [0, 1],
-                outputRange: [height * -1, 0],
+                outputRange: [_screenHeight * -1, 0],
               }),
         },
       ],
     }
 
+    if (!editor && variant !== 'desktop') {
+      containerStyles.transform = [
+        {
+          translateY: menuPosition.interpolate({
+            inputRange: [0, 1],
+            outputRange: [menuHeight * -1, 0],
+          }),
+        },
+      ]
+    }
+
     const overlayContainerStyles = {
-      paddingTop: 48,
+      paddingTop: 38,
       marginLeft: 24,
       marginRight: 20,
       display: 'flex',
       flexDirection: 'column',
-      height: height - 76,
+      height: _screenHeight - mobileWebDesktopOffset,
     }
+
+    console.log('renderNavBar, mobileMenuOpen:', mobileMenuOpen)
+    console.log('renderNavBar, menuPosition', menuPosition)
 
     if (variant === 'desktop') {
       // render the title on the left, the menu items in the middle, and the profile image on the right
@@ -273,6 +305,18 @@ const NavigationBar = ({
             _fonts={_fonts}
             centerStyles={centerStyles}
           />
+          {menuItems.alignment === 'right' ? (
+            <View
+              style={{
+                marginRight: 16,
+                marginLeft: 16,
+                borderLeft: `2px solid ${borderColor}`,
+                height: containerStyles.height - 40,
+              }}
+            />
+          ) : (
+            <View />
+          )}
           <View
             style={{
               marginLeft: menuItems.alignment !== 'right' ? 'auto' : 0,
@@ -290,24 +334,9 @@ const NavigationBar = ({
           </View>
         </View>
       )
-    } else if (variant === 'mobile') {
+    } else {
       return (
         <View>
-          <View style={containerStyles}>
-            <View style={mobileTitleStyles}>
-              <Title variant={variant} titleOptions={title} />
-            </View>
-            <View
-              style={{ marginLeft: mobileAlignment !== 'right' ? 'auto' : 0 }}
-            >
-              <Icon
-                name="menu"
-                color={menuItems.mobileMenuIconColor}
-                size={20}
-                onPress={() => openMobileMenu()}
-              />
-            </View>
-          </View>
           {mobileOpen ? (
             <Animated.View style={fullPageStyles}>
               <View style={overlayContainerStyles}>
@@ -355,10 +384,28 @@ const NavigationBar = ({
           ) : (
             <View />
           )}
+          {mobileMenuOpen ? (
+            <View style={containerStyles}>
+              <View style={mobileTitleStyles}>
+                <Title variant={variant} titleOptions={title} />
+              </View>
+              <View
+                style={{ marginLeft: mobileAlignment !== 'right' ? 'auto' : 0 }}
+              >
+                <Icon
+                  name="menu"
+                  color={menuItems.mobileMenuIconColor}
+                  size={20}
+                  onPress={() => openMobileMenu()}
+                />
+              </View>
+            </View>
+          ) : (
+            <View />
+          )}
         </View>
       )
     }
-    return <View />
   }
 
   return <View style={{ marginTop: -20 }}>{renderNavBar()}</View>

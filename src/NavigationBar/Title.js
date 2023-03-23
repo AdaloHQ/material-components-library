@@ -53,7 +53,7 @@ export const Title = ({ titleOptions, variant }) => {
             height: imgHeight,
             resizeMode: 'contain',
             borderRadius: 6,
-            maxHeight: 56,
+            maxHeight: 54,
             maxWidth: 200,
           }}
         />

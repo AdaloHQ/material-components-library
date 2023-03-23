@@ -18,10 +18,14 @@ export const MenuItems = ({
     lineSize,
     activeBackgroundFillColor,
     activeBackgroundFillRounding,
-    menuItemsActiveColor,
+    menuItemsActiveColorFill,
+    menuItemsActiveColorLine,
     menuItemsInactiveColor,
     menuItemsHoverColor,
   } = menuItems
+  const menuItemsActiveColor = activeIndicatorLine
+    ? menuItemsActiveColorLine
+    : menuItemsActiveColorFill
 
   let menuItemsStyles = {
     flexDirection: 'row',
@@ -35,7 +39,7 @@ export const MenuItems = ({
     }
   }
 
-  if (variant === 'mobile') {
+  if (variant !== 'desktop') {
     menuItemsStyles = {
       flexDirection: 'column',
       width: '100%',
@@ -66,7 +70,9 @@ export const MenuItems = ({
         borderRadius: activeBackgroundFillRounding * 2,
         justifyContent: variant === 'desktop' ? 'center' : 'flex-start',
         height: '',
-        paddingLeft: variant === 'mobile' ? 32 : 12,
+        paddingLeft: variant !== 'desktop' ? 32 : 12,
+        paddingRight: icon ? 16 : 12,
+        maxWidth: 400,
       },
       text: {
         color: active ? menuItemsActiveColor : menuItemsInactiveColor,
@@ -121,7 +127,7 @@ export const MenuItems = ({
         styles.icon = {
           ...styles.icon,
           backgroundColor: activeBackgroundFillColor,
-          borderRadius: activeBackgroundFillRounding,
+          borderRadius: activeBackgroundFillRounding * 2,
           paddingLeft: 12,
           paddingRight: 12,
           paddingTop: 2,

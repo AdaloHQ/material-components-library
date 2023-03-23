@@ -44,6 +44,7 @@ export const AdditionalNavigation = ({
           width: '100%',
           paddingLeft: 50,
           paddingRight: 50,
+          paddingBottom: 24,
         }
 
   const renderIcon = () => {

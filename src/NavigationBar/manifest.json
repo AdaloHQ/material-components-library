@@ -367,7 +367,7 @@
           "name": "activeIndicatorLine",
           "displayName": "Active Indicator Style",
           "type": "boolean",
-          "default": false,
+          "default": true,
           "control": {
             "type": "menu",
             "options": [
@@ -400,7 +400,7 @@
           "name": "activeBackgroundFillColor",
           "displayName": "Active Background Fill Color",
           "type": "color",
-          "default": "@primaryLight",
+          "default": "@primary",
           "enabled": {
             "activeIndicatorLine": false
           }
@@ -420,10 +420,22 @@
           }
         },
         {
-          "name": "menuItemsActiveColor",
+          "name": "menuItemsActiveColorFill",
           "displayName": "Active Menu Item Color",
           "type": "color",
-          "default": "@primary"
+          "default": "@contrast:activeBackgroundFillColor",
+          "enabled": {
+            "activeIndicatorLine": false
+          }
+        },
+        {
+          "name": "menuItemsActiveColorLine",
+          "displayName": "Active Menu Item Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "activeIndicatorLine": true
+          }
         },
         {
           "name": "menuItemsInactiveColor",
@@ -623,13 +635,13 @@
         {
           "name": "enabled",
           "type": "boolean",
-          "default": true
+          "default": false
         },
         {
           "name": "additionalNavigationType",
           "displayName": "Additional Navigation Type",
           "type": "text",
-          "default": "iconButton",
+          "default": "button",
           "control": {
             "type": "menu",
             "options": [
@@ -740,11 +752,11 @@
           "name": "rounding",
           "displayName": "Icon and/or Button Rounding",
           "type": "number",
-          "default": 100,
+          "default": 20,
           "control": {
             "type": "slider",
             "min": 0,
-            "max": 100
+            "max": 20
           }
         },
         {
