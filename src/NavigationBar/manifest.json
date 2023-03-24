@@ -172,7 +172,8 @@
           "styles": {
             "fontFamily": "@heading",
             "fontWeight": "600",
-            "color": "@text"
+            "color": "@text",
+            "fontSize": 14
           }
         },
         {
@@ -209,7 +210,8 @@
           "styles": {
             "fontFamily": "@heading",
             "fontWeight": "600",
-            "color": "@text"
+            "color": "@text",
+            "fontSize": 14
           }
         },
         {
@@ -312,7 +314,8 @@
           "styles": {
             "fontFamily": "@heading",
             "fontWeight": "600",
-            "color": "@text"
+            "color": "@text",
+            "fontSize": 14
           }
         }
       ]
@@ -762,7 +765,9 @@
           },
           "styles": {
             "color": "@text",
-            "fontFamily": "@body"
+            "fontFamily": "@body",
+            "fontWeight": 600,
+            "fontSize": 14
           }
         },
         {

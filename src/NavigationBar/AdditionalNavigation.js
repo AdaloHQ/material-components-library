@@ -81,6 +81,8 @@ export const AdditionalNavigation = ({
           text: {
             color: styles.buttonText.color,
             fontFamily: styles.buttonText.fontFamily,
+            fontSize: styles.buttonText.fontSize,
+            fontWeight: styles.buttonText.fontWeight,
           },
         }}
         onPress={buttonActions}

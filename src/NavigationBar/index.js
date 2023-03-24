@@ -6,6 +6,7 @@ import {
   Text,
   Animated,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
@@ -43,7 +44,13 @@ const NavigationBar = ({
   )
   const [mobileOpen, setMobileOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(true)
-  const variant = _deviceType
+  const variant = _deviceType || 'mobile'
+
+  let screenHeight = _screenHeight || Dimensions.get('window').height
+
+  if (Platform.OS !== 'web') {
+    screenHeight = screenHeight - 36
+  }
 
   const overlayPosition = useRef(new Animated.Value(0)).current
 
@@ -61,7 +68,7 @@ const NavigationBar = ({
     Animated.timing(overlayPosition, {
       toValue: 1,
       duration: 200,
-      useNativeDriver: true,
+      useNativeDriver: false,
     }).start()
   }
 
@@ -69,7 +76,7 @@ const NavigationBar = ({
     Animated.timing(overlayPosition, {
       toValue: 0,
       duration: 200,
-      useNativeDriver: true,
+      useNativeDriver: false,
     }).start(() => {
       setMobileOpen(false)
     })
@@ -201,12 +208,14 @@ const NavigationBar = ({
     else if (variant === 'tablet') menuHeight = 84
     containerStyles.height = menuHeight
 
+    if (border) containerStyles.height += borderWidth
+
     if (variant !== 'desktop' && !editor) {
       containerStyles = {
         ...containerStyles,
-        height: menuHeight + 30,
-        paddingTop: 62,
-        marginTop: -30,
+        height: menuHeight + 50,
+        paddingTop: 82,
+        marginTop: -50,
         ...getBorderStyle(),
       }
     }
@@ -216,7 +225,7 @@ const NavigationBar = ({
     if (mobileOpen && editor && mobileOpenEditor) {
       containerStyles = {
         ...containerStyles,
-        height: _screenHeight,
+        height: screenHeight,
       }
     }
 
@@ -232,7 +241,7 @@ const NavigationBar = ({
 
     let mobileAlignment = title.universalLayout ? 'left' : title.mobileAlignment
     let mobileTitleStyles = {
-      marginLeft: mobileAlignment === 'right' ? 'auto' : '',
+      marginLeft: mobileAlignment === 'right' ? 'auto' : 0,
       paddingRight: 12,
       flexDirection: 'row',
     }
@@ -251,7 +260,7 @@ const NavigationBar = ({
       right: 0,
       bottom: 0,
       zIndex: 100,
-      height: _screenHeight,
+      height: screenHeight,
       backgroundColor,
       transform: [
         {
@@ -259,19 +268,25 @@ const NavigationBar = ({
             ? 0
             : overlayPosition.interpolate({
                 inputRange: [0, 1],
-                outputRange: [_screenHeight * -1, 0],
+                outputRange: [screenHeight * -1, 0],
               }),
         },
       ],
     }
 
     const overlayContainerStyles = {
-      paddingTop: 38,
+      paddingTop: 42,
       marginLeft: 24,
       marginRight: 20,
       display: 'flex',
       flexDirection: 'column',
-      height: _screenHeight - mobileWebDesktopOffset,
+      height: screenHeight - mobileWebDesktopOffset,
+    }
+
+    if (Platform.OS !== 'web') {
+      fullPageStyles.paddingTop = 42
+      fullPageStyles.marginTop = -50
+      fullPageStyles.height = screenHeight + 50
     }
 
     if (variant === 'desktop') {
@@ -283,6 +298,7 @@ const NavigationBar = ({
               variant={variant}
               titleOptions={title}
               menuHeight={menuHeight}
+              editor={editor}
             />
           </View>
           <MenuItems
@@ -357,6 +373,7 @@ const NavigationBar = ({
                     items={items}
                     _fonts={_fonts}
                     menuHeight={menuHeight}
+                    closeMobileMenu={closeMobileMenu}
                   />
                 </View>
                 <View
@@ -384,6 +401,7 @@ const NavigationBar = ({
                   variant={variant}
                   titleOptions={title}
                   menuHeight={menuHeight}
+                  editor={editor}
                 />
               </View>
               <View

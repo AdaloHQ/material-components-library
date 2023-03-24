@@ -3,7 +3,7 @@ import { View, Image, Text } from 'react-native'
 
 import titlePlaceholder from './nav-title-image-placeholder.png'
 
-export const Title = ({ titleOptions, variant, menuHeight }) => {
+export const Title = ({ titleOptions, variant, menuHeight, editor }) => {
   const {
     enabled,
     universalLayout,
@@ -27,18 +27,36 @@ export const Title = ({ titleOptions, variant, menuHeight }) => {
     return <View />
   }
 
+  const [imgWidth, setImgWidth] = useState(0)
+  const [imgHeight, setImgHeight] = useState(0)
+
+  const maxHeight = menuHeight - 20
+
   if (variant === 'desktop') {
     const useLogo = universalLayout ? universalUseLogo : desktopUseLogo
     const logo = universalLayout ? universalLogoImage : desktopLogo
     const text = universalLayout ? universalText : desktopText
     const logoSize = universalLayout ? universalLogoSize : desktopLogoSize
 
+    if (imgWidth === 0 || editor) {
+      Image.getSize(
+        (logo && logo.uri) || logo || titlePlaceholder,
+        (width, height) => {
+          setImgWidth(width)
+          setImgHeight(height)
+        }
+      )
+    }
+
+    const logoWidth = (200 * logoSize) / 100
+    const logoHeight = (imgHeight * logoWidth) / imgWidth
+
     if (useLogo) {
       return (
         <View
           style={{
             width: (200 * logoSize) / 100,
-            height: (menuHeight * logoSize) / 100,
+            height: logoHeight,
             justifyContent: 'center',
           }}
         >
@@ -47,21 +65,24 @@ export const Title = ({ titleOptions, variant, menuHeight }) => {
             style={{
               width: `100%`,
               height: `100%`,
-              resizeMode: 'contain',
+              maxWidth: logoWidth,
+              maxHeight,
+              resizeMode: 'cover',
             }}
           />
         </View>
       )
     }
     return (
-      <Text
-        style={{
-          fontSize: 16,
-          ...styles[universalLayout ? 'universalText' : 'desktopText'],
-        }}
-      >
-        {text}
-      </Text>
+      <View style={{ overflow: 'hidden', maxHeight, lineHeight: '1' }}>
+        <Text
+          style={{
+            ...styles[universalLayout ? 'universalText' : 'desktopText'],
+          }}
+        >
+          {text}
+        </Text>
+      </View>
     )
   } else {
     const useLogo = universalLayout ? universalUseLogo : mobileUseLogo
@@ -76,12 +97,25 @@ export const Title = ({ titleOptions, variant, menuHeight }) => {
       alignment = 'flex-end'
     }
 
-    if (useLogo) {
+    if (imgWidth === 0 || editor) {
+      Image.getSize(
+        (logo && logo.uri) || logo || titlePlaceholder,
+        (width, height) => {
+          setImgWidth(width)
+          setImgHeight(height)
+        }
+      )
+    }
+
+    const logoWidth = (200 * logoSize) / 100
+    const logoHeight = (imgHeight * logoWidth) / imgWidth
+
+    if (useLogo && logoHeight) {
       return (
         <View
           style={{
-            width: (200 * logoSize) / 100,
-            height: (menuHeight * logoSize) / 100,
+            width: logoWidth,
+            height: logoHeight,
             justifyContent: 'center',
           }}
         >
@@ -90,7 +124,9 @@ export const Title = ({ titleOptions, variant, menuHeight }) => {
             style={{
               width: `100%`,
               height: `100%`,
-              resizeMode: 'contain',
+              maxWidth: logoWidth,
+              maxHeight,
+              resizeMode: 'cover',
               justifyContent: alignment,
             }}
           />
@@ -98,15 +134,16 @@ export const Title = ({ titleOptions, variant, menuHeight }) => {
       )
     }
     return (
-      <Text
-        style={{
-          fontSize: 16,
-          ...styles[universalLayout ? 'universalText' : 'mobileText'],
-          justifyContent: alignment,
-        }}
-      >
-        {text}
-      </Text>
+      <View style={{ overflow: 'hidden', maxHeight, lineHeight: '1' }}>
+        <Text
+          style={{
+            ...styles[universalLayout ? 'universalText' : 'mobileText'],
+            justifyContent: alignment,
+          }}
+        >
+          {text}
+        </Text>
+      </View>
     )
   }
 }

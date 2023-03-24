@@ -11,6 +11,7 @@ export const MenuItems = ({
   setActiveMenuItem,
   centerStyles,
   menuHeight,
+  closeMobileMenu,
 }) => {
   const {
     iconOnLeft,
@@ -29,7 +30,7 @@ export const MenuItems = ({
 
   let menuItemsStyles = {
     flexDirection: 'row',
-    marginLeft: menuItems.alignment === 'right' ? 'auto' : '',
+    marginLeft: menuItems.alignment === 'right' ? 'auto' : 0,
   }
 
   const buttonHeight = menuHeight - 20
@@ -76,9 +77,9 @@ export const MenuItems = ({
         backgroundColor: '#ffffff00',
         borderRadius: activeBackgroundFillRounding * 2,
         justifyContent: variant === 'desktop' ? 'center' : 'flex-start',
-        height: '',
+        height: 56,
         paddingLeft: variant !== 'desktop' ? 32 : 12,
-        paddingRight: icon ? 16 : 12,
+        paddingRight: 12,
         maxWidth: 400,
       },
       text: {
@@ -93,7 +94,7 @@ export const MenuItems = ({
       },
       icon: {
         color: active ? menuItemsActiveColor : menuItemsInactiveColor,
-        size: 20,
+        fontSize: 20,
       },
     }
 
@@ -112,7 +113,8 @@ export const MenuItems = ({
       if (active && variant === 'desktop') {
         styles.container.borderBottom = activeIndicatorBorderStyles
       } else if (active && variant !== 'desktop') {
-        styles.container.borderLeft = activeIndicatorBorderStyles
+        styles.container.borderLeftWidth = lineSize
+        styles.container.borderColor = menuItemsActiveColor
       }
 
       if (variant === 'desktop') {
@@ -158,6 +160,7 @@ export const MenuItems = ({
         text={buttonText || ''}
         onPress={() => {
           setActiveMenuItem(index)
+          closeMobileMenu && closeMobileMenu()
           actions && actions()
         }}
         style={styles}
