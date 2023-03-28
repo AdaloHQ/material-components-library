@@ -13,7 +13,6 @@ import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
 import EmptyState from '../Shared/EmptyState'
-import PropTypes from 'prop-types'
 
 export default class SimpleList extends Component {
   state = {
