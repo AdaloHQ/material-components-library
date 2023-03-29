@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { View, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity, Platform } from 'react-native'
 import { Button, Icon } from '@protonapp/react-native-material-ui'
 
 export const AdditionalNavigation = ({
@@ -20,6 +20,7 @@ export const AdditionalNavigation = ({
   dividerColor,
   styles,
   variant,
+  closeMobileMenu,
   ...props
 }) => {
   if (!enabled) {
@@ -47,6 +48,10 @@ export const AdditionalNavigation = ({
           paddingBottom: 24,
         }
 
+  if (Platform.OS === 'ios') {
+    containerStyles.paddingBottom += 20
+  }
+
   const renderIcon = () => {
     return (
       <TouchableOpacity
@@ -58,7 +63,10 @@ export const AdditionalNavigation = ({
           borderWidth: 1,
           marginRight: 16,
         }}
-        onPress={iconActions}
+        onPress={() => {
+          closeMobileMenu && closeMobileMenu()
+          iconActions && iconActions()
+        }}
       >
         <Icon name={icon} color={iconColor} size={28} />
       </TouchableOpacity>
@@ -85,7 +93,10 @@ export const AdditionalNavigation = ({
             fontWeight: styles.buttonText.fontWeight,
           },
         }}
-        onPress={buttonActions}
+        onPress={() => {
+          closeMobileMenu && closeMobileMenu()
+          buttonActions && buttonActions()
+        }}
       />
     )
   }

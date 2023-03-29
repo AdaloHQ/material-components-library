@@ -1,5 +1,5 @@
-import React from 'react'
-import { View } from 'react-native'
+import React, { useState } from 'react'
+import { View, Platform } from 'react-native'
 
 import { Button } from '@protonapp/react-native-material-ui'
 
@@ -27,6 +27,10 @@ export const MenuItems = ({
   const menuItemsActiveColor = activeIndicatorLine
     ? menuItemsActiveColorLine
     : menuItemsActiveColorFill
+
+  const transparent = '#ffffff00'
+
+  const [hoverState, setHoverState] = useState(Array(5).fill(transparent))
 
   let menuItemsStyles = {
     flexDirection: 'row',
@@ -77,10 +81,11 @@ export const MenuItems = ({
         backgroundColor: '#ffffff00',
         borderRadius: activeBackgroundFillRounding * 2,
         justifyContent: variant === 'desktop' ? 'center' : 'flex-start',
-        height: 56,
+        height: variant === 'desktop' ? 39 : 56,
         paddingLeft: variant !== 'desktop' ? 32 : 12,
         paddingRight: 12,
         maxWidth: 400,
+        marginRight: 8,
       },
       text: {
         color: active ? menuItemsActiveColor : menuItemsInactiveColor,
@@ -136,10 +141,10 @@ export const MenuItems = ({
       styles.icon.marginTop = 8
       styles.icon.marginRight = 0
 
-      if (!activeIndicatorLine && active) {
+      if (!activeIndicatorLine) {
         styles.icon = {
           ...styles.icon,
-          backgroundColor: activeBackgroundFillColor,
+          backgroundColor: active ? activeBackgroundFillColor : transparent,
           borderRadius: activeBackgroundFillRounding * 2,
           paddingLeft: 12,
           paddingRight: 12,
@@ -151,9 +156,17 @@ export const MenuItems = ({
       }
     }
 
+    if (!activeIndicatorLine && !active) {
+      if (iconOnLeft) {
+        styles.container.backgroundColor = hoverState[index]
+      } else {
+        styles.icon.backgroundColor = hoverState[index]
+      }
+    }
+
     const buttonText = truncateString(text, 15)
 
-    return (
+    const MenuItem = (
       <Button
         key={index}
         icon={icon}
@@ -167,6 +180,29 @@ export const MenuItems = ({
         upperCase={false}
       />
     )
+
+    if (Platform.OS === 'web') {
+      return (
+        <View
+          onMouseEnter={() => {
+            hoverState[index] = menuItemsHoverColor
+            setHoverState(
+              hoverState.map((x, i) => (i === index ? menuItemsHoverColor : x))
+            )
+          }}
+          onMouseLeave={() => {
+            hoverState[index] = transparent
+            setHoverState(
+              hoverState.map((x, i) => (i === index ? transparent : x))
+            )
+          }}
+        >
+          {MenuItem}
+        </View>
+      )
+    } else {
+      return MenuItem
+    }
   }
 
   return <View style={menuItemsStyles}>{items.map(renderItem)}</View>

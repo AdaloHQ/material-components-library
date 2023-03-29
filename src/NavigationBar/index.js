@@ -9,6 +9,7 @@ import {
   Dimensions,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import { Portal } from '@gorhom/portal'
 
 import { Title } from './Title'
 import { MenuItems } from './MenuItems'
@@ -169,10 +170,21 @@ const NavigationBar = ({
     return (
       <View>
         <View style={mobileProfileImageStyles}>
-          <TouchableOpacity onPress={actions}>
+          <TouchableOpacity
+            onPress={() => {
+              actions && actions()
+              closeMobileMenu()
+            }}
+          >
             <Image source={image || titlePlaceholder} style={imageStyles} />
           </TouchableOpacity>
-          <Text style={textStyles} onPress={actions}>
+          <Text
+            style={textStyles}
+            onPress={() => {
+              actions && actions()
+              closeMobileMenu()
+            }}
+          >
             {mobileText}
           </Text>
         </View>
@@ -213,14 +225,19 @@ const NavigationBar = ({
     if (variant !== 'desktop' && !editor) {
       containerStyles = {
         ...containerStyles,
-        height: menuHeight + 50,
-        paddingTop: 82,
-        marginTop: -50,
+        height: menuHeight + 48,
+        paddingTop: containerStyles.paddingTop + 40,
+        marginTop: -40,
         ...getBorderStyle(),
       }
     }
 
-    const mobileWebDesktopOffset = Platform.OS === 'web' ? 38 : 0
+    if (Platform.OS === 'web' && variant !== 'desktop') {
+      screenHeight -= 38
+    }
+
+    if (Platform.OS === 'ios') screenHeight += 20
+    if (Platform.OS === 'android') screenHeight += 80
 
     if (mobileOpen && editor && mobileOpenEditor) {
       containerStyles = {
@@ -280,7 +297,7 @@ const NavigationBar = ({
       marginRight: 20,
       display: 'flex',
       flexDirection: 'column',
-      height: screenHeight - mobileWebDesktopOffset,
+      height: screenHeight,
     }
 
     if (Platform.OS !== 'web') {
@@ -288,6 +305,8 @@ const NavigationBar = ({
       fullPageStyles.marginTop = -50
       fullPageStyles.height = screenHeight + 50
     }
+
+    const PortalComponent = Platform.OS !== 'web' ? Portal : View
 
     if (variant === 'desktop') {
       // render the title on the left, the menu items in the middle, and the profile image on the right
@@ -346,51 +365,56 @@ const NavigationBar = ({
       return (
         <View>
           {mobileOpen ? (
-            <Animated.View style={fullPageStyles}>
-              <View style={overlayContainerStyles}>
-                <View style={{ justifyContent: 'flex-start' }}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'flex-end',
-                    }}
-                  >
-                    <Icon
-                      name="close"
-                      color={menuItems.mobileMenuIconColor}
-                      size={20}
-                      onPress={() => closeMobileMenu()}
+            <PortalComponent>
+              <Animated.View style={fullPageStyles}>
+                <View style={overlayContainerStyles}>
+                  <View style={{ justifyContent: 'flex-start' }}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'flex-end',
+                      }}
+                    >
+                      <Icon
+                        name="close"
+                        color={menuItems.mobileMenuIconColor}
+                        size={20}
+                        onPress={() => closeMobileMenu()}
+                      />
+                    </View>
+                    {renderProfileImage()}
+                    <MenuItems
+                      menuItems={menuItems}
+                      variant={variant}
+                      activeMenuItem={
+                        editor
+                          ? menuItems.defaultActiveMenuItem
+                          : activeMenuItem
+                      }
+                      setActiveMenuItem={editor ? () => {} : setActiveMenuItem}
+                      items={items}
+                      _fonts={_fonts}
+                      menuHeight={menuHeight}
+                      closeMobileMenu={closeMobileMenu}
                     />
                   </View>
-                  {renderProfileImage()}
-                  <MenuItems
-                    menuItems={menuItems}
-                    variant={variant}
-                    activeMenuItem={
-                      editor ? menuItems.defaultActiveMenuItem : activeMenuItem
-                    }
-                    setActiveMenuItem={editor ? () => {} : setActiveMenuItem}
-                    items={items}
-                    _fonts={_fonts}
-                    menuHeight={menuHeight}
-                    closeMobileMenu={closeMobileMenu}
-                  />
+                  <View
+                    style={{
+                      marginTop: 'auto',
+                      alignItems: 'center',
+                      marginLeft: -24,
+                      marginRight: -20,
+                    }}
+                  >
+                    <AdditionalNavigation
+                      {...additionalNavigation}
+                      variant={variant}
+                      closeMobileMenu={closeMobileMenu}
+                    />
+                  </View>
                 </View>
-                <View
-                  style={{
-                    marginTop: 'auto',
-                    alignItems: 'center',
-                    marginLeft: -24,
-                    marginRight: -20,
-                  }}
-                >
-                  <AdditionalNavigation
-                    {...additionalNavigation}
-                    variant={variant}
-                  />
-                </View>
-              </View>
-            </Animated.View>
+              </Animated.View>
+            </PortalComponent>
           ) : (
             <View />
           )}

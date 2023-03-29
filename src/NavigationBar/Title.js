@@ -30,7 +30,7 @@ export const Title = ({ titleOptions, variant, menuHeight, editor }) => {
   const [imgWidth, setImgWidth] = useState(0)
   const [imgHeight, setImgHeight] = useState(0)
 
-  const maxHeight = menuHeight - 20
+  const maxHeight = menuHeight - (variant === 'desktop' ? 20 : 27)
 
   if (variant === 'desktop') {
     const useLogo = universalLayout ? universalUseLogo : desktopUseLogo
@@ -58,6 +58,7 @@ export const Title = ({ titleOptions, variant, menuHeight, editor }) => {
             width: (200 * logoSize) / 100,
             height: logoHeight,
             justifyContent: 'center',
+            maxHeight,
           }}
         >
           <Image
@@ -117,6 +118,7 @@ export const Title = ({ titleOptions, variant, menuHeight, editor }) => {
             width: logoWidth,
             height: logoHeight,
             justifyContent: 'center',
+            maxHeight,
           }}
         >
           <Image
