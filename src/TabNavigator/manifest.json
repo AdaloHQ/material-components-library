@@ -1,5 +1,5 @@
 {
-  "displayName": "Tab Bar",
+  "displayName": "Bottom Navigation",
   "icon": "./icon.png",
   "defaultWidth": 375,
   "defaultHeight": 56,
