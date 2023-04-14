@@ -2,6 +2,7 @@
   "author": "Jeremy Blalock",
   "description": "Material UI Components for Proton",
   "displayName": "Material Design",
+  "logo": "./adalo-logo.png",
   "components": [
     {
       "name": "AppBar",
