@@ -120,7 +120,7 @@ export default class ImageList extends Component {
       {
         color: header.color ? header.color : '#fff',
         fontSize: header.fontSize ? header.fontSize : 24,
-        fontWeight: header.fontWeight ? header.fontWeight : 600,
+        fontWeight: header.fontWeight ? header.fontWeight : '600',
         textAlign: header.textAlign ? header.textAlign : 'left',
       },
     ]
