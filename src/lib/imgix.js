@@ -17,6 +17,7 @@ export const applyImgixParameters = (source, layout) => {
     ...(layout.height && { h: layout.height }),
     ...(layout.fit && { fit: layout.fit }),
     dpr: PixelRatio.get(),
+    fm: 'jpg',
   }
   const queryParams = Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
 
