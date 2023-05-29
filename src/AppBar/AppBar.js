@@ -7,6 +7,7 @@ import {
   ImageBackground,
   Text,
   ActivityIndicator,
+  Dimensions,
 } from 'react-native'
 import DeviceInfo from 'react-native-device-info';
 import { Toolbar } from '@protonapp/react-native-material-ui'
@@ -18,10 +19,13 @@ import WrappedIconToggle from '../IconToggle/index.js'
 import IconToggleEditor from '../Shared/IconToggleEditor'
 
 import '../Shared/icons'
+import { applyImgixParameters } from '../lib/imgix';
 
 export default class AppBar extends Component {
   state = {
     loadingComponents: new Set(), // allows for multiple icons to have independent loading states
+    layout: null,
+    layoutBackgroundImage: null,
   }
 
   static defaultProps = {
@@ -175,7 +179,12 @@ export default class AppBar extends Component {
     return (
       <Image
         resizeMode="contain"
-        source={logoImage}
+        source={applyImgixParameters(logoImage, this.state.layout)}
+        onLayout={(e) => {
+          if (!this.state.layout) {
+            this.setState({ layout: e.nativeEvent.layout })
+          }
+        }}
         style={imageStyles}
         pointerEvents="none"
       />
@@ -294,7 +303,15 @@ export default class AppBar extends Component {
     return (
       <ImageBackground
         resizeMode="cover"
-        source={backgroundImage}
+        source={applyImgixParameters(backgroundImage, this.state.layoutBackgroundImage ? {
+          ...this.state.layoutBackgroundImage,
+          fit: 'crop',
+        } : undefined)}
+        onLayout={(e) => {
+          if (!this.state.layoutBackgroundImage) {
+            this.setState({ layoutBackgroundImage: e.nativeEvent.layout })
+          }
+        }}
         style={imageStyles}
         pointerEvents="none"
       >

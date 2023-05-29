@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import { Image, View, Text, TouchableWithoutFeedback } from 'react-native'
+import { applyImgixParameters } from '../lib/imgix'
 
 class ImageItem extends Component {
+  state = {
+    layout: null,
+  }
+
   render() {
     let {
       image,
@@ -27,7 +32,16 @@ class ImageItem extends Component {
         {!bottom && textEnabled && textItem}
         <View style={style.background}>
           <TouchableWithoutFeedback onPress={onPress}>
-            <Image style={style.image} resizeMode={resize} source={image} />
+            <Image
+              style={style.image}
+              resizeMode={resize}
+              source={applyImgixParameters(image, this.state.layout)}
+              onLayout={(e) => {
+                if (!this.state.layout) {
+                  this.setState({ layout: e.nativeEvent.layout })
+                }
+              }}
+            />
           </TouchableWithoutFeedback>
         </View>
         {bottom && textEnabled && textItem}

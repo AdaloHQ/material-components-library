@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   Image,
-  Platform,
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native'
@@ -13,7 +12,7 @@ import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
 import EmptyState from '../Shared/EmptyState'
-import PropTypes from 'prop-types'
+import { applyImgixParameters } from '../lib/imgix'
 
 export default class SimpleList extends Component {
   state = {
@@ -186,6 +185,10 @@ export default class SimpleList extends Component {
 }
 
 class Row extends Component {
+  state = {
+    layout: null,
+  }
+
   getWidthLimit() {
     let { leftSection, rightSection, fullWidth } = this.props
     let leftSectWidth = 0
@@ -260,7 +263,12 @@ class Row extends Component {
     const ImageRender = (
       <Image
         resizeMode="cover"
-        source={source}
+        source={applyImgixParameters(source, this.state.layout)}
+        onLayout={(e) => {
+          if (!this.state.layout) {
+            this.setState({ layout: e.nativeEvent.layout })
+          }
+        }}
         style={styleType}
         pointerEvents={pointerEvents}
       />

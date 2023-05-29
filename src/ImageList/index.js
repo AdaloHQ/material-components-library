@@ -15,6 +15,7 @@ import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
 import EmptyState from '../Shared/EmptyState'
 import PropTypes from 'prop-types'
+import { applyImgixParameters } from '../lib/imgix'
 
 export default class ImageList extends Component {
   static defaultProps = {
@@ -239,6 +240,10 @@ export default class ImageList extends Component {
 }
 
 class Cell extends Component {
+  state = {
+    layout: null,
+  }
+
   hasIcon = () => {
     let { iconButton } = this.props
 
@@ -422,7 +427,12 @@ class Cell extends Component {
         <View style={shadowStyle}>
           <Image
             resizeMode="cover"
-            source={source}
+            source={applyImgixParameters(source, this.state.layout)}
+            onLayout={(e) => {
+              if (!this.state.layout) {
+                this.setState({ layout: e.nativeEvent.layout })
+              }
+            }}
             style={imageStyling}
             pointerEvents="none"
           />

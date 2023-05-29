@@ -2,17 +2,17 @@ import React, { Component } from 'react'
 import {
   Text,
   View,
-  StyleSheet,
-  Image,
-  ScrollView,
   ImageBackground,
-  TouchableWithoutFeedback,
 } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
 import Gradient from './gradient'
 import { IconToggle } from '@protonapp/react-native-material-ui'
+import { applyImgixParameters } from '../lib/imgix'
 
 class ImageItem extends Component {
+  state = {
+    layout: null,
+  }
+
   renderTitle() {
     const { style, title, titleLimit } = this.props
     if (title && title.length > titleLimit) {
@@ -45,11 +45,9 @@ class ImageItem extends Component {
       iconSwitches,
       icons,
       iconColors,
-      textPosition,
       iconActions,
       iconSize,
       gradientProps,
-      onPress,
     } = this.props
 
     const { textPos, backgroundEffect, gradientEnabled } = gradientProps
@@ -57,7 +55,12 @@ class ImageItem extends Component {
       <ImageBackground
         style={shadow ? [style.shadow, style.image] : style.image}
         imageStyle={style.image}
-        source={image}
+        source={applyImgixParameters(image, this.state.layout)}
+        onLayout={(e) => {
+          if (!this.state.layout) {
+            this.setState({ layout: e.nativeEvent.layout })
+          }
+        }}
       >
         <View style={style.overlay}>
           <Gradient

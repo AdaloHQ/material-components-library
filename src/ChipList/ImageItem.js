@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 import { Image, View, Text, TouchableWithoutFeedback } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import { applyImgixParameters } from '../lib/imgix'
 
 class ImageItem extends Component {
+  state = {
+    layout: null,
+  }
+
   render() {
     const {
       style,
@@ -32,7 +37,15 @@ class ImageItem extends Component {
       ) : null
 
     const imageItem = imageProps.enabled ? (
-      <Image style={style.image} source={image} />
+      <Image
+        style={style.image}
+        source={applyImgixParameters(image, this.state.layout)}
+        onLayout={(e) => {
+          if (!this.state.layout) {
+            this.setState({ layout: e.nativeEvent.layout })
+          }
+        }}
+      />
     ) : null
 
     return (
