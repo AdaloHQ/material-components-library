@@ -1,4 +1,4 @@
-import { PixelRatio } from 'react-native'
+import { PixelRatio, Platform } from 'react-native'
 
 export const applyImgixParameters = (source, layout) => {
   if (!layout) {
@@ -17,7 +17,8 @@ export const applyImgixParameters = (source, layout) => {
     ...(layout.height && { h: layout.height }),
     ...(layout.fit && { fit: layout.fit }),
     dpr: PixelRatio.get(),
-    fm: 'jpg',
+    ...(Platform.OS === 'web' && { auto: 'format,compress' }),
+    ...(Platform.OS !== 'web' && { auto: 'compress' }),
   }
   const queryParams = Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
 
