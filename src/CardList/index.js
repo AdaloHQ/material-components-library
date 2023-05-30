@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
   Platform,
   ActivityIndicator,
 } from 'react-native'
@@ -13,7 +12,7 @@ import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
 import IconToggleEditor from '../Shared/IconToggleEditor'
 import EmptyState from '../Shared/EmptyState'
-import { applyImgixParameters } from '../lib/imgix'
+import ImgixImage from '../lib/ImgixImage'
 
 const SINGLE_COLUMN_LAYOUTS = {
   mediaRight: true,
@@ -233,10 +232,6 @@ export default class ImageList extends Component {
 }
 
 class Cell extends Component {
-  state = {
-    layout: null,
-  }
-
   hasActions() {
     let { button1, button2, icon1, icon2 } = this.props
 
@@ -338,20 +333,13 @@ class Cell extends Component {
       imageStyles.push({ backgroundColor: '#ccc' })
     }
 
-    const imageProps = {
-      resizeMode: 'cover',
-      source: applyImgixParameters(image, this.state.layout),
-      style: [styles.image, imageStyles],
-      onLayout: (e) => {
-        if (!this.state.layout) {
-          this.setState({ layout: e.nativeEvent.layout })
-        }
-      },
-    }
-
     return (
       <View style={wrapperStyles}>
-        <Image {...imageProps}/>
+        <ImgixImage
+          resizeMode="cover"
+          source={source}
+          style={[styles.image, imageStyles]}
+        />
       </View>
     )
   }

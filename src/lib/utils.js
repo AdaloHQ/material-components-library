@@ -1,6 +1,6 @@
 import { PixelRatio, Platform } from 'react-native'
 
-export const applyImgixParameters = (source, layout) => {
+export const applyImgixParameters = (source, layout, imgixProps = {}) => {
   if (!layout) {
     return null
   }
@@ -15,7 +15,7 @@ export const applyImgixParameters = (source, layout) => {
   const params = {
     ...(layout.width && { w: layout.width }),
     ...(layout.height && { h: layout.height }),
-    ...(layout.fit && { fit: layout.fit }),
+    ...(typeof imgixProps === 'object' && { ...imgixProps }),
     dpr: PixelRatio.get(),
     ...(Platform.OS === 'web' && { auto: 'format,compress' }),
     ...(Platform.OS !== 'web' && { auto: 'compress' }),

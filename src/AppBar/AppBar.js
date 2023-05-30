@@ -3,29 +3,23 @@ import {
   Platform,
   View,
   StyleSheet,
-  Image,
-  ImageBackground,
   Text,
   ActivityIndicator,
-  Dimensions,
 } from 'react-native'
 import DeviceInfo from 'react-native-device-info';
-import { Toolbar } from '@protonapp/react-native-material-ui'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Blur from './blur'
 import Gradient from './gradient'
-import background from './backgroundPlaceholder.png'
 import WrappedIconToggle from '../IconToggle/index.js'
 import IconToggleEditor from '../Shared/IconToggleEditor'
 
 import '../Shared/icons'
-import { applyImgixParameters } from '../lib/imgix';
+import ImgixImage from '../lib/ImgixImage';
+import ImgixImageBackground from '../lib/ImgixImageBackground';
 
 export default class AppBar extends Component {
   state = {
     loadingComponents: new Set(), // allows for multiple icons to have independent loading states
-    layout: null,
-    layoutBackgroundImage: null,
   }
 
   static defaultProps = {
@@ -177,14 +171,9 @@ export default class AppBar extends Component {
       imageStyles.push({ width: `${logoSize}%`, height: `${logoSize}%` })
     }
     return (
-      <Image
+      <ImgixImage
         resizeMode="contain"
-        source={applyImgixParameters(logoImage, this.state.layout)}
-        onLayout={(e) => {
-          if (!this.state.layout) {
-            this.setState({ layout: e.nativeEvent.layout })
-          }
-        }}
+        source={logoImage}
         style={imageStyles}
         pointerEvents="none"
       />
@@ -301,19 +290,12 @@ export default class AppBar extends Component {
     ]
 
     return (
-      <ImageBackground
+      <ImgixImageBackground
         resizeMode="cover"
-        source={applyImgixParameters(backgroundImage, this.state.layoutBackgroundImage ? {
-          ...this.state.layoutBackgroundImage,
-          fit: 'crop',
-        } : undefined)}
-        onLayout={(e) => {
-          if (!this.state.layoutBackgroundImage) {
-            this.setState({ layoutBackgroundImage: e.nativeEvent.layout })
-          }
-        }}
+        source={backgroundImage}
         style={imageStyles}
         pointerEvents="none"
+        imgixProps={{ fit: 'crop' }}
       >
         <Gradient>
           <View style={styles.imageContentContainer}>
@@ -323,7 +305,7 @@ export default class AppBar extends Component {
             </View>
           </View>
         </Gradient>
-      </ImageBackground>
+      </ImgixImageBackground>
     )
   }
 

@@ -3,19 +3,14 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
-  Platform,
-  TextInput,
   ActivityIndicator,
 } from 'react-native'
-import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import Gradient from './gradient'
 import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
 import EmptyState from '../Shared/EmptyState'
-import PropTypes from 'prop-types'
-import { applyImgixParameters } from '../lib/imgix'
+import ImgixImage from '../lib/ImgixImage'
 
 export default class ImageList extends Component {
   static defaultProps = {
@@ -240,10 +235,6 @@ export default class ImageList extends Component {
 }
 
 class Cell extends Component {
-  state = {
-    layout: null,
-  }
-
   hasIcon = () => {
     let { iconButton } = this.props
 
@@ -425,14 +416,9 @@ class Cell extends Component {
     return (
       <View>
         <View style={shadowStyle}>
-          <Image
+          <ImgixImage
             resizeMode="cover"
-            source={applyImgixParameters(source, this.state.layout)}
-            onLayout={(e) => {
-              if (!this.state.layout) {
-                this.setState({ layout: e.nativeEvent.layout })
-              }
-            }}
+            source={source}
             style={imageStyling}
             pointerEvents="none"
           />
