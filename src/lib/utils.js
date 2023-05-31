@@ -13,12 +13,11 @@ export const applyImgixParameters = (source, layout, imgixProps = {}) => {
 
   const path = uri.split(/[?#]/)[0]
   const params = {
-    ...(layout.width && { w: layout.width }),
-    ...(layout.height && { h: layout.height }),
-    ...(typeof imgixProps === 'object' && { ...imgixProps }),
+    w: layout.width,
+    h: layout.height,
     dpr: PixelRatio.get(),
-    ...(Platform.OS === 'web' && { auto: 'format,compress' }),
-    ...(Platform.OS !== 'web' && { auto: 'compress' }),
+    auto: Platform.OS === 'web' ? 'format,compress' : 'compress',
+    ...(typeof imgixProps === 'object' && { ...imgixProps }),
   }
   const queryParams = Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
 
