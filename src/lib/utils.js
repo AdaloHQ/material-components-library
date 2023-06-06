@@ -1,11 +1,15 @@
 import { PixelRatio, Platform } from 'react-native'
 
+const isObject = (object) => {
+  return typeof object === 'object' && object !== null && !Array.isArray(object)
+}
+
 export const applyImgixParameters = (source, layout, imgixProps = {}) => {
   if (!layout) {
     return null
   }
 
-  const uri = typeof source === 'object' ? source.uri : source
+  const uri = isObject(source) && source !== null ? source.uri : source
 
   if (typeof uri !== 'string' || !uri.includes('imgix.net')) {
     return source
