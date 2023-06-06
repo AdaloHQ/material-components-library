@@ -235,6 +235,14 @@ export default class ImageList extends Component {
 }
 
 class Cell extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      shapeWidth: null,
+    }
+  }
+
   hasIcon = () => {
     let { iconButton } = this.props
 
@@ -413,13 +421,23 @@ class Cell extends Component {
 
     imageStyling.push({ height: shapeWidth })
 
+    // layout will re-flow multiple times, allow width if none set yet or allow a larger width
+    if (!this.state.shapeWidth || shapeWidth > this.state.shapeWidth) {
+      this.setState({ shapeWidth })
+
+      return null
+    }
+
     return (
       <View>
         <View style={shadowStyle}>
           <ImgixImage
             resizeMode="cover"
             source={source}
-            imgixProps={{ w: shapeWidth }}
+            imgixProps={{
+              w: this.state.shapeWidth,
+              h: this.state.shapeWidth,
+            }}
             style={imageStyling}
             pointerEvents="none"
           />
