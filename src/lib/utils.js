@@ -9,7 +9,7 @@ export const applyImgixParameters = (source, layout, imgixProps = {}) => {
     return null
   }
 
-  const uri = isObject(source) && source !== null ? source.uri : source
+  const uri = isObject(source) ? source.uri : source
 
   if (typeof uri !== 'string' || !uri.includes('imgix.net')) {
     return source
