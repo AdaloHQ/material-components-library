@@ -419,6 +419,7 @@ class Cell extends Component {
           <ImgixImage
             resizeMode="cover"
             source={source}
+            imgixProps={{ w: shapeWidth }}
             style={imageStyling}
             pointerEvents="none"
           />
