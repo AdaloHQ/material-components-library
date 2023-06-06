@@ -22,7 +22,7 @@ export default class ImageList extends Component {
   }
 
   renderGrid(items) {
-    let { columnCount, _width } = this.props
+    let { columnCount, _width, editor } = this.props
     let { fullWidth } = this.state
     let width = (fullWidth || _width) / columnCount
 
@@ -34,6 +34,7 @@ export default class ImageList extends Component {
             key={itm.id}
             width={width}
             _fonts={this.props._fonts}
+            isEditor={editor}
           />
         ))}
       </View>
@@ -383,7 +384,7 @@ class Cell extends Component {
   }
 
   renderContent() {
-    let { title, imageStyles, image, width } = this.props
+    let { title, imageStyles, image, width, isEditor } = this.props
     let source = image
 
     let imageStyling = [styles.image]
@@ -425,7 +426,9 @@ class Cell extends Component {
     if (!this.state.shapeWidth || shapeWidth > this.state.shapeWidth) {
       this.setState({ shapeWidth })
 
-      return null
+      if (!isEditor) {
+        return null
+      }
     }
 
     return (
