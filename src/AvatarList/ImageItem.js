@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Image, View, Text, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, TouchableWithoutFeedback } from 'react-native'
+import ImgixImage from '../lib/ImgixImage'
 
 class ImageItem extends Component {
   render() {
@@ -27,7 +28,7 @@ class ImageItem extends Component {
         {!bottom && textEnabled && textItem}
         <View style={style.background}>
           <TouchableWithoutFeedback onPress={onPress}>
-            <Image style={style.image} resizeMode={resize} source={image} />
+            <ImgixImage style={style.image} resizeMode={resize} source={image} />
           </TouchableWithoutFeedback>
         </View>
         {bottom && textEnabled && textItem}

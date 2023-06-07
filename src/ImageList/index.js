@@ -3,18 +3,14 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
-  Platform,
-  TextInput,
   ActivityIndicator,
 } from 'react-native'
-import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import Gradient from './gradient'
 import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
 import EmptyState from '../Shared/EmptyState'
-import PropTypes from 'prop-types'
+import ImgixImage from '../lib/ImgixImage'
 
 export default class ImageList extends Component {
   static defaultProps = {
@@ -26,7 +22,7 @@ export default class ImageList extends Component {
   }
 
   renderGrid(items) {
-    let { columnCount, _width } = this.props
+    let { columnCount, _width, editor } = this.props
     let { fullWidth } = this.state
     let width = (fullWidth || _width) / columnCount
 
@@ -38,6 +34,7 @@ export default class ImageList extends Component {
             key={itm.id}
             width={width}
             _fonts={this.props._fonts}
+            isEditor={editor}
           />
         ))}
       </View>
@@ -239,6 +236,14 @@ export default class ImageList extends Component {
 }
 
 class Cell extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      shapeWidth: null,
+    }
+  }
+
   hasIcon = () => {
     let { iconButton } = this.props
 
@@ -379,7 +384,7 @@ class Cell extends Component {
   }
 
   renderContent() {
-    let { title, imageStyles, image, width } = this.props
+    let { title, imageStyles, image, width, isEditor } = this.props
     let source = image
 
     let imageStyling = [styles.image]
@@ -417,12 +422,25 @@ class Cell extends Component {
 
     imageStyling.push({ height: shapeWidth })
 
+    // layout will re-flow multiple times, allow width if none set yet or allow a larger width
+    if (!this.state.shapeWidth || shapeWidth > this.state.shapeWidth) {
+      this.setState({ shapeWidth })
+
+      if (!isEditor) {
+        return null
+      }
+    }
+
     return (
       <View>
         <View style={shadowStyle}>
-          <Image
+          <ImgixImage
             resizeMode="cover"
             source={source}
+            imgixProps={{
+              w: this.state.shapeWidth,
+              h: this.state.shapeWidth,
+            }}
             style={imageStyling}
             pointerEvents="none"
           />

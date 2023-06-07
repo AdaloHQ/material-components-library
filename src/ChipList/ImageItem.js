@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Image, View, Text, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, TouchableWithoutFeedback } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import ImgixImage from '../lib/ImgixImage'
 
 class ImageItem extends Component {
   render() {
@@ -32,7 +33,7 @@ class ImageItem extends Component {
       ) : null
 
     const imageItem = imageProps.enabled ? (
-      <Image style={style.image} source={image} />
+      <ImgixImage style={style.image} source={image}/>
     ) : null
 
     return (

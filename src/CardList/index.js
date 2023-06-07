@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
   Platform,
   ActivityIndicator,
 } from 'react-native'
@@ -13,7 +12,7 @@ import SearchBarWrapper from '../Shared/SearchWrapper'
 import WrappedIconToggle from '../IconToggle/index.js'
 import IconToggleEditor from '../Shared/IconToggleEditor'
 import EmptyState from '../Shared/EmptyState'
-import PropTypes from 'prop-types'
+import ImgixImage from '../lib/ImgixImage'
 
 const SINGLE_COLUMN_LAYOUTS = {
   mediaRight: true,
@@ -336,7 +335,7 @@ class Cell extends Component {
 
     return (
       <View style={wrapperStyles}>
-        <Image
+        <ImgixImage
           resizeMode="cover"
           source={source}
           style={[styles.image, imageStyles]}

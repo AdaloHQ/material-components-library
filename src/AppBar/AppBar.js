@@ -3,21 +3,19 @@ import {
   Platform,
   View,
   StyleSheet,
-  Image,
-  ImageBackground,
   Text,
   ActivityIndicator,
 } from 'react-native'
 import DeviceInfo from 'react-native-device-info';
-import { Toolbar } from '@protonapp/react-native-material-ui'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Blur from './blur'
 import Gradient from './gradient'
-import background from './backgroundPlaceholder.png'
 import WrappedIconToggle from '../IconToggle/index.js'
 import IconToggleEditor from '../Shared/IconToggleEditor'
 
 import '../Shared/icons'
+import ImgixImage from '../lib/ImgixImage';
+import ImgixImageBackground from '../lib/ImgixImageBackground';
 
 export default class AppBar extends Component {
   state = {
@@ -173,7 +171,7 @@ export default class AppBar extends Component {
       imageStyles.push({ width: `${logoSize}%`, height: `${logoSize}%` })
     }
     return (
-      <Image
+      <ImgixImage
         resizeMode="contain"
         source={logoImage}
         style={imageStyles}
@@ -292,11 +290,12 @@ export default class AppBar extends Component {
     ]
 
     return (
-      <ImageBackground
+      <ImgixImageBackground
         resizeMode="cover"
         source={backgroundImage}
         style={imageStyles}
         pointerEvents="none"
+        imgixProps={{ fit: 'crop' }}
       >
         <Gradient>
           <View style={styles.imageContentContainer}>
@@ -306,7 +305,7 @@ export default class AppBar extends Component {
             </View>
           </View>
         </Gradient>
-      </ImageBackground>
+      </ImgixImageBackground>
     )
   }
 

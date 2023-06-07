@@ -177,11 +177,6 @@ class ChipList extends Component {
     if (shadow) {
       style.background = { ...style.background, ...shadowStyle }
     }
-    /*const imageScrollView = this.isMobileDevice() ? (
-      <ImageScrollViewMobile imageList={imageList} style={style} />
-    ) : (
-      <ImageScrollViewWeb imageList={imageList} editor={editor} style={style} />
-    )*/
 
     const ImageScrollView = this.getScrollView()
 

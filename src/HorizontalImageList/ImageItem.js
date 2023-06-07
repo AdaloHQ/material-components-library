@@ -2,15 +2,11 @@ import React, { Component } from 'react'
 import {
   Text,
   View,
-  StyleSheet,
-  Image,
-  ScrollView,
   ImageBackground,
-  TouchableWithoutFeedback,
 } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
 import Gradient from './gradient'
 import { IconToggle } from '@protonapp/react-native-material-ui'
+import ImgixImageBackground from '../lib/ImgixImageBackground'
 
 class ImageItem extends Component {
   renderTitle() {
@@ -45,16 +41,14 @@ class ImageItem extends Component {
       iconSwitches,
       icons,
       iconColors,
-      textPosition,
       iconActions,
       iconSize,
       gradientProps,
-      onPress,
     } = this.props
 
     const { textPos, backgroundEffect, gradientEnabled } = gradientProps
     return (
-      <ImageBackground
+      <ImgixImageBackground
         style={shadow ? [style.shadow, style.image] : style.image}
         imageStyle={style.image}
         source={image}
@@ -145,7 +139,7 @@ class ImageItem extends Component {
             </View>
           </Gradient>
         </View>
-      </ImageBackground>
+      </ImgixImageBackground>
     )
   }
 }
