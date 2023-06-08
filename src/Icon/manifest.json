@@ -11,7 +11,7 @@
       "name": "iconName",
       "displayName": "Icon",
       "type": "icon",
-      "default": "directions-bike"
+      "default": "chevron-right"
     },
     {
       "name": "iconColor",
