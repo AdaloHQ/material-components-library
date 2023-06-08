@@ -427,7 +427,8 @@ class Cell extends Component {
       this.setState({ shapeWidth })
 
       if (!isEditor) {
-        return null
+        // Need to return at least one child, can't return null
+        return <React.Fragment/>
       }
     }
 
