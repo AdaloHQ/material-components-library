@@ -19,7 +19,7 @@ export const applyImgixParameters = (source, layout, imgixProps = {}) => {
   const params = {
     w: layout.width,
     h: layout.height,
-    dpr: PixelRatio.get(),
+    dpr: Math.max(PixelRatio.get(), 2),
     auto: Platform.OS === 'web' ? 'format,compress' : 'compress',
     ...(typeof imgixProps === 'object' && { ...imgixProps }),
   }
