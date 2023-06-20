@@ -66,9 +66,9 @@ export default class ImageList extends Component {
   }
 
   getRows(items) {
-    let columnCount = this.getColumnCount()
-    let count = Math.ceil(items.length / columnCount)
-    let rows = []
+    const columnCount = this.getColumnCount()
+    const count = Math.ceil(items.length / columnCount)
+    const rows = []
 
     for (let i = 0; i < items.length; i += 1) {
       const row = Math.floor(i / count)
@@ -117,14 +117,14 @@ export default class ImageList extends Component {
     let { layout, columnCount, editor, _fonts } = this.props
 
     const rows = this.getRows(items)
-    const columnWidth = { width: `${100 / columnCount}%` }
+    const cellContainerStyles = { width: `${100 / columnCount}%` }
 
     return (
       <View onLayout={this.handleLayout} style={styles.gridWrap}>
         {rows.map((row, i) => (
           <View key={i} style={styles.row}>
-            {row.map((itm) => (
-              <View style={columnWidth}>
+            {row.map((itm, j) => (
+              <View style={cellContainerStyles} key={j}>
                 {this.renderCell(itm, layout, editor, _fonts)}
               </View>
             ))}
