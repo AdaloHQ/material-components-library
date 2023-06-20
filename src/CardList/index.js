@@ -65,6 +65,26 @@ export default class ImageList extends Component {
     return columns
   }
 
+  getRows(items) {
+    const columnCount = this.getColumnCount()
+    const count = Math.ceil(items.length / columnCount)
+    const rows = []
+
+    for (let i = 0; i < items.length; i += 1) {
+      const row = Math.floor(i / count)
+
+      if (!rows[row]) {
+        rows[row] = []
+      }
+
+      if (items[i]) {
+        rows[row].push(items[i])
+      }
+    }
+
+    return rows
+  }
+
   renderCell = (itm, layout, editor, _fonts, width = null) => (
     <Cell
       {...itm}
@@ -96,14 +116,20 @@ export default class ImageList extends Component {
   renderGrid(items) {
     let { layout, columnCount, editor, _fonts } = this.props
 
-    let { fullWidth } = this.state
-    let width = fullWidth / columnCount - 8
+    const rows = this.getRows(items)
+    const cellContainerStyles = { width: `${100 / columnCount}%` }
 
     return (
       <View onLayout={this.handleLayout} style={styles.gridWrap}>
-        {items.map((itm, i) =>
-          this.renderCell(itm, layout, editor, _fonts, width)
-        )}
+        {rows.map((row, i) => (
+          <View key={i} style={styles.row}>
+            {row.map((itm, j) => (
+              <View style={cellContainerStyles} key={j}>
+                {this.renderCell(itm, layout, editor, _fonts)}
+              </View>
+            ))}
+          </View>
+        ))}
       </View>
     )
   }
@@ -409,7 +435,6 @@ class Cell extends Component {
   render() {
     let {
       onPress,
-      media,
       button1,
       button2,
       icon1,
@@ -419,8 +444,6 @@ class Cell extends Component {
       _fonts,
       editor,
     } = this.props
-
-    let mediaPosition = media && media.position
 
     let cell = [styles.cell, { width }]
 
@@ -694,6 +717,12 @@ const styles = StyleSheet.create({
   column: {
     flexDirection: 'column',
     flex: 1,
+  },
+  row: {
+    flexDirection: 'row',
+    flex: 1,
+    flexBasis: '100%',
+    alignItems: 'flex-start',
   },
   cell: {
     marginLeft: 4,
