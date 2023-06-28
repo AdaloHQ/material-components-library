@@ -38,7 +38,7 @@ export const applyImgixParameters = (source, layout, imgixProps = {}) => {
     ...queryValues,
   }
   const queryParams = Object.keys(params)
-    .map((key) => `${key}=${params[key]}`)
+    .map((key) => `${key}=${encodeURIComponent(params[key])}`)
     .join('&')
 
   if (typeof source === 'object') {
