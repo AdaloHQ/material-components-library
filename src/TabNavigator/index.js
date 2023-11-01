@@ -6,6 +6,12 @@ import {
   getTheme,
 } from '@protonapp/react-native-material-ui'
 
+const DeviceTypes = {
+  MOBILE: 'mobile',
+  TABLET: 'tablet',
+  DESKTOP: 'desktop',
+}
+
 const tabNames = ['tab0', 'tab1', 'tab2', 'tab3', 'tab4']
 
 export default class TabNavigator extends Component {
@@ -16,7 +22,7 @@ export default class TabNavigator extends Component {
     },
   }
 
-  handleChangeTab = tabName => async () => {
+  handleChangeTab = (tabName) => async () => {
     const prop = this.props[tabName]
     const action = prop && prop.action
 
@@ -38,8 +44,18 @@ export default class TabNavigator extends Component {
   }
 
   render() {
-    let { backgroundColor, editor, activeTab, _fonts, getFlags } = this.props
-    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
+    let {
+      backgroundColor,
+      editor,
+      activeTab,
+      _fonts,
+      getFlags,
+      isPreviewer,
+      isResponsiveComponent,
+      _deviceType,
+    } = this.props
+
+    const { hasResponsivePreviewer } = (getFlags && getFlags()) || {}
 
     let enabledTabs = tabNames.filter((tabName) => {
       let tab = this.props[tabName]
@@ -52,7 +68,24 @@ export default class TabNavigator extends Component {
       tabs[tabName] = this.props[tabName]
     })
 
-    let wrapperStyles = editor ? styles.editorWrapper : styles.wrapper
+    const getWrapperStyles = () => {
+      if (editor) {
+        return styles.editorWrapper
+      }
+
+      if (
+        isPreviewer &&
+        isResponsiveComponent &&
+        _deviceType === DeviceTypes.MOBILE &&
+        hasResponsivePreviewer
+      ) {
+        return styles.responsiveWrapper
+      }
+
+      return styles.wrapper
+    }
+
+    const wrapperStyles = getWrapperStyles()
 
     let defaultFontStyle = _fonts
       ? { fontFamily: _fonts.body, fontSize: 11 }
@@ -68,7 +101,7 @@ export default class TabNavigator extends Component {
         >
           {enabledTabs.map((tabName) => (
             <BottomNavigation.Action
-              showLoadingState={hasUpdatedLoadingStates}
+              showLoadingState
               key={tabName}
               icon={tabs[tabName].icon}
               label={tabs[tabName].label}
@@ -88,6 +121,9 @@ export default class TabNavigator extends Component {
 }
 
 const styles = StyleSheet.create({
+  responsiveWrapper: {
+    height: 76,
+  },
   wrapper: {
     marginBottom: -100,
     paddingBottom: 100,
