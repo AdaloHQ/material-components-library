@@ -172,9 +172,15 @@ export default class ImageList extends Component {
 
     if (!items) {
       if (hasUpdatedLoadingStates) {
-        let height = columnCount === 2 ? _height / 2 : _height
+        // TODO (michael-adalo): flag is now set to ON for all environments,
+        // we could remove the check and default to the logic below
+        const height = columnCount === 2 ? _height / 2 : _height
+
         return (
-          <View style={{ height, justifyContent: 'center' }}>
+          <View
+            style={{ height, justifyContent: 'center' }}
+            onLayout={this.handleLayout}
+          >
             <ActivityIndicator color="#999999" />
           </View>
         )
