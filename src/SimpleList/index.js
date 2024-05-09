@@ -173,6 +173,7 @@ export default class SimpleList extends Component {
                 lastRow={i === newItems.length - 1}
                 fullWidth={this.state.fullWidth}
                 editor={this.props.editor}
+                _width={this.props._width}
                 _fonts={this.props._fonts}
               />
             ))}
@@ -184,8 +185,18 @@ export default class SimpleList extends Component {
 }
 
 class Row extends Component {
+  getFullWidth() {
+    const { editor, _width } = this.props
+
+    if (editor) {
+      return _width
+    }
+
+    return this.props.fullWidth
+  }
   getWidthLimit() {
-    let { leftSection, rightSection, fullWidth } = this.props
+    let { leftSection, rightSection } = this.props
+    let fullWidth = this.getFullWidth()
     let leftSectWidth = 0
     let rightSectWidth = 0
 
