@@ -5,6 +5,11 @@ import { Button } from '@protonapp/react-native-material-ui'
 
 import '../Shared/icons'
 
+const iconSizes = [48, 32, 24, 20, 18, 16]
+const spaceSizes = [16, 12, 8, 6, 4, 2]
+// const spaceSizes = [18, 14, 10, 8, 6, 4]
+const fontSizes = [32, 24, 18, 14, 12, 10]
+
 export default class WrappedTextButton extends Component {
   _isMounted = false
 
@@ -21,12 +26,26 @@ export default class WrappedTextButton extends Component {
   }
 
   getContainerStyles() {
-    let { type, primaryColor, borderRadius } = this.props
+    let { type, primaryColor, borderRadius, sizing, icon, text } = this.props
+    const newButtonStyles = typeof sizing === 'number'
 
+    const styles = newButtonStyles
+      ? {
+          paddingLeft: 2,
+          paddingRight: 2,
+          gap: icon && text ? spaceSizes[sizing] : 0,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderWidth: 0,
+        }
+      : {}
 
     if (type === 'contained') {
-
-      return { backgroundColor: primaryColor, borderRadius }
+      return {
+        ...styles,
+        backgroundColor: primaryColor,
+        borderRadius,
+      }
     }
 
     if (type === 'outlined') {
@@ -35,14 +54,20 @@ export default class WrappedTextButton extends Component {
       let alpha = saturation <= 10 ? 0.23 : 0.5
       let borderColor = baseColor.fade(1 - alpha).toString()
 
-      return { borderColor, borderWidth: 1, borderRadius }
+      return {
+        ...styles,
+        borderColor,
+        borderWidth: 1,
+        borderRadius,
+      }
     }
 
-    return {}
+    return styles
   }
 
   getTextStyles() {
-    let { primaryColor, contrastColor, type, icon, styles, _fonts } = this.props
+    let { primaryColor, contrastColor, type, icon, styles, sizing, _fonts } =
+      this.props
 
     const textStyles = { fontWeight: '600' }
 
@@ -62,7 +87,26 @@ export default class WrappedTextButton extends Component {
     if (icon) {
       textStyles.marginLeft = 8
     }
+
+    if (typeof sizing === 'number') {
+      textStyles.fontSize = fontSizes[sizing]
+      textStyles.marginLeft = 0
+      textStyles.marginRight = 0
+      textStyles.paddingLeft = 0
+      textStyles.paddingRight = 0
+    }
+
     return textStyles
+  }
+
+  getIconStyles() {
+    const { sizing } = this.props
+
+    if (typeof sizing === 'number') {
+      return { fontSize: iconSizes[sizing] }
+    }
+
+    return {}
   }
 
   getAdditionalProps() {
@@ -96,18 +140,31 @@ export default class WrappedTextButton extends Component {
   }
 
   renderSub() {
-    let { icon, action, text, upperCase, container } = this.props
+    let { icon, action, text, upperCase, container, sizing } = this.props
+    const newButtonStyles = typeof sizing === 'number'
 
     let containerStyles = this.getContainerStyles()
     let iconStyles = this.getTextStyles()
     let textStyles = { ...this.getTextStyles() }
 
-    if (icon) {
+    if (icon && !newButtonStyles) {
       textStyles.marginRight = 5
     }
 
+    if (newButtonStyles) {
+      iconStyles = { ...iconStyles, ...this.getIconStyles() }
+
+      if (!text) {
+        textStyles = {}
+      }
+    }
+
     if (upperCase) {
-      textStyles.letterSpacing = 1
+      if (newButtonStyles) {
+        textStyles.letterSpacing = 0.6
+      } else {
+        textStyles.letterSpacing = 1
+      }
     }
 
     return (
@@ -120,12 +177,15 @@ export default class WrappedTextButton extends Component {
             onPress={action && this.submitAction}
             text={this.state.loading ? '' : text}
             style={{
-              container: [containerStyles, container],
+              container: [
+                containerStyles,
+                container,
+                { height: this.props._height },
+              ],
               icon: iconStyles,
               text: [textStyles, styles.text],
             }}
             disabled={this.state.loading}
-
           />
         </View>
         {this.state.loading && (

@@ -4,6 +4,7 @@
   "defaultWidth": 160,
   "defaultHeight": 36,
   "component": "./TextButton.js",
+  "resizeY": true,
   "props": [
     {
       "name": "type",
@@ -36,6 +37,23 @@
       "default": "add"
     },
     {
+      "name": "sizing",
+      "displayName": "Text & Icon Sizing",
+      "type": "number",
+      "default": 3,
+      "control": {
+        "type": "menu",
+        "options": [
+          { "label": "Gigantic", "value": 0 },
+          { "label": "Extra large", "value": 1 },
+          { "label": "Large", "value": 2 },
+          { "label": "Medium", "value": 3 },
+          { "label": "Small", "value": 4 },
+          { "label": "Extra small", "value": 5 }
+        ]
+      }
+    },
+    {
       "name": "primaryColor",
       "displayName": "Button Color",
       "type": "color",
@@ -64,7 +82,7 @@
       "name": "shadow",
       "displayName": "Shadow",
       "type": "boolean",
-      "default": true,
+      "default": false,
       "enabled": { "type": "contained" }
     },
     {
