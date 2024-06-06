@@ -7,7 +7,6 @@ import '../Shared/icons'
 
 const iconSizes = [48, 32, 24, 20, 18, 16]
 const spaceSizes = [16, 12, 8, 6, 4, 2]
-// const spaceSizes = [18, 14, 10, 8, 6, 4]
 const fontSizes = [32, 24, 18, 14, 12, 10]
 
 export default class WrappedTextButton extends Component {
@@ -29,7 +28,7 @@ export default class WrappedTextButton extends Component {
     let { type, primaryColor, borderRadius, sizing, icon, text } = this.props
     const newButtonStyles = typeof sizing === 'number'
 
-    const styles = newButtonStyles
+    const containerStyles = newButtonStyles
       ? {
           paddingLeft: 2,
           paddingRight: 2,
@@ -42,7 +41,7 @@ export default class WrappedTextButton extends Component {
 
     if (type === 'contained') {
       return {
-        ...styles,
+        ...containerStyles,
         backgroundColor: primaryColor,
         borderRadius,
       }
@@ -55,14 +54,14 @@ export default class WrappedTextButton extends Component {
       let borderColor = baseColor.fade(1 - alpha).toString()
 
       return {
-        ...styles,
+        ...containerStyles,
         borderColor,
         borderWidth: 1,
         borderRadius,
       }
     }
 
-    return styles
+    return containerStyles
   }
 
   getTextStyles() {
