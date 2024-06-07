@@ -5,9 +5,14 @@ import { Button } from '@protonapp/react-native-material-ui'
 
 import '../Shared/icons'
 
-const iconSizes = [48, 32, 24, 20, 18, 16]
-const spaceSizes = [16, 12, 8, 6, 4, 2]
-const fontSizes = [32, 24, 18, 14, 12, 10]
+const SIZE_PROPERTIES = new Map([
+  ['gigantic', { icon: 48, space: 16, font: 32 }],
+  ['extraLarge', { icon: 32, space: 12, font: 24 }],
+  ['large', { icon: 24, space: 8, font: 18 }],
+  ['medium', { icon: 20, space: 6, font: 14 }],
+  ['small', { icon: 18, space: 4, font: 12 }],
+  ['extraSmall', { icon: 16, space: 2, font: 10 }],
+])
 
 export default class WrappedTextButton extends Component {
   _isMounted = false
@@ -26,13 +31,12 @@ export default class WrappedTextButton extends Component {
 
   getContainerStyles() {
     let { type, primaryColor, borderRadius, sizing, icon, text } = this.props
-    const newButtonStyles = typeof sizing === 'number'
 
-    const containerStyles = newButtonStyles
+    const containerStyles = SIZE_PROPERTIES.has(sizing)
       ? {
           paddingLeft: 2,
           paddingRight: 2,
-          gap: icon && text ? spaceSizes[sizing] : 0,
+          gap: icon && text ? SIZE_PROPERTIES.get(sizing).space : 0,
           justifyContent: 'center',
           alignItems: 'center',
           borderWidth: 0,
@@ -87,8 +91,8 @@ export default class WrappedTextButton extends Component {
       textStyles.marginLeft = 8
     }
 
-    if (typeof sizing === 'number') {
-      textStyles.fontSize = fontSizes[sizing]
+    if (SIZE_PROPERTIES.has(sizing)) {
+      textStyles.fontSize = SIZE_PROPERTIES.get(sizing).font
       textStyles.marginLeft = 0
       textStyles.marginRight = 0
       textStyles.paddingLeft = 0
@@ -101,8 +105,8 @@ export default class WrappedTextButton extends Component {
   getIconStyles() {
     const { sizing } = this.props
 
-    if (typeof sizing === 'number') {
-      return { fontSize: iconSizes[sizing] }
+    if (SIZE_PROPERTIES.has(sizing)) {
+      return { fontSize: SIZE_PROPERTIES.get(sizing).icon }
     }
 
     return {}
@@ -140,7 +144,7 @@ export default class WrappedTextButton extends Component {
 
   renderSub() {
     let { icon, action, text, upperCase, container, sizing } = this.props
-    const newButtonStyles = typeof sizing === 'number'
+    const newButtonStyles = SIZE_PROPERTIES.has(sizing)
 
     let containerStyles = this.getContainerStyles()
     let iconStyles = this.getTextStyles()

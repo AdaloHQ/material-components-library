@@ -40,16 +40,16 @@
       "name": "sizing",
       "displayName": "Text & Icon Sizing",
       "type": "number",
-      "default": 3,
+      "default": "medium",
       "control": {
         "type": "menu",
         "options": [
-          { "label": "Gigantic", "value": 0 },
-          { "label": "Extra large", "value": 1 },
-          { "label": "Large", "value": 2 },
-          { "label": "Medium", "value": 3 },
-          { "label": "Small", "value": 4 },
-          { "label": "Extra small", "value": 5 }
+          { "label": "Gigantic", "value": "gigantic" },
+          { "label": "Extra large", "value": "extraLarge" },
+          { "label": "Large", "value": "large" },
+          { "label": "Medium", "value": "medium" },
+          { "label": "Small", "value": "small" },
+          { "label": "Extra small", "value": "extraSmall" }
         ]
       }
     },
