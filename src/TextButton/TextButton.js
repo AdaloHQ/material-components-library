@@ -5,6 +5,15 @@ import { Button } from '@protonapp/react-native-material-ui'
 
 import '../Shared/icons'
 
+const SIZE_PROPERTIES = new Map([
+  ['gigantic', { icon: 48, space: 16, font: 32 }],
+  ['extraLarge', { icon: 32, space: 12, font: 24 }],
+  ['large', { icon: 24, space: 8, font: 18 }],
+  ['medium', { icon: 20, space: 6, font: 14 }],
+  ['small', { icon: 18, space: 4, font: 12 }],
+  ['extraSmall', { icon: 16, space: 2, font: 10 }],
+])
+
 export default class WrappedTextButton extends Component {
   _isMounted = false
 
@@ -21,12 +30,25 @@ export default class WrappedTextButton extends Component {
   }
 
   getContainerStyles() {
-    let { type, primaryColor, borderRadius } = this.props
+    let { type, primaryColor, borderRadius, sizing, icon, text } = this.props
 
+    const containerStyles = SIZE_PROPERTIES.has(sizing)
+      ? {
+          paddingLeft: 2,
+          paddingRight: 2,
+          gap: icon && text ? SIZE_PROPERTIES.get(sizing).space : 0,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderWidth: 0,
+        }
+      : {}
 
     if (type === 'contained') {
-
-      return { backgroundColor: primaryColor, borderRadius }
+      return {
+        ...containerStyles,
+        backgroundColor: primaryColor,
+        borderRadius,
+      }
     }
 
     if (type === 'outlined') {
@@ -35,14 +57,20 @@ export default class WrappedTextButton extends Component {
       let alpha = saturation <= 10 ? 0.23 : 0.5
       let borderColor = baseColor.fade(1 - alpha).toString()
 
-      return { borderColor, borderWidth: 1, borderRadius }
+      return {
+        ...containerStyles,
+        borderColor,
+        borderWidth: 1,
+        borderRadius,
+      }
     }
 
-    return {}
+    return containerStyles
   }
 
   getTextStyles() {
-    let { primaryColor, contrastColor, type, icon, styles, _fonts } = this.props
+    let { primaryColor, contrastColor, type, icon, styles, sizing, _fonts } =
+      this.props
 
     const textStyles = { fontWeight: '600' }
 
@@ -62,7 +90,26 @@ export default class WrappedTextButton extends Component {
     if (icon) {
       textStyles.marginLeft = 8
     }
+
+    if (SIZE_PROPERTIES.has(sizing)) {
+      textStyles.fontSize = SIZE_PROPERTIES.get(sizing).font
+      textStyles.marginLeft = 0
+      textStyles.marginRight = 0
+      textStyles.paddingLeft = 0
+      textStyles.paddingRight = 0
+    }
+
     return textStyles
+  }
+
+  getIconStyles() {
+    const { sizing } = this.props
+
+    if (SIZE_PROPERTIES.has(sizing)) {
+      return { fontSize: SIZE_PROPERTIES.get(sizing).icon }
+    }
+
+    return {}
   }
 
   getAdditionalProps() {
@@ -96,18 +143,31 @@ export default class WrappedTextButton extends Component {
   }
 
   renderSub() {
-    let { icon, action, text, upperCase, container } = this.props
+    let { icon, action, text, upperCase, container, sizing } = this.props
+    const newButtonStyles = SIZE_PROPERTIES.has(sizing)
 
     let containerStyles = this.getContainerStyles()
     let iconStyles = this.getTextStyles()
     let textStyles = { ...this.getTextStyles() }
 
-    if (icon) {
+    if (icon && !newButtonStyles) {
       textStyles.marginRight = 5
     }
 
+    if (newButtonStyles) {
+      iconStyles = { ...iconStyles, ...this.getIconStyles() }
+
+      if (!text) {
+        textStyles = {}
+      }
+    }
+
     if (upperCase) {
-      textStyles.letterSpacing = 1
+      if (newButtonStyles) {
+        textStyles.letterSpacing = 0.6
+      } else {
+        textStyles.letterSpacing = 1
+      }
     }
 
     return (
@@ -120,12 +180,15 @@ export default class WrappedTextButton extends Component {
             onPress={action && this.submitAction}
             text={this.state.loading ? '' : text}
             style={{
-              container: [containerStyles, container],
+              container: [
+                containerStyles,
+                container,
+                { height: this.props._height },
+              ],
               icon: iconStyles,
               text: [textStyles, styles.text],
             }}
             disabled={this.state.loading}
-
           />
         </View>
         {this.state.loading && (
