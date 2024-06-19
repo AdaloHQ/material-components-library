@@ -57,14 +57,16 @@
       "name": "primaryColor",
       "displayName": "Button Color",
       "type": "color",
-      "default": "@primary"
+      "default": "@primary",
+      "style": true
     },
     {
       "name": "contrastColor",
       "displayName": "Icon & Text Color",
       "type": "color",
       "default": "@contrast:primaryColor",
-      "enabled": { "type": "contained" }
+      "enabled": { "type": "contained" },
+      "style": true
     },
     {
       "name": "borderRadius",
@@ -76,20 +78,23 @@
         "min": 0
       },
       "default": 4,
-      "enabled": { "type": ["contained", "outlined"] }
+      "enabled": { "type": ["contained", "outlined"] },
+      "style": true
     },
     {
       "name": "shadow",
       "displayName": "Shadow",
       "type": "boolean",
       "default": false,
-      "enabled": { "type": "contained" }
+      "enabled": { "type": "contained" },
+      "style": true
     },
     {
       "name": "upperCase",
       "displayName": "Uppercase",
       "type": "boolean",
-      "default": true
+      "default": true,
+      "style": true
     },
     {
       "name": "action",
