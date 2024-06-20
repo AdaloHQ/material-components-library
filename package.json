@@ -14,7 +14,7 @@
     "dev": "proton dev",
     "login": "proton login"
   },
-  "author": "Jeremy Blalock",
+  "author": "Adalo",
   "license": "ISC",
   "peerDependencies": {
     "react": ">=16",
