@@ -18,7 +18,8 @@
           { "label": "Outlined Button", "value": "outlined" },
           { "label": "Contained Button", "value": "contained" }
         ]
-      }
+      },
+      "style": true
     },
     {
       "name": "text",
@@ -51,7 +52,8 @@
           { "label": "Small", "value": "small" },
           { "label": "Extra small", "value": "extraSmall" }
         ]
-      }
+      },
+      "style": true
     },
     {
       "name": "primaryColor",
