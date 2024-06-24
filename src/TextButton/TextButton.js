@@ -30,7 +30,8 @@ export default class WrappedTextButton extends Component {
   }
 
   getContainerStyles() {
-    let { type, primaryColor, borderRadius, sizing, icon, text } = this.props
+    let { type, primaryColor, borderRadius, sizing, icon, text } =
+      this.getState()
 
     const containerStyles = SIZE_PROPERTIES.has(sizing)
       ? {
@@ -70,7 +71,7 @@ export default class WrappedTextButton extends Component {
 
   getTextStyles() {
     let { primaryColor, contrastColor, type, icon, styles, sizing, _fonts } =
-      this.props
+      this.getState()
 
     const textStyles = { fontWeight: '600' }
 
@@ -103,7 +104,7 @@ export default class WrappedTextButton extends Component {
   }
 
   getIconStyles() {
-    const { sizing } = this.props
+    const { sizing } = this.getState()
 
     if (SIZE_PROPERTIES.has(sizing)) {
       return { fontSize: SIZE_PROPERTIES.get(sizing).icon }
@@ -113,7 +114,7 @@ export default class WrappedTextButton extends Component {
   }
 
   getAdditionalProps() {
-    let { type, shadow = true } = this.props
+    let { type, shadow = true } = this.getState()
 
     if (type === 'contained' && shadow) {
       return { raised: true }
@@ -122,8 +123,22 @@ export default class WrappedTextButton extends Component {
     return {}
   }
 
+  getState() {
+    const { additionalState1, additionalState2, openAccordion } = this.props
+
+    if (openAccordion === 'additionalState1' && additionalState1.enabled) {
+      //TODO: check condition in runner
+      return additionalState1
+    }
+
+    if (openAccordion === 'additionalState2' && additionalState2.enabled) {
+      return additionalState2
+    }
+    return this.props
+  }
+
   submitAction = async () => {
-    let { action } = this.props
+    let { action } = this.getState()
 
     this.setState({ loading: true })
 
@@ -143,7 +158,7 @@ export default class WrappedTextButton extends Component {
   }
 
   renderSub() {
-    let { icon, action, text, upperCase, container, sizing } = this.props
+    let { icon, action, text, upperCase, container, sizing } = this.getState()
     const newButtonStyles = SIZE_PROPERTIES.has(sizing)
 
     let containerStyles = this.getContainerStyles()
