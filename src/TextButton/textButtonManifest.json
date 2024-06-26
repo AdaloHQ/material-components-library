@@ -233,7 +233,8 @@
         {
           "name": "condition",
           "displayName": "State will show when...",
-          "type": "condition"
+          "type": "condition",
+          "tooltip": "If both additional states are true, then this state's button will show."
         },
         {
           "name": "type",

@@ -124,16 +124,26 @@ export default class WrappedTextButton extends Component {
   }
 
   getState() {
-    const { additionalState1, additionalState2, openAccordion } = this.props
+    const { additionalState1, additionalState2, openAccordion, editor } = this.props
 
-    if (openAccordion === 'additionalState1' && additionalState1.enabled) {
-      //TODO: check condition in runner
-      return additionalState1
+    if (editor) {
+      if (openAccordion === 'additionalState1' && additionalState1?.enabled) {
+        return additionalState1
+      }
+  
+      if (openAccordion === 'additionalState2' && additionalState2?.enabled) {
+        return additionalState2
+      }
+    } else {
+      if (additionalState2?.enabled && additionalState2?.condition) {
+        return additionalState2
+      }
+
+      if (additionalState1?.enabled && additionalState1?.condition) {
+        return additionalState1
+      }
     }
 
-    if (openAccordion === 'additionalState2' && additionalState2.enabled) {
-      return additionalState2
-    }
     return this.props
   }
 
