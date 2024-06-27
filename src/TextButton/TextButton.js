@@ -30,7 +30,8 @@ export default class WrappedTextButton extends Component {
   }
 
   getContainerStyles() {
-    let { type, primaryColor, borderRadius, sizing, icon, text } = this.props
+    let { type, primaryColor, borderRadius, sizing, icon, text } =
+      this.getButtonState()
 
     const containerStyles = SIZE_PROPERTIES.has(sizing)
       ? {
@@ -70,7 +71,7 @@ export default class WrappedTextButton extends Component {
 
   getTextStyles() {
     let { primaryColor, contrastColor, type, icon, styles, sizing, _fonts } =
-      this.props
+      this.getButtonState()
 
     const textStyles = { fontWeight: '600' }
 
@@ -103,7 +104,7 @@ export default class WrappedTextButton extends Component {
   }
 
   getIconStyles() {
-    const { sizing } = this.props
+    const { sizing } = this.getButtonState()
 
     if (SIZE_PROPERTIES.has(sizing)) {
       return { fontSize: SIZE_PROPERTIES.get(sizing).icon }
@@ -113,7 +114,7 @@ export default class WrappedTextButton extends Component {
   }
 
   getAdditionalProps() {
-    let { type, shadow = true } = this.props
+    let { type, shadow = true } = this.getButtonState()
 
     if (type === 'contained' && shadow) {
       return { raised: true }
@@ -122,8 +123,32 @@ export default class WrappedTextButton extends Component {
     return {}
   }
 
+  getButtonState() {
+    const { additionalState1, additionalState2, openAccordion, editor } = this.props
+
+    if (editor) {
+      if (openAccordion === 'additionalState1' && additionalState1?.enabled) {
+        return additionalState1
+      }
+  
+      if (openAccordion === 'additionalState2' && additionalState2?.enabled) {
+        return additionalState2
+      }
+    } else {
+      if (additionalState2?.enabled && additionalState2?.condition) {
+        return additionalState2
+      }
+
+      if (additionalState1?.enabled && additionalState1?.condition) {
+        return additionalState1
+      }
+    }
+
+    return this.props
+  }
+
   submitAction = async () => {
-    let { action } = this.props
+    let { action } = this.getButtonState()
 
     this.setState({ loading: true })
 
@@ -143,7 +168,7 @@ export default class WrappedTextButton extends Component {
   }
 
   renderSub() {
-    let { icon, action, text, upperCase, container, sizing } = this.props
+    let { icon, action, text, upperCase, container, sizing } = this.getButtonState()
     const newButtonStyles = SIZE_PROPERTIES.has(sizing)
 
     let containerStyles = this.getContainerStyles()
