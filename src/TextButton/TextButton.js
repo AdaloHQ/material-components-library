@@ -14,6 +14,8 @@ const SIZE_PROPERTIES = new Map([
   ['extraSmall', { icon: 16, space: 2, font: 10 }],
 ])
 
+const RAISED_BUTTON_TYPES = new Set(['contained', 'custom'])
+
 export default class WrappedTextButton extends Component {
   _isMounted = false
 
@@ -31,7 +33,7 @@ export default class WrappedTextButton extends Component {
 
   getContainerStyles() {
     const defaults = this.props
-    let {
+    const {
       type = defaults.type,
       primaryColor = defaults.primaryColor,
       borderRadius = defaults.borderRadius,
@@ -89,7 +91,7 @@ export default class WrappedTextButton extends Component {
 
   getTextStyles() {
     const { _fonts, ...defaults } = this.props
-    let {
+    const {
       primaryColor = defaults.primaryColor,
       contrastColor = defaults.contrastColor,
       type = defaults.type,
@@ -100,7 +102,7 @@ export default class WrappedTextButton extends Component {
 
     const textStyles = { fontWeight: '600' }
 
-    if (contrastColor && ['contained', 'custom'].includes(type)) {
+    if (contrastColor && RAISED_BUTTON_TYPES.has(type)) {
       textStyles.color = contrastColor
     } else {
       textStyles.color = primaryColor
@@ -139,9 +141,9 @@ export default class WrappedTextButton extends Component {
   }
 
   getAdditionalProps() {
-    let { type = this.props.type, shadow = true } = this.getButtonState()
+    const { type = this.props.type, shadow = true } = this.getButtonState()
 
-    if (['contained', 'custom'].includes(type) && shadow) {
+    if (RAISED_BUTTON_TYPES.has(type) && shadow) {
       return { raised: true }
     }
 
@@ -174,7 +176,7 @@ export default class WrappedTextButton extends Component {
   }
 
   submitAction = async () => {
-    let { action } = this.getButtonState()
+    const { action } = this.getButtonState()
 
     this.setState({ loading: true })
 
@@ -195,7 +197,7 @@ export default class WrappedTextButton extends Component {
 
   renderSub() {
     const defaults = this.props
-    let {
+    const {
       icon = defaults.icon,
       action,
       text = defaults.text,
