@@ -16,7 +16,8 @@
         "options": [
           { "label": "Text Button", "value": "text" },
           { "label": "Outlined Button", "value": "outlined" },
-          { "label": "Contained Button", "value": "contained" }
+          { "label": "Contained Button", "value": "contained" },
+          { "label": "Custom Button", "value": "custom" }
         ]
       },
       "style": true
@@ -67,7 +68,7 @@
       "displayName": "Icon & Text Color",
       "type": "color",
       "default": "@contrast:primaryColor",
-      "enabled": { "type": "contained" },
+      "enabled": { "type": ["contained", "custom"] },
       "style": true
     },
     {
@@ -80,7 +81,20 @@
         "min": 0
       },
       "default": 4,
-      "enabled": { "type": ["contained", "outlined"] },
+      "enabled": { "type": ["contained", "outlined", "custom"] },
+      "style": true
+    },
+    {
+      "name": "opacity",
+      "displayName": "Opacity",
+      "type": "number",
+      "control": {
+        "type": "slider",
+        "max": 100,
+        "min": 0
+      },
+      "default": 100,
+      "enabled": { "type": "custom" },
       "style": true
     },
     {
@@ -117,7 +131,8 @@
         {
           "name": "accordionTitle",
           "displayName": "State Name",
-          "type": "text"
+          "type": "text",
+          "disableDynamicValues": true
         },
         {
           "name": "condition",
@@ -134,9 +149,11 @@
             "options": [
               { "label": "Text Button", "value": "text" },
               { "label": "Outlined Button", "value": "outlined" },
-              { "label": "Contained Button", "value": "contained" }
+              { "label": "Contained Button", "value": "contained" },
+              { "label": "Custom Button", "value": "custom" }
             ]
-          }
+          },
+          "style": true
         },
         {
           "name": "text",
@@ -169,20 +186,23 @@
               { "label": "Small", "value": "small" },
               { "label": "Extra small", "value": "extraSmall" }
             ]
-          }
+          },
+          "style": true
         },
         {
           "name": "primaryColor",
           "displayName": "Button Color",
           "type": "color",
-          "default": "@primary"
+          "default": "@primary",
+          "style": true
         },
         {
           "name": "contrastColor",
           "displayName": "Icon & Text Color",
           "type": "color",
           "default": "@contrast:primaryColor",
-          "enabled": { "type": "contained" }
+          "enabled": { "type": ["contained", "custom"] },
+          "style": true
         },
         {
           "name": "borderRadius",
@@ -194,25 +214,42 @@
             "min": 0
           },
           "default": 4,
-          "enabled": { "type": ["contained", "outlined"] }
+          "enabled": { "type": ["contained", "outlined", "custom"] },
+          "style": true
+        },
+        {
+          "name": "opacity",
+          "displayName": "Opacity",
+          "type": "number",
+          "control": {
+            "type": "slider",
+            "max": 100,
+            "min": 0
+          },
+          "default": 100,
+          "enabled": { "type": "custom" },
+          "style": true
         },
         {
           "name": "shadow",
           "displayName": "Shadow",
           "type": "boolean",
           "default": false,
-          "enabled": { "type": "contained" }
+          "enabled": { "type": "contained" },
+          "style": true
         },
         {
           "name": "upperCase",
           "displayName": "Uppercase",
           "type": "boolean",
-          "default": true
+          "default": true,
+          "style": true
         },
         {
           "name": "action",
           "type": "action",
-          "displayName": "Click Actions"
+          "displayName": "Click Actions",
+          "style": true
         }
       ]
     },
@@ -228,7 +265,8 @@
         {
           "name": "accordionTitle",
           "displayName": "State Name",
-          "type": "text"
+          "type": "text",
+          "disableDynamicValues": true
         },
         {
           "name": "condition",
@@ -246,9 +284,11 @@
             "options": [
               { "label": "Text Button", "value": "text" },
               { "label": "Outlined Button", "value": "outlined" },
-              { "label": "Contained Button", "value": "contained" }
+              { "label": "Contained Button", "value": "contained" },
+              { "label": "Custom Button", "value": "custom" }
             ]
-          }
+          },
+          "style": true
         },
         {
           "name": "text",
@@ -281,20 +321,23 @@
               { "label": "Small", "value": "small" },
               { "label": "Extra small", "value": "extraSmall" }
             ]
-          }
+          },
+          "style": true
         },
         {
           "name": "primaryColor",
           "displayName": "Button Color",
           "type": "color",
-          "default": "@primary"
+          "default": "@primary",
+          "style": true
         },
         {
           "name": "contrastColor",
           "displayName": "Icon & Text Color",
           "type": "color",
           "default": "@contrast:primaryColor",
-          "enabled": { "type": "contained" }
+          "enabled": { "type": ["contained", "custom"] },
+          "style": true
         },
         {
           "name": "borderRadius",
@@ -306,20 +349,36 @@
             "min": 0
           },
           "default": 4,
-          "enabled": { "type": ["contained", "outlined"] }
+          "enabled": { "type": ["contained", "outlined", "custom"] },
+          "style": true
+        },
+        {
+          "name": "opacity",
+          "displayName": "Opacity",
+          "type": "number",
+          "control": {
+            "type": "slider",
+            "max": 100,
+            "min": 0
+          },
+          "default": 100,
+          "enabled": { "type": "custom" },
+          "style": true
         },
         {
           "name": "shadow",
           "displayName": "Shadow",
           "type": "boolean",
           "default": false,
-          "enabled": { "type": "contained" }
+          "enabled": { "type": "contained" },
+          "style": true
         },
         {
           "name": "upperCase",
           "displayName": "Uppercase",
           "type": "boolean",
-          "default": true
+          "default": true,
+          "style": true
         },
         {
           "name": "action",

@@ -30,8 +30,16 @@ export default class WrappedTextButton extends Component {
   }
 
   getContainerStyles() {
-    let { type, primaryColor, borderRadius, sizing, icon, text } =
-      this.getButtonState()
+    const defaults = this.props
+    let {
+      type = defaults.type,
+      primaryColor = defaults.primaryColor,
+      borderRadius = defaults.borderRadius,
+      sizing = defaults.sizing,
+      icon = defaults.icon,
+      text = defaults.text,
+      opacity = defaults.opacity,
+    } = this.getButtonState()
 
     const containerStyles = SIZE_PROPERTIES.has(sizing)
       ? {
@@ -48,6 +56,16 @@ export default class WrappedTextButton extends Component {
       return {
         ...containerStyles,
         backgroundColor: primaryColor,
+        borderRadius,
+      }
+    }
+
+    if (type === 'custom') {
+      const opacityValue = typeof opacity === 'number' ? opacity : 100
+      return {
+        ...containerStyles,
+        backgroundColor: primaryColor,
+        opacity: opacityValue / 100,
         borderRadius,
       }
     }
@@ -70,12 +88,19 @@ export default class WrappedTextButton extends Component {
   }
 
   getTextStyles() {
-    let { primaryColor, contrastColor, type, icon, styles, sizing, _fonts } =
-      this.getButtonState()
+    const { _fonts, ...defaults } = this.props
+    let {
+      primaryColor = defaults.primaryColor,
+      contrastColor = defaults.contrastColor,
+      type = defaults.type,
+      icon = defaults.icon,
+      styles = defaults.styles,
+      sizing = defaults.sizing,
+    } = this.getButtonState()
 
     const textStyles = { fontWeight: '600' }
 
-    if (contrastColor && type === 'contained') {
+    if (contrastColor && ['contained', 'custom'].includes(type)) {
       textStyles.color = contrastColor
     } else {
       textStyles.color = primaryColor
@@ -114,9 +139,9 @@ export default class WrappedTextButton extends Component {
   }
 
   getAdditionalProps() {
-    let { type, shadow = true } = this.getButtonState()
+    let { type = this.props.type, shadow = true } = this.getButtonState()
 
-    if (type === 'contained' && shadow) {
+    if (['contained', 'custom'].includes(type) && shadow) {
       return { raised: true }
     }
 
@@ -124,13 +149,14 @@ export default class WrappedTextButton extends Component {
   }
 
   getButtonState() {
-    const { additionalState1, additionalState2, openAccordion, editor } = this.props
+    const { additionalState1, additionalState2, openAccordion, editor } =
+      this.props
 
     if (editor) {
       if (openAccordion === 'additionalState1' && additionalState1?.enabled) {
         return additionalState1
       }
-  
+
       if (openAccordion === 'additionalState2' && additionalState2?.enabled) {
         return additionalState2
       }
@@ -168,7 +194,15 @@ export default class WrappedTextButton extends Component {
   }
 
   renderSub() {
-    let { icon, action, text, upperCase, container, sizing } = this.getButtonState()
+    const defaults = this.props
+    let {
+      icon = defaults.icon,
+      action,
+      text = defaults.text,
+      upperCase = defaults.upperCase,
+      container = defaults.container,
+      sizing = defaults.sizing,
+    } = this.getButtonState()
     const newButtonStyles = SIZE_PROPERTIES.has(sizing)
 
     let containerStyles = this.getContainerStyles()
