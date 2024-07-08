@@ -14,6 +14,8 @@ const SIZE_PROPERTIES = new Map([
   ['extraSmall', { icon: 16, space: 2, font: 10 }],
 ])
 
+const RAISED_BUTTON_TYPES = new Set(['contained', 'custom'])
+
 export default class WrappedTextButton extends Component {
   _isMounted = false
 
@@ -30,7 +32,16 @@ export default class WrappedTextButton extends Component {
   }
 
   getContainerStyles() {
-    let { type, primaryColor, borderRadius, sizing, icon, text } = this.props
+    const defaults = this.props
+    const {
+      type = defaults.type,
+      primaryColor = defaults.primaryColor,
+      borderRadius = defaults.borderRadius,
+      sizing = defaults.sizing,
+      icon = defaults.icon,
+      text = defaults.text,
+      opacity = defaults.opacity,
+    } = this.getButtonState()
 
     const containerStyles = SIZE_PROPERTIES.has(sizing)
       ? {
@@ -47,6 +58,16 @@ export default class WrappedTextButton extends Component {
       return {
         ...containerStyles,
         backgroundColor: primaryColor,
+        borderRadius,
+      }
+    }
+
+    if (type === 'custom') {
+      const opacityValue = typeof opacity === 'number' ? opacity : 100
+      return {
+        ...containerStyles,
+        backgroundColor: primaryColor,
+        opacity: opacityValue / 100,
         borderRadius,
       }
     }
@@ -69,12 +90,19 @@ export default class WrappedTextButton extends Component {
   }
 
   getTextStyles() {
-    let { primaryColor, contrastColor, type, icon, styles, sizing, _fonts } =
-      this.props
+    const { _fonts, ...defaults } = this.props
+    const {
+      primaryColor = defaults.primaryColor,
+      contrastColor = defaults.contrastColor,
+      type = defaults.type,
+      icon = defaults.icon,
+      styles = defaults.styles,
+      sizing = defaults.sizing,
+    } = this.getButtonState()
 
     const textStyles = { fontWeight: '600' }
 
-    if (contrastColor && type === 'contained') {
+    if (contrastColor && RAISED_BUTTON_TYPES.has(type)) {
       textStyles.color = contrastColor
     } else {
       textStyles.color = primaryColor
@@ -103,7 +131,7 @@ export default class WrappedTextButton extends Component {
   }
 
   getIconStyles() {
-    const { sizing } = this.props
+    const { sizing } = this.getButtonState()
 
     if (SIZE_PROPERTIES.has(sizing)) {
       return { fontSize: SIZE_PROPERTIES.get(sizing).icon }
@@ -113,17 +141,42 @@ export default class WrappedTextButton extends Component {
   }
 
   getAdditionalProps() {
-    let { type, shadow = true } = this.props
+    const { type = this.props.type, shadow = true } = this.getButtonState()
 
-    if (type === 'contained' && shadow) {
+    if (RAISED_BUTTON_TYPES.has(type) && shadow) {
       return { raised: true }
     }
 
     return {}
   }
 
+  getButtonState() {
+    const { additionalState1, additionalState2, openAccordion, editor } =
+      this.props
+
+    if (editor) {
+      if (openAccordion === 'additionalState1' && additionalState1?.enabled) {
+        return additionalState1
+      }
+
+      if (openAccordion === 'additionalState2' && additionalState2?.enabled) {
+        return additionalState2
+      }
+    } else {
+      if (additionalState2?.enabled && additionalState2?.condition) {
+        return additionalState2
+      }
+
+      if (additionalState1?.enabled && additionalState1?.condition) {
+        return additionalState1
+      }
+    }
+
+    return this.props
+  }
+
   submitAction = async () => {
-    let { action } = this.props
+    const { action } = this.getButtonState()
 
     this.setState({ loading: true })
 
@@ -143,7 +196,15 @@ export default class WrappedTextButton extends Component {
   }
 
   renderSub() {
-    let { icon, action, text, upperCase, container, sizing } = this.props
+    const defaults = this.props
+    const {
+      icon = defaults.icon,
+      action,
+      text = defaults.text,
+      upperCase = defaults.upperCase,
+      container = defaults.container,
+      sizing = defaults.sizing,
+    } = this.getButtonState()
     const newButtonStyles = SIZE_PROPERTIES.has(sizing)
 
     let containerStyles = this.getContainerStyles()
