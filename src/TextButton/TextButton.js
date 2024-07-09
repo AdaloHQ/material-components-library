@@ -161,7 +161,7 @@ export default class WrappedTextButton extends Component {
   getAdditionalProps() {
     const { type = this.props.type, shadow = true } = this.getButtonState()
 
-    if (type === 'contained' && shadow) {
+    if (RAISED_BUTTON_TYPES.has(type) && shadow) {
       return { raised: true }
     }
 
