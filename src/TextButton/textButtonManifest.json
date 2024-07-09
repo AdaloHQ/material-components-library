@@ -72,6 +72,37 @@
       "style": true
     },
     {
+      "name": "border",
+      "displayName": "Border",
+      "type": "object",
+      "control": {
+        "type": "border"
+      },
+      "enabled": { "type": "custom" },
+      "default": {
+        "borderColor": "@primaryDark",
+        "borderWidth": "1",
+        "borderStyle": "solid"
+      },
+      "style": true
+    },
+    {
+      "name": "advancedShadow",
+      "displayName": "Shadow",
+      "type": "object",
+      "enabled": { "type": "custom" },
+      "control": {
+        "type": "shadow"
+      },
+      "default": {
+        "enabled": false,
+        "x": 0,
+        "y": 2,
+        "color": "rgba(0, 0, 0, 0.2)"
+      },
+      "style": true
+    },
+    {
       "name": "borderRadius",
       "displayName": "Rounding",
       "type": "number",
@@ -202,6 +233,37 @@
           "type": "color",
           "default": "@contrast:primaryColor",
           "enabled": { "type": ["contained", "custom"] },
+          "style": true
+        },
+        {
+          "name": "border",
+          "displayName": "Border",
+          "type": "object",
+          "control": {
+            "type": "border"
+          },
+          "enabled": { "type": "custom" },
+          "default": {
+            "borderColor": "@primaryDark",
+            "borderWidth": "1",
+            "borderStyle": "solid"
+          },
+          "style": true
+        },
+        {
+          "name": "advancedShadow",
+          "displayName": "Shadow",
+          "type": "object",
+          "enabled": { "type": "custom" },
+          "control": {
+            "type": "shadow"
+          },
+          "default": {
+            "enabled": false,
+            "x": 0,
+            "y": 2,
+            "color": "rgba(0, 0, 0, 0.2)"
+          },
           "style": true
         },
         {
@@ -337,6 +399,37 @@
           "type": "color",
           "default": "@contrast:primaryColor",
           "enabled": { "type": ["contained", "custom"] },
+          "style": true
+        },
+        {
+          "name": "border",
+          "displayName": "Border",
+          "type": "object",
+          "control": {
+            "type": "border"
+          },
+          "enabled": { "type": "custom" },
+          "default": {
+            "borderColor": "@primaryDark",
+            "borderWidth": "1",
+            "borderStyle": "solid"
+          },
+          "style": true
+        },
+        {
+          "name": "advancedShadow",
+          "displayName": "Shadow",
+          "type": "object",
+          "enabled": { "type": "custom" },
+          "control": {
+            "type": "shadow"
+          },
+          "default": {
+            "enabled": false,
+            "x": 0,
+            "y": 2,
+            "color": "rgba(0, 0, 0, 0.2)"
+          },
           "style": true
         },
         {

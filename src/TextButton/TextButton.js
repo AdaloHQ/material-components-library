@@ -41,6 +41,8 @@ export default class WrappedTextButton extends Component {
       icon = defaults.icon,
       text = defaults.text,
       opacity = defaults.opacity,
+      border = {},
+      advancedShadow = {}
     } = this.getButtonState()
 
     const containerStyles = SIZE_PROPERTIES.has(sizing)
@@ -64,8 +66,24 @@ export default class WrappedTextButton extends Component {
 
     if (type === 'custom') {
       const opacityValue = typeof opacity === 'number' ? opacity : 100
+      const borderStyles =
+        border?.borderStyle && border?.borderStyle !== 'none' ? border : {}
+
+      let shadowStyles = {}
+
+      if (advancedShadow?.enabled) {
+        shadowStyles = {
+          shadowColor: advancedShadow.color,
+          shadowOffset: { width: advancedShadow.x || 0, height: advancedShadow.y || 0 },
+          shadowOpacity: 1,
+          shadowRadius: advancedShadow.size || 0,
+        }
+      }
+
       return {
         ...containerStyles,
+        ...borderStyles,
+        ...shadowStyles,
         backgroundColor: primaryColor,
         opacity: opacityValue / 100,
         borderRadius,
@@ -143,7 +161,7 @@ export default class WrappedTextButton extends Component {
   getAdditionalProps() {
     const { type = this.props.type, shadow = true } = this.getButtonState()
 
-    if (RAISED_BUTTON_TYPES.has(type) && shadow) {
+    if (type === 'contained' && shadow) {
       return { raised: true }
     }
 
