@@ -74,9 +74,9 @@ export default class WrappedTextButton extends Component {
       if (advancedShadow?.enabled) {
         shadowStyles = {
           shadowColor: advancedShadow.color,
-          shadowOffset: { width: advancedShadow.x || 0, height: advancedShadow.y || 0 },
+          shadowOffset: { width: advancedShadow.x ?? 0, height: advancedShadow.y ?? 0 },
           shadowOpacity: 1,
-          shadowRadius: advancedShadow.size || 0,
+          shadowRadius: advancedShadow.size ?? 0,
         }
       }
 
