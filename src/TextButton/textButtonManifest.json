@@ -5,6 +5,7 @@
   "defaultHeight": 36,
   "component": "./TextButton.js",
   "resizeY": true,
+  "editStylesTitle": "Button",
   "props": [
     {
       "name": "type",
@@ -103,6 +104,13 @@
       "style": true
     },
     {
+      "name": "hover",
+      "displayName": "Hover Effect",
+      "type": "boolean",
+      "default": false,
+      "style": true
+    },
+    {
       "name": "borderRadius",
       "displayName": "Rounding",
       "type": "number",
@@ -153,6 +161,7 @@
     {
       "name": "additionalState1",
       "displayName": "Additional State 1",
+      "editStylesTitle": "Button",
       "props": [
         {
           "name": "enabled",
@@ -267,6 +276,13 @@
           "style": true
         },
         {
+          "name": "hover",
+          "displayName": "Hover Effect",
+          "type": "boolean",
+          "default": false,
+          "style": true
+        },
+        {
           "name": "borderRadius",
           "displayName": "Rounding",
           "type": "number",
@@ -318,6 +334,7 @@
     {
       "name": "additionalState2",
       "displayName": "Additional State 2",
+      "editStylesTitle": "Button",
       "props": [
         {
           "name": "enabled",
@@ -430,6 +447,13 @@
             "y": 2,
             "color": "rgba(0, 0, 0, 0.2)"
           },
+          "style": true
+        },
+        {
+          "name": "hover",
+          "displayName": "Hover Effect",
+          "type": "boolean",
+          "default": false,
           "style": true
         },
         {
