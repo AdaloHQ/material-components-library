@@ -82,7 +82,7 @@
       "enabled": { "type": "custom" },
       "default": {
         "borderColor": "@primaryDark",
-        "borderWidth": "1",
+        "borderWidth": 1,
         "borderStyle": "solid"
       },
       "style": true
@@ -107,7 +107,7 @@
       "name": "hover",
       "displayName": "Hover Effect",
       "type": "boolean",
-      "default": false,
+      "default": true,
       "style": true
     },
     {
@@ -124,7 +124,7 @@
       "style": true
     },
     {
-      "name": "opacity",
+      "name": "buttonOpacity",
       "displayName": "Opacity",
       "type": "number",
       "control": {
@@ -254,7 +254,7 @@
           "enabled": { "type": "custom" },
           "default": {
             "borderColor": "@primaryDark",
-            "borderWidth": "1",
+            "borderWidth": 1,
             "borderStyle": "solid"
           },
           "style": true
@@ -279,7 +279,7 @@
           "name": "hover",
           "displayName": "Hover Effect",
           "type": "boolean",
-          "default": false,
+          "default": true,
           "style": true
         },
         {
@@ -296,7 +296,7 @@
           "style": true
         },
         {
-          "name": "opacity",
+          "name": "buttonOpacity",
           "displayName": "Opacity",
           "type": "number",
           "control": {
@@ -428,7 +428,7 @@
           "enabled": { "type": "custom" },
           "default": {
             "borderColor": "@primaryDark",
-            "borderWidth": "1",
+            "borderWidth": 1,
             "borderStyle": "solid"
           },
           "style": true
@@ -445,6 +445,7 @@
             "enabled": false,
             "x": 0,
             "y": 2,
+            "size": 4,
             "color": "rgba(0, 0, 0, 0.2)"
           },
           "style": true
@@ -453,7 +454,7 @@
           "name": "hover",
           "displayName": "Hover Effect",
           "type": "boolean",
-          "default": false,
+          "default": true,
           "style": true
         },
         {
@@ -470,7 +471,7 @@
           "style": true
         },
         {
-          "name": "opacity",
+          "name": "buttonOpacity",
           "displayName": "Opacity",
           "type": "number",
           "control": {

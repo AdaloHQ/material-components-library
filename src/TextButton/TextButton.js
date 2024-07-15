@@ -41,7 +41,7 @@ export default class WrappedTextButton extends Component {
       sizing = defaults.sizing,
       icon = defaults.icon,
       text = defaults.text,
-      opacity = defaults.opacity,
+      buttonOpacity = defaults.buttonOpacity,
       border = {},
       advancedShadow = {},
       hover = false,
@@ -72,7 +72,7 @@ export default class WrappedTextButton extends Component {
     }
 
     if (type === 'custom') {
-      const opacityValue = typeof opacity === 'number' ? opacity : 100
+      const opacity = typeof buttonOpacity === 'number' ? buttonOpacity : 100
       const borderStyles =
         border?.borderStyle && border?.borderStyle !== 'none' ? border : {}
 
@@ -100,7 +100,7 @@ export default class WrappedTextButton extends Component {
         ...borderStyles,
         ...shadowStyles,
         backgroundColor,
-        opacity: opacityValue / 100,
+        opacity: opacity / 100,
         borderRadius,
       }
     }
@@ -128,10 +128,14 @@ export default class WrappedTextButton extends Component {
     const { primaryColor = defaults.primaryColor } = this.getButtonState()
 
     const baseColor = color(primaryColor)
-    const light = baseColor.isLight()
-    const augmentedColor = light
-      ? baseColor.darken(0.2)
-      : baseColor.lighten(0.2)
+    const lighten = baseColor.isLight() && baseColor.luminosity() !== 1
+    let augmentedColor = lighten
+      ? baseColor.lighten(0.5)
+      : baseColor.darken(0.5)
+
+    if (baseColor.lightness() === 0) {
+      augmentedColor = baseColor.lightness(20)
+    }
 
     return augmentedColor.toString()
   }
