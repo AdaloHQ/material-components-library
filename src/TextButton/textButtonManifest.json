@@ -5,6 +5,7 @@
   "defaultHeight": 36,
   "component": "./TextButton.js",
   "resizeY": true,
+  "editStylesTitle": "Button",
   "props": [
     {
       "name": "type",
@@ -72,6 +73,45 @@
       "style": true
     },
     {
+      "name": "border",
+      "displayName": "Border",
+      "type": "object",
+      "control": {
+        "type": "border"
+      },
+      "enabled": { "type": "custom" },
+      "default": {
+        "borderColor": "@primaryDark",
+        "borderWidth": 1,
+        "borderStyle": "solid"
+      },
+      "style": true
+    },
+    {
+      "name": "advancedShadow",
+      "displayName": "Shadow",
+      "type": "object",
+      "enabled": { "type": "custom" },
+      "control": {
+        "type": "shadow"
+      },
+      "default": {
+        "enabled": false,
+        "x": 0,
+        "y": 2,
+        "size": 4,
+        "color": "rgba(0, 0, 0, 0.2)"
+      },
+      "style": true
+    },
+    {
+      "name": "hover",
+      "displayName": "Hover Effect",
+      "type": "boolean",
+      "default": true,
+      "style": true
+    },
+    {
       "name": "borderRadius",
       "displayName": "Rounding",
       "type": "number",
@@ -85,7 +125,7 @@
       "style": true
     },
     {
-      "name": "opacity",
+      "name": "buttonOpacity",
       "displayName": "Opacity",
       "type": "number",
       "control": {
@@ -94,6 +134,7 @@
         "min": 0
       },
       "default": 100,
+      "defaultValue": 100,
       "enabled": { "type": "custom" },
       "style": true
     },
@@ -122,6 +163,7 @@
     {
       "name": "additionalState1",
       "displayName": "Additional State 1",
+      "editStylesTitle": "Button",
       "props": [
         {
           "name": "enabled",
@@ -205,6 +247,45 @@
           "style": true
         },
         {
+          "name": "border",
+          "displayName": "Border",
+          "type": "object",
+          "control": {
+            "type": "border"
+          },
+          "enabled": { "type": "custom" },
+          "default": {
+            "borderColor": "@primaryDark",
+            "borderWidth": 1,
+            "borderStyle": "solid"
+          },
+          "style": true
+        },
+        {
+          "name": "advancedShadow",
+          "displayName": "Shadow",
+          "type": "object",
+          "enabled": { "type": "custom" },
+          "control": {
+            "type": "shadow"
+          },
+          "default": {
+            "enabled": false,
+            "x": 0,
+            "y": 2,
+            "size": 4,
+            "color": "rgba(0, 0, 0, 0.2)"
+          },
+          "style": true
+        },
+        {
+          "name": "hover",
+          "displayName": "Hover Effect",
+          "type": "boolean",
+          "default": true,
+          "style": true
+        },
+        {
           "name": "borderRadius",
           "displayName": "Rounding",
           "type": "number",
@@ -218,7 +299,7 @@
           "style": true
         },
         {
-          "name": "opacity",
+          "name": "buttonOpacity",
           "displayName": "Opacity",
           "type": "number",
           "control": {
@@ -227,6 +308,7 @@
             "min": 0
           },
           "default": 100,
+          "defaultValue": 100,
           "enabled": { "type": "custom" },
           "style": true
         },
@@ -256,6 +338,7 @@
     {
       "name": "additionalState2",
       "displayName": "Additional State 2",
+      "editStylesTitle": "Button",
       "props": [
         {
           "name": "enabled",
@@ -340,6 +423,45 @@
           "style": true
         },
         {
+          "name": "border",
+          "displayName": "Border",
+          "type": "object",
+          "control": {
+            "type": "border"
+          },
+          "enabled": { "type": "custom" },
+          "default": {
+            "borderColor": "@primaryDark",
+            "borderWidth": 1,
+            "borderStyle": "solid"
+          },
+          "style": true
+        },
+        {
+          "name": "advancedShadow",
+          "displayName": "Shadow",
+          "type": "object",
+          "enabled": { "type": "custom" },
+          "control": {
+            "type": "shadow"
+          },
+          "default": {
+            "enabled": false,
+            "x": 0,
+            "y": 2,
+            "size": 4,
+            "color": "rgba(0, 0, 0, 0.2)"
+          },
+          "style": true
+        },
+        {
+          "name": "hover",
+          "displayName": "Hover Effect",
+          "type": "boolean",
+          "default": true,
+          "style": true
+        },
+        {
           "name": "borderRadius",
           "displayName": "Rounding",
           "type": "number",
@@ -353,7 +475,7 @@
           "style": true
         },
         {
-          "name": "opacity",
+          "name": "buttonOpacity",
           "displayName": "Opacity",
           "type": "number",
           "control": {
@@ -362,6 +484,7 @@
             "min": 0
           },
           "default": 100,
+          "defaultValue": 100,
           "enabled": { "type": "custom" },
           "style": true
         },

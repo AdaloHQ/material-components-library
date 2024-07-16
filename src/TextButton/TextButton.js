@@ -29,6 +29,7 @@ export default class WrappedTextButton extends Component {
   state = {
     loading: false,
     backgroundColor: this.props.primaryColor,
+    hovering: false,
   }
 
   getContainerStyles() {
@@ -40,8 +41,12 @@ export default class WrappedTextButton extends Component {
       sizing = defaults.sizing,
       icon = defaults.icon,
       text = defaults.text,
-      opacity = defaults.opacity,
+      buttonOpacity = defaults.buttonOpacity,
+      border = {},
+      advancedShadow = {},
+      hover = false,
     } = this.getButtonState()
+    const { hovering } = this.state
 
     const containerStyles = SIZE_PROPERTIES.has(sizing)
       ? {
@@ -55,19 +60,47 @@ export default class WrappedTextButton extends Component {
       : {}
 
     if (type === 'contained') {
+      let backgroundColor = primaryColor
+      if (hover && hovering) {
+        backgroundColor = this.getHoverColor()
+      }
       return {
         ...containerStyles,
-        backgroundColor: primaryColor,
+        backgroundColor,
         borderRadius,
       }
     }
 
     if (type === 'custom') {
-      const opacityValue = typeof opacity === 'number' ? opacity : 100
+      const opacity = typeof buttonOpacity === 'number' ? buttonOpacity : 100
+      const borderStyles =
+        border?.borderStyle && border?.borderStyle !== 'none' ? border : {}
+
+      let shadowStyles = {}
+
+      if (advancedShadow?.enabled) {
+        shadowStyles = {
+          shadowColor: advancedShadow.color,
+          shadowOffset: {
+            width: advancedShadow.x ?? 0,
+            height: advancedShadow.y ?? 0,
+          },
+          shadowOpacity: 1,
+          shadowRadius: advancedShadow.size ?? 0,
+        }
+      }
+
+      let backgroundColor = primaryColor
+      if (hover && hovering) {
+        backgroundColor = this.getHoverColor()
+      }
+
       return {
         ...containerStyles,
-        backgroundColor: primaryColor,
-        opacity: opacityValue / 100,
+        ...borderStyles,
+        ...shadowStyles,
+        backgroundColor,
+        opacity: opacity / 100,
         borderRadius,
       }
     }
@@ -77,20 +110,41 @@ export default class WrappedTextButton extends Component {
       let saturation = baseColor.hsl().color[1]
       let alpha = saturation <= 10 ? 0.23 : 0.5
       let borderColor = baseColor.fade(1 - alpha).toString()
+      const hoverColor = baseColor.fade(0.9).toString()
 
       return {
         ...containerStyles,
         borderColor,
         borderWidth: 1,
         borderRadius,
+        backgroundColor: hover && hovering ? hoverColor : null,
       }
     }
 
     return containerStyles
   }
 
+  getHoverColor() {
+    const { primaryColor = defaults.primaryColor } = this.getButtonState()
+
+    const baseColor = color(primaryColor)
+    const lighten =
+      baseColor.contrast(color('#ffffff')) < 2.5 && baseColor.luminosity() !== 1
+
+    let augmentedColor = lighten
+      ? baseColor.lighten(0.2)
+      : baseColor.darken(0.2)
+
+    if (baseColor.lightness() === 0) {
+      augmentedColor = baseColor.lightness(20)
+    }
+
+    return augmentedColor.toString()
+  }
+
   getTextStyles() {
     const { _fonts, ...defaults } = this.props
+    const { hovering } = this.state
     const {
       primaryColor = defaults.primaryColor,
       contrastColor = defaults.contrastColor,
@@ -98,6 +152,7 @@ export default class WrappedTextButton extends Component {
       icon = defaults.icon,
       styles = defaults.styles,
       sizing = defaults.sizing,
+      hover = false,
     } = this.getButtonState()
 
     const textStyles = { fontWeight: '600' }
@@ -105,7 +160,11 @@ export default class WrappedTextButton extends Component {
     if (contrastColor && RAISED_BUTTON_TYPES.has(type)) {
       textStyles.color = contrastColor
     } else {
-      textStyles.color = primaryColor
+      if (hover && hovering && type === 'text') {
+        textStyles.color = this.getHoverColor()
+      } else {
+        textStyles.color = primaryColor
+      }
     }
     //custom fonts
     if (styles) {
@@ -206,6 +265,7 @@ export default class WrappedTextButton extends Component {
       sizing = defaults.sizing,
     } = this.getButtonState()
     const newButtonStyles = SIZE_PROPERTIES.has(sizing)
+    const { hovering } = this.state
 
     let containerStyles = this.getContainerStyles()
     let iconStyles = this.getTextStyles()
@@ -231,8 +291,16 @@ export default class WrappedTextButton extends Component {
       }
     }
 
+    const onMouseEnter = () => {
+      this.setState({ hovering: true })
+    }
+
+    const onMouseLeave = () => {
+      this.setState({ hovering: false })
+    }
+
     return (
-      <View>
+      <View onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
         <View>
           <Button
             {...this.getAdditionalProps()}
