@@ -99,6 +99,7 @@
         "enabled": false,
         "x": 0,
         "y": 2,
+        "size": 4,
         "color": "rgba(0, 0, 0, 0.2)"
       },
       "style": true
@@ -133,6 +134,7 @@
         "min": 0
       },
       "default": 100,
+      "defaultValue": 100,
       "enabled": { "type": "custom" },
       "style": true
     },
@@ -271,6 +273,7 @@
             "enabled": false,
             "x": 0,
             "y": 2,
+            "size": 4,
             "color": "rgba(0, 0, 0, 0.2)"
           },
           "style": true
@@ -305,6 +308,7 @@
             "min": 0
           },
           "default": 100,
+          "defaultValue": 100,
           "enabled": { "type": "custom" },
           "style": true
         },
@@ -480,6 +484,7 @@
             "min": 0
           },
           "default": 100,
+          "defaultValue": 100,
           "enabled": { "type": "custom" },
           "style": true
         },

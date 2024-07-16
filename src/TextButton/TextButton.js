@@ -128,10 +128,12 @@ export default class WrappedTextButton extends Component {
     const { primaryColor = defaults.primaryColor } = this.getButtonState()
 
     const baseColor = color(primaryColor)
-    const lighten = baseColor.isLight() && baseColor.luminosity() !== 1
+    const lighten =
+      baseColor.contrast(color('#ffffff')) < 2.5 && baseColor.luminosity() !== 1
+
     let augmentedColor = lighten
-      ? baseColor.lighten(0.5)
-      : baseColor.darken(0.5)
+      ? baseColor.lighten(0.2)
+      : baseColor.darken(0.2)
 
     if (baseColor.lightness() === 0) {
       augmentedColor = baseColor.lightness(20)
