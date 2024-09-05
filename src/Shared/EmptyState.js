@@ -1,8 +1,31 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
-import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
 import WrappedTextButton from '../TextButton/TextButton.js'
+
+const getButtonMargin = (buttonType, textTitleDisplay, emptyStateImageStatus) => {
+  if (buttonType === 'noButton') {
+    return 0
+  }
+
+  if (textTitleDisplay === 'noText' && emptyStateImageStatus === 'noImage') {
+    return 0
+  }
+
+  return 32
+}
+
+const getImageSource = imageSource => {
+  if (!imageSource) {
+    return require('./sqr-empty-state.png')
+  }
+
+  if (typeof imageSource === 'object' && typeof imageSource.value === 'object') {
+    return imageSource.value
+  }
+
+  return imageSource
+}
 
 export default class EmptyListWrapper extends Component {
   static defaultProps = {
@@ -54,19 +77,13 @@ export default class EmptyListWrapper extends Component {
         : {}
 
     const buttonMargin = {
-      marginTop:
-        buttonType !== 'noButton' &&
-        textTitleDisplay !== 'noText' &&
-        emptyStateImageStatus !== 'noImage'
-          ? 32
-          : 0,
+      marginTop: getButtonMargin(buttonType, textTitleDisplay, emptyStateImageStatus),
     }
 
-    const wrapperStyles =
-      emptyStateImageStatus === 'noImage' ? {} : styles.wrapper
+    const wrapperStyles = emptyStateImageStatus === 'noImage' ? {} : styles.wrapper
 
     return (
-      <View style={[wrapperStyles]}>
+      <View style={wrapperStyles}>
         <ImageHolder {...this.props} />
         {buttonType && buttonType !== 'noButton' && (
           <View style={{ alignItems: 'center' }}>
@@ -103,9 +120,9 @@ function ImageHolder(props) {
     imageHeight,
     imageRounding,
   } = props
-  let realImageSource = !imageSource
-    ? require('./sqr-empty-state.png')
-    : imageSource
+  let realImageSource = getImageSource(imageSource)
+
+  console.log('empty', props)
 
   const imageWrapperSize = { width: imageWidth, height: imageHeight }
 
