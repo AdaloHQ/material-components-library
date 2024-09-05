@@ -122,8 +122,6 @@ function ImageHolder(props) {
   } = props
   let realImageSource = getImageSource(imageSource)
 
-  console.log('empty', props)
-
   const imageWrapperSize = { width: imageWidth, height: imageHeight }
 
   if (!emptyStateImageStatus || emptyStateImageStatus === 'noImage') {
