@@ -1,6 +1,6 @@
 {
   "name": "@protonapp/material-components",
-  "version": "0.9.63",
+  "version": "0.9.64",
   "description": "Material UI Components for Proton",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
     "react-dom": ">=16"
   },
   "devDependencies": {
-    "@adalo/cli": "^1.0.1",
+    "@adalo/cli": "^1.0.0",
     "@babel/core": "^7.8.4",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
@@ -46,7 +46,7 @@
     "chroma-js": "^2.1.2",
     "color": "^3.1.0",
     "react-indiana-drag-scroll": "^1.7.0",
-    "react-native-device-info": "10.12.0",
+    "react-native-device-info": "13.0.0",
     "react-native-linear-gradient": "2.7.3",
     "react-native-paper": "^4.7.2",
     "react-native-vector-icons": "^9.1.0"
