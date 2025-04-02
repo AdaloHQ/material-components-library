@@ -7,7 +7,6 @@ import ImageScrollViewMobile from './ImageScrollView.js'
 import ImageScrollViewPWA from './ImageScrollView.pwa.js'
 import ImageItem from './ImageItem'
 import EmptyState from '../Shared/EmptyState'
-import PropTypes from 'prop-types'
 
 class ChipList extends Component {
   isMobileDevice = () => {

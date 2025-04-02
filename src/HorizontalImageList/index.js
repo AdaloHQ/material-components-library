@@ -12,7 +12,6 @@ import ImageScrollViewMobile from './ImageScrollView.js'
 import ImageScrollViewWeb from './ImageScrollView.web.js'
 import ImageScrollViewPWA from './ImageScrollView.pwa.js'
 import EmptyState from '../Shared/EmptyState'
-import PropTypes from 'prop-types'
 
 class HorizontalImageList extends Component {
   isMobileDevice = () => {
@@ -124,7 +123,6 @@ class HorizontalImageList extends Component {
       subtitlePosition: null,
       textPos: null,
       textSwitch: null,
-      tlIcon: null,
       tlIcon: null,
       trIcon: null,
       brIcon: null,
@@ -278,7 +276,6 @@ class HorizontalImageList extends Component {
         flexDirection: 'row',
         width: imageSize,
         justifyContent: 'space-between',
-        paddingTop: ((imageSize - 150) / 175) * 6 + 10,
         alignItems: 'center',
         backgroundColor: backgroundColorBoolTop
           ? this.hexToRgb(backgroundColor)

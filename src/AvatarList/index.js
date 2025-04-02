@@ -4,7 +4,6 @@ import ImageScrollViewWeb from './ImageScrollView.web.js'
 import ImageScrollViewMobile from './ImageScrollView.js'
 import ImageScrollViewPWA from './ImageScrollView.pwa.js'
 import EmptyState from '../Shared/EmptyState'
-import PropTypes from 'prop-types'
 
 class AvatarList extends Component {
   isMobileDevice = () => {
