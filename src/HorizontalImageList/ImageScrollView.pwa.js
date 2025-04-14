@@ -6,7 +6,7 @@ import {
   Image,
   ScrollView,
   ImageBackground,
-  TouchableWithoutFeedback,
+  Pressable,
 } from 'react-native'
 import ImageItem from './ImageItem.js'
 import BottomBar from './BottomBar.js'

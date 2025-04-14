@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {
   View,
   Platform,
-  TouchableWithoutFeedback,
+  Pressable,
   ActivityIndicator,
 } from 'react-native'
 import ImageItem from './ImageItem.js'
@@ -478,7 +478,7 @@ class HorizontalImageList extends Component {
                         : null
                     }
                   >
-                    <TouchableWithoutFeedback onPress={clickActions}>
+                    <Pressable onPress={clickActions}>
                       <View>
                         <View>
                           <ImageItem
@@ -526,7 +526,7 @@ class HorizontalImageList extends Component {
                           editor={editor}
                         ></BottomBar>
                       </View>
-                    </TouchableWithoutFeedback>
+                    </Pressable>
                   </View>
                 </View>
               )

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, Pressable } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import ImgixImage from '../lib/ImgixImage'
 
@@ -39,12 +39,12 @@ class ImageItem extends Component {
     return (
       <View style={style.background}>
         <View style={style.chip}>
-          <TouchableWithoutFeedback onPress={clickActions}>
+          <Pressable onPress={clickActions}>
             <View style={style.chipTouch}>
               {imageItem}
               {textItem}
             </View>
-          </TouchableWithoutFeedback>
+          </Pressable>
           {iconItem}
         </View>
       </View>
