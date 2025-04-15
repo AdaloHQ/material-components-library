@@ -88,7 +88,7 @@ class AvatarList extends Component {
     const { textPos, textAlign, textColor } = imageList
       ? imageElem.textChild
       : dummy
-    const noCrop = cropMenu == 'center'
+    const noCrop = cropMenu === 'center'
     if (edit) {
       imageList.push(imageElem)
       imageList.push(imageElem)

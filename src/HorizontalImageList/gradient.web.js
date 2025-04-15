@@ -16,7 +16,7 @@ const Gradient = props => {
       ? null
       : backgroundEffect
       ? null
-      : textPos == 'top'
+      : textPos === 'top'
       ? `linear-gradient(rgba(0,0,0,.7),#FFFFFF00 ) `
       : `linear-gradient(#FFFFFF00 , rgba(0,0,0,.7))`,
   }

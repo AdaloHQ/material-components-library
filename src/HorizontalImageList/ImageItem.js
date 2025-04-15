@@ -65,7 +65,7 @@ class ImageItem extends Component {
           >
             <View style={style.container}>
               <View style={style.top}>
-                {textPos == 'top' && textSwitch ? (
+                {textPos === 'top' && textSwitch ? (
                   <View style={style.text}>
                     {this.renderTitle()}
                     <Text style={style.subtitle} numberOfLines={1}>
@@ -101,7 +101,7 @@ class ImageItem extends Component {
                 ></IconToggle>
               </View>
               <View style={style.bottom}>
-                {textPos == 'bottom' && textSwitch ? (
+                {textPos === 'bottom' && textSwitch ? (
                   <View style={style.text}>
                     {this.renderTitle()}
                     <Text style={style.subtitle} numberOfLines={1}>

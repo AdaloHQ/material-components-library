@@ -209,12 +209,12 @@ class HorizontalImageList extends Component {
       : [null, null, null, null, null, null]
 
     const gradientProps = {
-      textPos: textPos == 0 ? 'bottom' : 'top',
+      textPos: textPos === 0 ? 'bottom' : 'top',
       backgroundEffect: backgroundEffect,
       gradientEnabled: enabled,
     }
 
-    const iconText = (textPos == 0 && br) || (textPos == 1 && tr)
+    const iconText = (textPos === 0 && br) || (textPos === 1 && tr)
 
     const titleLimit = iconText
       ? ((imageSize - 150) / 175) * 11 + 18
@@ -226,9 +226,9 @@ class HorizontalImageList extends Component {
         : 24
 
     const backgroundColorBoolTop =
-      backgroundEffect == 1 && textPos == 1 && enabled && textSwitch
+      backgroundEffect === 1 && textPos === 1 && enabled && textSwitch
     const backgroundColorBoolBottom =
-      backgroundEffect == 1 && textPos == 0 && enabled && textSwitch
+      backgroundEffect === 1 && textPos === 0 && enabled && textSwitch
 
     const imageStyles = {
       view: {
@@ -240,9 +240,9 @@ class HorizontalImageList extends Component {
       image: {
         width: imageSize,
         height:
-          shape == 0
+          shape === 0
             ? imageSize
-            : shape == 1
+            : shape === 1
             ? imageSize * 1.5
             : (imageSize * 2) / 3,
 
@@ -263,7 +263,7 @@ class HorizontalImageList extends Component {
       subtitle: {
         fontSize: ((imageSize - 150) / 175) * 6 + 10,
         paddingVertical: 1,
-        height: subtitle == '' ? 0 : null,
+        height: subtitle === '' ? 0 : null,
       },
       text: {
         flexDirection: subtitlePosition,
@@ -291,7 +291,7 @@ class HorizontalImageList extends Component {
 
         paddingHorizontal: ((imageSize - 150) / 175) * 6 + 10,
         paddingTop:
-          !textSwitch || textPos == 0
+          !textSwitch || textPos === 0
             ? ((imageSize - 150) / 175) * 6 + 10
             : null,
         borderTopLeftRadius: imageRounding,
@@ -303,7 +303,7 @@ class HorizontalImageList extends Component {
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingBottom:
-          !textSwitch || textPos == 1
+          !textSwitch || textPos === 1
             ? ((imageSize - 150) / 175) * 6 + 10
             : null,
         backgroundColor: backgroundColorBoolBottom
@@ -335,9 +335,9 @@ class HorizontalImageList extends Component {
         flex: 1,
         flexDirection: 'column',
         height:
-          shape == 0
+          shape === 0
             ? imageSize
-            : shape == 1
+            : shape === 1
             ? imageSize * 1.5
             : (imageSize * 2) / 3,
         justifyContent: 'space-between',
