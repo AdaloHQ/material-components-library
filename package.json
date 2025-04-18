@@ -41,8 +41,8 @@
     "style-loader": "^0.23.1"
   },
   "dependencies": {
-    "@protonapp/react-native-material-ui": "^2.0.7",
-    "@react-native-community/blur": "4.0.0",
+    "@protonapp/react-native-material-ui": "https://github.com/AdaloHQ/react-native-material-ui.git#upgrade-rn",
+    "@react-native-community/blur": "4.4.1",
     "chroma-js": "^2.1.2",
     "color": "^3.1.0",
     "react-indiana-drag-scroll": "^2.2.1",
