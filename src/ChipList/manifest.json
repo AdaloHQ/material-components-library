@@ -85,6 +85,7 @@
           "name": "icon",
           "displayName": "Icon",
           "type": "icon",
+          "customIcons": true,
           "default": "cancel"
         },
 
@@ -264,6 +265,7 @@
           "name": "buttonIcon",
           "displayName": "Icon",
           "type": "icon",
+          "customIcons": true,
           "default": "add",
           "enabled": {
             "buttonType": ["text", "outlined", "contained"]

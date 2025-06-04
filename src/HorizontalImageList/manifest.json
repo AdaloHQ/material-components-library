@@ -186,6 +186,7 @@
           "name": "trIcon",
           "displayName": "Icon",
           "type": "icon",
+          "customIcons": true,
           "default": "more-vert",
           "enabled": {
             "tr": true
@@ -223,6 +224,7 @@
           "name": "tlIcon",
           "displayName": "Icon",
           "type": "icon",
+          "customIcons": true,
           "default": "more-vert",
           "enabled": {
             "textPos": 0,
@@ -264,6 +266,7 @@
           "name": "tlIcon2",
           "displayName": "Icon",
           "type": "icon",
+          "customIcons": true,
           "default": "more-vert",
           "enabled": {
             "textSwitch": false,
@@ -299,6 +302,7 @@
           "name": "brIcon",
           "displayName": "Icon",
           "type": "icon",
+          "customIcons": true,
           "default": "more-vert",
           "enabled": {
             "br": true
@@ -336,6 +340,7 @@
           "name": "blIcon",
           "displayName": "Icon",
           "type": "icon",
+          "customIcons": true,
           "default": "more-vert",
           "enabled": {
             "bl": true,
@@ -378,6 +383,7 @@
           "name": "blIcon2",
           "displayName": "Icon",
           "type": "icon",
+          "customIcons": true,
           "default": "more-vert",
           "enabled": {
             "bl2": true,
@@ -574,6 +580,7 @@
           "name": "iconL",
           "displayName": "Icon",
           "type": "icon",
+          "customIcons": true,
           "default": "more-vert",
           "enabled": {
             "leftButton": true,
@@ -613,6 +620,7 @@
           "name": "activeIconL",
           "displayName": "Active Icon",
           "type": "icon",
+          "customIcons": true,
           "default": "check-box",
           "enabled": {
             "leftButton": true,
@@ -633,6 +641,7 @@
           "name": "inactiveIconL",
           "displayName": "Inactive Icon",
           "type": "icon",
+          "customIcons": true,
           "default": "check-box-outline-blank",
           "enabled": {
             "leftButton": true,
@@ -775,6 +784,7 @@
           "name": "iconR",
           "displayName": "Icon",
           "type": "icon",
+          "customIcons": true,
           "default": "more-vert",
           "enabled": {
             "rightButton": true,
@@ -814,6 +824,7 @@
           "name": "activeIconR",
           "displayName": "Active Icon",
           "type": "icon",
+          "customIcons": true,
           "default": "check-box",
           "enabled": {
             "rightButton": true,
@@ -834,6 +845,7 @@
           "name": "inactiveIconR",
           "displayName": "Inactive Icon",
           "type": "icon",
+          "customIcons": true,
           "default": "check-box-outline-blank",
           "enabled": {
             "rightButton": true,
@@ -1021,6 +1033,7 @@
           "name": "buttonIcon",
           "displayName": "Icon",
           "type": "icon",
+          "customIcons": true,
           "default": "add",
           "enabled": {
             "buttonType": ["text", "outlined", "contained"]
