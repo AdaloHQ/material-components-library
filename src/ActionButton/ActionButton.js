@@ -9,6 +9,7 @@ export default class WrappedActionButton extends Component {
   static defaultProps = {
     backgroundColor: '#6200ee',
     color: '#fff',
+    borderRadius: 100,
   }
 
   state = {
@@ -69,6 +70,7 @@ export default class WrappedActionButton extends Component {
       alignSelf: 'stretch',
       alignItems: 'center',
       justifyContent: 'stretch',
+      borderRadius: 100,
     }
 
     let offset = 0
