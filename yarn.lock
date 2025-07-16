@@ -2476,10 +2476,10 @@
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
 
-"@protonapp/react-native-material-ui@^2.0.8":
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/@protonapp/react-native-material-ui/-/react-native-material-ui-2.0.8.tgz#efee31a1f3d53d801b6265e11f682b0635f995d0"
-  integrity sha512-C7VDGzc8eEj80IcXOttIBA5KnPwEZnBN+2eqrZttnNkAYgeT7F1fM7vrB8C59bbCWGgAGLyeMQEFY0lUzrajSw==
+"@protonapp/react-native-material-ui@^2.0.9":
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/@protonapp/react-native-material-ui/-/react-native-material-ui-2.0.9.tgz#f569626d0608b0c35200cddba1c585156fc40020"
+  integrity sha512-ty3hmhJIqsBd4rz8Qt2pQcpkACtEcYwio/JDLBfZgZQKLOF0r0Ckmgyc+l8wTzrfLp1uFEAM76V2NMjZ8RzBPA==
   dependencies:
     color "3.1.0"
     hoist-non-react-statics "^2.5.5"
