@@ -27,7 +27,7 @@ class ImageItem extends Component {
       <View style={style.view}>
         {!bottom && textEnabled && textItem}
         <View style={style.background}>
-          <Pressable onPress={onPress}>
+          <Pressable onPress={onPress} accessibilityRole="button">
             <ImgixImage style={style.image} resizeMode={resize} source={image} />
           </Pressable>
         </View>

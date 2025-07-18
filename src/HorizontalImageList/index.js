@@ -478,7 +478,7 @@ class HorizontalImageList extends Component {
                         : null
                     }
                   >
-                    <Pressable onPress={clickActions}>
+                    <Pressable onPress={clickActions} accessibilityRole="button">
                       <View>
                         <View>
                           <ImageItem

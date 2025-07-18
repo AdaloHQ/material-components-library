@@ -39,7 +39,7 @@ class ImageItem extends Component {
     return (
       <View style={style.background}>
         <View style={style.chip}>
-          <Pressable onPress={clickActions}>
+          <Pressable onPress={clickActions} accessibilityRole="button">
             <View style={style.chipTouch}>
               {imageItem}
               {textItem}
