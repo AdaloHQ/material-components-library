@@ -327,8 +327,8 @@ export default class AppBar extends Component {
       }
       containerStyles = {
         ...containerStyles,
-        height: 126,
-        paddingTop: 70,
+        height: 146,
+        paddingTop: 80,
         marginTop,
         ...this.getBorderStyle(106, false),
       }
