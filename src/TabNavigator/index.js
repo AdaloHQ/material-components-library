@@ -64,6 +64,7 @@ export default class TabNavigator extends Component {
           active={activeTab}
           style={{
             container: [wrapperStyles, { backgroundColor }],
+            actionsContainer: styles.wrapperContainerStyles
           }}
         >
           {enabledTabs.map((tabName) => (
@@ -95,6 +96,10 @@ const styles = StyleSheet.create({
   },
   editorWrapper: {
     height: 56,
+  },
+  wrapperContainerStyles: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   tabItem: {
     minWidth: 60,
