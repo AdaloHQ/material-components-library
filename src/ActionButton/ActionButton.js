@@ -102,14 +102,25 @@ export default class WrappedActionButton extends Component {
       delete wrapperStyles.justifyContent
     }
 
-    let labelStyles = {}
+    let theme = {}
     if (this.props.styles && this.props.styles.text) {
-      labelStyles = {
-        ...this.props.styles.text,
+      theme = {
+        fonts: {
+          labelLarge: {
+            ...(this.props.styles.text || {}),
+            textTransform: 'uppercase',
+          },
+        },
       }
+
     } else if (_fonts) {
-      labelStyles = {
+      theme = {
         fontFamily: _fonts.body,
+        fonts: {
+          labelLarge: {
+            textTransform: 'uppercase',
+          }
+        }
       }
     }
 
@@ -122,7 +133,7 @@ export default class WrappedActionButton extends Component {
       <View style={wrapperStyles}>
         <FAB
           style={containerStyles}
-          theme={{ fonts: { medium: labelStyles } }}
+          theme={theme}
           color={color}
           icon={({ size, color }) => (
             <Icon name={icon} style={{ color }} size={size}></Icon>
@@ -133,7 +144,7 @@ export default class WrappedActionButton extends Component {
           animated={false}
           onLayout={this.handleLayout}
           loading={isLoading}
-        ></FAB>
+        />
       </View>
     )
   }
