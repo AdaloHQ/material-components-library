@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   },
   wrapperContainerStyles: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
   tabItem: {
     minWidth: 60,
