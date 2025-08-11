@@ -316,7 +316,7 @@ export default class AppBar extends Component {
       height: 96,
       paddingTop: 30,
       justifyContent: 'space-between',
-      ...this.getBorderStyle(76, false),
+      ...this.getBorderStyle(96, false),
       ...this.getShadowStyle(),
     }
 
@@ -330,7 +330,7 @@ export default class AppBar extends Component {
         height: 146,
         paddingTop: 80,
         marginTop,
-        ...this.getBorderStyle(106, false),
+        ...this.getBorderStyle(146, false),
       }
     }
     if (barType === 'translucent') {
