@@ -45,25 +45,18 @@ class ChipList extends Component {
       _fonts,
       listEmptyState,
       openAccordion,
-      getFlags,
     } = this.props
-
-    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
     if (
       !imageList ||
       typeof navigator.userAgent === undefined ||
       (!imageList[0] && !listEmptyState)
     ) {
-      if (hasUpdatedLoadingStates) {
-        return (
-          <View style={{ height: 32, justifyContent: 'center' }}>
-            <ActivityIndicator color="#999999" />
-          </View>
-        )
-      } else {
-        return <View style={{ height: 32 }}></View>
-      }
+      return (
+        <View style={{ height: 32, justifyContent: 'center' }}>
+          <ActivityIndicator color="#999999" />
+        </View>
+      )
     }
 
     const renderEmptyState =
