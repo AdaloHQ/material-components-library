@@ -372,7 +372,7 @@ class Row extends Component {
       )
     }
 
-    if (iconType == 'toggle') {
+    if (iconType === 'toggle') {
       return (
         <WrappedIconToggle
           {...rightSection}
@@ -466,7 +466,7 @@ class FirstLine extends Component {
       propStyles.push({ fontFamily: _fonts.body })
     }
     let titleLimit = widthLimit / 7.7
-    if (titleLineNum == 2) {
+    if (titleLineNum === 2) {
       if (breakless.length > titleLimit) {
         const firstLine = breakless.substring(0, titleLimit + 1)
         const i = firstLine.lastIndexOf(' ')
@@ -535,7 +535,7 @@ class SecondLine extends Component {
     }
     let subtitleLimit = widthLimit / 7
     let breakless = text.replace(/(\r\n|\n|\r)/gm, '')
-    if (subtitleLineNum == 2) {
+    if (subtitleLineNum === 2) {
       if (breakless.length > subtitleLimit) {
         const firstLine = breakless.substring(0, subtitleLimit + 1)
         const i = firstLine.lastIndexOf(' ')

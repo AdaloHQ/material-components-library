@@ -24,7 +24,7 @@ const Gradient = props => {
       colors={
         !textSwitch || !gradientEnabled
           ? ['#FFFFFF00', '#FFFFFF00']
-          : textPos == 'top'
+          : textPos === 'top'
           ? ['rgba(0,0,0,.8)', '#FFFFFF00']
           : ['#FFFFFF00', 'rgba(0,0,0,.8)']
       }

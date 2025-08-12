@@ -4,7 +4,6 @@ import ImageScrollViewWeb from './ImageScrollView.web.js'
 import ImageScrollViewMobile from './ImageScrollView.js'
 import ImageScrollViewPWA from './ImageScrollView.pwa.js'
 import EmptyState from '../Shared/EmptyState'
-import PropTypes from 'prop-types'
 
 class AvatarList extends Component {
   isMobileDevice = () => {
@@ -82,7 +81,7 @@ class AvatarList extends Component {
     const { textPos, textAlign, textColor } = imageList
       ? imageElem.textChild
       : dummy
-    const noCrop = cropMenu == 'center'
+    const noCrop = cropMenu === 'center'
     if (edit) {
       imageList.push(imageElem)
       imageList.push(imageElem)

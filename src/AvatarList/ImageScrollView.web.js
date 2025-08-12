@@ -29,7 +29,7 @@ class ImageScrollView extends Component {
                     style={imageItemStyle}
                     text={textChild.title}
                     textEnabled={textChild.enabled}
-                    bottom={textPos == 1}
+                    bottom={textPos === 1}
                     resize={cropMenu}
                     maxLimit={((imageSize - 30) / 170) * 21 + 6}
                     border={borderBool}
@@ -51,7 +51,7 @@ class ImageScrollView extends Component {
                   style={imageItemStyle}
                   text={textChild.title}
                   textEnabled={textChild.enabled}
-                  bottom={textPos == 1}
+                  bottom={textPos === 1}
                   resize={cropMenu}
                   maxLimit={((imageSize - 30) / 170) * 21 + 6}
                   border={borderBool}
