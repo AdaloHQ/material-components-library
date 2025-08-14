@@ -64,7 +64,6 @@
           "name": "icon",
           "displayName": "Icon",
           "type": "icon",
-          "customIcons": true,
           "default": "home"
         },
         {
@@ -94,7 +93,6 @@
           "name": "icon",
           "displayName": "Icon",
           "type": "icon",
-          "customIcons": true,
           "default": "search"
         },
         {
@@ -129,7 +127,6 @@
           "name": "icon",
           "displayName": "Icon",
           "type": "icon",
-          "customIcons": true,
           "default": "people"
         },
         {
@@ -164,7 +161,6 @@
           "name": "icon",
           "displayName": "Icon",
           "type": "icon",
-          "customIcons": true,
           "default": "account-circle"
         },
         {
@@ -199,7 +195,6 @@
           "name": "icon",
           "displayName": "Icon",
           "type": "icon",
-          "customIcons": true,
           "default": "more-horiz"
         },
         {
