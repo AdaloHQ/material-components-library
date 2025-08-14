@@ -37,7 +37,6 @@
       "name": "icon",
       "displayName": "Icon",
       "type": "icon",
-      "customIcons": true,
       "default": "add"
     },
     {
@@ -212,7 +211,6 @@
           "name": "icon",
           "displayName": "Icon",
           "type": "icon",
-          "customIcons": true,
           "default": "add"
         },
         {
@@ -389,7 +387,6 @@
           "name": "icon",
           "displayName": "Icon",
           "type": "icon",
-          "customIcons": true,
           "default": "add"
         },
         {

@@ -43,7 +43,10 @@ class AvatarList extends Component {
       _fonts,
       listEmptyState,
       openAccordion,
+      getFlags,
     } = this.props
+
+    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
     const renderEmptyState =
       (imageList && !imageList[0]) ||
@@ -69,11 +72,15 @@ class AvatarList extends Component {
       typeof navigator.userAgent === undefined ||
       (!imageList[0] && !listEmptyState)
     ) {
-      return (
-        <View style={{ height: imageSize, justifyContent: 'center' }}>
-          <ActivityIndicator color="#999999" />
-        </View>
-      )
+      if (hasUpdatedLoadingStates) {
+        return (
+          <View style={{ height: imageSize, justifyContent: 'center' }}>
+            <ActivityIndicator color="#999999" />
+          </View>
+        )
+      } else {
+        return <View style={{ height: imageSize }}></View>
+      }
     }
 
     const edit = this.props.editor

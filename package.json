@@ -1,6 +1,6 @@
 {
   "name": "@protonapp/material-components",
-  "version": "0.9.73",
+  "version": "0.9.72",
   "description": "Material UI Components for Proton",
   "main": "index.js",
   "scripts": {
@@ -41,7 +41,7 @@
     "style-loader": "^0.23.1"
   },
   "dependencies": {
-    "@protonapp/react-native-material-ui": "^2.0.9",
+    "@protonapp/react-native-material-ui": "^2.0.7",
     "@react-native-community/blur": "4.0.0",
     "chroma-js": "^2.1.2",
     "color": "^3.1.0",
