@@ -30,8 +30,9 @@ export default class WrappedIconToggle extends Component {
 
 
   render() {
-    const { iconName, iconColor, onPress, iconSize = 24 } = this.props
+    const { iconName, iconColor, onPress, iconSize = 24, getFlags } = this.props
     const { isLoading } = this.state
+    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
     const styles = {
       wrapper: {
@@ -56,7 +57,7 @@ export default class WrappedIconToggle extends Component {
       )
     }
 
-    const onPressAction = this.clickAction
+    const onPressAction = hasUpdatedLoadingStates ? this.clickAction : onPress
 
     if (isLoading) {
       let spinnerSize = 'small'
