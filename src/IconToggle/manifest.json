@@ -17,7 +17,6 @@
       "name": "activeIcon",
       "displayName": "Active Icon",
       "type": "icon",
-      "customIcons": true,
       "default": "check-box"
     },
     {
@@ -30,7 +29,6 @@
       "name": "inactiveIcon",
       "displayName": "Inactive Icon",
       "type": "icon",
-      "customIcons": true,
       "default": "check-box-outline-blank"
     },
     {

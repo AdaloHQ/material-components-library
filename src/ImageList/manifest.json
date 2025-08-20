@@ -202,7 +202,6 @@
           "name": "icon",
           "displayName": "Icon",
           "type": "icon",
-          "customIcons": true,
           "default": "more-vert",
           "enabled": {
             "iconType": ["toggle", "ADALO_INTERNAL_!previous"]
@@ -251,7 +250,6 @@
           "name": "activeIcon",
           "displayName": "Active Icon",
           "type": "icon",
-          "customIcons": true,
           "default": "check-box",
           "enabled": {
             "iconType": "toggle"
@@ -270,7 +268,6 @@
           "name": "inactiveIcon",
           "displayName": "Inactive Icon",
           "type": "icon",
-          "customIcons": true,
           "default": "check-box-outline-blank",
           "enabled": {
             "iconType": "toggle"
@@ -363,7 +360,6 @@
           "name": "icon",
           "displayName": "Icon",
           "type": "icon",
-          "customIcons": true,
           "default": "search",
           "enabled": {
             "customStyles": "custom",
@@ -553,7 +549,6 @@
           "name": "buttonIcon",
           "displayName": "Icon",
           "type": "icon",
-          "customIcons": true,
           "default": "add",
           "enabled": {
             "buttonType": ["text", "outlined", "contained"]
