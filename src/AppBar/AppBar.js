@@ -254,10 +254,10 @@ export default class AppBar extends Component {
 
   renderBlur(containerStyles) {
     let { translucentColor, hasDynamicIslandOrNotch } = this.props
-    
+
     const blurViewStyle = {};
     if (hasDynamicIslandOrNotch) {
-      blurViewStyle.marginTop = -40
+      blurViewStyle.marginTop = -60
     }
 
     return (
@@ -278,7 +278,7 @@ export default class AppBar extends Component {
 
     let imageBackgroundStyles = styles.imageBackground;
     if (hasDynamicIslandOrNotch) {
-      imageBackgroundStyles = { ...imageBackgroundStyles, marginTop: -40 }
+      imageBackgroundStyles = { ...imageBackgroundStyles, marginTop: -60 }
     }
 
     const imageStyles = [
@@ -311,24 +311,24 @@ export default class AppBar extends Component {
     let { barType, translucentColor, backgroundColor, editor, hasDynamicIslandOrNotch } = this.props
     let containerStyles = {
       backgroundColor,
-      height: 76,
-      paddingTop: 20,
+      height: 96,
+      paddingTop: 30,
       justifyContent: 'space-between',
-      ...this.getBorderStyle(76, false),
+      ...this.getBorderStyle(96, false),
       ...this.getShadowStyle(),
     }
 
     if (!editor) {
-      let marginTop = -30;
+      let marginTop = -50;
       if (hasDynamicIslandOrNotch) {
-        marginTop = -40;
+        marginTop = -60;
       }
       containerStyles = {
         ...containerStyles,
-        height: 106,
-        paddingTop: 50,
+        height: 146,
+        paddingTop: 80,
         marginTop,
-        ...this.getBorderStyle(106, false),
+        ...this.getBorderStyle(146, false),
       }
     }
     if (barType === 'translucent') {
@@ -352,7 +352,7 @@ export default class AppBar extends Component {
 }
 const styles = StyleSheet.create({
   wrapper: {
-    marginTop: -20,
+    marginTop: -40,
   },
   imageBackground: {
     height: 180,
@@ -362,7 +362,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   contentContainer: {
-    height: 56,
+    height: 76,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
