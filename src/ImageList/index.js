@@ -1,10 +1,5 @@
 import React, { Component } from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  ActivityIndicator,
-} from 'react-native'
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native'
 import { RippleFeedback, IconToggle } from '@protonapp/react-native-material-ui'
 import Gradient from './gradient'
 import SearchBarWrapper from '../Shared/SearchWrapper'
@@ -163,30 +158,21 @@ export default class ImageList extends Component {
       openAccordion,
       columnCount,
       _height,
-      getFlags,
     } = this.props
-
-    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
 
     let layout = 'grid' //items[0] ? items[0].imageStyles.layout : 'grid'
 
     if (!items) {
-      if (hasUpdatedLoadingStates) {
-        // TODO (michael-adalo): flag is now set to ON for all environments,
-        // we could remove the check and default to the logic below
-        const height = columnCount === 2 ? _height / 2 : _height
+      const height = columnCount === 2 ? _height / 2 : _height
 
-        return (
-          <View
-            style={{ height, justifyContent: 'center' }}
-            onLayout={this.handleLayout}
-          >
-            <ActivityIndicator color="#999999" />
-          </View>
-        )
-      } else {
-        return <View></View>
-      }
+      return (
+        <View
+          style={{ height, justifyContent: 'center' }}
+          onLayout={this.handleLayout}
+        >
+          <ActivityIndicator color="#999999" />
+        </View>
+      )
     }
 
     const newItems = this.filterItems(items)
@@ -434,7 +420,7 @@ class Cell extends Component {
 
       if (!isEditor) {
         // Need to return at least one child, can't return null
-        return <React.Fragment/>
+        return <React.Fragment />
       }
     }
 
