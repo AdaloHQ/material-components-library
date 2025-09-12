@@ -57,11 +57,9 @@ export default class WrappedActionButton extends Component {
       _width,
       buttonType,
       resizeMethod,
-      getFlags,
     } = this.props
     const { width, isLoading } = this.state
-    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
-    const onPressAction = hasUpdatedLoadingStates ? this.clickAction : action
+    const onPressAction = this.clickAction
 
     const containerStyles = {
       backgroundColor,

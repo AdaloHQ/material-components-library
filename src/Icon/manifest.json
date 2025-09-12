@@ -11,6 +11,7 @@
       "name": "iconName",
       "displayName": "Icon",
       "type": "icon",
+      "customIcons": true,
       "default": "chevron-right"
     },
     {

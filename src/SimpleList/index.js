@@ -88,21 +88,14 @@ export default class SimpleList extends Component {
       searchBar,
       listEmptyState,
       openAccordion,
-      getFlags,
     } = this.props
 
-    const { hasUpdatedLoadingStates } = (getFlags && getFlags()) || {}
-
     if (!items) {
-      if (hasUpdatedLoadingStates) {
-        return (
-          <View style={styles.iconWrap}>
-            <ActivityIndicator color="#999999" />
-          </View>
-        )
-      } else {
-        return <View></View>
-      }
+      return (
+        <View style={styles.iconWrap}>
+          <ActivityIndicator color="#999999" />
+        </View>
+      )
     }
 
     let wrap = [styles.wrapper]

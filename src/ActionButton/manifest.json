@@ -30,6 +30,7 @@
       "name": "icon",
       "displayName": "Icon",
       "type": "icon",
+      "customIcons": true,
       "default": "add"
     },
     {
