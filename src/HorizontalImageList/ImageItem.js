@@ -80,7 +80,7 @@ class ImageItem extends Component {
                     size={iconSize}
                     maxOpacity={0.0}
                     style={style.topIcon}
-                  ></IconToggle>
+                  />
                 ) : (
                   <IconToggle
                     name={icons[4]}
@@ -89,7 +89,7 @@ class ImageItem extends Component {
                     size={iconSize}
                     maxOpacity={0.0}
                     style={style.topIcon}
-                  ></IconToggle>
+                  />
                 )}
                 <IconToggle
                   name={icons[1]}
@@ -98,7 +98,7 @@ class ImageItem extends Component {
                   size={iconSize}
                   maxOpacity={0.0}
                   style={style.topIcon}
-                ></IconToggle>
+                />
               </View>
               <View style={style.bottom}>
                 {textPos === 'bottom' && textSwitch ? (
@@ -116,7 +116,7 @@ class ImageItem extends Component {
                     size={iconSize}
                     maxOpacity={0.0}
                     style={style.topIcon}
-                  ></IconToggle>
+                  />
                 ) : (
                   <IconToggle
                     name={icons[5]}
@@ -125,7 +125,7 @@ class ImageItem extends Component {
                     size={iconSize}
                     maxOpacity={0.0}
                     style={style.topIcon}
-                  ></IconToggle>
+                  />
                 )}
                 <IconToggle
                   name={icons[2]}
@@ -134,7 +134,7 @@ class ImageItem extends Component {
                   size={iconSize}
                   maxOpacity={0.0}
                   style={style.topIcon}
-                ></IconToggle>
+                />
               </View>
             </View>
           </Gradient>
