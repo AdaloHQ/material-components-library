@@ -6,7 +6,7 @@ import {
   Text,
   ActivityIndicator,
 } from 'react-native'
-import DeviceInfo from 'react-native-device-info';
+import DeviceInfo from 'react-native-device-info'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Blur from './blur'
 import Gradient from './gradient'
@@ -14,8 +14,8 @@ import WrappedIconToggle from '../IconToggle/index.js'
 import IconToggleEditor from '../Shared/IconToggleEditor'
 
 import '../Shared/icons'
-import ImgixImage from '../lib/ImgixImage';
-import ImgixImageBackground from '../lib/ImgixImageBackground';
+import ImgixImage from '../lib/ImgixImage'
+import ImgixImageBackground from '../lib/ImgixImageBackground'
 
 export default class AppBar extends Component {
   state = {
@@ -37,8 +37,8 @@ export default class AppBar extends Component {
     backgroundImage: {},
     translucentColor: '#fff',
     titleType: 'text',
-    hasDynamicIslandOrNotch: DeviceInfo.hasDynamicIsland() || DeviceInfo.hasNotch()
-
+    hasDynamicIslandOrNotch:
+      DeviceInfo.hasDynamicIsland() || DeviceInfo.hasNotch(),
   }
   hexToRGBA(hex, transparency) {
     if (hex.length > 9) {
@@ -104,7 +104,7 @@ export default class AppBar extends Component {
       return
     }
 
-    this.setState(state => {
+    this.setState((state) => {
       const updatedLoadingComponents = new Set(state.loadingComponents)
       updatedLoadingComponents.add(propName)
 
@@ -113,7 +113,7 @@ export default class AppBar extends Component {
 
     await action()
 
-    this.setState(state => {
+    this.setState((state) => {
       const updatedLoadingComponents = new Set(state.loadingComponents)
       updatedLoadingComponents.delete(propName)
 
@@ -148,12 +148,7 @@ export default class AppBar extends Component {
       iconComponent = <ActivityIndicator size="small" color={color} />
     } else {
       iconComponent = (
-        <Icon
-          name={icon}
-          color={color}
-          size={24}
-          onPress={onPressAction}
-        />
+        <Icon name={icon} color={color} size={24} onPress={onPressAction} />
       )
     }
 
@@ -255,7 +250,7 @@ export default class AppBar extends Component {
   renderBlur(containerStyles) {
     let { translucentColor, hasDynamicIslandOrNotch } = this.props
 
-    const blurViewStyle = {};
+    const blurViewStyle = {}
     if (hasDynamicIslandOrNotch) {
       blurViewStyle.marginTop = -60
     }
@@ -276,7 +271,7 @@ export default class AppBar extends Component {
   renderImageBackgroundToolbar() {
     let { backgroundImage, hasDynamicIslandOrNotch } = this.props
 
-    let imageBackgroundStyles = styles.imageBackground;
+    let imageBackgroundStyles = styles.imageBackground
     if (hasDynamicIslandOrNotch) {
       imageBackgroundStyles = { ...imageBackgroundStyles, marginTop: -60 }
     }
@@ -308,7 +303,13 @@ export default class AppBar extends Component {
   }
 
   renderToolbar() {
-    let { barType, translucentColor, backgroundColor, editor, hasDynamicIslandOrNotch } = this.props
+    let {
+      barType,
+      translucentColor,
+      backgroundColor,
+      editor,
+      hasDynamicIslandOrNotch,
+    } = this.props
     let containerStyles = {
       backgroundColor,
       height: 96,
@@ -319,9 +320,9 @@ export default class AppBar extends Component {
     }
 
     if (!editor) {
-      let marginTop = -50;
+      let marginTop = -50
       if (hasDynamicIslandOrNotch) {
-        marginTop = -60;
+        marginTop = -60
       }
       containerStyles = {
         ...containerStyles,
@@ -339,7 +340,7 @@ export default class AppBar extends Component {
 
   render() {
     let { v2, barType } = this.props
-    let wrapperStyles = v2 ? [styles.wrapper] : []
+    let wrapperStyles = v2 ? [styles.wrapper] : [{ marginTop: -20 }]
 
     return (
       <View style={wrapperStyles}>
