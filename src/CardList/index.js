@@ -18,7 +18,7 @@ const SINGLE_COLUMN_LAYOUTS = {
   mediaRight: true,
 }
 
-export default class ImageList extends Component {
+export default class CardList extends Component {
   static defaultProps = {
     columnCount: 1,
   }
@@ -278,7 +278,7 @@ class Cell extends Component {
   }
 
   renderMedia() {
-    let { media, editor, cardStyles } = this.props
+    let { media, editor, cardStyles, width } = this.props
 
     if (!media || !media.enabled) {
       return null
@@ -321,12 +321,17 @@ class Cell extends Component {
       imageStyles.push({ backgroundColor: '#ccc' })
     }
 
+    const alignedSource = Array.isArray(source) ? source[0] : source
+    const height = alignedSource?.width && alignedSource?.height
+      ? width / (alignedSource?.width / alignedSource?.height)
+      : null
+
     return (
       <View style={wrapperStyles}>
         <ImgixImage
           resizeMode="cover"
-          source={source}
-          style={[styles.image, imageStyles]}
+          source={alignedSource}
+          style={[styles.image, imageStyles, { height: height, }]}
         />
       </View>
     )
@@ -676,8 +681,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   image: {
-    width: null,
-    height: null,
+    width: "100%",
   },
   column: {
     flexDirection: 'column',
