@@ -39,8 +39,6 @@ export default class CardList extends Component {
   handleLayout = ({ nativeEvent }) => {
     const { width } = (nativeEvent && nativeEvent.layout) || {}
     const { fullWidth: prevWidth } = this.state
-    console.error("MATLIBCOMP: nativeEvent.layout ", nativeEvent.layout)
-
 
     if (width !== prevWidth) {
       this.setState({ fullWidth: width })
