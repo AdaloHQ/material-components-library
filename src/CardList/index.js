@@ -39,6 +39,8 @@ export default class CardList extends Component {
   handleLayout = ({ nativeEvent }) => {
     const { width } = (nativeEvent && nativeEvent.layout) || {}
     const { fullWidth: prevWidth } = this.state
+    console.error("MATLIBCOMP: nativeEvent.layout ", nativeEvent.layout)
+
 
     if (width !== prevWidth) {
       this.setState({ fullWidth: width })
@@ -82,12 +84,13 @@ export default class CardList extends Component {
     const columns = this.getColumns(items)
 
     let wrap = [styles.wrapper]
+    let { fullWidth } = this.state
 
     return (
       <View style={wrap}>
         {columns.map((column, i) => (
-          <View key={i} style={styles.column}>
-            {column.map((itm) => this.renderCell(itm, layout, editor, _fonts))}
+          <View key={i} style={styles.column} onLayout={this.handleLayout}>
+            {column.map((itm) => this.renderCell(itm, layout, editor, _fonts, fullWidth - 8))}
           </View>
         ))}
       </View>
@@ -220,6 +223,10 @@ export default class CardList extends Component {
 }
 
 class Cell extends Component {
+  state = {
+    firstLoadEnd: false
+  }
+
   hasActions() {
     let { button1, button2, icon1, icon2 } = this.props
 
@@ -278,7 +285,7 @@ class Cell extends Component {
   }
 
   renderMedia() {
-    let { media, editor, cardStyles, width } = this.props
+    let { media, editor, cardStyles } = this.props
 
     if (!media || !media.enabled) {
       return null
@@ -291,20 +298,20 @@ class Cell extends Component {
     if (editor) {
       source = placeholder
     }
-    let percent =
+    let aspectRatio =
       media.shape === 'square'
-        ? '100%'
+        ? 1
         : media.shape === 'portrait'
-        ? '150%'
-        : '66.6667%'
-    let imageStyles = [{ paddingTop: percent }]
+        ? 2/3
+        : 3/2
+    let imageStyles = [{ aspectRatio }]
     let wrapperStyles = [styles.mediaWrapper]
 
     if (media.position === 'top') {
       wrapperStyles.push(styles.topMedia)
     } else if (media.position === 'right') {
       wrapperStyles = [styles.rightMedia]
-      imageStyles = [{ height: percent, borderRadius: 2 }]
+      imageStyles = [{ aspectRatio, borderRadius: 2 }]
     } else {
       wrapperStyles.push(styles.middleMedia)
     }
@@ -321,17 +328,12 @@ class Cell extends Component {
       imageStyles.push({ backgroundColor: '#ccc' })
     }
 
-    const alignedSource = Array.isArray(source) ? source[0] : source
-    const height = alignedSource?.width && alignedSource?.height
-      ? width / (alignedSource?.width / alignedSource?.height)
-      : null
-
     return (
       <View style={wrapperStyles}>
         <ImgixImage
           resizeMode="cover"
-          source={alignedSource}
-          style={[styles.image, imageStyles, { height: height, }]}
+          source={source}
+          style={[styles.image, imageStyles]}
         />
       </View>
     )
