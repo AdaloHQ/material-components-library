@@ -298,20 +298,38 @@ class Cell extends Component {
     if (editor) {
       source = placeholder
     }
-    let aspectRatio =
-      media.shape === 'square'
-        ? 1
-        : media.shape === 'portrait'
-        ? 2/3
-        : 3/2
-    let imageStyles = [{ aspectRatio }]
+    let imageFormating = {}
+    if (editor) {
+      imageFormating = {
+        paddingTop:
+          media.shape === 'square'
+            ? '100%'
+            : media.shape === 'portrait'
+              ? '150%'
+              : '66.6667%',
+      }
+    } else {
+      imageFormating = {
+        aspectRatio:
+          media.shape === 'square'
+            ? 1
+            : media.shape === 'portrait'
+              ? 2 / 3
+              : 3 / 2,
+      }
+    }
+
+    let imageStyles = [imageFormating]
     let wrapperStyles = [styles.mediaWrapper]
 
     if (media.position === 'top') {
       wrapperStyles.push(styles.topMedia)
     } else if (media.position === 'right') {
       wrapperStyles = [styles.rightMedia]
-      imageStyles = [{ aspectRatio, borderRadius: 2 }]
+      imageStyles = [{
+        ...(editor ? { height: imageFormating.paddingTop } : imageFormating),
+        borderRadius: 2
+      }]
     } else {
       wrapperStyles.push(styles.middleMedia)
     }
