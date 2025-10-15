@@ -9,10 +9,6 @@ export const applyImgixParameters = (source, layout, imgixProps = {}) => {
     return null
   }
 
-  if (source && Array.isArray(source)) {
-    return source.map(s => applyImgixParameters(s, layout, imgixProps))
-  }
-
   const uri = isObject(source) ? source.uri : source
 
   if (typeof uri !== 'string' || !uri.includes('imgix.net')) {

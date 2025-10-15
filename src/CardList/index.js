@@ -697,7 +697,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   image: {
-    width: "100%",
+    width: null,
+    height: null,
   },
   column: {
     flexDirection: 'column',
