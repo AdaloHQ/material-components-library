@@ -296,9 +296,9 @@ class Cell extends Component {
     if (editor) {
       source = placeholder
     }
-    let imageFormating = {}
-    if (editor) {
-      imageFormating = {
+
+    let imageFormating = editor
+      ? {
         paddingTop:
           media.shape === 'square'
             ? '100%'
@@ -306,8 +306,7 @@ class Cell extends Component {
               ? '150%'
               : '66.6667%',
       }
-    } else {
-      imageFormating = {
+      : {
         aspectRatio:
           media.shape === 'square'
             ? 1
@@ -315,7 +314,6 @@ class Cell extends Component {
               ? 2 / 3
               : 3 / 2,
       }
-    }
 
     let imageStyles = [imageFormating]
     let wrapperStyles = [styles.mediaWrapper]
