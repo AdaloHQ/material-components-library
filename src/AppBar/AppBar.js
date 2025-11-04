@@ -39,6 +39,8 @@ export default class AppBar extends Component {
     titleType: 'text',
     hasDynamicIslandOrNotch:
       DeviceInfo.hasDynamicIsland() || DeviceInfo.hasNotch(),
+    isIos17OrNewer: Platform.OS === 'ios'
+      && parseInt(DeviceInfo.getSystemVersion(), 10) >= 17
   }
   hexToRGBA(hex, transparency) {
     if (hex.length > 9) {
@@ -248,11 +250,11 @@ export default class AppBar extends Component {
   }
 
   renderBlur(containerStyles) {
-    let { translucentColor, hasDynamicIslandOrNotch } = this.props
+    let { translucentColor, hasDynamicIslandOrNotch, isIos17OrNewer } = this.props
 
     const blurViewStyle = {}
     if (hasDynamicIslandOrNotch) {
-      blurViewStyle.marginTop = -60
+      blurViewStyle.marginTop = isIos17OrNewer ? -50 : -60
     }
 
     return (
@@ -269,11 +271,13 @@ export default class AppBar extends Component {
   }
 
   renderImageBackgroundToolbar() {
-    let { backgroundImage, hasDynamicIslandOrNotch } = this.props
+    let { backgroundImage, hasDynamicIslandOrNotch, isIos17OrNewer } = this.props
 
     let imageBackgroundStyles = styles.imageBackground
     if (hasDynamicIslandOrNotch) {
-      imageBackgroundStyles = { ...imageBackgroundStyles, marginTop: -60 }
+      imageBackgroundStyles = {
+        ...imageBackgroundStyles,
+        marginTop: isIos17OrNewer ? -50 : -60 }
     }
 
     const imageStyles = [
@@ -309,6 +313,7 @@ export default class AppBar extends Component {
       backgroundColor,
       editor,
       hasDynamicIslandOrNotch,
+      isIos17OrNewer
     } = this.props
     let containerStyles = {
       backgroundColor,
@@ -322,7 +327,7 @@ export default class AppBar extends Component {
     if (!editor) {
       let marginTop = -50
       if (hasDynamicIslandOrNotch) {
-        marginTop = -60
+        marginTop = isIos17OrNewer ? -50 : -60
       }
       containerStyles = {
         ...containerStyles,

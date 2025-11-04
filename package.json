@@ -1,6 +1,6 @@
 {
   "name": "@protonapp/material-components",
-  "version": "0.10.14",
+  "version": "0.10.15",
   "description": "Material UI Components for Proton",
   "main": "index.js",
   "scripts": {
@@ -47,7 +47,7 @@
     "chroma-js": "^2.1.2",
     "color": "^3.1.0",
     "react-indiana-drag-scroll": "^2.2.1",
-    "react-native-device-info": "^14.0.4",
+    "react-native-device-info": "^14.1.1",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-paper": "^5.13.1",
     "react-native-safe-area-context": "^5.3.0",
