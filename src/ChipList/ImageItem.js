@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableWithoutFeedback } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import { Icon } from '@protonapp/react-native-material-ui'
 import ImgixImage from '../lib/ImgixImage'
 
 class ImageItem extends Component {
