@@ -66,6 +66,21 @@
       "style": true
     },
     {
+      "name": "backgroundGradient",
+      "displayName": "Background Gradient",
+      "type": "object",
+      "default": {
+        "enabled": false,
+        "type": "linear",
+        "startColor": "@primary",
+        "endColor": "@secondary",
+        "angle": 180
+      },
+      "enabled": { "type": ["contained", "custom"] },
+      "style": true,
+      "hidden": true
+    },
+    {
       "name": "contrastColor",
       "displayName": "Icon & Text Color",
       "type": "color",
@@ -239,6 +254,21 @@
           "type": "color",
           "default": "@primary",
           "style": true
+        },
+        {
+          "name": "backgroundGradient",
+          "displayName": "Background Gradient",
+          "type": "object",
+          "default": {
+            "enabled": false,
+            "type": "linear",
+            "startColor": "@primary",
+            "endColor": "@secondary",
+            "angle": 180
+          },
+          "enabled": { "type": ["contained", "custom"] },
+          "style": true,
+          "hidden": true
         },
         {
           "name": "contrastColor",
@@ -416,6 +446,21 @@
           "type": "color",
           "default": "@primary",
           "style": true
+        },
+        {
+          "name": "backgroundGradient",
+          "displayName": "Background Gradient",
+          "type": "object",
+          "default": {
+            "enabled": false,
+            "type": "linear",
+            "startColor": "@primary",
+            "endColor": "@secondary",
+            "angle": 180
+          },
+          "enabled": { "type": ["contained", "custom"] },
+          "style": true,
+          "hidden": true
         },
         {
           "name": "contrastColor",

@@ -45,8 +45,10 @@ export default class WrappedTextButton extends Component {
       border = {},
       advancedShadow = {},
       hover = false,
+      backgroundGradient,
     } = this.getButtonState()
     const { hovering } = this.state
+    const isGradientEnabled = backgroundGradient?.enabled === true
 
     const containerStyles = SIZE_PROPERTIES.has(sizing)
       ? {
@@ -61,7 +63,9 @@ export default class WrappedTextButton extends Component {
 
     if (type === 'contained') {
       let backgroundColor = primaryColor
-      if (hover && hovering) {
+      if (isGradientEnabled) {
+        backgroundColor = 'transparent'
+      } else if (hover && hovering) {
         backgroundColor = this.getHoverColor()
       }
       return {
@@ -91,7 +95,9 @@ export default class WrappedTextButton extends Component {
       }
 
       let backgroundColor = primaryColor
-      if (hover && hovering) {
+      if (isGradientEnabled) {
+        backgroundColor = 'transparent'
+      } else if (hover && hovering) {
         backgroundColor = this.getHoverColor()
       }
 
