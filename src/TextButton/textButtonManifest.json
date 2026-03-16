@@ -82,7 +82,7 @@
     },
     {
       "name": "contrastColor",
-      "displayName": "Icon & Text Color",
+      "displayName": "Text & Icon Color",
       "type": "color",
       "default": "@contrast:primaryColor",
       "enabled": { "type": ["contained", "custom"] },
@@ -272,7 +272,7 @@
         },
         {
           "name": "contrastColor",
-          "displayName": "Icon & Text Color",
+          "displayName": "Text & Icon Color",
           "type": "color",
           "default": "@contrast:primaryColor",
           "enabled": { "type": ["contained", "custom"] },
@@ -464,7 +464,7 @@
         },
         {
           "name": "contrastColor",
-          "displayName": "Icon & Text Color",
+          "displayName": "Text & Icon Color",
           "type": "color",
           "default": "@contrast:primaryColor",
           "enabled": { "type": ["contained", "custom"] },
