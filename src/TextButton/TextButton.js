@@ -32,6 +32,15 @@ export default class WrappedTextButton extends Component {
     hovering: false,
   }
 
+  getGradientCSS(backgroundGradient) {
+    const { type, startColor, endColor, angle = 180 } = backgroundGradient
+    if (!startColor || !endColor) return undefined
+
+    return type === 'radial'
+      ? `radial-gradient(circle, ${startColor}, ${endColor})`
+      : `linear-gradient(${angle}deg, ${startColor}, ${endColor})`
+  }
+
   getContainerStyles() {
     const defaults = this.props
     const {
@@ -52,18 +61,20 @@ export default class WrappedTextButton extends Component {
 
     const containerStyles = SIZE_PROPERTIES.has(sizing)
       ? {
-          paddingLeft: 2,
-          paddingRight: 2,
-          gap: icon && text ? SIZE_PROPERTIES.get(sizing).space : 0,
-          justifyContent: 'center',
-          alignItems: 'center',
-          borderWidth: 0,
-        }
+        paddingLeft: 2,
+        paddingRight: 2,
+        gap: icon && text ? SIZE_PROPERTIES.get(sizing).space : 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 0,
+      }
       : {}
 
     if (type === 'contained') {
       let backgroundColor = primaryColor
+      let backgroundImage
       if (isGradientEnabled) {
+        backgroundImage = this.getGradientCSS(backgroundGradient)
         backgroundColor = 'transparent'
       } else if (hover && hovering) {
         backgroundColor = this.getHoverColor()
@@ -71,6 +82,7 @@ export default class WrappedTextButton extends Component {
       return {
         ...containerStyles,
         backgroundColor,
+        backgroundImage,
         borderRadius,
       }
     }
@@ -95,7 +107,9 @@ export default class WrappedTextButton extends Component {
       }
 
       let backgroundColor = primaryColor
+      let backgroundImage
       if (isGradientEnabled) {
+        backgroundImage = this.getGradientCSS(backgroundGradient)
         backgroundColor = 'transparent'
       } else if (hover && hovering) {
         backgroundColor = this.getHoverColor()
@@ -106,6 +120,7 @@ export default class WrappedTextButton extends Component {
         ...borderStyles,
         ...shadowStyles,
         backgroundColor,
+        backgroundImage,
         opacity: opacity / 100,
         borderRadius,
       }
