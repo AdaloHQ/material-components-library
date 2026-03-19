@@ -1,37 +1,21 @@
-import React, { Component } from 'react'
-import LinearGradient from 'react-native-linear-gradient'
-import {
-  Text,
-  View,
-  StyleSheet,
-  Image,
-  ScrollView,
-  ImageBackground,
-  Platform,
-} from 'react-native'
+import React from 'react'
+import { View } from 'react-native'
+import { getGradientStyle } from '../Shared/gradientStyle'
 
-const Gradient = props => {
+const Gradient = (props) => {
   const { overlay, textSwitch, textPos, height, width, gradientEnabled } = props
 
-  const style = {
-    ...overlay,
-    height: height,
-    width: width,
-  }
+  const gradientCSS =
+    !textSwitch || !gradientEnabled
+      ? null
+      : textPos == 'top'
+      ? 'linear-gradient(to bottom, rgba(0,0,0,.8), rgba(255,255,255,0))'
+      : 'linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,.8))'
 
   return (
-    <LinearGradient
-      colors={
-        !textSwitch || !gradientEnabled
-          ? ['#FFFFFF00', '#FFFFFF00']
-          : textPos == 'top'
-          ? ['rgba(0,0,0,.8)', '#FFFFFF00']
-          : ['#FFFFFF00', 'rgba(0,0,0,.8)']
-      }
-      style={style}
-    >
+    <View style={{ ...overlay, height, width, ...getGradientStyle(gradientCSS) }}>
       {props.children}
-    </LinearGradient>
+    </View>
   )
 }
 
