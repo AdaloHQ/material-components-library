@@ -1,6 +1,14 @@
-import React from 'react'
-import { View } from 'react-native'
-import Svg, { Defs, LinearGradient, Stop, Rect } from 'react-native-svg'
+import React, { Component } from 'react'
+import LinearGradient from 'react-native-linear-gradient'
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  ScrollView,
+  ImageBackground,
+  Platform,
+} from 'react-native'
 
 const Gradient = props => {
   const { overlay, textSwitch, textPos, height, width, gradientEnabled } = props
@@ -11,30 +19,19 @@ const Gradient = props => {
     width: width,
   }
 
-  const colors =
-    !textSwitch || !gradientEnabled
-      ? ['rgba(255,255,255,0)', 'rgba(255,255,255,0)']
-      : textPos == 'top'
-      ? ['rgba(0,0,0,.8)', 'rgba(255,255,255,0)']
-      : ['rgba(255,255,255,0)', 'rgba(0,0,0,.8)']
-
   return (
-    <View style={style}>
-      <Svg
-        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
-        width="100%"
-        height="100%"
-      >
-        <Defs>
-          <LinearGradient id="horizImgGrad" x1="0" y1="0" x2="0" y2="1">
-            <Stop offset="0%" stopColor={colors[0]} />
-            <Stop offset="100%" stopColor={colors[1]} />
-          </LinearGradient>
-        </Defs>
-        <Rect x="0" y="0" width="100%" height="100%" fill="url(#horizImgGrad)" />
-      </Svg>
+    <LinearGradient
+      colors={
+        !textSwitch || !gradientEnabled
+          ? ['#FFFFFF00', '#FFFFFF00']
+          : textPos == 'top'
+          ? ['rgba(0,0,0,.8)', '#FFFFFF00']
+          : ['#FFFFFF00', 'rgba(0,0,0,.8)']
+      }
+      style={style}
+    >
       {props.children}
-    </View>
+    </LinearGradient>
   )
 }
 
