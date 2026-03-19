@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet, ActivityIndicator } from 'react-native'
 import color from 'color'
 import { Button } from '@protonapp/react-native-material-ui'
+import ButtonGradient from './ButtonGradient'
 
 import '../Shared/icons'
 
@@ -30,15 +31,6 @@ export default class WrappedTextButton extends Component {
     loading: false,
     backgroundColor: this.props.primaryColor,
     hovering: false,
-  }
-
-  getGradientCSS(backgroundGradient) {
-    const { type, startColor, endColor, angle = 180 } = backgroundGradient
-    if (!startColor || !endColor) return undefined
-
-    return type === 'radial'
-      ? `radial-gradient(circle, ${startColor}, ${endColor})`
-      : `linear-gradient(${angle}deg, ${startColor}, ${endColor})`
   }
 
   getContainerStyles() {
@@ -72,9 +64,7 @@ export default class WrappedTextButton extends Component {
 
     if (type === 'contained') {
       let backgroundColor = primaryColor
-      let backgroundImage
       if (isGradientEnabled) {
-        backgroundImage = this.getGradientCSS(backgroundGradient)
         backgroundColor = 'transparent'
       } else if (hover && hovering) {
         backgroundColor = this.getHoverColor()
@@ -82,7 +72,6 @@ export default class WrappedTextButton extends Component {
       return {
         ...containerStyles,
         backgroundColor,
-        backgroundImage,
         borderRadius,
       }
     }
@@ -107,9 +96,7 @@ export default class WrappedTextButton extends Component {
       }
 
       let backgroundColor = primaryColor
-      let backgroundImage
       if (isGradientEnabled) {
-        backgroundImage = this.getGradientCSS(backgroundGradient)
         backgroundColor = 'transparent'
       } else if (hover && hovering) {
         backgroundColor = this.getHoverColor()
@@ -120,7 +107,6 @@ export default class WrappedTextButton extends Component {
         ...borderStyles,
         ...shadowStyles,
         backgroundColor,
-        backgroundImage,
         opacity: opacity / 100,
         borderRadius,
       }
@@ -284,9 +270,12 @@ export default class WrappedTextButton extends Component {
       upperCase = defaults.upperCase,
       container = defaults.container,
       sizing = defaults.sizing,
+      backgroundGradient,
+      borderRadius = defaults.borderRadius,
     } = this.getButtonState()
     const newButtonStyles = SIZE_PROPERTIES.has(sizing)
     const { hovering } = this.state
+    const isGradientEnabled = backgroundGradient?.enabled === true
 
     let containerStyles = this.getContainerStyles()
     let iconStyles = this.getTextStyles()
@@ -322,7 +311,13 @@ export default class WrappedTextButton extends Component {
 
     return (
       <View onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-        <View>
+        <View style={{ position: 'relative' }}>
+          {isGradientEnabled && (
+            <ButtonGradient
+              backgroundGradient={backgroundGradient}
+              borderRadius={borderRadius}
+            />
+          )}
           <Button
             {...this.getAdditionalProps()}
             upperCase={!!upperCase}
