@@ -1,19 +1,18 @@
-import React from 'react'
-import { View } from 'react-native'
-import { getGradientStyle } from '../Shared/gradientStyle'
+import React, { Component } from 'react'
+import LinearGradient from 'react-native-linear-gradient'
 
 const Gradient = (props) => {
   const { textPos, backgroundEffect, enabled, rounding } = props
 
-  const gradientCSS =
-    backgroundEffect === 'gradient' && enabled
-      ? textPos == 'top'
-        ? 'linear-gradient(to bottom, rgba(0,0,0,.8), rgba(0,0,0,.25), rgba(255,255,255,0))'
-        : 'linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,.25), rgba(0,0,0,.8))'
-      : null
-
   return (
-    <View
+    <LinearGradient
+      colors={
+        backgroundEffect === 'gradient' && enabled
+          ? textPos == 'top'
+            ? ['rgba(0,0,0,.8)', 'rgba(0,0,0,.25)', '#FFFFFF00']
+            : ['#FFFFFF00', 'rgba(0,0,0,.25)', 'rgba(0,0,0,.8)']
+          : ['#FFFFFF00', '#FFFFFF00']
+      }
       style={{
         borderRadius: rounding,
         position: 'absolute',
@@ -21,9 +20,8 @@ const Gradient = (props) => {
         right: 0,
         bottom: 0,
         left: 0,
-        ...getGradientStyle(gradientCSS),
       }}
-    />
+    ></LinearGradient>
   )
 }
 
