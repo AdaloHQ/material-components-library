@@ -66,8 +66,23 @@
       "style": true
     },
     {
+      "name": "backgroundGradient",
+      "displayName": "Background Gradient",
+      "type": "object",
+      "default": {
+        "enabled": false,
+        "type": "linear",
+        "startColor": "@primary",
+        "endColor": "@secondary",
+        "angle": 180
+      },
+      "enabled": { "type": ["contained", "custom"] },
+      "style": true,
+      "hidden": true
+    },
+    {
       "name": "contrastColor",
-      "displayName": "Icon & Text Color",
+      "displayName": "Text & Icon Color",
       "type": "color",
       "default": "@contrast:primaryColor",
       "enabled": { "type": ["contained", "custom"] },
@@ -241,8 +256,23 @@
           "style": true
         },
         {
+          "name": "backgroundGradient",
+          "displayName": "Background Gradient",
+          "type": "object",
+          "default": {
+            "enabled": false,
+            "type": "linear",
+            "startColor": "@primary",
+            "endColor": "@secondary",
+            "angle": 180
+          },
+          "enabled": { "type": ["contained", "custom"] },
+          "style": true,
+          "hidden": true
+        },
+        {
           "name": "contrastColor",
-          "displayName": "Icon & Text Color",
+          "displayName": "Text & Icon Color",
           "type": "color",
           "default": "@contrast:primaryColor",
           "enabled": { "type": ["contained", "custom"] },
@@ -418,8 +448,23 @@
           "style": true
         },
         {
+          "name": "backgroundGradient",
+          "displayName": "Background Gradient",
+          "type": "object",
+          "default": {
+            "enabled": false,
+            "type": "linear",
+            "startColor": "@primary",
+            "endColor": "@secondary",
+            "angle": 180
+          },
+          "enabled": { "type": ["contained", "custom"] },
+          "style": true,
+          "hidden": true
+        },
+        {
           "name": "contrastColor",
-          "displayName": "Icon & Text Color",
+          "displayName": "Text & Icon Color",
           "type": "color",
           "default": "@contrast:primaryColor",
           "enabled": { "type": ["contained", "custom"] },
