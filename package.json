@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@protonapp/react-native-material-ui": "https://github.com/AdaloHQ/react-native-material-ui.git#upgrade-rn",
+    "react-native-svg": "13.14.1",
     "@react-native-community/blur": "4.4.1",
     "chroma-js": "^2.1.2",
     "color": "^3.1.0",

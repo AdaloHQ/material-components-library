@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import { Icon } from '@protonapp/react-native-material-ui'
 import Blur from './blur'
 import Gradient from './gradient'
 import WrappedIconToggle from '../IconToggle/index.js'
