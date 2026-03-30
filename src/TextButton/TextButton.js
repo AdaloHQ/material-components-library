@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet, ActivityIndicator } from 'react-native'
 import color from 'color'
 import { Button } from '@protonapp/react-native-material-ui'
+import { getGradientStyle } from '../Shared/gradientStyle'
 
 import '../Shared/icons'
 
@@ -32,6 +33,15 @@ export default class WrappedTextButton extends Component {
     hovering: false,
   }
 
+  getGradientCSS(backgroundGradient) {
+    const { type, startColor, endColor, angle = 180 } = backgroundGradient
+    if (!startColor || !endColor) return undefined
+
+    return type === 'radial'
+      ? `radial-gradient(circle, ${startColor}, ${endColor})`
+      : `linear-gradient(${angle}deg, ${startColor}, ${endColor})`
+  }
+
   getContainerStyles() {
     const defaults = this.props
     const {
@@ -45,8 +55,10 @@ export default class WrappedTextButton extends Component {
       border = {},
       advancedShadow = {},
       hover = false,
+      backgroundGradient,
     } = this.getButtonState()
     const { hovering } = this.state
+    const isGradientEnabled = backgroundGradient?.enabled === true
 
     const containerStyles = SIZE_PROPERTIES.has(sizing)
       ? {
@@ -61,12 +73,17 @@ export default class WrappedTextButton extends Component {
 
     if (type === 'contained') {
       let backgroundColor = primaryColor
-      if (hover && hovering) {
+      let gradientStyle = {}
+      if (isGradientEnabled) {
+        backgroundColor = 'transparent'
+        gradientStyle = getGradientStyle(this.getGradientCSS(backgroundGradient))
+      } else if (hover && hovering) {
         backgroundColor = this.getHoverColor()
       }
       return {
         ...containerStyles,
         backgroundColor,
+        ...gradientStyle,
         borderRadius,
       }
     }
@@ -91,7 +108,11 @@ export default class WrappedTextButton extends Component {
       }
 
       let backgroundColor = primaryColor
-      if (hover && hovering) {
+      let gradientStyle = {}
+      if (isGradientEnabled) {
+        backgroundColor = 'transparent'
+        gradientStyle = getGradientStyle(this.getGradientCSS(backgroundGradient))
+      } else if (hover && hovering) {
         backgroundColor = this.getHoverColor()
       }
 
@@ -100,6 +121,7 @@ export default class WrappedTextButton extends Component {
         ...borderStyles,
         ...shadowStyles,
         backgroundColor,
+        ...gradientStyle,
         opacity: opacity / 100,
         borderRadius,
       }
