@@ -40,8 +40,10 @@ export default class CardList extends Component {
     const { width } = (nativeEvent && nativeEvent.layout) || {}
     const { fullWidth: prevWidth } = this.state
 
-    if (width !== prevWidth) {
-      this.setState({ fullWidth: width })
+    const roundedWidth = Math.round(width || 0)
+
+    if (roundedWidth && roundedWidth !== prevWidth) {
+      this.setState({ fullWidth: roundedWidth })
     }
   }
   getColumns(items) {
@@ -98,7 +100,7 @@ export default class CardList extends Component {
     let { layout, columnCount, editor, _fonts } = this.props
 
     let { fullWidth } = this.state
-    let width = fullWidth / columnCount - 8
+    let width = fullWidth > 0 ? Math.floor(fullWidth / columnCount) - 8 : null
 
     return (
       <View onLayout={this.handleLayout} style={styles.gridWrap}>
@@ -296,7 +298,6 @@ class Cell extends Component {
     if (editor) {
       source = placeholder
     }
-
     let imageFormating = editor
       ? {
         paddingTop:
