@@ -40,8 +40,14 @@ export default class ImageList extends Component {
     const { width } = (nativeEvent && nativeEvent.layout) || {}
     const { fullWidth: prevWidth } = this.state
 
-    if (width !== prevWidth) {
-      this.setState({ fullWidth: width })
+    // Round to an integer pixel before comparing/storing. The raw onLayout width
+    // is a float; a strict `!==` compare re-renders the whole list on sub-pixel
+    // noise, and a fractional width feeds fractional cell/media sizes that round
+    // inconsistently between passes (a source of the list "shaking").
+    const roundedWidth = Math.round(width || 0)
+
+    if (roundedWidth && roundedWidth !== prevWidth) {
+      this.setState({ fullWidth: roundedWidth })
     }
   }
   getColumns(items) {
@@ -97,7 +103,11 @@ export default class ImageList extends Component {
     let { layout, columnCount, editor, _fonts } = this.props
 
     let { fullWidth } = this.state
-    let width = fullWidth / columnCount - 8
+    // Integer cell width — a fractional width makes each card's height round
+    // inconsistently across layout passes, which accumulates into the list
+    // height oscillating ("shaking"). null until a real width is measured, so
+    // we never derive a NaN or negative width.
+    let width = fullWidth > 0 ? Math.floor(fullWidth / columnCount) - 8 : null
 
     return (
       <View onLayout={this.handleLayout} style={styles.gridWrap}>
@@ -291,23 +301,18 @@ class Cell extends Component {
     if (editor) {
       source = placeholder
     }
-    let percent =
-      media.shape === 'square'
-        ? '100%'
-        : media.shape === 'portrait'
-        ? '150%'
-        : '66.6667%'
-    let imageStyles = [{ paddingTop: percent }]
-    let wrapperStyles = [styles.mediaWrapper]
 
-    if (media.position === 'top') {
-      wrapperStyles.push(styles.topMedia)
-    } else if (media.position === 'right') {
-      wrapperStyles = [styles.rightMedia]
-      imageStyles = [{ height: percent, borderRadius: 2 }]
-    } else {
-      wrapperStyles.push(styles.middleMedia)
-    }
+    // Aspect ratio (height / width). Previously expressed as a CSS percentage
+    // (paddingTop) which RN resolves to a *fractional* pixel height; that
+    // fraction rounds up or down differently between layout passes and, summed
+    // over many cards, makes the whole list height oscillate ("shaking"). We
+    // instead measure the width and apply an explicit rounded integer height
+    // (see AspectMedia), so a card's height is deterministic.
+    const ratio =
+      media.shape === 'square' ? 1 : media.shape === 'portrait' ? 1.5 : 2 / 3
+
+    let imageStyles = []
+
     if (cardStyles) {
       if (!cardStyles.shadow && !cardStyles.background && !cardStyles.border) {
         imageStyles.push({
@@ -321,14 +326,39 @@ class Cell extends Component {
       imageStyles.push({ backgroundColor: '#ccc' })
     }
 
+    // Image on the right is a fixed 80x80 area, so its height is already a
+    // constant integer — no fractional aspect box involved.
+    if (media.position === 'right') {
+      return (
+        <View style={styles.rightMedia}>
+          <ImgixImage
+            resizeMode="cover"
+            source={source}
+            style={[
+              styles.image,
+              { height: Math.round(ratio * 80), borderRadius: 2 },
+              ...imageStyles,
+            ]}
+          />
+        </View>
+      )
+    }
+
+    const wrapperStyles = [styles.mediaWrapper]
+
+    if (media.position === 'top') {
+      wrapperStyles.push(styles.topMedia)
+    } else {
+      wrapperStyles.push(styles.middleMedia)
+    }
+
     return (
-      <View style={wrapperStyles}>
-        <ImgixImage
-          resizeMode="cover"
-          source={source}
-          style={[styles.image, imageStyles]}
-        />
-      </View>
+      <AspectMedia
+        ratio={ratio}
+        source={source}
+        wrapperStyle={wrapperStyles}
+        imageStyle={imageStyles}
+      />
     )
   }
 
@@ -663,7 +693,55 @@ class Actions extends Component {
   }
 }
 
+// Renders a media box whose height is an explicit, rounded integer derived from
+// its measured width (height = round(width * ratio)). This replaces the old
+// percentage paddingTop aspect box, whose fractional height rounded
+// inconsistently between layout passes and accumulated across cards into the
+// list "shaking". The measured width is rounded, so onLayout settles in one
+// pass instead of thrashing on sub-pixel changes.
+class AspectMedia extends Component {
+  state = { width: null }
+
+  handleLayout = ({ nativeEvent }) => {
+    const measured = (nativeEvent && nativeEvent.layout && nativeEvent.layout.width) || 0
+    const width = Math.round(measured)
+
+    if (width && width !== this.state.width) {
+      this.setState({ width })
+    }
+  }
+
+  render() {
+    const { ratio, source, wrapperStyle, imageStyle } = this.props
+    const { width } = this.state
+
+    const height = width ? Math.round(width * ratio) : undefined
+
+    return (
+      <View
+        onLayout={this.handleLayout}
+        style={[wrapperStyle, height ? { height } : null]}
+      >
+        {height ? (
+          <ImgixImage
+            resizeMode="cover"
+            source={source}
+            style={[styles.imageFill, imageStyle]}
+          />
+        ) : null}
+      </View>
+    )
+  }
+}
+
 const styles = StyleSheet.create({
+  imageFill: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
   gridWrap: {
     margin: 4,
     flexDirection: 'row',
