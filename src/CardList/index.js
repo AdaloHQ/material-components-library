@@ -83,14 +83,29 @@ export default class CardList extends Component {
 
     const columns = this.getColumns(items)
 
-    let wrap = [styles.wrapper]
     let { fullWidth } = this.state
+    const columnWidth =
+      fullWidth > 0 ? Math.floor(fullWidth / this.getColumnCount()) : null
 
     return (
-      <View style={wrap}>
+      <View style={styles.wrapper} onLayout={this.handleLayout}>
         {columns.map((column, i) => (
-          <View key={i} style={styles.column} onLayout={this.handleLayout}>
-            {column.map((itm) => this.renderCell(itm, layout, editor, _fonts, fullWidth - 8))}
+          <View
+            key={i}
+            style={[
+              styles.column,
+              columnWidth ? { flex: 0, width: columnWidth } : null,
+            ]}
+          >
+            {column.map((itm) =>
+              this.renderCell(
+                itm,
+                layout,
+                editor,
+                _fonts,
+                columnWidth ? columnWidth - 8 : null
+              )
+            )}
           </View>
         ))}
       </View>
