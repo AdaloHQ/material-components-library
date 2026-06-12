@@ -298,38 +298,18 @@ class Cell extends Component {
     if (editor) {
       source = placeholder
     }
-    let imageFormating = editor
-      ? {
-        paddingTop:
-          media.shape === 'square'
-            ? '100%'
-            : media.shape === 'portrait'
-              ? '150%'
-              : '66.6667%',
-      }
-      : {
-        aspectRatio:
-          media.shape === 'square'
-            ? 1
-            : media.shape === 'portrait'
-              ? 2 / 3
-              : 3 / 2,
-      }
+    const ratio =
+      media.shape === 'square' ? 1 : media.shape === 'portrait' ? 1.5 : 2 / 3
 
-    let imageStyles = [imageFormating]
-    let wrapperStyles = [styles.mediaWrapper]
+    const editorPadding =
+      media.shape === 'square'
+        ? '100%'
+        : media.shape === 'portrait'
+          ? '150%'
+          : '66.6667%'
 
-    if (media.position === 'top') {
-      wrapperStyles.push(styles.topMedia)
-    } else if (media.position === 'right') {
-      wrapperStyles = [styles.rightMedia]
-      imageStyles = [{
-        ...(editor ? { height: imageFormating.paddingTop } : imageFormating),
-        borderRadius: 2
-      }]
-    } else {
-      wrapperStyles.push(styles.middleMedia)
-    }
+    let imageStyles = []
+
     if (cardStyles) {
       if (!cardStyles.shadow && !cardStyles.background && !cardStyles.border) {
         imageStyles.push({
@@ -343,14 +323,49 @@ class Cell extends Component {
       imageStyles.push({ backgroundColor: '#ccc' })
     }
 
+    if (media.position === 'right') {
+      return (
+        <View style={styles.rightMedia}>
+          <ImgixImage
+            resizeMode="cover"
+            source={source}
+            style={[
+              styles.image,
+              { height: editor ? editorPadding : Math.round(ratio * 80), borderRadius: 2 },
+              ...imageStyles,
+            ]}
+          />
+        </View>
+      )
+    }
+
+    const wrapperStyles = [styles.mediaWrapper]
+
+    if (media.position === 'top') {
+      wrapperStyles.push(styles.topMedia)
+    } else {
+      wrapperStyles.push(styles.middleMedia)
+    }
+
+    if (editor) {
+      return (
+        <View style={wrapperStyles}>
+          <ImgixImage
+            resizeMode="cover"
+            source={source}
+            style={[styles.image, { paddingTop: editorPadding }, ...imageStyles]}
+          />
+        </View>
+      )
+    }
+
     return (
-      <View style={wrapperStyles}>
-        <ImgixImage
-          resizeMode="cover"
-          source={source}
-          style={[styles.image, imageStyles]}
-        />
-      </View>
+      <AspectMedia
+        ratio={ratio}
+        source={source}
+        wrapperStyle={wrapperStyles}
+        imageStyle={imageStyles}
+      />
     )
   }
 
@@ -680,6 +695,46 @@ class Actions extends Component {
           {this.renderIcon(icon1)}
           {this.renderIcon(icon2)}
         </View>
+      </View>
+    )
+  }
+}
+
+const WIDTH_NOISE_FLOOR_PX = 1
+
+class AspectMedia extends Component {
+  state = { width: null }
+
+  handleLayout = ({ nativeEvent }) => {
+    const measured =
+      (nativeEvent && nativeEvent.layout && nativeEvent.layout.width) || 0
+    const next = Math.round(measured)
+
+    if (next <= 0) {
+      return
+    }
+
+    const { width } = this.state
+    if (width === null || Math.abs(next - width) > WIDTH_NOISE_FLOOR_PX) {
+      this.setState({ width: next })
+    }
+  }
+
+  render() {
+    const { ratio, source, wrapperStyle, imageStyle } = this.props
+    const { width } = this.state
+
+    const height = width ? Math.round(width * ratio) : undefined
+
+    return (
+      <View onLayout={this.handleLayout} style={wrapperStyle}>
+        {width ? (
+          <ImgixImage
+            resizeMode="cover"
+            source={source}
+            style={[imageStyle, { width, height }]}
+          />
+        ) : null}
       </View>
     )
   }
