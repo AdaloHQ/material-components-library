@@ -84,27 +84,15 @@ export default class CardList extends Component {
     const columns = this.getColumns(items)
 
     let { fullWidth } = this.state
-    const columnWidth =
-      fullWidth > 0 ? Math.floor(fullWidth / this.getColumnCount()) : null
+    const cellWidth =
+      fullWidth > 0 ? Math.floor(fullWidth / this.getColumnCount()) - 8 : null
 
     return (
       <View style={styles.wrapper} onLayout={this.handleLayout}>
         {columns.map((column, i) => (
-          <View
-            key={i}
-            style={[
-              styles.column,
-              columnWidth ? { flex: 0, width: columnWidth } : null,
-            ]}
-          >
+          <View key={i} style={styles.column}>
             {column.map((itm) =>
-              this.renderCell(
-                itm,
-                layout,
-                editor,
-                _fonts,
-                columnWidth ? columnWidth - 8 : null
-              )
+              this.renderCell(itm, layout, editor, _fonts, cellWidth)
             )}
           </View>
         ))}
@@ -378,6 +366,7 @@ class Cell extends Component {
       <AspectMedia
         ratio={ratio}
         source={source}
+        width={this.props.width}
         wrapperStyle={wrapperStyles}
         imageStyle={imageStyles}
       />
@@ -715,44 +704,20 @@ class Actions extends Component {
   }
 }
 
-const WIDTH_NOISE_FLOOR_PX = 1
+const AspectMedia = ({ ratio, source, width, wrapperStyle, imageStyle }) => {
+  const height = width > 0 ? Math.round(width * ratio) : undefined
 
-class AspectMedia extends Component {
-  state = { width: null }
-
-  handleLayout = ({ nativeEvent }) => {
-    const measured =
-      (nativeEvent && nativeEvent.layout && nativeEvent.layout.width) || 0
-    const next = Math.round(measured)
-
-    if (next <= 0) {
-      return
-    }
-
-    const { width } = this.state
-    if (width === null || Math.abs(next - width) > WIDTH_NOISE_FLOOR_PX) {
-      this.setState({ width: next })
-    }
-  }
-
-  render() {
-    const { ratio, source, wrapperStyle, imageStyle } = this.props
-    const { width } = this.state
-
-    const height = width ? Math.round(width * ratio) : undefined
-
-    return (
-      <View onLayout={this.handleLayout} style={wrapperStyle}>
-        {width ? (
-          <ImgixImage
-            resizeMode="cover"
-            source={source}
-            style={[imageStyle, { width, height }]}
-          />
-        ) : null}
-      </View>
-    )
-  }
+  return (
+    <View style={wrapperStyle}>
+      {height ? (
+        <ImgixImage
+          resizeMode="cover"
+          source={source}
+          style={[imageStyle, { width, height }]}
+        />
+      ) : null}
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
