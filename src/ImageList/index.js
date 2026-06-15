@@ -19,7 +19,7 @@ export default class ImageList extends Component {
   renderGrid(items) {
     let { columnCount, _width, editor } = this.props
     let { fullWidth } = this.state
-    let width = (fullWidth || _width) / columnCount
+    let width = Math.floor((fullWidth || _width) / columnCount)
 
     return (
       <View style={styles.wrapper}>
@@ -63,7 +63,7 @@ export default class ImageList extends Component {
 
     let columns = this.getColumns(items)
 
-    let width = (fullWidth || _width) / columnCount
+    let width = Math.floor((fullWidth || _width) / columnCount)
 
     let wrap = [styles.wrapper]
 
@@ -90,8 +90,14 @@ export default class ImageList extends Component {
     const { width } = (nativeEvent && nativeEvent.layout) || {}
     const { fullWidth: prevWidth } = this.state
 
-    if (width !== prevWidth) {
-      this.setState({ fullWidth: width })
+    // Round to an integer pixel before comparing/storing. The raw onLayout
+    // width is a float; a strict `!==` compare re-renders on sub-pixel noise,
+    // and a fractional width feeds a fractional image height that rounds
+    // inconsistently between passes (a source of the list "shaking").
+    const roundedWidth = Math.round(width || 0)
+
+    if (roundedWidth && roundedWidth !== prevWidth) {
+      this.setState({ fullWidth: roundedWidth })
     }
   }
 
@@ -385,7 +391,7 @@ class Cell extends Component {
     if (!source) {
       imageStyling.push({ backgroundColor: '#ccc' })
     }
-    let shapeWidth = width
+    let shapeWidth = Math.round(width)
 
     if (imageStyles) {
       if (imageStyles.rounding) {
@@ -393,7 +399,7 @@ class Cell extends Component {
       }
 
       if (imageStyles.shape === 'portrait') {
-        shapeWidth = width * 1.5
+        shapeWidth = Math.round(width * 1.5)
       } else if (imageStyles.shape === 'landscape') {
         shapeWidth = Math.round((width * 2) / 3)
       }
