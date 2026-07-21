@@ -1,5 +1,32 @@
 import { PixelRatio, Platform } from 'react-native'
 
+// Hosts that accept image-transform query params (w/h/dpr/auto/fit/...).
+// `imgix.net` is the legacy host still embedded in pre-existing app data;
+// the `cdn-*.adalo.com` entries are the current CDN domains. Each entry
+// matches the host exactly or as a parent-domain suffix.
+const TRANSFORM_COMPATIBLE_HOSTS = [
+  'imgix.net',
+  'cdn-uploads.adalo.com',
+  'cdn-uploads-dev.adalo.com',
+  'cdn-assets.adalo.com',
+]
+
+const getHost = (uri) => {
+  const match = /^https?:\/\/([^/?#]+)/i.exec(uri)
+  if (!match) return ''
+  return match[1]
+    .replace(/^[^@]*@/, '')
+    .replace(/:\d+$/, '')
+    .toLowerCase()
+}
+
+const isTransformCompatibleUri = (uri) => {
+  const host = getHost(uri)
+  return TRANSFORM_COMPATIBLE_HOSTS.some(
+    (compatible) => host === compatible || host.endsWith(`.${compatible}`)
+  )
+}
+
 const isObject = (object) => {
   return typeof object === 'object' && object !== null && !Array.isArray(object)
 }
@@ -11,7 +38,7 @@ export const applyImgixParameters = (source, layout, imgixProps = {}) => {
 
   const uri = isObject(source) ? source.uri : source
 
-  if (typeof uri !== 'string' || !uri.includes('imgix.net')) {
+  if (typeof uri !== 'string' || !isTransformCompatibleUri(uri)) {
     return source
   }
 
