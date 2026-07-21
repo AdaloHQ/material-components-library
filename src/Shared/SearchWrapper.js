@@ -7,7 +7,7 @@ import {
   TextInput,
   Platform,
 } from 'react-native'
-import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+import { Icon } from '@protonapp/react-native-material-ui'
 import chroma from 'chroma-js'
 
 export default class SearchBarWrapper extends Component {

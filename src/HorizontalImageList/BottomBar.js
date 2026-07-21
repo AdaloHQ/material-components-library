@@ -8,7 +8,7 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import { Icon } from '@protonapp/react-native-material-ui'
 import { Button } from '@protonapp/react-native-material-ui'
 import WrappedIconToggle from '../IconToggle/index.js'
 import IconToggleEditor from '../Shared/IconToggleEditor'
