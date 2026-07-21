@@ -43,13 +43,14 @@
   },
   "dependencies": {
     "@protonapp/react-native-material-ui": "https://github.com/AdaloHQ/react-native-material-ui.git#upgrade-rn",
+    "react-native-svg": "13.14.1",
     "@react-native-community/blur": "4.4.1",
     "chroma-js": "^2.1.2",
     "color": "^3.1.0",
     "react-indiana-drag-scroll": "^2.2.1",
     "react-native-device-info": "^14.1.1",
     "react-native-linear-gradient": "^2.8.3",
-    "react-native-paper": "^5.13.1",
+    "react-native-paper": "5.13.1",
     "react-native-safe-area-context": "^5.3.0",
     "react-native-vector-icons": "^10.2.0"
   }
